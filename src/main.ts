@@ -1,10 +1,26 @@
-import { Object3D } from "three"
-import { addGUI } from "./DiceRoller/gui.ts"
-import { loadDices } from "./DiceRoller/loader.ts"
-import { updateScene } from "./DiceRoller/three.ts"
+import { Object3D, Scene } from "three"
+import Camera from "./engine/camera.ts"
+import Graphic from "./engine/graphic.ts"
+import Interface from "./engine/gui.ts"
+import Light from "./engine/light.ts"
+import { loadDices } from "./engine/loader.ts"
 
-export const availableDices: Record<string, Object3D> = await loadDices()
+export const availableDices: Record<string, Object3D> = await loadDices(
+	"models/dices/rpg_dice_set.gltf"
+)
 export let selectedDices: Object3D[] = []
 
-addGUI()
-updateScene()
+const scene = new Scene()
+const camera = new Camera()
+const light = new Light()
+
+scene.add(light)
+
+const canvas = document.querySelector("canvas") as HTMLCanvasElement
+export const graphic = new Graphic(scene, camera, canvas)
+
+// Если надо добавить новую логику при обновлении кадров, добавляем сюда
+graphic.onUpdate((dt: number | undefined) => {})
+
+// TODO: REMOVE IT IN THE END - TEMP SOLUTION
+const gui = new Interface()
