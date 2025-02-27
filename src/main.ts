@@ -20,7 +20,7 @@ scene.add(world)
 scene.add(light)
 
 const canvas = document.querySelector("canvas") as HTMLCanvasElement
-export const graphic = new Graphic(scene, camera, canvas)
+const graphic = new Graphic(scene, camera, canvas)
 
 // Если надо добавить новую логику при обновлении кадров, добавляем сюда
 graphic.onUpdate((dt: number | undefined) => {})

@@ -1,6 +1,5 @@
-import { Clock, Object3D, Scene, WebGLRenderer } from "three"
+import { Clock, Scene, WebGLRenderer } from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
-import { selectedDices } from "../main.ts"
 import Camera from "./camera.ts"
 
 export default class Graphic extends WebGLRenderer {
@@ -34,22 +33,6 @@ export default class Graphic extends WebGLRenderer {
 
 	public onUpdate(callback: (dt?: number) => void): void {
 		this.callbackUpdate = callback
-	}
-
-	public addObjects(objects: Object3D[]): void {
-		objects.forEach(object => {
-			this.scene!.add(object)
-		})
-
-		console.log("Add Dices:", this.scene!.children)
-	}
-
-	public clearScene(): void {
-		selectedDices.forEach(dice => {
-			this.scene!.remove(dice)
-		})
-
-		console.log("Clear Scene", this.scene!.children)
 	}
 
 	private loop(): void {

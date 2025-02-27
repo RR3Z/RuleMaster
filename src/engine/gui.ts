@@ -1,5 +1,5 @@
 import GUI from "lil-gui"
-import { availableDices, graphic, selectedDices } from "../main.ts"
+import { availableDices, selectedDices, world } from "../main.ts"
 
 // TODO: REMOVE IT IN THE END - TEMP SOLUTION
 export default class Interface extends GUI {
@@ -23,7 +23,7 @@ export default class Interface extends GUI {
 			selectedDices.push(availableDices["D20"].clone())
 		},
 		addDices: function () {
-			graphic.addObjects(selectedDices)
+			world.addVisuals(selectedDices)
 		},
 		clearScene: function () {
 			world.removeVisuals(selectedDices)
