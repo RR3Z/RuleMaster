@@ -32,11 +32,11 @@ export default class Graphic extends WebGLRenderer {
 		this.loop()
 	}
 
-	onUpdate(callback: (dt?: number) => void): void {
+	public onUpdate(callback: (dt?: number) => void): void {
 		this.callbackUpdate = callback
 	}
 
-	addObjects(objects: Object3D[]): void {
+	public addObjects(objects: Object3D[]): void {
 		objects.forEach(object => {
 			this.scene!.add(object)
 		})
@@ -44,7 +44,7 @@ export default class Graphic extends WebGLRenderer {
 		console.log("Add Dices:", this.scene!.children)
 	}
 
-	clearScene(): void {
+	public clearScene(): void {
 		selectedDices.forEach(dice => {
 			this.scene!.remove(dice)
 		})
