@@ -4,7 +4,7 @@ import Graphic from "./engine/graphic.ts"
 import Interface from "./engine/gui.ts"
 import Light from "./engine/light.ts"
 import { loadDices } from "./engine/loader.ts"
-import World from "./engine/world.ts"
+import World from "./entity/world.ts"
 
 export const availableDices: Record<string, Object3D> = await loadDices(
 	"models/dices/rpg_dice_set.gltf"
