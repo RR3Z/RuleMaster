@@ -26,11 +26,7 @@ export default class Interface extends GUI {
 			graphic.addObjects(selectedDices)
 		},
 		clearScene: function () {
-			graphic.clearScene()
-		},
-		clearSelectedDices: function () {
-			console.log("Clear Selected Dices")
-			graphic.clearScene()
+			world.removeVisuals(selectedDices)
 			selectedDices.splice(0, selectedDices.length)
 		},
 	}
@@ -48,9 +44,6 @@ export default class Interface extends GUI {
 		this.add(this.guiElements, "addD12").name("D12")
 		this.add(this.guiElements, "addD20").name("D20")
 		this.add(this.guiElements, "addDices").name("Add Dices")
-		this.add(this.guiElements, "clearSelectedDices").name(
-			"Clear Selected Dices"
-		)
 		this.add(this.guiElements, "clearScene").name("Clear Scene")
 	}
 }
