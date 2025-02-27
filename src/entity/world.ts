@@ -1,7 +1,7 @@
 import { Object3D } from "three"
 
 export default class World extends Object3D {
-	objects: Object3D[] = []
+	private objects: Object3D[] = []
 
 	constructor(visuals?: Object3D[]) {
 		super()
