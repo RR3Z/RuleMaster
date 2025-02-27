@@ -1,10 +1,10 @@
 import { Object3D, Scene } from "three"
 import Camera from "./engine/camera.ts"
 import Graphic from "./engine/graphic.ts"
-import Interface from "./engine/gui.ts"
 import Light from "./engine/light.ts"
 import { loadDices } from "./engine/loader.ts"
 import World from "./entity/world.ts"
+import Interface from "./gui.ts"
 
 export const availableDices: Record<string, Object3D> = await loadDices(
 	"models/dices/rpg_dice_set.gltf"

@@ -1,5 +1,5 @@
 import GUI from "lil-gui"
-import { availableDices, selectedDices, world } from "../main.ts"
+import { availableDices, selectedDices, world } from "./main.ts"
 
 // TODO: REMOVE IT IN THE END - TEMP SOLUTION
 export default class Interface extends GUI {
