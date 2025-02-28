@@ -3,7 +3,7 @@ import { Mesh, Object3D } from "three"
 import {
 	createDynamicRigidBody,
 	createStaticRigidBody,
-} from "../engine/Physic/physicUtils"
+} from "../engine/physic/physicUtils"
 
 export default class World extends Object3D {
 	private objects: Object3D[] = []

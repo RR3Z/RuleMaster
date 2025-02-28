@@ -3,7 +3,7 @@ import Camera from "./engine/camera.ts"
 import Graphic from "./engine/graphic.ts"
 import Light from "./engine/light.ts"
 import { loadDices } from "./engine/loader.ts"
-import { physic } from "./engine/Physic/physic.ts"
+import { physic } from "./engine/physic/physic.ts"
 import World from "./entity/world.ts"
 import Interface from "./gui.ts"
 
