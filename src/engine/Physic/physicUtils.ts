@@ -5,7 +5,7 @@ export function createStaticRigidBody(
 	mesh: Mesh,
 	physicWorld: Rapier.World
 ): { rigidBody: Rapier.RigidBody; collider: Rapier.Collider } {
-	const rigidBodyDesc = Rapier.RigidBodyDesc.dynamic()
+	const rigidBodyDesc = Rapier.RigidBodyDesc.fixed()
 	const rigidBody = physicWorld.createRigidBody(rigidBodyDesc)
 	const collider = createColliderBasedOnMeshGeometry(
 		mesh,

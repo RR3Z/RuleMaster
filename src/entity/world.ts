@@ -1,6 +1,9 @@
 import Rapier from "@dimforge/rapier3d-compat"
 import { Mesh, Object3D } from "three"
-import { createDynamicRigidBody } from "../engine/Physic/physicUtils"
+import {
+	createDynamicRigidBody,
+	createStaticRigidBody,
+} from "../engine/Physic/physicUtils"
 
 export default class World extends Object3D {
 	private objects: Object3D[] = []
@@ -23,11 +26,12 @@ export default class World extends Object3D {
 		})
 	}
 
-	public addDynamicObjects(objects: Object3D[]): void {
+	public addObjects(objects: Object3D[], isStaticObjects: boolean): void {
 		if (this.objects.length !== 0) this.removeObjects(this.objects)
 
 		this.addVisuals(objects)
-		this.addDynamicPhysic(objects)
+		if (!isStaticObjects) this.addDynamicPhysic(objects)
+		else this.addStaticPhysic(objects)
 
 		console.log("World -> Add Objects", this.objects, this)
 	}
@@ -65,10 +69,20 @@ export default class World extends Object3D {
 		})
 	}
 
+	private addStaticPhysic(meshes: Object3D[]): void {
+		meshes.forEach(mesh => {
+			const physicObjects = createStaticRigidBody(mesh as Mesh, this.physic)
+			mesh.userData.rigidBody = physicObjects.rigidBody
+			mesh.userData.collider = physicObjects.collider
+		})
+	}
+
 	private addVisuals(visuals: Object3D[]): void {
 		visuals.forEach(visual => {
+			visual.position.set(0, 30, 0)
 			visual.receiveShadow = true
 			visual.castShadow = true
+
 			this.add(visual)
 			if (!this.objects.includes(visual)) this.objects.push(visual)
 		})
