@@ -1,15 +1,70 @@
-import { Object3D } from "three"
+import Rapier from "@dimforge/rapier3d-compat"
+import { Mesh, Object3D } from "three"
+import { createDynamicRigidBody } from "../engine/Physic/physicUtils"
 
 export default class World extends Object3D {
 	private objects: Object3D[] = []
+	private physic: Rapier.World
 
-	constructor(visuals?: Object3D[]) {
+	constructor(physic: Rapier.World, objects?: Object3D[]) {
 		super()
-		if (visuals) this.addVisuals(visuals)
-		// this.initPhysic(colliders)
+
+		this.physic = physic
+		if (objects) this.addObjects(objects)
 	}
 
-	public addVisuals(visuals: Object3D[]): void {
+	public updateObjects() {
+		this.objects.forEach(object => {
+			if (
+				object.userData.rigidBody.bodyType() === Rapier.RigidBodyType.Dynamic
+			) {
+				object.position.copy(object.userData.rigidBody.translation())
+				object.quaternion.copy(object.userData.rigidBody.rotation())
+			}
+		})
+	}
+
+	public addObjects(objects: Object3D[]): void {
+		this.addVisuals(objects)
+		this.addPhysic(objects)
+
+		console.log("World -> Add Objects", this.objects, this)
+	}
+
+	public removeObjects(objects: Object3D[]): void {
+		objects.forEach(object => {
+			// Remove Visual
+			this.remove(object)
+
+			// Remove Physic
+			if (this.physic.getCollider(object.userData.collider))
+				this.physic.removeCollider(object.userData.collider, true)
+			if (this.physic.getRigidBody(object.userData.rigidBody))
+				this.physic.removeRigidBody(object.userData.rigidBody)
+
+			// Remove Object
+			this.objects.splice(this.objects.indexOf(object), 1)
+		})
+
+		console.log("World -> Remove Objects: ", this.objects, this)
+	}
+
+	public clearWorld(): void {
+		this.removeObjects(this.objects)
+		this.objects.splice(0, this.objects.length)
+
+		console.log("World -> Clear World: ", this.objects, this)
+	}
+
+	private addPhysic(meshes: Object3D[]): void {
+		meshes.forEach(mesh => {
+			const physicObjects = createDynamicRigidBody(mesh as Mesh, this.physic)
+			mesh.userData.rigidBody = physicObjects.rigidBody
+			mesh.userData.collider = physicObjects.collider
+		})
+	}
+
+	private addVisuals(visuals: Object3D[]): void {
 		visuals.forEach(visual => {
 			visual.receiveShadow = true
 			visual.castShadow = true
@@ -18,23 +73,5 @@ export default class World extends Object3D {
 		})
 
 		console.log("World -> Add Visuals: ", this.objects, this)
-	}
-
-	public removeVisuals(visuals: Object3D[]): void {
-		visuals.forEach(visual => {
-			this.objects.splice(this.objects.indexOf(visual), 1)
-			this.remove(visual)
-		})
-
-		console.log("World -> Remove Visuals: ", this.objects, this)
-	}
-
-	public clearWorld(): void {
-		this.objects.forEach(object => {
-			this.remove(object)
-		})
-		this.objects.splice(0, this.objects.length)
-
-		console.log("World -> Clear World: ", this.objects, this)
 	}
 }
