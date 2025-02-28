@@ -23,7 +23,7 @@ export default class Interface extends GUI {
 			selectedDices.push(availableDices["D20"].clone())
 		},
 		addDices: function () {
-			world.addObjects(selectedDices)
+			world.addDynamicObjects(selectedDices)
 		},
 		clearScene: function () {
 			world.removeObjects(selectedDices)

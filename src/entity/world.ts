@@ -13,7 +13,7 @@ export default class World extends Object3D {
 		if (objects) this.addObjects(objects)
 	}
 
-	public updateObjects() {
+	public updateObjects(): void {
 		this.objects.forEach(object => {
 			if (
 				object.userData.rigidBody.bodyType() === Rapier.RigidBodyType.Dynamic
@@ -24,9 +24,9 @@ export default class World extends Object3D {
 		})
 	}
 
-	public addObjects(objects: Object3D[]): void {
+	public addDynamicObjects(objects: Object3D[]): void {
 		this.addVisuals(objects)
-		this.addPhysic(objects)
+		this.addDynamicPhysic(objects)
 
 		console.log("World -> Add Objects", this.objects, this)
 	}
@@ -56,7 +56,7 @@ export default class World extends Object3D {
 		console.log("World -> Clear World: ", this.objects, this)
 	}
 
-	private addPhysic(meshes: Object3D[]): void {
+	private addDynamicPhysic(meshes: Object3D[]): void {
 		meshes.forEach(mesh => {
 			const physicObjects = createDynamicRigidBody(mesh as Mesh, this.physic)
 			mesh.userData.rigidBody = physicObjects.rigidBody
@@ -71,7 +71,5 @@ export default class World extends Object3D {
 			this.add(visual)
 			if (!this.objects.includes(visual)) this.objects.push(visual)
 		})
-
-		console.log("World -> Add Visuals: ", this.objects, this)
 	}
 }
