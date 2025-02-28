@@ -6,11 +6,10 @@ export default class World extends Object3D {
 	private objects: Object3D[] = []
 	private physic: Rapier.World
 
-	constructor(physic: Rapier.World, objects?: Object3D[]) {
+	constructor(physic: Rapier.World) {
 		super()
 
 		this.physic = physic
-		if (objects) this.addObjects(objects)
 	}
 
 	public updateObjects(): void {
