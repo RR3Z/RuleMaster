@@ -24,6 +24,8 @@ export default class World extends Object3D {
 	}
 
 	public addDynamicObjects(objects: Object3D[]): void {
+		if (this.objects.length !== 0) this.removeObjects(this.objects)
+
 		this.addVisuals(objects)
 		this.addDynamicPhysic(objects)
 
