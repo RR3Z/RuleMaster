@@ -1,9 +1,9 @@
 import { Object3D, Scene } from "three"
-import Camera from "./engine/camera.ts"
-import Graphic from "./engine/graphic.ts"
-import Light from "./engine/light.ts"
-import { loadDices } from "./engine/loader.ts"
 import { physic } from "./engine/physic/physic.ts"
+import Camera from "./engine/visual/camera.ts"
+import Graphic from "./engine/visual/graphic.ts"
+import Light from "./engine/visual/light.ts"
+import { loadDices } from "./engine/visual/loader.ts"
 import World from "./entity/world.ts"
 import Interface from "./gui.ts"
 
