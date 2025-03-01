@@ -41,15 +41,17 @@ export default class World extends Object3D {
 	}
 
 	public removeObjects(objects: Object3D[]): void {
-		objects.forEach(object => {
-			// Remove Visual
-			this.remove(object)
+		const objectsToRemove = objects.slice()
 
+		objectsToRemove.forEach(object => {
 			// Remove Physic
 			if (this.physicalWorld.getCollider(object.userData.collider))
 				this.physicalWorld.removeCollider(object.userData.collider, true)
 			if (this.physicalWorld.getRigidBody(object.userData.rigidBody))
 				this.physicalWorld.removeRigidBody(object.userData.rigidBody)
+
+			// Remove Visual
+			this.remove(object)
 
 			// Remove Object
 			this.objects.splice(this.objects.indexOf(object), 1)
