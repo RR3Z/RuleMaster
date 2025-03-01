@@ -36,7 +36,7 @@ const canvas = document.querySelector("canvas") as HTMLCanvasElement
 const graphic = new Graphic(scene, camera, canvas)
 
 // Если надо добавить новую логику при обновлении кадров, добавляем сюда
-graphic.onUpdate((dt: number | undefined) => {
+graphic.onUpdate(() => {
 	physicWorld.step()
 	world.updateObjects()
 	physicDebugger.update()
