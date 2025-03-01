@@ -83,7 +83,7 @@ export default class World extends Object3D {
 
 	private addVisuals(visuals: Object3D[]): void {
 		visuals.forEach(visual => {
-			visual.position.set(0, 30, 0)
+			visual.position.set(0, 25, 0)
 			visual.receiveShadow = true
 			visual.castShadow = true
 
