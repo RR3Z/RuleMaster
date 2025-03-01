@@ -7,12 +7,12 @@ import {
 
 export default class World extends Object3D {
 	private objects: Object3D[] = []
-	private physic: Rapier.World
+	private physicalWorld: Rapier.World
 
-	constructor(physic: Rapier.World) {
+	constructor(physicalWorld: Rapier.World) {
 		super()
 
-		this.physic = physic
+		this.physicalWorld = physicalWorld
 	}
 
 	public updateObjects(): void {
@@ -31,7 +31,7 @@ export default class World extends Object3D {
 		isStaticObjects: boolean = false,
 		isVisibleObjects: boolean = true
 	): void {
-		if (this.objects.length !== 0) this.removeObjects(this.objects)
+		this.removeObjects(this.objects)
 
 		if (isVisibleObjects) this.addVisuals(objects)
 		if (isStaticObjects) this.addStaticPhysic(objects)
@@ -46,10 +46,10 @@ export default class World extends Object3D {
 			this.remove(object)
 
 			// Remove Physic
-			if (this.physic.getCollider(object.userData.collider))
-				this.physic.removeCollider(object.userData.collider, true)
-			if (this.physic.getRigidBody(object.userData.rigidBody))
-				this.physic.removeRigidBody(object.userData.rigidBody)
+			if (this.physicalWorld.getCollider(object.userData.collider))
+				this.physicalWorld.removeCollider(object.userData.collider, true)
+			if (this.physicalWorld.getRigidBody(object.userData.rigidBody))
+				this.physicalWorld.removeRigidBody(object.userData.rigidBody)
 
 			// Remove Object
 			this.objects.splice(this.objects.indexOf(object), 1)
@@ -67,7 +67,10 @@ export default class World extends Object3D {
 
 	private addDynamicPhysic(meshes: Object3D[]): void {
 		meshes.forEach(mesh => {
-			const physicObjects = createDynamicRigidBody(mesh as Mesh, this.physic)
+			const physicObjects = createDynamicRigidBody(
+				mesh as Mesh,
+				this.physicalWorld
+			)
 			mesh.userData.rigidBody = physicObjects.rigidBody
 			mesh.userData.collider = physicObjects.collider
 		})
@@ -75,7 +78,10 @@ export default class World extends Object3D {
 
 	private addStaticPhysic(meshes: Object3D[]): void {
 		meshes.forEach(mesh => {
-			const physicObjects = createStaticRigidBody(mesh as Mesh, this.physic)
+			const physicObjects = createStaticRigidBody(
+				mesh as Mesh,
+				this.physicalWorld
+			)
 			mesh.userData.rigidBody = physicObjects.rigidBody
 			mesh.userData.collider = physicObjects.collider
 		})
