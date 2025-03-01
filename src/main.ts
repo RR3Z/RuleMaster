@@ -1,5 +1,6 @@
 import { Object3D, Scene } from "three"
 import { physic } from "./engine/physic/physic.ts"
+import PhysicDebugger from "./engine/physic/physicDebugger.ts"
 import Camera from "./engine/visual/camera.ts"
 import Graphic from "./engine/visual/graphic.ts"
 import Light from "./engine/visual/light.ts"
@@ -12,10 +13,13 @@ export const availableDices: Record<string, Object3D> = await loadDices(
 )
 export let selectedDices: Object3D[] = []
 
-const scene = new Scene()
+// Visual
+export const scene = new Scene() // TODO: Remove 'export' in the end
 const camera = new Camera()
 const light = new Light()
 export const world = new World(physic)
+// Physic
+export const physicDebugger = new PhysicDebugger(physic, scene) // TODO: Remove it in the end
 
 scene.add(world)
 scene.add(light)
@@ -27,6 +31,7 @@ const graphic = new Graphic(scene, camera, canvas)
 graphic.onUpdate((dt: number | undefined) => {
 	physic.step()
 	world.updateObjects()
+	physicDebugger.update()
 })
 
 // TODO: REMOVE IT IN THE END - TEMP SOLUTION

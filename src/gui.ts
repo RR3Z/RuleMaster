@@ -1,5 +1,11 @@
 import GUI from "lil-gui"
-import { availableDices, selectedDices, world } from "./main.ts"
+import {
+	availableDices,
+	physicDebugger,
+	scene,
+	selectedDices,
+	world,
+} from "./main.ts"
 
 // TODO: REMOVE IT IN THE END - TEMP SOLUTION
 export default class Interface extends GUI {
@@ -23,9 +29,11 @@ export default class Interface extends GUI {
 			selectedDices.push(availableDices["D20"].clone())
 		},
 		addDices: function () {
+			scene.add(physicDebugger.debugMesh)
 			world.addObjects(selectedDices, false)
 		},
 		clearScene: function () {
+			scene.remove(physicDebugger.debugMesh)
 			world.removeObjects(selectedDices)
 			selectedDices.splice(0, selectedDices.length)
 		},
@@ -37,6 +45,7 @@ export default class Interface extends GUI {
 	}
 
 	private init(): void {
+		this.add(physicDebugger, "isEnabled").name("Physic Debugger Status")
 		this.add(this.guiElements, "addD4").name("D4")
 		this.add(this.guiElements, "addD6").name("D6")
 		this.add(this.guiElements, "addD8").name("D8")
