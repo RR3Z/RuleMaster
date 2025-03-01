@@ -26,12 +26,16 @@ export default class World extends Object3D {
 		})
 	}
 
-	public addObjects(objects: Object3D[], isStaticObjects: boolean): void {
+	public addObjects(
+		objects: Object3D[],
+		isStaticObjects: boolean = false,
+		isVisibleObjects: boolean = true
+	): void {
 		if (this.objects.length !== 0) this.removeObjects(this.objects)
 
-		this.addVisuals(objects)
-		if (!isStaticObjects) this.addDynamicPhysic(objects)
-		else this.addStaticPhysic(objects)
+		if (isVisibleObjects) this.addVisuals(objects)
+		if (isStaticObjects) this.addStaticPhysic(objects)
+		else this.addDynamicPhysic(objects)
 
 		console.log("World -> Add Objects", this.objects, this)
 	}

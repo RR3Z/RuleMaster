@@ -30,7 +30,7 @@ export default class Interface extends GUI {
 		},
 		addDices: function () {
 			scene.add(physicDebugger.debugMesh)
-			world.addObjects(selectedDices, false)
+			world.addObjects(selectedDices)
 		},
 		clearScene: function () {
 			scene.remove(physicDebugger.debugMesh)
