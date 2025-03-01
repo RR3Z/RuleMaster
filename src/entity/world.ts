@@ -73,6 +73,16 @@ export default class World extends Object3D {
 				mesh as Mesh,
 				this.physicalWorld
 			)
+
+			physicObjects.rigidBody.setAngvel(
+				new Rapier.Vector3(
+					Math.random() * 20 + 1,
+					Math.random() * 20 + 1,
+					Math.random() * 20 + 1
+				),
+				true
+			)
+
 			mesh.userData.rigidBody = physicObjects.rigidBody
 			mesh.userData.collider = physicObjects.collider
 		})
