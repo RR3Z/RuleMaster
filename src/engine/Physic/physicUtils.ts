@@ -25,6 +25,9 @@ export function createDynamicRigidBody(
 		mesh.position.y,
 		mesh.position.z
 	)
+	// rigidBodyDesc.mass = 1
+	// rigidBodyDesc.centerOfMass = new Rapier.Vector3(0, 0, 0)
+
 	const rigidBody = physicWorld.createRigidBody(rigidBodyDesc)
 	const collider = createColliderBasedOnMeshGeometry(
 		mesh,
@@ -41,8 +44,7 @@ function createColliderBasedOnMeshGeometry(
 ): Rapier.Collider {
 	const geometry = mesh.geometry
 	const vertices = new Float32Array(geometry.attributes.position.array)
-	const indices = new Uint32Array(geometry.index!.array)
 
-	const colliderDesc = Rapier.ColliderDesc.trimesh(vertices, indices)
-	return physicWorld.createCollider(colliderDesc, rigidBody)
+	const colliderDesc = Rapier.ColliderDesc.convexHull(vertices)
+	return physicWorld.createCollider(colliderDesc!, rigidBody)
 }
