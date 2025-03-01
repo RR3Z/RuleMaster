@@ -18,32 +18,32 @@ export default class DiceBox {
 			{
 				type: "floor",
 				position: [0, 0, 0],
-				size: [width / 2, 0.1, height / 2],
+				size: [width / 2, 0.5, height / 2],
 			},
 			{
 				type: "roof",
 				position: [0, 30, 0],
-				size: [width / 2, 0.1, height / 2],
+				size: [width / 2, 0.5, height / 2],
 			},
 			{
 				type: "left",
-				position: [-width / 2 + 5, 15, 0],
-				size: [0.1, 15, height / 2],
+				position: [-width / 2, 15, 0],
+				size: [0.5, 15, height / 2],
 			},
 			{
 				type: "right",
-				position: [width / 2 - 5, 15, 0],
-				size: [0.1, 15, height / 2],
+				position: [width / 2, 15, 0],
+				size: [0.5, 15, height / 2],
 			},
 			{
 				type: "back",
-				position: [0, 15, -height / 2 + 5],
-				size: [width / 2, height / 2, 0.1],
+				position: [0, 15, -height / 2],
+				size: [width / 2, 15, 0.5],
 			},
 			{
 				type: "front",
-				position: [0, 15, height / 2 - 5],
-				size: [width / 2, height / 2, 0.1],
+				position: [0, 15, height / 2],
+				size: [width / 2, 15, 0.5],
 			},
 		]
 
