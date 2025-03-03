@@ -3,10 +3,11 @@ import { Mesh, Object3D } from "three"
 import {
 	createDynamicRigidBody,
 	createStaticRigidBody,
-} from "../engine/physic/physicUtils"
+} from "../engine/physic/physicUtils.ts"
+import Dice from "./dice.ts"
 
 export default class World extends Object3D {
-	private objects: Object3D[] = []
+	private dices: Dice[] = []
 	private physicalWorld: Rapier.World
 
 	constructor(physicalWorld: Rapier.World) {
@@ -15,98 +16,93 @@ export default class World extends Object3D {
 		this.physicalWorld = physicalWorld
 	}
 
-	public updateObjects(): void {
-		this.objects.forEach(object => {
-			if (
-				object.userData.rigidBody.bodyType() === Rapier.RigidBodyType.Dynamic
-			) {
-				object.position.copy(object.userData.rigidBody.translation())
-				object.quaternion.copy(object.userData.rigidBody.rotation())
+	public update(): void {
+		this.dices.forEach(dice => {
+			if (dice.rigidBody!.bodyType() === Rapier.RigidBodyType.Dynamic) {
+				dice.visual.position.copy(dice.rigidBody!.translation())
+				dice.visual.quaternion.copy(dice.rigidBody!.rotation())
 			}
 		})
 	}
 
-	public addObjects(
-		objects: Object3D[],
-		isStaticObjects: boolean = false,
-		isVisibleObjects: boolean = true
+	public addDices(
+		dices: Dice[],
+		isStatic: boolean = false,
+		isVisible: boolean = true
 	): void {
-		this.removeObjects(this.objects)
+		this.removeDices(this.dices)
 
-		if (isVisibleObjects) this.addVisuals(objects)
-		if (isStaticObjects) this.addStaticPhysic(objects)
-		else this.addDynamicPhysic(objects)
+		dices.forEach(dice => {
+			if (isVisible) this.addVisual(dice)
+			if (isStatic) this.addStaticPhysic(dice)
+			else this.addDynamicPhysic(dice)
 
-		console.log("World -> Add Objects", this.objects, this)
-	}
-
-	public removeObjects(objects: Object3D[]): void {
-		const objectsToRemove = objects.slice()
-
-		objectsToRemove.forEach(object => {
-			// Remove Physic
-			if (this.physicalWorld.getCollider(object.userData.collider))
-				this.physicalWorld.removeCollider(object.userData.collider, true)
-			if (this.physicalWorld.getRigidBody(object.userData.rigidBody))
-				this.physicalWorld.removeRigidBody(object.userData.rigidBody)
-
-			// Remove Visual
-			this.remove(object)
-
-			// Remove Object
-			this.objects.splice(this.objects.indexOf(object), 1)
+			if (!this.dices.includes(dice)) this.dices.push(dice)
 		})
 
-		console.log("World -> Remove Objects: ", this.objects, this)
+		console.log("World -> Add Dices", this.dices) // TODO: remove it in the end
+	}
+
+	public removeDices(dices: Dice[]): void {
+		const dicesToRemove = dices.slice()
+
+		dicesToRemove.forEach(dice => {
+			// Remove Physic
+			this.physicalWorld.removeCollider(dice.collider!, true)
+			this.physicalWorld.removeRigidBody(dice.rigidBody!)
+
+			// Remove Visual
+			this.remove(dice.visual)
+
+			// Remove Dice
+			this.dices.splice(this.dices.indexOf(dice), 1)
+		})
+
+		console.log("World -> Remove Dices: ", this.dices) // TODO: remove it in the end
 	}
 
 	public clearWorld(): void {
-		this.removeObjects(this.objects)
-		this.objects.splice(0, this.objects.length)
+		this.dices.forEach(dice => {
+			this.remove(dice.visual)
+		})
+		this.dices.splice(0, this.dices.length)
 
-		console.log("World -> Clear World: ", this.objects, this)
+		console.log("World -> Clear World: ", this.dices)
 	}
 
-	private addDynamicPhysic(meshes: Object3D[]): void {
-		meshes.forEach(mesh => {
-			const physicObjects = createDynamicRigidBody(
-				mesh as Mesh,
-				this.physicalWorld
-			)
+	private addDynamicPhysic(dice: Dice): void {
+		const physicObjects = createDynamicRigidBody(
+			dice.visual as Mesh,
+			this.physicalWorld
+		)
 
-			physicObjects.rigidBody.setAngvel(
-				new Rapier.Vector3(
-					Math.random() * 20 + 1,
-					Math.random() * 20 + 1,
-					Math.random() * 20 + 1
-				),
-				true
-			)
+		physicObjects.rigidBody.setAngvel(
+			new Rapier.Vector3(
+				Math.random() * 20 + 1,
+				Math.random() * 20 + 1,
+				Math.random() * 20 + 1
+			),
+			true
+		)
 
-			mesh.userData.rigidBody = physicObjects.rigidBody
-			mesh.userData.collider = physicObjects.collider
-		})
+		dice.rigidBody = physicObjects.rigidBody
+		dice.collider = physicObjects.collider
 	}
 
-	private addStaticPhysic(meshes: Object3D[]): void {
-		meshes.forEach(mesh => {
-			const physicObjects = createStaticRigidBody(
-				mesh as Mesh,
-				this.physicalWorld
-			)
-			mesh.userData.rigidBody = physicObjects.rigidBody
-			mesh.userData.collider = physicObjects.collider
-		})
+	private addStaticPhysic(dice: Dice): void {
+		const physicObjects = createStaticRigidBody(
+			dice.visual as Mesh,
+			this.physicalWorld
+		)
+		dice.rigidBody = physicObjects.rigidBody
+		dice.collider = physicObjects.collider
 	}
 
-	private addVisuals(visuals: Object3D[]): void {
-		visuals.forEach(visual => {
-			visual.position.set(0, 25, 0)
-			visual.receiveShadow = true
-			visual.castShadow = true
+	private addVisual(dice: Dice): void {
+		dice.visual.position.set(0, 25, 0)
+		dice.visual.receiveShadow = true
+		dice.visual.castShadow = true
 
-			this.add(visual)
-			if (!this.objects.includes(visual)) this.objects.push(visual)
-		})
+		this.add(dice.visual)
 	}
 }

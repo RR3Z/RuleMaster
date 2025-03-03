@@ -5,6 +5,7 @@ import Camera from "./engine/visual/camera.ts"
 import Graphic from "./engine/visual/graphic.ts"
 import Light from "./engine/visual/light.ts"
 import { loadDices } from "./engine/visual/loader.ts"
+import Dice from "./entity/dice.ts"
 import DiceBox from "./entity/diceBox.ts"
 import World from "./entity/world.ts"
 import Interface from "./gui.ts"
@@ -13,7 +14,7 @@ import Interface from "./gui.ts"
 export const availableDices: Record<string, Object3D> = await loadDices(
 	"models/dices/dices.gltf"
 )
-export let selectedDices: Object3D[] = []
+export let selectedDices: Dice[] = []
 
 // Dice Box
 const diceBox = new DiceBox()
@@ -38,7 +39,7 @@ const graphic = new Graphic(scene, camera, canvas)
 // Если надо добавить новую логику при обновлении кадров, добавляем сюда
 graphic.onUpdate(() => {
 	physicWorld.step()
-	world.updateObjects()
+	world.update()
 	physicDebugger.update()
 })
 

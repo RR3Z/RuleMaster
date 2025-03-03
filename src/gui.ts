@@ -1,4 +1,5 @@
 import GUI from "lil-gui"
+import Dice, { DiceType } from "./entity/dice.ts"
 import {
 	availableDices,
 	physicDebugger,
@@ -11,30 +12,30 @@ import {
 export default class Interface extends GUI {
 	private guiElements = {
 		addD4: function () {
-			selectedDices.push(availableDices["D4"].clone())
+			selectedDices.push(new Dice(availableDices["D4"].clone(), DiceType.D4))
 		},
 		addD6: function () {
-			selectedDices.push(availableDices["D6"].clone())
+			selectedDices.push(new Dice(availableDices["D6"].clone(), DiceType.D6))
 		},
 		addD8: function () {
-			selectedDices.push(availableDices["D8"].clone())
+			selectedDices.push(new Dice(availableDices["D8"].clone(), DiceType.D8))
 		},
 		addD10: function () {
-			selectedDices.push(availableDices["D10"].clone())
+			selectedDices.push(new Dice(availableDices["D10"].clone(), DiceType.D10))
 		},
 		addD12: function () {
-			selectedDices.push(availableDices["D12"].clone())
+			selectedDices.push(new Dice(availableDices["D12"].clone(), DiceType.D12))
 		},
 		addD20: function () {
-			selectedDices.push(availableDices["D20"].clone())
+			selectedDices.push(new Dice(availableDices["D20"].clone(), DiceType.D20))
 		},
 		addDices: function () {
 			scene.add(physicDebugger.debugMesh)
-			world.addObjects(selectedDices)
+			world.addDices(selectedDices)
 		},
 		clearScene: function () {
 			scene.remove(physicDebugger.debugMesh)
-			world.removeObjects(selectedDices)
+			world.removeDices(selectedDices)
 			selectedDices.splice(0, selectedDices.length)
 		},
 	}
