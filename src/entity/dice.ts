@@ -125,7 +125,7 @@ export default class Dice {
 		return topFaceIndex
 	}
 
-	private defineValues() {
+	private defineValues(): void {
 		switch (this.type) {
 			case DiceType.D4:
 				this.diceValues = [1, 4, 3, 2]
