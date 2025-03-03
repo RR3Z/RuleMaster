@@ -11,6 +11,7 @@ export async function loadDices(
 	const dices: Record<string, Object3D> = {}
 
 	for (const dice of gltf.scene.children) {
+		dice.scale.set(1.5, 1.5, 1.5)
 		dices[dice.name] = dice
 	}
 
