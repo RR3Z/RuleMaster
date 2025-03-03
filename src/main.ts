@@ -11,7 +11,7 @@ import Interface from "./gui.ts"
 
 // Dices
 export const availableDices: Record<string, Object3D> = await loadDices(
-	"models/dices/rpg_dice_set.gltf"
+	"models/dices/dices.gltf"
 )
 export let selectedDices: Object3D[] = []
 
