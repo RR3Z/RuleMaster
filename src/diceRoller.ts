@@ -1,6 +1,6 @@
 import { Object3D } from "three"
-import DiceLoader from "./engine/diceLoader.ts"
 import PhysicEngine from "./engine/physic/physicEngine.ts"
+import DiceLoader from "./engine/visual/diceLoader.ts"
 import VisualEngine from "./engine/visual/visualEngine.ts"
 import Dice from "./entity/dice.ts"
 import DiceBox from "./entity/diceBox.ts"
