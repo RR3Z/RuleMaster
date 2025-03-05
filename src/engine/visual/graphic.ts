@@ -1,40 +1,33 @@
-import { Clock, Scene, WebGLRenderer } from "three"
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
+import { Scene, WebGLRenderer } from "three"
 import Camera from "./camera.ts"
 
 export default class Graphic extends WebGLRenderer {
-	private scene: Scene | null = null
-	private camera: Camera | null = null
-	private control: OrbitControls | null = null // TODO: REMOVE IT IN THE END
-	private clock: Clock = new Clock()
-	private callbackUpdate: ((dt?: number) => void) | null = null
-	private callbackLoop: (() => void) | null = null
 	public shouldUpdate: boolean
+	private _scene: Scene
+	private _camera: Camera
+	private callbackUpdate!: () => void
+	private callbackLoop: () => void
 
 	constructor(scene: Scene, camera: Camera) {
 		super({ alpha: true })
 
-		// Fields
-		this.scene = scene
-		this.camera = camera
+		// Canvas Name
+		this.domElement.id = "diceRoller"
 
-		// Orbit Controls TODO: REMOVE IT IN THE END
-		this.control = new OrbitControls(camera, canvas)
-		this.control.enableDamping = true
+		this._scene = scene
+		this._camera = camera
 		this.shouldUpdate = false
 
-		// WebGLRenderer settings
+		// WebGLRenderer Settings
 		this.shadowMap.enabled = true
 		this.setClearColor(0x000000, 0.5)
 		this.setSize(window.innerWidth, window.innerHeight)
 		this.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-		this.callbackLoop = this.loop.bind(this) // bind - связь экземпляра класса и функции
-		this.loop()
 		this.callbackLoop = this.startLoop.bind(this)
 	}
 
-	public onUpdate(callback: (dt?: number) => void): void {
+	public onUpdate(callback: () => void): void {
 		this.callbackUpdate = callback
 	}
 
