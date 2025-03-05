@@ -1,18 +1,16 @@
-import Rapier from "@dimforge/rapier3d-compat"
+import { default as Rapier, default as RAPIER } from "@dimforge/rapier3d-compat"
 import { Mesh, Object3D } from "three"
-import {
-	createDynamicRigidBody,
-	createStaticRigidBody,
-} from "../engine/physic/physicUtils.ts"
+import { createDynamicRigidBody } from "../engine/physic/physicUtils.ts"
 import Dice from "./dice.ts"
 
 export default class World extends Object3D {
-	private dices: Dice[] = []
+	private dices: Dice[]
 	private physicalWorld: Rapier.World
 
 	constructor(physicalWorld: Rapier.World) {
 		super()
 
+		this.dices = []
 		this.physicalWorld = physicalWorld
 	}
 
@@ -25,19 +23,16 @@ export default class World extends Object3D {
 		})
 	}
 
-	public addDices(
-		dices: Dice[],
-		isStatic: boolean = false,
-		isVisible: boolean = true
-	): void {
+	public addDices(dices: Dice[]): void {
 		this.removeDices(this.dices)
 
 		dices.forEach(dice => {
-			if (isVisible) this.addVisual(dice)
-			if (isStatic) this.addStaticPhysic(dice)
-			else this.addDynamicPhysic(dice)
+			this.addVisual(dice)
+			this.addPhysic(dice)
 
-			if (!this.dices.includes(dice)) this.dices.push(dice)
+			if (!this.dices.includes(dice)) {
+				this.dices.push(dice)
+			}
 		})
 
 		console.log("World -> Add Dices", this.dices) // TODO: remove it in the end
@@ -61,41 +56,23 @@ export default class World extends Object3D {
 		console.log("World -> Remove Dices: ", this.dices) // TODO: remove it in the end
 	}
 
-	public clearWorld(): void {
-		this.dices.forEach(dice => {
-			this.remove(dice.visual)
-		})
-		this.dices.splice(0, this.dices.length)
-
-		console.log("World -> Clear World: ", this.dices)
-	}
-
-	private addDynamicPhysic(dice: Dice): void {
+	private addPhysic(dice: Dice): void {
 		const physicObjects = createDynamicRigidBody(
 			dice.visual as Mesh,
 			this.physicalWorld
 		)
 
-		physicObjects.rigidBody.setAngvel(
+		dice.rigidBody = physicObjects.rigidBody
+		dice.collider = physicObjects.collider
+
+		dice.setVelocity(
 			new Rapier.Vector3(
 				Math.random() * 20 + 1,
 				Math.random() * 20 + 1,
 				Math.random() * 20 + 1
 			),
-			true
+			new RAPIER.Vector3(0, 0, 0)
 		)
-
-		dice.rigidBody = physicObjects.rigidBody
-		dice.collider = physicObjects.collider
-	}
-
-	private addStaticPhysic(dice: Dice): void {
-		const physicObjects = createStaticRigidBody(
-			dice.visual as Mesh,
-			this.physicalWorld
-		)
-		dice.rigidBody = physicObjects.rigidBody
-		dice.collider = physicObjects.collider
 	}
 
 	private addVisual(dice: Dice): void {
