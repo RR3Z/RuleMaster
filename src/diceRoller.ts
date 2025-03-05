@@ -61,7 +61,7 @@ export default class DiceRoller {
 		}
 	}
 
-	public dicesValues(): { name: string; value: number }[] {
+	public result(): { name: string; value: number }[] {
 		const values: { name: string; value: number }[] = []
 
 		this.selectedDices.forEach(dice => {
@@ -82,7 +82,7 @@ export default class DiceRoller {
 			this.diceWorld.update()
 
 			if (this.areDicesStopped()) {
-				console.log("Dices Values: ", this.dicesValues())
+				console.log("Dices Results: ", this.result())
 				this.switchState()
 			}
 		})
