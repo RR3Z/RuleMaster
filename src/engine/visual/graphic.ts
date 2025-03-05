@@ -9,6 +9,7 @@ export default class Graphic extends WebGLRenderer {
 	private clock: Clock = new Clock()
 	private callbackUpdate: ((dt?: number) => void) | null = null
 	private callbackLoop: (() => void) | null = null
+	public shouldUpdate: boolean
 
 	constructor(scene: Scene, camera: Camera) {
 		super({ alpha: true })
@@ -20,6 +21,7 @@ export default class Graphic extends WebGLRenderer {
 		// Orbit Controls TODO: REMOVE IT IN THE END
 		this.control = new OrbitControls(camera, canvas)
 		this.control.enableDamping = true
+		this.shouldUpdate = false
 
 		// WebGLRenderer settings
 		this.shadowMap.enabled = true
@@ -29,20 +31,19 @@ export default class Graphic extends WebGLRenderer {
 
 		this.callbackLoop = this.loop.bind(this) // bind - связь экземпляра класса и функции
 		this.loop()
+		this.callbackLoop = this.startLoop.bind(this)
 	}
 
 	public onUpdate(callback: (dt?: number) => void): void {
 		this.callbackUpdate = callback
 	}
 
-	private loop(): void {
-		//const dt = this.clock.getDelta()
+	public startLoop(): void {
+		if (this.shouldUpdate) {
+			if (this.callbackUpdate) this.callbackUpdate()
 
-		if (this.callbackUpdate) this.callbackUpdate()
-
-		this.control!.update() // OrbitControls
-
-		this.render(this.scene!, this.camera!)
-		requestAnimationFrame(this.callbackLoop!)
+			this.render(this._scene!, this._camera!)
+			requestAnimationFrame(this.callbackLoop!)
+		}
 	}
 }
