@@ -50,15 +50,14 @@ export default class DiceRoller {
 		this.visualEngine.graphic.shouldUpdate = this.isEnabled
 
 		if (this.isEnabled) {
-			this.diceWorld.removeDices(this.selectedDices)
-			this.selectedDices.splice(0, this.selectedDices.length)
-
 			this.diceWorld.addDices(this.selectedDices)
 
 			document.body.appendChild(this.visualEngine.graphic.domElement)
 			this.startLoop()
 		} else {
 			document.getElementById("diceRoller")!.remove()
+			this.diceWorld.removeDices(this.selectedDices)
+			this.selectedDices.splice(0, this.selectedDices.length)
 		}
 	}
 
