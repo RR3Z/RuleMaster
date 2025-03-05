@@ -10,8 +10,8 @@ export default class Graphic extends WebGLRenderer {
 	private callbackUpdate: ((dt?: number) => void) | null = null
 	private callbackLoop: (() => void) | null = null
 
-	constructor(scene: Scene, camera: Camera, canvas: HTMLCanvasElement) {
-		super({ canvas, alpha: true })
+	constructor(scene: Scene, camera: Camera) {
+		super({ alpha: true })
 
 		// Fields
 		this.scene = scene
