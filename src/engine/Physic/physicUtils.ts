@@ -25,8 +25,6 @@ export function createDynamicRigidBody(
 		mesh.position.y,
 		mesh.position.z
 	)
-	// rigidBodyDesc.mass = 1
-	// rigidBodyDesc.centerOfMass = new Rapier.Vector3(0, 0, 0)
 
 	const rigidBody = physicWorld.createRigidBody(rigidBodyDesc)
 	const collider = createColliderBasedOnMeshGeometry(
