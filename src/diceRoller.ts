@@ -55,9 +55,11 @@ export default class DiceRoller {
 			document.body.appendChild(this.visualEngine.graphic.domElement)
 			this.startLoop()
 		} else {
-			document.getElementById("diceRoller")!.remove()
-			this.diceWorld.removeDices(this.selectedDices)
-			this.selectedDices.splice(0, this.selectedDices.length)
+			setTimeout(() => {
+				document.getElementById("diceRoller")!.remove()
+				this.diceWorld.removeDices(this.selectedDices)
+				this.selectedDices.splice(0, this.selectedDices.length)
+			}, 2000)
 		}
 	}
 
