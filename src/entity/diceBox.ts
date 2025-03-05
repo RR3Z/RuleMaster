@@ -7,9 +7,11 @@ export default class DiceBox {
 		type: string
 		rigidBody: Rapier.RigidBody
 		collider: Rapier.Collider
-	}[] = []
+	}[]
 
-	constructor() {}
+	constructor() {
+		this.wallsPhysic = []
+	}
 
 	public create(physicalWorld: Rapier.World, camera: Camera): void {
 		const { width, height } = getViewportSizes(camera)
