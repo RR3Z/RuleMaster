@@ -1,4 +1,4 @@
-import { Collider, RigidBody } from "@dimforge/rapier3d-compat"
+import * as RAPIER from "@dimforge/rapier3d-compat"
 import { Mesh, Object3D, Vector3 } from "three"
 
 export enum DiceType {
@@ -12,19 +12,17 @@ export enum DiceType {
 
 export default class Dice {
 	public visual: Object3D
-	public collider: Collider | undefined
-	public rigidBody: RigidBody | undefined
+	public collider!: RAPIER.Collider
+	public rigidBody!: RAPIER.RigidBody
 	public type: DiceType
-	private normals: Vector3[] = []
-	private diceValues: number[] = []
-
-	// private remove: ArrowHelper[] = []
+	private _normals: Vector3[] = []
+	private _diceValues: number[] = []
 
 	constructor(
 		visual: Object3D,
 		type: DiceType,
-		collider?: Collider,
-		rigidBody?: RigidBody
+		collider?: RAPIER.Collider,
+		rigidBody?: RAPIER.RigidBody
 	) {
 		this.visual = visual
 		this.type = type
@@ -33,21 +31,23 @@ export default class Dice {
 
 		this.defineValues()
 		this.computeNormals()
+
+		this.visual.scale.set(1.5, 1.5, 1.5)
 	}
 
-	public getDiceValue(): number | undefined {
-		console.log("Dice Value", this.diceValues[this.getTopFaceIndex()])
-		if (this.isStopped()) {
-			return this.diceValues[this.getTopFaceIndex()]
-		}
-		return undefined
+	public setVelocity(
+		angularVelocity: RAPIER.Vector3,
+		linearVelocity: RAPIER.Vector3
+	): void {
+		this.rigidBody.setAngvel(angularVelocity, true)
+		this.rigidBody.setLinvel(linearVelocity, true)
 	}
 
-	private isStopped(): boolean {
-		if (!this.rigidBody) {
-			return false
-		}
+	public value(): number {
+		return this._diceValues[this.topFaceIndex()]
+	}
 
+	public isStopped(): boolean {
 		// Linear speed
 		const linVel = this.rigidBody.linvel()
 		const linSpeed = Math.sqrt(
@@ -59,11 +59,11 @@ export default class Dice {
 			angVel.x * angVel.x + angVel.y * angVel.y + angVel.z * angVel.z
 		)
 
-		return linSpeed < 0.0001 && angSpeed < 0.0001
+		return linSpeed < 0.001 && angSpeed < 0.001
 	}
 
 	private computeNormals(): void {
-		this.normals.splice(0, this.normals.length)
+		this._normals.splice(0, this._normals.length)
 
 		const geometry = (this.visual as Mesh).geometry
 		geometry.computeVertexNormals()
@@ -72,18 +72,18 @@ export default class Dice {
 
 		if (this.type === DiceType.D4) {
 			const positions = position.array
-			const normals: Record<string, Vector3> = {}
+			const _normals: Record<string, Vector3> = {}
 
 			for (let i = 0; i < positions.length; i += 3) {
 				const key = `${positions[i]},${positions[i + 1]},${positions[i + 2]}`
-				if (!normals[key])
-					normals[key] = new Vector3(
+				if (!_normals[key])
+					_normals[key] = new Vector3(
 						positions[i],
 						positions[i + 1],
 						positions[i + 2]
 					)
 			}
-			this.normals = Object.values(normals)
+			this._normals = Object.values(_normals)
 		} else {
 			for (let i = 0; i < indices.length; i += 3) {
 				// Vertices
@@ -98,22 +98,22 @@ export default class Dice {
 				const normal = cross.normalize()
 
 				// Ignore triangles with the same face
-				const isDuplicate = this.normals.some(
+				const isDuplicate = this._normals.some(
 					existingNormal => normal.angleTo(existingNormal) < 0.01
 				)
-				if (!isDuplicate) this.normals.push(normal)
+				if (!isDuplicate) this._normals.push(normal)
 			}
 		}
 
-		console.log(this.normals)
+		console.log(this._normals)
 	}
 
-	private getTopFaceIndex(): number {
+	private topFaceIndex(): number {
 		let topFaceIndex: number = 0
 		let maxY: number = -Infinity
 
-		for (let i = 0; i < this.normals.length; i++) {
-			const worldNormal = this.normals[i].clone()
+		for (let i = 0; i < this._normals.length; i++) {
+			const worldNormal = this._normals[i].clone()
 			worldNormal.applyQuaternion(this.visual.quaternion)
 
 			if (worldNormal.y > maxY) {
@@ -128,22 +128,22 @@ export default class Dice {
 	private defineValues(): void {
 		switch (this.type) {
 			case DiceType.D4:
-				this.diceValues = [1, 4, 3, 2]
+				this._diceValues = [1, 4, 3, 2]
 				break
 			case DiceType.D6:
-				this.diceValues = [4, 1, 3, 6, 5, 2]
+				this._diceValues = [4, 1, 3, 6, 5, 2]
 				break
 			case DiceType.D8:
-				this.diceValues = [7, 1, 4, 6, 5, 3, 2, 8]
+				this._diceValues = [7, 1, 4, 6, 5, 3, 2, 8]
 				break
 			case DiceType.D10:
-				this.diceValues = [9, 5, 3, 7, 1, 8, 2, 6, 4, 10]
+				this._diceValues = [9, 5, 3, 7, 1, 8, 2, 6, 4, 10]
 				break
 			case DiceType.D12:
-				this.diceValues = [8, 2, 7, 4, 10, 12, 3, 9, 1, 6, 11, 5]
+				this._diceValues = [8, 2, 7, 4, 10, 12, 3, 9, 1, 6, 11, 5]
 				break
 			case DiceType.D20:
-				this.diceValues = [
+				this._diceValues = [
 					14, 11, 16, 19, 2, 5, 10, 7, 4, 18, 3, 17, 6, 9, 12, 15, 20, 8, 13, 1,
 				]
 				break
@@ -152,48 +152,4 @@ export default class Dice {
 				break
 		}
 	}
-
-	// TODO: remove it in the end
-	// private removeArrows(): void {
-	// 	if (this.remove.length > 0) {
-	// 		this.remove.forEach(arrow => {
-	// 			scene.remove(arrow)
-	// 		})
-	// 	}
-	// }
-
-	// TODO: remove it in the end
-	// private removeIt(): void {
-	// 	this.removeArrows()
-
-	// 	let arrow = new ArrowHelper(
-	// 		new Vector3(0, 1, 0),
-	// 		this.visual.position,
-	// 		20,
-	// 		0x000000
-	// 	)
-	// 	scene.add(arrow)
-	// 	this.remove.push(arrow)
-
-	// 	const colors = [
-	// 		0xff5733, // Красный-оранжевый - 4
-	// 		0x33ff57, // Зеленый - 1
-	// 		0x3357ff, // Синий - 3
-	// 		0xff33a8, // Розовый - 6
-	// 		0xffc733, // Желто-оранжевый - 5
-	// 		0x8d33ff, // Фиолетовый - 2
-	// 	]
-
-	// 	for (let i = 0; i < this.normals.length; i++) {
-	// 		const arrow = new ArrowHelper(
-	// 			this.normals[i],
-	// 			this.visual.position,
-	// 			15,
-	// 			colors[i]
-	// 		)
-	// 		arrow.applyQuaternion(this.visual.quaternion)
-	// 		this.remove.push(arrow)
-	// 		scene.add(arrow)
-	// 	}
-	// }
 }
