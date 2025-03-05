@@ -104,8 +104,6 @@ export default class Dice {
 				if (!isDuplicate) this._normals.push(normal)
 			}
 		}
-
-		console.log(this._normals)
 	}
 
 	private topFaceIndex(): number {

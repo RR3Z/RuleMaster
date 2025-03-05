@@ -34,8 +34,6 @@ export default class World extends Object3D {
 				this.dices.push(dice)
 			}
 		})
-
-		console.log("World -> Add Dices", this.dices) // TODO: remove it in the end
 	}
 
 	public removeDices(dices: Dice[]): void {
@@ -52,8 +50,6 @@ export default class World extends Object3D {
 			// Remove Dice
 			this.dices.splice(this.dices.indexOf(dice), 1)
 		})
-
-		console.log("World -> Remove Dices: ", this.dices) // TODO: remove it in the end
 	}
 
 	private addPhysic(dice: Dice): void {
