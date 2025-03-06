@@ -1,4 +1,6 @@
+import RAPIER from "@dimforge/rapier3d-compat"
 import { Object3D } from "three"
+import AudioManager from "./audio/audioManager.ts"
 import PhysicEngine from "./engine/physic/physicEngine.ts"
 import DiceLoader from "./engine/visual/diceLoader.ts"
 import VisualEngine from "./engine/visual/visualEngine.ts"
@@ -17,6 +19,8 @@ export default class DiceRoller {
 	private diceBox: DiceBox
 	public dicesVisual: Record<string, Object3D>
 	private selectedDices: Dice[]
+	// Audio
+	private audioManager: AudioManager
 
 	constructor() {
 		// Dice Roller Settings
@@ -33,6 +37,8 @@ export default class DiceRoller {
 			this.physicEngine.physicalWorld,
 			this.visualEngine.camera
 		)
+		// Audio
+		this.audioManager = new AudioManager()
 	}
 
 	public async loadDices(pathToFile: string): Promise<void> {
@@ -84,9 +90,15 @@ export default class DiceRoller {
 	}
 
 	private loop(): void {
+		const eventQueue = new RAPIER.EventQueue(true)
+
 		this.visualEngine.graphic.onUpdate(() => {
-			this.physicEngine.physicalWorld.step()
+			this.physicEngine.physicalWorld.step(eventQueue)
 			this.diceWorld.update()
+
+			eventQueue.drainCollisionEvents(() => {
+				this.audioManager.playCollisionSound()
+			})
 
 			if (this.areDicesStopped()) {
 				console.log("Dices Results: ", this.result())
