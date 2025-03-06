@@ -43,6 +43,13 @@ function createColliderBasedOnMeshGeometry(
 	const geometry = mesh.geometry
 	const vertices = new Float32Array(geometry.attributes.position.array)
 
+	const scale = mesh.scale
+	for (let i = 0; i < vertices.length; i += 3) {
+		vertices[i] *= scale.x
+		vertices[i + 1] *= scale.y
+		vertices[i + 2] *= scale.z
+	}
+
 	const colliderDesc = Rapier.ColliderDesc.convexHull(vertices)
 	return physicWorld.createCollider(colliderDesc!, rigidBody)
 }
