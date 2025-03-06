@@ -1,10 +1,8 @@
 export default class AudioManager {
-	private dicesCollisionSound: string = "/public/audio/dice-hit.mp3"
-
 	constructor() {}
 
-	public playCollisionSound(): void {
-		const sound = new Audio(this.dicesCollisionSound)
+	public playSound(audioFile: string = "/public/audio/dice-hit.mp3"): void {
+		const sound = new Audio(audioFile)
 		sound.play()
 	}
 }

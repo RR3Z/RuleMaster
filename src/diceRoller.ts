@@ -97,7 +97,7 @@ export default class DiceRoller {
 			this.diceWorld.update()
 
 			eventQueue.drainCollisionEvents(() => {
-				this.audioManager.playCollisionSound()
+				this.audioManager.playSound()
 			})
 
 			if (this.areDicesStopped()) {
