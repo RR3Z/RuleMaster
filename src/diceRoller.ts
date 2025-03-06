@@ -16,7 +16,7 @@ export default class DiceRoller {
 	// Dices
 	private diceBox: DiceBox
 	public dicesVisual: Record<string, Object3D>
-	public selectedDices: Dice[]
+	private selectedDices: Dice[]
 
 	constructor() {
 		// Dice Roller Settings
@@ -38,6 +38,11 @@ export default class DiceRoller {
 	public async loadDices(pathToFile: string): Promise<void> {
 		const loader = new DiceLoader()
 		this.dicesVisual = await loader.load(pathToFile)
+	}
+
+	public addDice(dice: Dice): void {
+		if (this.selectedDices.includes(dice)) return
+		this.selectedDices.push(dice)
 	}
 
 	public switchState(): void {

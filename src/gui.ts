@@ -8,32 +8,32 @@ export default class Interface extends GUI {
 
 	private guiElements = {
 		addD4: () => {
-			this.diceRoller.selectedDices.push(
+			this.diceRoller.addDice(
 				new Dice(this.diceRoller.dicesVisual["D4"].clone(), DiceType.D4)
 			)
 		},
 		addD6: () => {
-			this.diceRoller.selectedDices.push(
+			this.diceRoller.addDice(
 				new Dice(this.diceRoller.dicesVisual["D6"].clone(), DiceType.D6)
 			)
 		},
 		addD8: () => {
-			this.diceRoller.selectedDices.push(
+			this.diceRoller.addDice(
 				new Dice(this.diceRoller.dicesVisual["D8"].clone(), DiceType.D8)
 			)
 		},
 		addD10: () => {
-			this.diceRoller.selectedDices.push(
+			this.diceRoller.addDice(
 				new Dice(this.diceRoller.dicesVisual["D10"].clone(), DiceType.D10)
 			)
 		},
 		addD12: () => {
-			this.diceRoller.selectedDices.push(
+			this.diceRoller.addDice(
 				new Dice(this.diceRoller.dicesVisual["D12"].clone(), DiceType.D12)
 			)
 		},
 		addD20: () => {
-			this.diceRoller.selectedDices.push(
+			this.diceRoller.addDice(
 				new Dice(this.diceRoller.dicesVisual["D20"].clone(), DiceType.D20)
 			)
 		},
