@@ -50,6 +50,8 @@ function createColliderBasedOnMeshGeometry(
 		vertices[i + 2] *= scale.z
 	}
 
-	const colliderDesc = Rapier.ColliderDesc.convexHull(vertices)
+	const colliderDesc = Rapier.ColliderDesc.convexHull(
+		vertices
+	)!.setActiveEvents(Rapier.ActiveEvents.COLLISION_EVENTS)
 	return physicWorld.createCollider(colliderDesc!, rigidBody)
 }
