@@ -43,7 +43,7 @@ export default class DiceRoller {
 
 	public async loadDices(pathToFile: string): Promise<void> {
 		const loader = new DiceLoader()
-		this.dicesVisual = await loader.load(pathToFile)
+		this.dicesVisual = await loader.loadModels(pathToFile)
 	}
 
 	public addDice(dice: Dice): void {

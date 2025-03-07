@@ -6,7 +6,7 @@ export default class DiceLoader extends GLTFLoader {
 		super()
 	}
 
-	public async load(filePath: string): Promise<Record<string, Object3D>> {
+	public async loadModels(filePath: string): Promise<Record<string, Object3D>> {
 		const dices: Record<string, Object3D> = {}
 
 		const gltf = await this.loadAsync(filePath)
