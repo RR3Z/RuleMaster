@@ -53,12 +53,12 @@ export default class DiceRoller {
 
 	public switchState(): void {
 		if (this.selectedDices.length === 0) {
-			console.error("Dice Roller -> Не выбрано дайсов для броска")
+			console.error("Dice Roller -> No Selected Dices")
 			return
 		}
 		if (this.isEnabled && !this.areDicesStopped()) {
 			console.error(
-				"Dice Roller -> Попытка изменить состояние при осуществлении броска"
+				"Dice Roller -> Attempt to change the state when it is in the roll"
 			)
 			return
 		}
