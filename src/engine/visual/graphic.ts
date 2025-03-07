@@ -20,7 +20,7 @@ export default class Graphic extends WebGLRenderer {
 
 		// WebGLRenderer Settings
 		this.shadowMap.enabled = true
-		this.setClearColor(0x000000, 0.5)
+		this.setClearColor(0x000000, 0.25)
 		this.setSize(window.innerWidth, window.innerHeight)
 		this.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
