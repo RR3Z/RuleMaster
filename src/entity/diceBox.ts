@@ -65,6 +65,7 @@ export default class DiceBox {
 				wallConfig.size[2]
 			)
 			const collider = physicalWorld.createCollider(colliderDesc, rigidBody)
+			collider.setFriction(0.8)
 
 			this.wallsPhysic.push({
 				type: wallConfig.type,
