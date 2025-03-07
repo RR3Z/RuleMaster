@@ -10,6 +10,13 @@ export enum DiceType {
 	D20,
 }
 
+export enum StartPosition {
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+}
+
 export default class Dice {
 	public visual: Object3D
 	public collider!: RAPIER.Collider
@@ -35,12 +42,10 @@ export default class Dice {
 		this.visual.scale.set(2, 2, 2)
 	}
 
-	public setVelocity(
-		angularVelocity: RAPIER.Vector3,
-		linearVelocity: RAPIER.Vector3
-	): void {
-		this.rigidBody.setAngvel(angularVelocity, true)
-		this.rigidBody.setLinvel(linearVelocity, true)
+	public init() {
+		this.setRandomStartPosition()
+		this.setRandomAngularVelocity()
+		this.setMoveDirectionToCenter()
 	}
 
 	public value(): number {
@@ -60,6 +65,76 @@ export default class Dice {
 		)
 
 		return linSpeed < 0.001 && angSpeed < 0.001
+	}
+
+	private setRandomAngularVelocity(): void {
+		const angularVelocity = new Vector3(
+			Math.random() * 5 + 3,
+			Math.random() * 5 + 3,
+			Math.random() * 5 + 3
+		)
+		this.rigidBody.setAngvel(angularVelocity, true)
+	}
+
+	private setMoveDirectionToCenter(): void {
+		const forceMagnitude = 10
+
+		const centerPosition = new Vector3(0, 0, 0)
+		const dicePosition = this.rigidBody.translation()
+		const direction = new Vector3(
+			centerPosition.x - dicePosition.x,
+			centerPosition.y - dicePosition.y,
+			centerPosition.z - dicePosition.z
+		)
+
+		this.rigidBody.applyImpulse(
+			{
+				x: direction.x * forceMagnitude,
+				y: direction.y * forceMagnitude,
+				z: direction.z * forceMagnitude,
+			},
+			true
+		)
+	}
+
+	private setRandomStartPosition(): void {
+		const values: StartPosition[] = Object.values(StartPosition).filter(
+			v => typeof v === "number"
+		)
+		let startPos: StartPosition =
+			values[Math.floor(Math.random() * values.length)]
+
+		switch (startPos) {
+			case StartPosition.UP:
+				this.rigidBody.setTranslation(
+					new Vector3(Math.random() * 25 - 25, 25, -15),
+					true
+				)
+				break
+			case StartPosition.DOWN:
+				this.rigidBody.setTranslation(
+					new Vector3(Math.random() * 25 - 25, 25, 15),
+					true
+				)
+				break
+			case StartPosition.RIGHT:
+				this.rigidBody.setTranslation(
+					new Vector3(25, 25, Math.random() * 15 - 15),
+					true
+				)
+				break
+			case StartPosition.LEFT:
+				this.rigidBody.setTranslation(
+					new Vector3(-25, 25, Math.random() * 15 - 15),
+					true
+				)
+				break
+			default:
+				console.error(
+					"Dice -> init() -> setRandomStartPosition() -> Unknown Start Position"
+				)
+				break
+		}
 	}
 
 	private computeNormals(): void {

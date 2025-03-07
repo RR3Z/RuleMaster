@@ -1,4 +1,4 @@
-import { default as Rapier, default as RAPIER } from "@dimforge/rapier3d-compat"
+import { default as Rapier } from "@dimforge/rapier3d-compat"
 import { Mesh, Object3D } from "three"
 import { createDynamicRigidBody } from "../engine/physic/physicUtils.ts"
 import Dice from "./dice.ts"
@@ -29,6 +29,7 @@ export default class World extends Object3D {
 		dices.forEach(dice => {
 			this.addVisual(dice)
 			this.addPhysic(dice)
+			dice.init()
 
 			if (!this.dices.includes(dice)) {
 				this.dices.push(dice)
@@ -41,8 +42,8 @@ export default class World extends Object3D {
 
 		dicesToRemove.forEach(dice => {
 			// Remove Physic
-			this.physicalWorld.removeCollider(dice.collider!, true)
-			this.physicalWorld.removeRigidBody(dice.rigidBody!)
+			this.physicalWorld.removeCollider(dice.collider, false)
+			this.physicalWorld.removeRigidBody(dice.rigidBody)
 
 			// Remove Visual
 			this.remove(dice.visual)
@@ -60,19 +61,9 @@ export default class World extends Object3D {
 
 		dice.rigidBody = physicObjects.rigidBody
 		dice.collider = physicObjects.collider
-
-		dice.setVelocity(
-			new Rapier.Vector3(
-				Math.random() * 20 + 1,
-				Math.random() * 20 + 1,
-				Math.random() * 20 + 1
-			),
-			new RAPIER.Vector3(0, 0, 0)
-		)
 	}
 
 	private addVisual(dice: Dice): void {
-		dice.visual.position.set(0, 25, 0)
 		dice.visual.receiveShadow = true
 		dice.visual.castShadow = true
 
