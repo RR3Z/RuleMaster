@@ -25,6 +25,8 @@ export default class Graphic extends WebGLRenderer {
 		this.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 		this.callbackLoop = this.startLoop.bind(this)
+
+		this.addWindowResizeListener()
 	}
 
 	public onUpdate(callback: () => void): void {
@@ -38,5 +40,15 @@ export default class Graphic extends WebGLRenderer {
 			this.render(this._scene!, this._camera!)
 			requestAnimationFrame(this.callbackLoop!)
 		}
+	}
+
+	private addWindowResizeListener(): void {
+		window.addEventListener("resize", () => {
+			this._camera.aspect = window.innerWidth / window.innerHeight
+			this._camera.updateProjectionMatrix()
+
+			this.setSize(window.innerWidth, window.innerHeight)
+			this.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+		})
 	}
 }
