@@ -32,7 +32,7 @@ export default class Dice {
 		this.defineValues()
 		this.computeNormals()
 
-		this.visual.scale.set(1.5, 1.5, 1.5)
+		this.visual.scale.set(2, 2, 2)
 	}
 
 	public setVelocity(
