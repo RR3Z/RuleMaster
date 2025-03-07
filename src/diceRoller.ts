@@ -47,7 +47,7 @@ export default class DiceRoller {
 	}
 
 	public addDice(dice: Dice): void {
-		if (this.selectedDices.includes(dice)) return
+		if (this.isEnabled || this.selectedDices.includes(dice)) return
 		this.selectedDices.push(dice)
 	}
 
