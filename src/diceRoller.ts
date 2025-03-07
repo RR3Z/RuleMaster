@@ -53,7 +53,13 @@ export default class DiceRoller {
 
 	public switchState(): void {
 		if (this.selectedDices.length === 0) {
-			alert("Dice Roller -> Не выбрано дайсов для броска")
+			console.error("Dice Roller -> Не выбрано дайсов для броска")
+			return
+		}
+		if (this.isEnabled && !this.areDicesStopped()) {
+			console.error(
+				"Dice Roller -> Попытка изменить состояние при осуществлении броска"
+			)
 			return
 		}
 
@@ -66,10 +72,10 @@ export default class DiceRoller {
 			document.body.appendChild(this.visualEngine.graphic.domElement)
 			this.startLoop()
 		} else {
+			this.selectedDices.splice(0, this.selectedDices.length)
 			setTimeout(() => {
 				document.getElementById("diceRoller")!.remove()
 				this.diceWorld.removeDices(this.selectedDices)
-				this.selectedDices.splice(0, this.selectedDices.length)
 			}, 2000)
 		}
 	}
