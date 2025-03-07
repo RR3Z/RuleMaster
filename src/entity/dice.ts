@@ -77,7 +77,8 @@ export default class Dice {
 	}
 
 	private setMoveDirectionToCenter(): void {
-		const forceMagnitude = 10
+		let forceMagnitude = 10
+		if (this.type === DiceType.D4) forceMagnitude = 5
 
 		const centerPosition = new Vector3(0, 0, 0)
 		const dicePosition = this.rigidBody.translation()
