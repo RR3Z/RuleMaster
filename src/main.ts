@@ -1,5 +1,5 @@
-import DiceRoller from "./diceRoller.ts"
-import Interface from "./gui.ts"
+import DiceRoller from "./DiceRoller/diceRoller.ts"
+import Interface from "./DiceRoller/gui.ts"
 
 export const diceRoller = new DiceRoller()
 await diceRoller.loadDices("models/dices/dices.gltf")
