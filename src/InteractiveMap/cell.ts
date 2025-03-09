@@ -11,7 +11,7 @@ export default class Cell extends Container {
 		this._x = x
 		this._y = y
 
-		this.draw()
+		this.init()
 	}
 
 	public get x(): number {
@@ -26,7 +26,7 @@ export default class Cell extends Container {
 		return { x: this._x, y: this._y }
 	}
 
-	private draw() {
+	private init() {
 		const cellVisual = new Graphics()
 			.rect(
 				this.x * config.grid.cellSize,
