@@ -4,12 +4,14 @@ import config from "./config"
 export default class Cell extends Container {
 	private _x: number
 	private _y: number
+	private _isAvailable: boolean
 
 	constructor(x: number, y: number) {
 		super()
 
 		this._x = x
 		this._y = y
+		this._isAvailable = true
 
 		this.init()
 	}
@@ -46,6 +48,8 @@ export default class Cell extends Container {
 	}
 
 	private onClick() {
-		console.log(this.x, this.y)
+		if (this._isAvailable) {
+			console.log(this.x, this.y)
+		}
 	}
 }
