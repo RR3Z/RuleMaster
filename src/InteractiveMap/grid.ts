@@ -34,6 +34,10 @@ export default class Grid extends Container {
 		return this._gridHeight
 	}
 
+	public cellByCoordinates(x: number, y: number): Cell | undefined {
+		return this._cells.find(cell => cell.x === x && cell.y === y)
+	}
+
 	private init() {
 		for (let x = 0; x < this.width; x++) {
 			for (let y = 0; y < this.height; y++) {
