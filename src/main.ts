@@ -1,6 +1,6 @@
 import DiceRoller from './DiceRoller/diceRoller.ts'
 import Interface from './DiceRoller/gui.ts'
-import InteractiveMap from './InteractiveMap/interactiveMap.ts'
+import InteractiveMap from './InteractiveMap/InteractiveMap.ts'
 
 // Dice Roller
 export const diceRoller = new DiceRoller() // TODO: remove "export" in the end (used it in GUI)
