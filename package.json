@@ -1,5 +1,5 @@
 {
-	"name": "diceroller",
+	"name": "rulemaster",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -16,6 +16,7 @@
 	},
 	"dependencies": {
 		"@dimforge/rapier3d-compat": "^0.14.0",
+		"pixi-viewport": "^6.0.3",
 		"pixi.js": "^8.8.1",
 		"three": "^0.173.0"
 	}
