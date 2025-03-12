@@ -1,76 +1,72 @@
-import { Container, Graphics } from 'pixi.js'
+import { Viewport } from 'pixi-viewport'
+import { Renderer } from 'pixi.js'
 
-export default class Camera {
-	private isMoving: boolean
-	private lastPosition: { x: number; y: number }
-	// Settings
-	public scaleFactor: number = 1.1
-	public maxPosOffset: number = 500
+export default class Camera extends Viewport {
+	constructor(
+		renderer: Renderer,
+		screenSizes: { width: number; height: number }
+	) {
+		super({
+			screenHeight: screenSizes.height,
+			screenWidth: screenSizes.width,
+			worldWidth: screenSizes.height,
+			worldHeight: screenSizes.width,
+			events: renderer.events,
+			disableOnContextMenu: true,
+		})
 
-	constructor(mainScene: Container, canvas: HTMLCanvasElement) {
-		this.isMoving = false
-		this.lastPosition = { x: 0, y: 0 }
+		// PLugins
+		this.enablePlugins()
 
-		this.init(mainScene, canvas)
+		// Events
+		window.addEventListener('resize', this.onResize)
+		// this.on('zoomed', () => this.updateClamp())
+		// this.on('moved', () => this.updateClamp())
 	}
 
-	private init(mainScene: Container, canvas: HTMLCanvasElement): void {
-		const cameraBackground = new Graphics()
-			.rect(
-				-this.maxPosOffset,
-				-this.maxPosOffset,
-				canvas.width + this.maxPosOffset * 2,
-				canvas.height + this.maxPosOffset * 2
-			)
-			.fill(0xffffff)
-		cameraBackground.alpha = 0.2
-		mainScene.addChild(cameraBackground)
+	public updateSettings(): void {
+		this.updateWorldSizes()
+		this.updateClamp()
+		this.moveCenter(this.worldWidth / 2, this.worldHeight / 2)
 
-		mainScene.eventMode = 'static'
-
-		this.initMoveEvents(mainScene, canvas)
-		this.initZoomEvents(mainScene, canvas)
+		console.log('Bounds', this.getBounds(true))
+		console.log('Screen size:', this.screenWidth, this.screenHeight)
+		console.log('World size:', this.worldWidth, this.worldHeight)
+		console.log('Scale', this.scale)
+		console.log('Clamp Options', this.plugins.get('clamp')?.options)
 	}
 
-	private initMoveEvents(
-		mainScene: Container,
-		canvas: HTMLCanvasElement
-	): void {
-		mainScene.on('pointerdown', event => {
-			this.isMoving = true
-			this.lastPosition = { x: event.globalX, y: event.globalY }
-		})
-
-		mainScene.on('pointermove', event => {
-			if (this.isMoving) {
-				const newPosition = event.global
-				mainScene.position.x += newPosition.x - this.lastPosition.x
-				mainScene.position.y += newPosition.y - this.lastPosition.y
-				this.lastPosition = { x: newPosition.x, y: newPosition.y }
-			}
-		})
-
-		mainScene.on('pointerup', () => {
-			this.isMoving = false
-		})
-
-		mainScene.on('pointerupoutside', () => {
-			this.isMoving = false
+	private enablePlugins(): void {
+		this.wheel()
+		this.drag({ mouseButtons: 'right' })
+		this.clamp({
+			left: -this.screenWidth / 2,
+			right: this.screenWidth / 2,
+			top: -this.screenHeight / 2,
+			bottom: this.screenHeight / 2,
+			direction: 'all',
 		})
 	}
 
-	private initZoomEvents(
-		mainScene: Container,
-		canvas: HTMLCanvasElement
-	): void {
-		canvas.addEventListener('wheel', event => {
-			if (event.deltaY < 0) {
-				mainScene.scale.x *= this.scaleFactor
-				mainScene.scale.y *= this.scaleFactor
-			} else {
-				mainScene.scale.x /= this.scaleFactor
-				mainScene.scale.y /= this.scaleFactor
-			}
-		})
+	private updateWorldSizes(): void {
+		const bounds = this.getBounds(true)
+		this.worldHeight = bounds.maxY - bounds.minY
+		this.worldWidth = bounds.maxX - bounds.minX
+	}
+
+	private updateClamp(): void {
+		const clampPlugin = this.plugins.get('clamp')!
+		const bounds = this.getBounds(true)
+
+		clampPlugin.options.left = bounds.minX
+		clampPlugin.options.right = bounds.maxX
+		clampPlugin.options.top = bounds.minY
+		clampPlugin.options.bottom = bounds.maxY
+
+		clampPlugin.reset()
+	}
+
+	private onResize(): void {
+		this.resize(window.innerWidth, window.innerHeight)
 	}
 }
