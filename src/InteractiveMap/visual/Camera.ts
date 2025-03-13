@@ -17,20 +17,12 @@ export default class Camera extends Viewport {
 
 		// Events
 		window.addEventListener('resize', this.onResize)
-		// this.on('zoomed', () => this.updateClamp())
-		// this.on('moved', () => this.updateClamp())
 	}
 
 	public updateSettings(): void {
 		this.updateWorldSizes()
 		this.updateClamp()
 		this.moveCenter(this.worldWidth / 2, this.worldHeight / 2)
-
-		console.log('Bounds', this.getBounds(true))
-		console.log('Screen size:', this.screenWidth, this.screenHeight)
-		console.log('World size:', this.worldWidth, this.worldHeight)
-		console.log('Scale', this.scale)
-		console.log('Clamp Options', this.plugins.get('clamp')?.options)
 	}
 
 	private enablePlugins(): void {
