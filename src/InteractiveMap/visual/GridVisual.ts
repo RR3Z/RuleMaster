@@ -7,6 +7,7 @@ import CellVisual from './Cell/CellVisual.ts'
 export default class GridVisual extends Container {
 	public isBoundariesEnabled: boolean
 	private cellsVisual: CellVisual[]
+	private cellColor: number = 0x333333
 
 	constructor(grid: Grid, isBoundariesEnabled: boolean = true) {
 		super()
@@ -37,7 +38,7 @@ export default class GridVisual extends Container {
 			const line = new Graphics()
 				.moveTo(i * config.grid.cellSize, 0)
 				.lineTo(i * config.grid.cellSize, config.grid.cellSize * height)
-				.stroke({ color: 0xffffff, pixelLine: true })
+				.stroke({ color: this.cellColor, pixelLine: true })
 			this.addChild(line)
 		}
 
@@ -50,7 +51,7 @@ export default class GridVisual extends Container {
 			const line = new Graphics()
 				.moveTo(0, i * config.grid.cellSize)
 				.lineTo(config.grid.cellSize * width, i * config.grid.cellSize)
-				.stroke({ color: 0xffffff, pixelLine: true })
+				.stroke({ color: this.cellColor, pixelLine: true })
 			this.addChild(line)
 		}
 	}
