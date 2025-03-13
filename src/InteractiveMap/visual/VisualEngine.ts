@@ -18,16 +18,14 @@ export default class VisualEngine extends Application {
 		this.canvas.id = 'interactiveMap'
 
 		// Objects Initialization
-		this._camera = new Camera(this.renderer, {
-			width: window.innerWidth,
-			height: window.innerHeight,
-		})
+		this._camera = new Camera(this.renderer)
 		this._scene = new Container()
 
 		// Scene Setup
 		this.stage.addChild(this._camera)
 		this._camera.addChild(this._scene) // Make objects move with camera
 		this._scene.addChild(new GridVisual(grid))
+
 		this._camera.updateSettings()
 
 		// Start Update Loop

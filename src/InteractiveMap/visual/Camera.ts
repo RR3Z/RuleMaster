@@ -2,15 +2,12 @@ import { Viewport } from 'pixi-viewport'
 import { Renderer } from 'pixi.js'
 
 export default class Camera extends Viewport {
-	constructor(
-		renderer: Renderer,
-		screenSizes: { width: number; height: number }
-	) {
+	constructor(renderer: Renderer) {
 		super({
-			screenHeight: screenSizes.height,
-			screenWidth: screenSizes.width,
-			worldWidth: screenSizes.height,
-			worldHeight: screenSizes.width,
+			screenHeight: window.innerHeight,
+			screenWidth: window.innerWidth,
+			worldWidth: window.innerHeight,
+			worldHeight: window.innerWidth,
 			events: renderer.events,
 			disableOnContextMenu: true,
 		})
