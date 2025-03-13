@@ -1,6 +1,6 @@
 import { FederatedPointerEvent, Graphics } from 'pixi.js'
 import config from '../config.ts'
-import Cell from '../logic/Cell.ts'
+import Cell from '../logic/Cell/Cell.ts'
 
 export default class CellVisual extends Graphics {
 	private _cell: Cell

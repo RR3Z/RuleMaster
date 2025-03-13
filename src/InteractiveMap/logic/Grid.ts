@@ -1,4 +1,4 @@
-import Cell from './Cell.ts'
+import Cell from './Cell/Cell.ts'
 
 export default class Grid {
 	private _width: number

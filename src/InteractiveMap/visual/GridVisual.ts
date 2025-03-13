@@ -1,6 +1,6 @@
 import { Container, Graphics } from 'pixi.js'
 import config from '../config.ts'
-import Cell from '../logic/Cell.ts'
+import Cell from '../logic/Cell/Cell.ts'
 import Grid from '../logic/Grid.ts'
 import CellVisual from './CellVisual.ts'
 
