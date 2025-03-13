@@ -2,7 +2,7 @@ import { Container, Graphics } from 'pixi.js'
 import config from '../config.ts'
 import Cell from '../logic/Cell/Cell.ts'
 import Grid from '../logic/Grid.ts'
-import CellVisual from './CellVisual.ts'
+import CellVisual from './Cell/CellVisual.ts'
 
 export default class GridVisual extends Container {
 	public isBoundariesEnabled: boolean
