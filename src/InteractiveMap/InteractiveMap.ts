@@ -16,7 +16,7 @@ export default class InteractiveMap {
 	}
 
 	public async init(): Promise<void> {
-		await this.visualEngine.initialize(this._grid)
+		await this.visualEngine.init(this._grid)
 
 		document.body.appendChild(this.visualEngine.canvas)
 
