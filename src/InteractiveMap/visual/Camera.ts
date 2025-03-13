@@ -16,7 +16,7 @@ export default class Camera extends Viewport {
 		this.enablePlugins()
 
 		// Events
-		window.addEventListener('resize', this.onResize)
+		window.addEventListener('resize', this.onResize.bind(this))
 	}
 
 	public updateSettings(): void {
@@ -56,6 +56,13 @@ export default class Camera extends Viewport {
 	}
 
 	private onResize(): void {
-		this.resize(window.innerWidth, window.innerHeight)
+		this.resize(
+			window.innerWidth,
+			window.innerHeight,
+			this.worldWidth,
+			this.worldHeight
+		)
+
+		this.moveCenter(this.worldWidth / 2, this.worldHeight / 2)
 	}
 }
