@@ -8,7 +8,7 @@ export default class InteractiveMap {
 	constructor() {
 		this._visualEngine = new VisualEngine()
 
-		this._grid = new Grid(7, 7) // TODO: TEMP SOLUTION
+		this._grid = new Grid(50, 30) // TODO: TEMP SOLUTION
 	}
 
 	public get visualEngine() {
