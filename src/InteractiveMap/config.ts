@@ -1,5 +1,7 @@
 const config = {
 	grid: {
+		width: 50,
+		height: 30,
 		cellSize: 60,
 	},
 }
