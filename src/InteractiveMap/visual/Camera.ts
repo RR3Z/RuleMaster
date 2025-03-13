@@ -2,6 +2,10 @@ import { Viewport } from 'pixi-viewport'
 import { Renderer } from 'pixi.js'
 
 export default class Camera extends Viewport {
+	// Zoom Settings
+	public zoomMinScale: number = 0.5
+	public zoomMaxScale: number = 1
+
 	constructor(renderer: Renderer) {
 		super({
 			screenHeight: window.innerHeight,
@@ -34,6 +38,10 @@ export default class Camera extends Viewport {
 			top: -this.screenHeight / 2,
 			bottom: this.screenHeight / 2,
 			direction: 'all',
+		})
+		this.clampZoom({
+			minScale: this.zoomMinScale,
+			maxScale: this.zoomMaxScale,
 		})
 	}
 
