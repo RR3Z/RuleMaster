@@ -1,6 +1,7 @@
 import { Application, Container } from 'pixi.js'
 import Grid from '../logic/Grid.ts'
 import Camera from './Camera.ts'
+import Token from './Cell/Content/Token.ts'
 import GridVisual from './GridVisual.ts'
 
 export default class VisualEngine extends Application {
@@ -25,6 +26,7 @@ export default class VisualEngine extends Application {
 		this.stage.addChild(this._camera)
 		this._camera.addChild(this._scene) // Make objects move with camera
 		this._scene.addChild(new GridVisual(grid))
+		this._scene.addChild(new Token(this._camera, 25, 15))
 
 		this._camera.updateSettings()
 
