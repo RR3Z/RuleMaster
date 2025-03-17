@@ -18,8 +18,4 @@ export default class Cell {
 	public get y(): number {
 		return this._y
 	}
-
-	public get coordinates(): Coordinates {
-		return { x: this._x, y: this._y }
-	}
 }
