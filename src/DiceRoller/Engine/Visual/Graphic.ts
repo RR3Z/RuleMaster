@@ -1,5 +1,5 @@
-import { Scene, WebGLRenderer } from "three"
-import Camera from "./camera.ts"
+import { Scene, WebGLRenderer } from 'three'
+import Camera from './Camera.ts'
 
 export default class Graphic extends WebGLRenderer {
 	public shouldUpdate: boolean
@@ -12,7 +12,7 @@ export default class Graphic extends WebGLRenderer {
 		super({ alpha: true })
 
 		// Canvas Name
-		this.domElement.id = "diceRoller"
+		this.domElement.id = 'diceRoller'
 
 		this._scene = scene
 		this._camera = camera
@@ -43,7 +43,7 @@ export default class Graphic extends WebGLRenderer {
 	}
 
 	private addWindowResizeListener(): void {
-		window.addEventListener("resize", () => {
+		window.addEventListener('resize', () => {
 			this._camera.aspect = window.innerWidth / window.innerHeight
 			this._camera.updateProjectionMatrix()
 

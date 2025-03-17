@@ -1,12 +1,12 @@
-import RAPIER from "@dimforge/rapier3d-compat"
-import { Object3D } from "three"
-import AudioManager from "./audio/audioManager.ts"
-import PhysicEngine from "./engine/physic/physicEngine.ts"
-import DiceLoader from "./engine/visual/diceLoader.ts"
-import VisualEngine from "./engine/visual/visualEngine.ts"
-import Dice from "./entity/dice.ts"
-import DiceBox from "./entity/diceBox.ts"
-import World from "./entity/world.ts"
+import RAPIER from '@dimforge/rapier3d-compat'
+import { Object3D } from 'three'
+import AudioManager from './Audio/AudioManager.ts'
+import PhysicEngine from './Engine/Physic/PhysicEngine.ts'
+import DiceLoader from './Engine/Visual/DiceLoader.ts'
+import VisualEngine from './Engine/Visual/VisualEngine.ts'
+import Dice from './Entities/Dice.ts'
+import DiceBox from './Entities/DiceBox.ts'
+import World from './Entities/World.ts'
 
 export default class DiceRoller {
 	// Dice Roller Settings
@@ -53,12 +53,12 @@ export default class DiceRoller {
 
 	public switchState(): void {
 		if (this.selectedDices.length === 0) {
-			console.error("Dice Roller -> No Selected Dices")
+			console.error('Dice Roller -> No Selected Dices')
 			return
 		}
 		if (this.isEnabled && !this.areDicesStopped()) {
 			console.error(
-				"Dice Roller -> Attempt to change the state when it is in the roll"
+				'Dice Roller -> Attempt to change the state when it is in the roll'
 			)
 			return
 		}
@@ -74,7 +74,7 @@ export default class DiceRoller {
 		} else {
 			this.selectedDices.splice(0, this.selectedDices.length)
 			setTimeout(() => {
-				document.getElementById("diceRoller")!.remove()
+				document.getElementById('diceRoller')!.remove()
 				this.diceWorld.removeDices(this.selectedDices)
 			}, 2000)
 		}
@@ -107,7 +107,7 @@ export default class DiceRoller {
 			})
 
 			if (this.areDicesStopped()) {
-				console.log("Dices Results: ", this.result())
+				console.log('Dices Results: ', this.result())
 				this.switchState()
 			}
 		})

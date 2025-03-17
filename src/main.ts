@@ -1,5 +1,5 @@
-import DiceRoller from './DiceRoller/diceRoller.ts'
-import Interface from './DiceRoller/gui.ts'
+import DiceRoller from './DiceRoller/DiceRoller.ts'
+import Interface from './DiceRoller/GUI.ts'
 import InteractiveMap from './InteractiveMap/InteractiveMap.ts'
 
 // Dice Roller

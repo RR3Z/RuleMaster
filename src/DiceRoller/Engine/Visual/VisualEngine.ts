@@ -1,8 +1,8 @@
-import * as THREE from "three"
-import World from "../../entity/world.ts"
-import Camera from "./camera.ts"
-import Graphic from "./graphic.ts"
-import Light from "./light.ts"
+import * as THREE from 'three'
+import World from '../../Entities/World.ts'
+import Camera from './Camera.ts'
+import Graphic from './Graphic.ts'
+import Light from './Light.ts'
 
 export default class VisualEngine {
 	private _scene: THREE.Scene

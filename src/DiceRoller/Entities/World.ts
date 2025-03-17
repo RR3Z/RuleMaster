@@ -1,7 +1,7 @@
-import { default as Rapier } from "@dimforge/rapier3d-compat"
-import { Mesh, Object3D } from "three"
-import { createDynamicRigidBody } from "../engine/physic/physicUtils.ts"
-import Dice from "./dice.ts"
+import { default as Rapier } from '@dimforge/rapier3d-compat'
+import { Mesh, Object3D } from 'three'
+import PhysicUtils from '../Engine/Physic/PhysicUtils.ts'
+import Dice from './Dice.ts'
 
 export default class World extends Object3D {
 	private dices: Dice[]
@@ -54,7 +54,7 @@ export default class World extends Object3D {
 	}
 
 	private addPhysic(dice: Dice): void {
-		const physicObjects = createDynamicRigidBody(
+		const physicObjects = PhysicUtils.createDynamicRigidBody(
 			dice.visual as Mesh,
 			this.physicalWorld
 		)

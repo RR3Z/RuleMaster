@@ -1,6 +1,6 @@
-import Rapier from "@dimforge/rapier3d-compat"
-import { getViewportSizes } from "../engine/utils.ts"
-import Camera from "../engine/visual/camera.ts"
+import Rapier from '@dimforge/rapier3d-compat'
+import DiceRollerUtils from '../Engine/DiceRollerUtils.ts'
+import Camera from '../Engine/Visual/Camera.ts'
 
 export default class DiceBox {
 	private wallsPhysic: {
@@ -14,36 +14,36 @@ export default class DiceBox {
 	}
 
 	public create(physicalWorld: Rapier.World, camera: Camera): void {
-		const { width, height } = getViewportSizes(camera)
+		const { width, height } = DiceRollerUtils.getViewportSizes(camera)
 
 		const wallsConfig = [
 			{
-				type: "floor",
+				type: 'floor',
 				position: [0, 0, 0],
 				size: [width / 2, 0.5, height / 2],
 			},
 			{
-				type: "roof",
+				type: 'roof',
 				position: [0, 50, 0],
 				size: [width / 2, 0.5, height / 2],
 			},
 			{
-				type: "left",
+				type: 'left',
 				position: [-width / 2, 25, 0],
 				size: [0.5, 25, height / 2],
 			},
 			{
-				type: "right",
+				type: 'right',
 				position: [width / 2, 25, 0],
 				size: [0.5, 25, height / 2],
 			},
 			{
-				type: "back",
+				type: 'back',
 				position: [0, 25, -height / 2],
 				size: [width / 2, 25, 0.5],
 			},
 			{
-				type: "front",
+				type: 'front',
 				position: [0, 25, height / 2],
 				size: [width / 2, 25, 0.5],
 			},
