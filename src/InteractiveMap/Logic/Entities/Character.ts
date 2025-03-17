@@ -4,12 +4,14 @@ import Entity from './Entity.ts'
 import { EntityType } from './EntityType.ts'
 
 export default class Character extends Entity {
-	protected _characteristics: Characteristics
+	private _characteristics: Characteristics
 
-	constructor(characteristics: Characteristics) {
+	constructor(type: EntityType, characteristics: Characteristics) {
 		super()
 
-		this._type = EntityType.CHARACTER
+		if (type === EntityType.PLAYER || type === EntityType.ENEMY)
+			this._type = type
+		else this._type = EntityType.CHARACTER
 
 		this._characteristics = characteristics
 		if (!characteristics.statsModifiers)
