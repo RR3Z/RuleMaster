@@ -1,9 +1,7 @@
-import { SavingThrows } from '../Characteristics/SavingThrows.ts'
 import { Stats } from '../Characteristics/Stats.ts'
-import { StatsModifiers } from '../Characteristics/StatsModifiers.ts'
 
 export default class CharacteristicsCalculator {
-	public static calculateStatsModifiers(stats: Stats): StatsModifiers {
+	public static calculateStatsModifiers(stats: Stats): Stats {
 		return {
 			strength: Math.floor((stats.strength - 10) / 2),
 			dexterity: Math.floor((stats.dexterity - 10) / 2),
@@ -14,9 +12,7 @@ export default class CharacteristicsCalculator {
 		}
 	}
 
-	public static calculateSavingThrows(
-		statsModifiers: StatsModifiers
-	): SavingThrows {
+	public static calculateSavingThrows(statsModifiers: Stats): Stats {
 		return {
 			strength: statsModifiers.strength,
 			dexterity: statsModifiers.dexterity,
