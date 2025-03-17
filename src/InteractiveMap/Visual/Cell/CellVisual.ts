@@ -1,4 +1,4 @@
-import { FederatedPointerEvent, Graphics } from 'pixi.js'
+import { Graphics } from 'pixi.js'
 import config from '../../config.ts'
 import Cell from '../../Logic/Cell.ts'
 
@@ -13,7 +13,6 @@ export default class CellVisual extends Graphics {
 	}
 
 	private init(): void {
-		// Visual
 		this.rect(
 			this._cell.x * config.grid.cellSize,
 			this._cell.y * config.grid.cellSize,
@@ -21,17 +20,5 @@ export default class CellVisual extends Graphics {
 			config.grid.cellSize
 		).fill(0xff0000)
 		this.alpha = 0
-
-		// Interactivity
-		this.eventMode = 'static'
-		this.on('pointerdown', event => {
-			this.onLeftButtonClick(event)
-		})
-	}
-
-	private onLeftButtonClick(event: FederatedPointerEvent) {
-		if (event.button === 0) {
-			console.log(this._cell.coordinates)
-		}
 	}
 }
