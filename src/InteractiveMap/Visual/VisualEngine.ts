@@ -13,7 +13,7 @@ export default class VisualEngine extends Application {
 		super()
 	}
 
-	public async init(grid: Grid): Promise<void> {
+	public async init(): Promise<void> {
 		// Pixi.Js Initialization
 		await super.init({ resizeTo: window })
 		this.canvas.id = 'interactiveMap'
@@ -22,6 +22,11 @@ export default class VisualEngine extends Application {
 		this._camera = new Camera(this.renderer)
 		this._scene = new Container()
 
+		// Start Update Loop
+		this.startLoop()
+	}
+
+	public setupScene(grid: Grid): void {
 		// Scene Setup
 		this.stage.addChild(this._camera)
 		this._camera.addChild(this._scene) // Make objects move with camera
@@ -29,9 +34,6 @@ export default class VisualEngine extends Application {
 		this._scene.addChild(new Token(this._camera, 25, 15))
 
 		this._camera.updateSettings()
-
-		// Start Update Loop
-		this.startLoop()
 	}
 
 	public onUpdate(callback: () => void): void {

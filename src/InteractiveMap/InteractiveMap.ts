@@ -13,7 +13,8 @@ export default class InteractiveMap {
 	}
 
 	public async init(): Promise<void> {
-		await this._visualEngine.init(this._grid)
+		await this._visualEngine.init()
+		this._visualEngine.setupScene(this._grid)
 
 		document.body.appendChild(this._visualEngine.canvas)
 
