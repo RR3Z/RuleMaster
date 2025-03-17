@@ -1,6 +1,6 @@
 import config from './config.ts'
-import Grid from './logic/Grid.ts'
-import VisualEngine from './visual/VisualEngine.ts'
+import Grid from './Logic/Grid.ts'
+import VisualEngine from './Visual/VisualEngine.ts'
 
 export default class InteractiveMap {
 	private _grid: Grid
