@@ -22,6 +22,10 @@ export default class Cell {
 		return this._y
 	}
 
+	public get contentType(): EntityType | undefined {
+		return this._content?.type
+	}
+
 	public putContent(content: Entity): void {
 		if (this._content)
 			throw new Error(
