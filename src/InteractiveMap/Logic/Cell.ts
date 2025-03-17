@@ -1,4 +1,5 @@
 import Entity from './Entities/Entity.ts'
+import { EntityType } from './Entities/EntityType.ts'
 
 export type Coordinates = { x: number; y: number }
 
@@ -42,6 +43,7 @@ export default class Cell {
 					this._y
 			)
 
+		if (this._content.type === EntityType.BOUNDARY) return undefined
 
 		const content = this._content
 		this._content = undefined
