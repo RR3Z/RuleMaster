@@ -14,6 +14,8 @@ export default class Character extends Entity {
 		else this._type = EntityType.CHARACTER
 
 		this._characteristics = characteristics
+		this._characteristics.currentHP = characteristics.maxHP
+
 		if (!characteristics.statsModifiers)
 			this._characteristics.statsModifiers =
 				CharacteristicsCalculator.calculateStatsModifiers(
@@ -24,5 +26,16 @@ export default class Character extends Entity {
 				CharacteristicsCalculator.calculateSavingThrows(
 					this._characteristics.statsModifiers!
 				)
+	}
+
+	public takeDamage(damage: number): void {
+		if (this._characteristics.currentHP === 0) return
+
+		if (this._characteristics.currentHP - damage <= 0) {
+			this._characteristics.currentHP = 0
+			return
+		}
+
+		this._characteristics.currentHP -= damage
 	}
 }

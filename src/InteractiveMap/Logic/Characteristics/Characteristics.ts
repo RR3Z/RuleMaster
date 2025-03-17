@@ -1,11 +1,12 @@
 import { Skills } from './Skills.ts'
-import { Stats } from './Stats.ts'
+import { Stat } from './Stats/Stat.ts'
 
 export type Characteristics = {
-	hp: number
+	currentHP: number
+	readonly maxHP: number
 	armourClass: number
 	skills: Skills
-	stats: Stats
-	statsModifiers?: Stats
-	savingThrows?: Stats
+	stats: Stat[]
+	statsModifiers?: Stat[]
+	savingThrows?: Stat[]
 }

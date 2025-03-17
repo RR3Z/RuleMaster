@@ -1,4 +1,4 @@
-import { Stats } from '../Characteristics/Stats.ts'
+import { Stats } from '../Characteristics/Stats/Stats.ts'
 
 export default class CharacteristicsCalculator {
 	public static calculateStatsModifiers(stats: Stats): Stats {
