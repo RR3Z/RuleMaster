@@ -1,6 +1,7 @@
 import { Graphics } from 'pixi.js'
 import config from '../../config.ts'
 import Cell from '../../Logic/Cell.ts'
+import { EntityType } from '../../Logic/Entities/EntityType.ts'
 
 export default class CellVisual extends Graphics {
 	private _cell: Cell
@@ -19,6 +20,8 @@ export default class CellVisual extends Graphics {
 			config.grid.cellSize,
 			config.grid.cellSize
 		).fill(0xff0000)
-		this.alpha = 0
+
+		if (this._cell.contentType !== EntityType.BOUNDARY) this.alpha = 0
+		else this.alpha = 0.5
 	}
 }
