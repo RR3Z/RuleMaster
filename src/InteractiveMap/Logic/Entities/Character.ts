@@ -1,12 +1,12 @@
-import CharacteristicsCalculator from '../../Calculators/CharacteristicsCalculator.ts'
-import Entity from '../Entity.ts'
-import { EntityType } from '../EntityType.ts'
-import { CharacterCharacteristics } from './CharacterCharacteristics.ts'
+import CharacteristicsCalculator from '../Calculators/CharacteristicsCalculator.ts'
+import { Characteristics } from '../Characteristics/Characteristics.ts'
+import Entity from './Entity.ts'
+import { EntityType } from './EntityType.ts'
 
 export default class Character extends Entity {
-	private _characteristics: CharacterCharacteristics
+	protected _characteristics: Characteristics
 
-	constructor(characteristics: CharacterCharacteristics) {
+	constructor(characteristics: Characteristics) {
 		super()
 
 		this._type = EntityType.CHARACTER
