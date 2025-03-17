@@ -1,6 +1,6 @@
 import { Container, Graphics } from 'pixi.js'
 import config from '../config.ts'
-import Cell from '../Logic/Cell/Cell.ts'
+import Cell from '../Logic/Cell.ts'
 import Grid from '../Logic/Grid.ts'
 import CellVisual from './Cell/CellVisual.ts'
 
@@ -15,7 +15,7 @@ export default class GridVisual extends Container {
 		this.isBoundariesEnabled = isBoundariesEnabled
 		this.cellsVisual = []
 
-		this.init(grid.width, grid.height, grid.cells)
+		this.init(config.grid.width, config.grid.height, grid.cells)
 	}
 
 	private init(width: number, height: number, cells: Cell[]): void {
