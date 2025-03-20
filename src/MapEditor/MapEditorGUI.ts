@@ -162,7 +162,7 @@ export default class MapEditorGUI extends GUI {
 			confirmButtonColor: 'green',
 			confirmButtonText: 'Confirm',
 			html: `
-			<div class="newMapWindow">
+			<div class="loadMapWindow">
 				<label>Map File: <input id="mapFile" type="file" accept="application/json"></label>
 			</div>
 			`,

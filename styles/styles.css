@@ -11,7 +11,8 @@
 	outline: none;
 }
 
-.newMapWindow {
+.newMapWindow,
+.loadMapWindow {
 	display: flex;
 	flex-direction: column;
 }
