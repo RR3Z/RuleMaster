@@ -1,0 +1,188 @@
+import GUI from 'lil-gui'
+import Swal from 'sweetalert2'
+import { EntityType } from '../InteractiveMap/Logic/Entities/EntityType.ts'
+import MapEditor, { GridSettings } from './MapEditor.ts'
+
+type GUIElements = {
+	createNewMap: () => void
+	saveMap: () => void
+	loadMap: () => void
+	entityType: string
+	gridWidth: number
+	gridHeight: number
+	cellSize: number
+}
+
+export default class MapEditorGUI extends GUI {
+	private _editor: MapEditor
+	public entityType: EntityType | undefined
+
+	private _guiElements: GUIElements = {
+		createNewMap: () => this.createNewMap(),
+		saveMap: () => this.saveMap(),
+		loadMap: () => this.loadMap(),
+		entityType: 'Empty',
+		gridWidth: 10,
+		gridHeight: 10,
+		cellSize: 50,
+	}
+
+	constructor(editor: MapEditor) {
+		super()
+
+		this._editor = editor
+		this.entityType = undefined
+		this.init()
+	}
+
+	private init(): void {
+		// Grid Settings
+		const gridSettings = this.addFolder('Grid Settings')
+		gridSettings
+			.add(this._guiElements, 'gridWidth', 10, 100, 1)
+			.name('Grid Width')
+			.onChange(() => this._editor.updateScene())
+		gridSettings
+			.add(this._guiElements, 'gridHeight', 10, 100, 1)
+			.name('Grid Height')
+			.onChange(() => this._editor.updateScene())
+		gridSettings
+			.add(this._guiElements, 'cellSize', 40, 100, 1)
+			.name('Cell Size')
+			.onChange(() => this._editor.updateScene())
+
+		// Cell Settings
+		const cellSettingsFolder = this.addFolder('Cell Settings')
+		cellSettingsFolder
+			.add(this._guiElements, 'entityType', [
+				'Empty',
+				'Boundary',
+				'Enemy',
+				'Player',
+			])
+			.name('Content Type')
+			.onChange(() => {
+				switch (this._guiElements.entityType) {
+					case 'Boundary':
+						this.entityType = EntityType.BOUNDARY
+						break
+					case 'Enemy':
+						this.entityType = EntityType.ENEMY
+						break
+					case 'Player':
+						this.entityType = EntityType.PLAYER
+						break
+					case 'Empty':
+						this.entityType = undefined
+						break
+				}
+			})
+
+		// Logic
+		this.add(this._guiElements, 'createNewMap').name('Create New Map')
+		this.add(this._guiElements, 'saveMap').name('Save Map')
+		this.add(this._guiElements, 'loadMap').name('Load Map')
+	}
+
+	private createNewMap(): void {
+		let grid: GridSettings = { width: -1, height: -1, cellSize: -1 }
+		let mapFilePath = ''
+
+		Swal.fire({
+			title: 'Grid Settings',
+			theme: 'dark',
+			showCloseButton: true,
+			showCancelButton: true,
+			cancelButtonColor: 'red',
+			cancelButtonText: 'Cancel',
+			showConfirmButton: true,
+			confirmButtonColor: 'green',
+			confirmButtonText: 'Create',
+			html: `
+			<div class="newMapWindow">
+				<label>Grid Width: <input id="gridWidth" type="number" value="10" min="10" max="100"></label>
+				<label>Grid Height: <input id="gridHeight" type="number" value="10" min="10" max="100"></label>
+				<label>Cell Sizes: <input id="cellSize" type="number" value="40" min="40" max="100"></label>
+				<label>Map Background: <input id="backgroundFile" type="file" accept="image/*"></label>
+			</div>
+			`,
+			preConfirm: () => {
+				grid.width = parseInt(
+					(document.getElementById('gridWidth')! as HTMLInputElement).value,
+					10
+				)
+				grid.height = parseInt(
+					(document.getElementById('gridHeight')! as HTMLInputElement).value,
+					10
+				)
+				grid.cellSize = parseInt(
+					(document.getElementById('cellSize')! as HTMLInputElement).value,
+					10
+				)
+
+				const fileInput = document.getElementById(
+					'backgroundFile'
+				)! as HTMLInputElement
+				if (fileInput.files && fileInput.files.length > 0)
+					mapFilePath = '/public/maps/' + fileInput.files[0].name
+			},
+		}).then(result => {
+			if (result.isConfirmed) {
+				this._editor.createNewMap(grid, mapFilePath)
+			}
+		})
+	}
+
+	private saveMap(): void {
+		Swal.fire({
+			theme: 'dark',
+			title: 'Save Map',
+			text: 'Are you sure you want to save the map?',
+			showCancelButton: true,
+			cancelButtonColor: 'red',
+			showConfirmButton: true,
+			confirmButtonColor: 'green',
+			showCloseButton: true,
+		}).then(result => {
+			if (result.isConfirmed) this._editor.save()
+		})
+	}
+
+	private loadMap(): void {
+		let mapData: File
+
+		Swal.fire({
+			title: 'Map Load',
+			theme: 'dark',
+			showCloseButton: true,
+			showCancelButton: true,
+			cancelButtonColor: 'red',
+			cancelButtonText: 'Cancel',
+			showConfirmButton: true,
+			confirmButtonColor: 'green',
+			confirmButtonText: 'Confirm',
+			html: `
+			<div class="newMapWindow">
+				<label>Map File: <input id="mapFile" type="file" accept="application/json"></label>
+			</div>
+			`,
+			preConfirm: () => {
+				const fileInput = document.getElementById(
+					'mapFile'
+				)! as HTMLInputElement
+				if (fileInput.files && fileInput.files.length > 0)
+					mapData = fileInput.files[0]
+			},
+		}).then(result => {
+			if (result.isConfirmed) {
+				this._editor.load(mapData)
+			}
+		})
+	}
+
+	public updateGridSettings(gridSettings: GridSettings): void {
+		this._guiElements.gridWidth = gridSettings.width
+		this._guiElements.gridHeight = gridSettings.height
+		this._guiElements.cellSize = gridSettings.cellSize
+	}
+}
