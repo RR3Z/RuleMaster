@@ -10,3 +10,8 @@
 	left: 0;
 	outline: none;
 }
+
+.newMapWindow {
+	display: flex;
+	flex-direction: column;
+}
