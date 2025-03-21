@@ -25,7 +25,7 @@ export default class MapEditorGUI extends GUI {
 		super()
 
 		this._editor = editor
-		this._selectedEntityType = undefined
+		this._selectedEntityType = EntityType.BOUNDARY
 		this.init()
 	}
 
