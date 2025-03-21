@@ -14,7 +14,7 @@ export default class Camera extends Viewport {
 			disableOnContextMenu: true,
 		})
 
-		// PLugins
+		// Plugins
 		this.enablePlugins()
 
 		// Events
@@ -33,8 +33,6 @@ export default class Camera extends Viewport {
 		this.drag({ mouseButtons: 'right', wheel: false, factor: 0.9 })
 		this.clamp()
 		this.clampZoom({})
-		// this.plugins.pause('decelerate')
-		// this.plugins.pause('bounce')
 	}
 
 	private updateWorldSizes(): void {
