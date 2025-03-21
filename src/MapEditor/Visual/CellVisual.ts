@@ -29,7 +29,7 @@ export default class CellVisual extends Container {
 		this.on('pointerdown', this.onPointerDown.bind(this))
 	}
 
-	public update() {
+	public update(): void {
 		this.draw()
 
 		switch (this._cellSettings.contentType) {
@@ -87,7 +87,7 @@ export default class CellVisual extends Container {
 		this.addChild(this._text)
 	}
 
-	private onPointerDown(event: FederatedPointerEvent) {
+	private onPointerDown(event: FederatedPointerEvent): void {
 		if (event.button === 0)
 			this._cellSettings.contentType = this._editor.selectedEntityType
 		if (event.button === 2) this._cellSettings.contentType = undefined
