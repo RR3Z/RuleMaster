@@ -8,9 +8,6 @@ type GUIElements = {
 	saveMap: () => void
 	loadMap: () => void
 	entityType: string
-	gridWidth: number
-	gridHeight: number
-	cellSize: number
 }
 
 export default class MapEditorGUI extends GUI {
@@ -22,9 +19,6 @@ export default class MapEditorGUI extends GUI {
 		saveMap: () => this.saveMap(),
 		loadMap: () => this.loadMap(),
 		entityType: 'Empty',
-		gridWidth: 10,
-		gridHeight: 10,
-		cellSize: 50,
 	}
 
 	constructor(editor: MapEditor) {
