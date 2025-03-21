@@ -6,6 +6,7 @@ import MapEditorGUI from '../MapEditorGUI.ts'
 export default class CellVisual extends Container {
 	private _editor: MapEditorGUI
 	private _visual: Graphics
+	private _text!: Text
 	private _cellSettings: CellSettings
 	private _cellSize: number
 
@@ -29,7 +30,6 @@ export default class CellVisual extends Container {
 	}
 
 	public update() {
-		this._visual.clear()
 		this.draw()
 
 		switch (this._cellSettings.contentType) {
@@ -39,23 +39,25 @@ export default class CellVisual extends Container {
 				break
 			case EntityType.BOUNDARY:
 				this._visual.fill(0xffc500)
-				this.addText('B')
+				this.sign('Boundary')
 				this.alpha = 0.5
 				break
 			case EntityType.ENEMY:
 				this._visual.fill(0xff0000)
-				this.addText('E')
+				this._text.text = 'E'
 				this.alpha = 0.5
 				break
 			case EntityType.PLAYER:
 				this._visual.fill(0x55ff00)
-				this.addText('P')
+				this._text.text = 'P'
 				this.alpha = 0.5
 				break
 		}
 	}
 
 	private draw(): void {
+		this._visual.clear()
+
 		this._visual.rect(
 			this._cellSettings.x * this._cellSize,
 			this._cellSettings.y * this._cellSize,
@@ -64,26 +66,24 @@ export default class CellVisual extends Container {
 		)
 	}
 
-	private addText(text: string): void {
-		const cellText = new Text({
-			text: text,
+	private sign(text: string): void {
+		if (this._text) this.removeChild(this._text)
+		this._text = new Text({
 			style: {
 				fontSize: this._cellSize / 2,
 				fill: 0xffffff,
 				align: 'center',
 			},
 		})
-		cellText.x =
+		this._text.position.set(
 			this._cellSettings.x * this._cellSize +
-			this._cellSize / 2 -
-			cellText.width / 2
-		cellText.y =
+				this._cellSize / 2 -
+				this._text.width / 2,
 			this._cellSettings.y * this._cellSize +
-			this._cellSize / 2 -
-			cellText.height / 2
-		this.addChild(cellText)
-
-		console.log(cellText.position)
+				this._cellSize / 2 -
+				this._text.height / 2
+		)
+		this.addChild(this._text)
 	}
 
 	private onPointerDown(event: FederatedPointerEvent) {
