@@ -15,7 +15,7 @@ type GUIElements = {
 
 export default class MapEditorGUI extends GUI {
 	private _editor: MapEditor
-	public entityType: EntityType | undefined
+	private _selectedEntityType: EntityType | undefined
 
 	private _guiElements: GUIElements = {
 		createNewMap: () => this.createNewMap(),
@@ -31,12 +31,15 @@ export default class MapEditorGUI extends GUI {
 		super()
 
 		this._editor = editor
-		this.entityType = undefined
+		this._selectedEntityType = undefined
 		this.init()
 	}
 
-	private init(): void {
+	public get selectedEntityType(): EntityType | undefined {
+		return this._selectedEntityType
+	}
 
+	private init(): void {
 		// Cell Settings
 		const cellSettingsFolder = this.addFolder('Cell Settings')
 		cellSettingsFolder
@@ -50,16 +53,16 @@ export default class MapEditorGUI extends GUI {
 			.onChange(() => {
 				switch (this._guiElements.entityType) {
 					case 'Boundary':
-						this.entityType = EntityType.BOUNDARY
+						this._selectedEntityType = EntityType.BOUNDARY
 						break
 					case 'Enemy':
-						this.entityType = EntityType.ENEMY
+						this._selectedEntityType = EntityType.ENEMY
 						break
 					case 'Player':
-						this.entityType = EntityType.PLAYER
+						this._selectedEntityType = EntityType.PLAYER
 						break
 					case 'Empty':
-						this.entityType = undefined
+						this._selectedEntityType = undefined
 						break
 				}
 			})
