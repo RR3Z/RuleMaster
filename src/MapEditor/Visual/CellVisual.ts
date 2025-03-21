@@ -39,17 +39,17 @@ export default class CellVisual extends Container {
 				break
 			case EntityType.BOUNDARY:
 				this._visual.fill(0xffc500)
-				this.sign('Boundary')
+				this.sign('B')
 				this.alpha = 0.5
 				break
 			case EntityType.ENEMY:
 				this._visual.fill(0xff0000)
-				this._text.text = 'E'
+				this.sign('E')
 				this.alpha = 0.5
 				break
 			case EntityType.PLAYER:
 				this._visual.fill(0x55ff00)
-				this._text.text = 'P'
+				this.sign('P')
 				this.alpha = 0.5
 				break
 		}
@@ -69,6 +69,7 @@ export default class CellVisual extends Container {
 	private sign(text: string): void {
 		if (this._text) this.removeChild(this._text)
 		this._text = new Text({
+			text: text,
 			style: {
 				fontSize: this._cellSize / 2,
 				fill: 0xffffff,
