@@ -122,7 +122,7 @@ export default class MapEditorGUI extends GUI {
 					'backgroundFile'
 				)! as HTMLInputElement
 				if (fileInput.files && fileInput.files.length > 0)
-					mapFilePath = '/public/maps/' + fileInput.files[0].name
+					mapFilePath = '/mapsBackgrounds/' + fileInput.files[0].name
 			},
 		}).then(result => {
 			if (result.isConfirmed) {
