@@ -36,20 +36,6 @@ export default class MapEditorGUI extends GUI {
 	}
 
 	private init(): void {
-		// Grid Settings
-		const gridSettings = this.addFolder('Grid Settings')
-		gridSettings
-			.add(this._guiElements, 'gridWidth', 10, 100, 1)
-			.name('Grid Width')
-			.onChange(() => this._editor.updateScene())
-		gridSettings
-			.add(this._guiElements, 'gridHeight', 10, 100, 1)
-			.name('Grid Height')
-			.onChange(() => this._editor.updateScene())
-		gridSettings
-			.add(this._guiElements, 'cellSize', 40, 100, 1)
-			.name('Cell Size')
-			.onChange(() => this._editor.updateScene())
 
 		// Cell Settings
 		const cellSettingsFolder = this.addFolder('Cell Settings')
@@ -178,11 +164,5 @@ export default class MapEditorGUI extends GUI {
 				this._editor.load(mapData)
 			}
 		})
-	}
-
-	public updateGridSettings(gridSettings: GridSettings): void {
-		this._guiElements.gridWidth = gridSettings.width
-		this._guiElements.gridHeight = gridSettings.height
-		this._guiElements.cellSize = gridSettings.cellSize
 	}
 }

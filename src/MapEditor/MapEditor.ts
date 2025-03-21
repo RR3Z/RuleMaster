@@ -30,7 +30,6 @@ export default class MapEditor {
 		reader.onload = () => {
 			try {
 				this._map = JSON.parse(reader.result as string)
-				if (this._map) this._gui.updateGridSettings(this._map.grid)
 
 				console.log('Map Editor -> Loaded map!\nMap Data: ', this._map)
 			} catch (error) {
@@ -69,13 +68,10 @@ export default class MapEditor {
 			cells: this.createEmptyCells(grid.width, grid.height),
 		}
 
-		this._gui.updateGridSettings(this._map.grid)
 
 		console.log('Map Editor -> Created new map!\nMap Data: ', this._map)
 	}
 
-	// TODO:
-	public updateScene(): void {}
 	private createEmptyCells(
 		gridWidth: number,
 		gridHeight: number
