@@ -23,21 +23,6 @@ export default class MapEditor {
 		this._gui = new MapEditorGUI(this)
 	}
 
-	private createEmptyCells(
-		gridWidth: number,
-		gridHeight: number
-	): CellSettings[][] {
-		const cells: CellSettings[][] = []
-
-		for (let x = 0; x < gridWidth; x++) {
-			const row: CellSettings[] = []
-			for (let y = 0; y < gridHeight; y++) {
-				row.push({ x, y, contentType: undefined })
-			}
-			cells.push(row)
-		}
-
-		return cells
 	}
 
 	public load(mapData: File): void {
@@ -91,4 +76,20 @@ export default class MapEditor {
 
 	// TODO:
 	public updateScene(): void {}
+	private createEmptyCells(
+		gridWidth: number,
+		gridHeight: number
+	): CellSettings[][] {
+		const cells: CellSettings[][] = []
+
+		for (let x = 0; x < gridWidth; x++) {
+			const row: CellSettings[] = []
+			for (let y = 0; y < gridHeight; y++) {
+				row.push({ x, y, contentType: undefined })
+			}
+			cells.push(row)
+		}
+
+		return cells
+	}
 }
