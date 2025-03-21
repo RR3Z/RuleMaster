@@ -46,14 +46,14 @@ export default class Camera extends Viewport {
 	}
 
 	private updateWorldSizes(): void {
-		const bounds = this.getBounds(true)
+		const bounds = this.getBounds()
 		this.worldHeight = bounds.maxY - bounds.minY
 		this.worldWidth = bounds.maxX - bounds.minX
 	}
 
 	private updateClamp(): void {
 		const clampPlugin = this.plugins.get('clamp')!
-		const bounds = this.getBounds(true)
+		const bounds = this.getBounds()
 
 		clampPlugin.options.left = bounds.minX
 		clampPlugin.options.right = bounds.maxX
