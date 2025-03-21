@@ -16,21 +16,17 @@ export default class VisualEngine extends Application {
 		// Pixi.Js Initialization
 		await super.init({ resizeTo: window })
 		this.canvas.id = 'mapEditor'
-
-		// Objects Initialization
-		this._camera = new Camera(this.renderer)
-		this.stage.addChild(this._camera)
-		this._scene = new Container()
 	}
 
 	public async setupScene(
 		editor: MapEditorGUI,
 		mapData: MapData
 	): Promise<void> {
-		// Scene Setup
-		if (this._camera.children.length > 0) this._camera.removeChild(this._scene)
+		if (this._camera) this.stage.removeChild(this._camera)
+		this._camera = new Camera(this.renderer)
+		this.stage.addChild(this._camera)
 		this._scene = new Container()
-		this._camera.addChild(this._scene) // Make objects move with camera
+		this._camera.addChild(this._scene)
 
 		if (mapData.mapFilePath) {
 			let mapBackground = await Assets.load(mapData.mapFilePath)
@@ -45,7 +41,6 @@ export default class VisualEngine extends Application {
 			backgroundSprite.position.set(0, 0)
 
 			this._scene.addChild(backgroundSprite)
-			console.log(this._scene.getBounds())
 		}
 		this._scene.addChild(new GridVisual(editor, mapData.grid, mapData.cells))
 
