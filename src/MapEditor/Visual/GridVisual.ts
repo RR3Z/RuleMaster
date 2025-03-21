@@ -4,9 +4,6 @@ import MapEditorGUI from '../MapEditorGUI.ts'
 import CellVisual from './CellVisual.ts'
 
 export default class GridVisual extends Container {
-	private _gridSettings: GridSettings
-	private _cellSettings: CellSettings[][]
-
 	constructor(
 		editor: MapEditorGUI,
 		gridSettings: GridSettings,
@@ -14,47 +11,39 @@ export default class GridVisual extends Container {
 	) {
 		super()
 
-		this._gridSettings = gridSettings
-		this._cellSettings = cellsSettings
-
-		this.drawGrid()
-
-		for (let x = 0; x < this._gridSettings.width; x++) {
-			for (let y = 0; y < this._gridSettings.height; y++) {
-				this.addChild(
-					new CellVisual(
-						editor,
-						this._cellSettings[x][y],
-						this._gridSettings.cellSize
-					)
-				)
-			}
-		}
+		this.drawGrid(gridSettings)
+		this.createCells(editor, gridSettings, cellsSettings)
 	}
 
-	private drawGrid(): void {
+	private drawGrid(grid: GridSettings): void {
 		// Vertical lines
-		for (let i = 0; i < this._gridSettings.width + 1; i++) {
+		for (let i = 0; i < grid.width + 1; i++) {
 			const line = new Graphics()
-				.moveTo(i * this._gridSettings.cellSize, 0)
-				.lineTo(
-					i * this._gridSettings.cellSize,
-					this._gridSettings.cellSize * this._gridSettings.height
-				)
-				.stroke({ color: this._gridSettings.cellColor, pixelLine: true })
+				.moveTo(i * grid.cellSize, 0)
+				.lineTo(i * grid.cellSize, grid.cellSize * grid.height)
+				.stroke({ color: grid.cellColor, pixelLine: true })
 			this.addChild(line)
 		}
 
 		// Horizontal lines
-		for (let i = 0; i < this._gridSettings.height + 1; i++) {
+		for (let i = 0; i < grid.height + 1; i++) {
 			const line = new Graphics()
-				.moveTo(0, i * this._gridSettings.cellSize)
-				.lineTo(
-					this._gridSettings.cellSize * this._gridSettings.width,
-					i * this._gridSettings.cellSize
-				)
-				.stroke({ color: this._gridSettings.cellColor, pixelLine: true })
+				.moveTo(0, i * grid.cellSize)
+				.lineTo(grid.cellSize * grid.width, i * grid.cellSize)
+				.stroke({ color: grid.cellColor, pixelLine: true })
 			this.addChild(line)
+		}
+	}
+
+	private createCells(
+		editor: MapEditorGUI,
+		grid: GridSettings,
+		cells: CellSettings[][]
+	): void {
+		for (let x = 0; x < grid.width; x++) {
+			for (let y = 0; y < grid.height; y++) {
+				this.addChild(new CellVisual(editor, cells[x][y], grid.cellSize))
+			}
 		}
 	}
 }
