@@ -60,7 +60,7 @@ export default class MapEditor {
 		document.body.removeChild(a)
 		URL.revokeObjectURL(url)
 
-		console.log('Map Editor -> Saved map!')
+		console.log('Map Editor -> Saved map!', this._map)
 	}
 
 	public createNewMap(
