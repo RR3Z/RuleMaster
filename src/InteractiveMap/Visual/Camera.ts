@@ -1,17 +1,15 @@
-import { Viewport } from 'pixi-viewport'
+import { Clamp, ClampZoom, Viewport } from 'pixi-viewport'
 import { Renderer } from 'pixi.js'
 
 export default class Camera extends Viewport {
 	// Zoom Settings
-	public zoomMinScale: number = 0.5
-	public zoomMaxScale: number = 1
+	public zoomMinScale: number = 0.25
+	public zoomMaxScale: number = 0.8
 
 	constructor(renderer: Renderer) {
 		super({
 			screenHeight: window.innerHeight,
 			screenWidth: window.innerWidth,
-			worldWidth: window.innerHeight,
-			worldHeight: window.innerWidth,
 			events: renderer.events,
 			disableOnContextMenu: true,
 		})
@@ -20,29 +18,23 @@ export default class Camera extends Viewport {
 		this.enablePlugins()
 
 		// Events
-		window.addEventListener('resize', this.onResize.bind(this))
+		window.addEventListener('resize', () => this.onResize())
 	}
 
 	public updateSettings(): void {
 		this.updateWorldSizes()
 		this.updateClamp()
+		this.updateClampZoom()
 		this.moveCenter(this.worldWidth / 2, this.worldHeight / 2)
 	}
 
 	private enablePlugins(): void {
 		this.wheel()
-		this.drag({ mouseButtons: 'right' })
-		this.clamp({
-			left: -this.screenWidth / 2,
-			right: this.screenWidth / 2,
-			top: -this.screenHeight / 2,
-			bottom: this.screenHeight / 2,
-			direction: 'all',
-		})
-		this.clampZoom({
-			minScale: this.zoomMinScale,
-			maxScale: this.zoomMaxScale,
-		})
+		this.drag({ mouseButtons: 'right', wheel: false, factor: 0.9 })
+		this.clamp()
+		this.clampZoom({})
+		// this.plugins.pause('decelerate')
+		// this.plugins.pause('bounce')
 	}
 
 	private updateWorldSizes(): void {
@@ -52,15 +44,25 @@ export default class Camera extends Viewport {
 	}
 
 	private updateClamp(): void {
-		const clampPlugin = this.plugins.get('clamp')!
-		const bounds = this.getBounds()
+		const clamp = this.plugins.get('clamp')! as Clamp
 
-		clampPlugin.options.left = bounds.minX
-		clampPlugin.options.right = bounds.maxX
-		clampPlugin.options.top = bounds.minY
-		clampPlugin.options.bottom = bounds.maxY
+		clamp.options.left = 0
+		clamp.options.right = this.worldWidth
+		clamp.options.top = 0
+		clamp.options.bottom = this.worldHeight
 
-		clampPlugin.reset()
+		clamp.reset()
+	}
+
+	private updateClampZoom(): void {
+		const clampZoom = this.plugins.get('clamp-zoom')! as ClampZoom
+
+		clampZoom.options.minHeight = this.worldHeight * this.zoomMinScale
+		clampZoom.options.minWidth = this.worldWidth * this.zoomMinScale
+		clampZoom.options.maxHeight = this.worldHeight * this.zoomMaxScale
+		clampZoom.options.maxWidth = this.worldWidth * this.zoomMaxScale
+
+		clampZoom.reset()
 	}
 
 	private onResize(): void {
@@ -70,7 +72,5 @@ export default class Camera extends Viewport {
 			this.worldWidth,
 			this.worldHeight
 		)
-
-		this.moveCenter(this.worldWidth / 2, this.worldHeight / 2)
 	}
 }
