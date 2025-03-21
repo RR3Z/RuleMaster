@@ -18,7 +18,7 @@ export default class MapEditorGUI extends GUI {
 		createNewMap: () => this.createNewMap(),
 		saveMap: () => this.saveMap(),
 		loadMap: () => this.loadMap(),
-		entityType: 'Empty',
+		entityType: 'Boundary',
 	}
 
 	constructor(editor: MapEditor) {
@@ -88,9 +88,9 @@ export default class MapEditorGUI extends GUI {
 			confirmButtonText: 'Create',
 			html: `
 			<div class="newMapWindow">
-				<label>Grid Width: <input id="gridWidth" type="number" value="10" min="10" max="100"></label>
-				<label>Grid Height: <input id="gridHeight" type="number" value="10" min="10" max="100"></label>
-				<label>Cell Sizes: <input id="cellSize" type="number" value="40" min="40" max="100"></label>
+				<label>Grid Width: <input id="gridWidth" type="number" value="50" min="10" max="100"></label>
+				<label>Grid Height: <input id="gridHeight" type="number" value="50" min="10" max="100"></label>
+				<label>Cell Sizes: <input id="cellSize" type="number" value="60" min="40" max="100"></label>
 				<label>Cell Color: <input type="color" id="colorPicker" value="#ffffff"></label>
 				<label>Map Background: <input id="backgroundFile" type="file" accept="image/*"></label>
 			</div>
