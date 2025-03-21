@@ -71,7 +71,12 @@ export default class MapEditorGUI extends GUI {
 	}
 
 	private createNewMap(): void {
-		let grid: GridSettings = { width: -1, height: -1, cellSize: -1 }
+		let grid: GridSettings = {
+			width: -1,
+			height: -1,
+			cellSize: -1,
+			cellColor: '',
+		}
 		let mapFilePath = ''
 
 		Swal.fire({
@@ -89,6 +94,7 @@ export default class MapEditorGUI extends GUI {
 				<label>Grid Width: <input id="gridWidth" type="number" value="10" min="10" max="100"></label>
 				<label>Grid Height: <input id="gridHeight" type="number" value="10" min="10" max="100"></label>
 				<label>Cell Sizes: <input id="cellSize" type="number" value="40" min="40" max="100"></label>
+				<label>Cell Color: <input type="color" id="colorPicker" value="#ffffff"></label>
 				<label>Map Background: <input id="backgroundFile" type="file" accept="image/*"></label>
 			</div>
 			`,
@@ -105,6 +111,9 @@ export default class MapEditorGUI extends GUI {
 					(document.getElementById('cellSize')! as HTMLInputElement).value,
 					10
 				)
+				grid.cellColor = (
+					document.getElementById('colorPicker')! as HTMLInputElement
+				).value
 
 				const fileInput = document.getElementById(
 					'backgroundFile'

@@ -1,7 +1,12 @@
 import { EntityType } from '../InteractiveMap/Logic/Entities/EntityType.ts'
 import MapEditorGUI from './MapEditorGUI.ts'
 
-export type GridSettings = { width: number; height: number; cellSize: number }
+export type GridSettings = {
+	width: number
+	height: number
+	cellSize: number
+	cellColor: string
+}
 export type CellSettings = {
 	x: number
 	y: number
