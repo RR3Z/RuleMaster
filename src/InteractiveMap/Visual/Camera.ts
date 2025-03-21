@@ -4,7 +4,7 @@ import { Renderer } from 'pixi.js'
 export default class Camera extends Viewport {
 	// Zoom Settings
 	public zoomMinScale: number = 0.25
-	public zoomMaxScale: number = 0.8
+	public zoomMaxScale: number = 1
 
 	constructor(renderer: Renderer) {
 		super({
