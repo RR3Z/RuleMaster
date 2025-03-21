@@ -1,5 +1,6 @@
 import { EntityType } from '../InteractiveMap/Logic/Entities/EntityType.ts'
 import MapEditorGUI from './MapEditorGUI.ts'
+import VisualEngine from './Visual/VisualEngine.ts'
 
 export type GridSettings = {
 	width: number
@@ -22,12 +23,17 @@ export type MapData = {
 export default class MapEditor {
 	private _map: MapData | undefined
 	private _gui: MapEditorGUI
+	private _visualEngine!: VisualEngine
 
 	constructor() {
 		this._map = undefined
 		this._gui = new MapEditorGUI(this)
+		this._visualEngine = new VisualEngine()
 	}
 
+	public async init(): Promise<void> {
+		await this._visualEngine.init()
+		document.body.appendChild(this._visualEngine.canvas)
 	}
 
 	public load(mapData: File): void {
@@ -35,6 +41,9 @@ export default class MapEditor {
 		reader.onload = () => {
 			try {
 				this._map = JSON.parse(reader.result as string)
+				if (this._map) {
+					this._visualEngine.setupScene(this._gui, this._map)
+				}
 
 				console.log('Map Editor -> Loaded map!\nMap Data: ', this._map)
 			} catch (error) {
@@ -73,6 +82,7 @@ export default class MapEditor {
 			cells: this.createEmptyCells(grid.width, grid.height),
 		}
 
+		this._visualEngine.setupScene(this._gui, this._map)
 
 		console.log('Map Editor -> Created new map!\nMap Data: ', this._map)
 	}

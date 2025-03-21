@@ -11,4 +11,5 @@ import MapEditor from './MapEditor/MapEditor.ts'
 // await interactiveMap.init()
 
 // const gui = new Interface(diceRoller) // GUI - temp solution TODO: remove it in the end
-new MapEditor()
+const mapEditor = new MapEditor()
+await mapEditor.init()
