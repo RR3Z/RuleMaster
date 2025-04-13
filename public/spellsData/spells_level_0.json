@@ -1,0 +1,2954 @@
+[
+     {
+          "rusName": "Каменный обстрел",
+          "engName": "Pummelstone",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": "Элементалист",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "камушек"
+               }
+          },
+          "description": "Камень размером с кулак появляется и запускает себя в цель. Сделайтедальнобойную атаку заклинанием. При попадании цель получает1к6дробящего урона.В следующий свой ход если цель совершает бросок атаки или проверку навыка, то она должна кинутьк4и вычесть результат из проверки.Урон заклинания увеличивается на1к6, когда вы получаете 5 уровень (2к6), 11 уровень (3к6), и 17 уровень (4к6).",
+          "url": "https://ttg.club/spells/pummelstone"
+     },
+     {
+          "rusName": "Волшебная рука",
+          "engName": "Mage Hand",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Колдун, Чародей, Изобретатель",
+          "subClasses": "Гитъянки, Гитцераи, Тифлинг (маммон), Тифлинг (мефистофель)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "В точке, выбранной вами в пределах дистанции, появляется призрачная парящая рука. Рука существует, пока заклинание активно, или пока вы не отпустите еёДействием. Рука исчезает, если окажется более чем в 30 футах от вас, или если вы повторно используете это заклинание.Вы можетеДействиемконтролировать руку. Вы можете с её помощью манипулировать предметами, открывать незапертые двери и контейнеры, убирать предметы в открытые контейнеры и доставать их оттуда, или выливать содержимое флаконов.При каждом использовании руки вы можете переместить её на 30 футов. Рука не может совершать атаки, активировать магические предметы и переносить более 10 фунтов.",
+          "url": "https://ttg.club/spells/mage_hand"
+     },
+     {
+          "rusName": "Клинок зелёного пламени",
+          "engName": "Green Flame Blade SCAG",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "5"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "любое оружие"
+               }
+          },
+          "description": "Как частьДействия, используемого для произнесения этого заклинания вы должны сделатьрукопашную атаку оружиемпо одному из существ в радиусе действия заклинания или заклинание провалится. При попадании, цель получает нормальный урон от атаки и зеленый огонь прыгает с цели на другое существо, по вашему выбору, которое вы можете видеть на расстоянии 5 футов от первого. Второе существо получает урон огнём, равный вашему модификатору базовой характеристики.Урон заклинания растёт с повышением вашего уровня. На 5-м уровне рукопашная атака наносит дополнительно1к8урона огнём по цели и урон по второму существу возрастает до1к8+ модификатор базовой характеристики. Оба урона ещё возрастают на1к8на 11-м и на 17-м уровнях.Устарело, в связи с обновлениемзаклинанияв TCE",
+          "url": "https://ttg.club/spells/green_flame_blade_scag"
+     },
+     {
+          "rusName": "Электрошок",
+          "engName": "Shocking Grasp",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Молния спрыгивает с вашей руки и ударяет существо, которого вы пытались коснуться.Совершите по целирукопашную атаку заклинанием. Вы совершаете бросок атаки спреимуществом, если цель носит доспех из металла. При попадании цель получает1к8урона электричеством, и до начала своего следующего хода не может совершатьреакции.Урон заклинания увеличивается на1к8, когда вы достигаете 5 уровня (2к8), 11 уровня (3к8) и 17 уровня (4к8).",
+          "url": "https://ttg.club/spells/shocking_grasp"
+     },
+     {
+          "rusName": "Формование воды",
+          "engName": "Shape Water",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Чародей, Шаман",
+          "subClasses": "Дженази (водный)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Выберите область воды, которую вы видите в пределах дистанции заклинания, и которая помещается в 5-футовый куб.Вы можете управлять ею одним из нижеперечисленных способов:Вы мгновенно перемещаете или изменяете скорость течения потока воды на 5 футов в любом направлении. Этого воздействия недостаточно, чтобы причинить урон.Вы можете заставить воду принимать простые формы или двигаться согласно вашим указаниям. Этот эффект действует 1 час.Вы можете изменить цвет или прозрачность воды. Вся область воды должна быть одного цвета и прозрачности. Эффект действует 1 час.Вы замораживаете воду, если в ней нет никаких существ. Вода размораживается через 1 час.Если вы накладываете это заклинание несколько раз, вы не можете поддерживать более 2 немгновенных эффектов одновременно. Вы можете действием отменить один из действующих эффектов.",
+          "url": "https://ttg.club/spells/shape_water"
+     },
+     {
+          "rusName": "Укус тени",
+          "engName": "Shadow Bite",
+          "level": 0,
+          "schools": [
+               "illusion"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник",
+          "subClasses": "Иллюминация",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Цель этого заклинания чувствует, как в него вгоняется острая ледяная игла. Существо должно совершить успешный спасбросокТелосложения. В случае провала оно получает1к6некротического урона, и до начала его следующего хода его скорость падает вдвое.Урон заговором увеличивает на1к6при достижении вами 5 уровня (2к6), 11 уровня (3к6) и 17 уровня (4к6).",
+          "url": "https://ttg.club/spells/shadow_bite"
+     },
+     {
+          "rusName": "Вспышка мечей",
+          "engName": "Sword Burst Old",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "5"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы на мгновение создаете круг призрачных мечей, вращающихся вокруг вас.Каждое существо, находящееся в зоне действия заклинания, кроме вас, должно сделать успешный спасбросокЛовкостиили получит1к6урона силовым полем.Урон заклинания возрастает на1к6на 5м уровне (2к6), 11м уровне (3к6) и на 17м уровне (4к6).",
+          "url": "https://ttg.club/spells/sword_burst_old"
+     },
+     {
+          "rusName": "Сеанс",
+          "engName": "Seance",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы направляете мелких духов, позволяя им работать через вас, чтобы они снова могли влиять на изменения в материальном мире. Вы создаете один из следующих эффектов в радиусе действия:Вы создаете мгновенный, безвредный сенсорный эффект, такой как мерцающее лазурное пламя, неестественно прохладный ветер, ритмичное пение или запах благовоний.На короткое время появляется и исчезает маленький дух.Вы мгновенно зажигаете или тушите свечу, факел или небольшой костер.Пылинка или радужный свет указывают на ближайшее место духовной силы, недавней смерти или нового рождения.Лей линии в пределах досягаемости заклинания ненадолго проявляются, мерцая потусторонним светом.",
+          "url": "https://ttg.club/spells/seance"
+     },
+     {
+          "rusName": "Вспышка мечей",
+          "engName": "Sword Burst",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы создаете круг призрачных клинков, которые кружатся вокруг вас.Все существа (исключая вас) в пределах 5 футов от вас должны преуспеть в спасброскеЛовкости, иначе получат1к6урона силовым полем.Урон этого заклинания увеличивается на1к6, когда вы достигаете 5-го уровня (2к6), 11-го уровня (3к6) и 17-го уровня (4к6).",
+          "url": "https://ttg.club/spells/sword_burst"
+     },
+     {
+          "rusName": "Оплетающая лоза",
+          "engName": "Bonding Vine",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": true,
+          "classes": "Бард, Волшебник, Друид, Жрец, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "20"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "маленькая веточка"
+               }
+          },
+          "description": "Выберете видимое вами существо в пределах дальности заклинания. Это существо должно преуспеть в спасброскеЛовкостиили будетсвязанос вами созданной вами лозой. Связанное существо должно делать проверкуСилыпротив сложности ваших заклинаний всякий раз, когда оно пытается переместиться на расстоянии более 20 футов от вас.Существа, превосходящие вас по размеру, совершают эту проверку спреимуществом. В случае провала существо не может более передвигаться в этот ход, а при успехе - лоза исчезает и заклинание заканчивается.",
+          "url": "https://ttg.club/spells/bonding_vine"
+     },
+     {
+          "rusName": "Обморожение",
+          "engName": "Frostbite",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Колдун, Чародей, Изобретатель, Шаман",
+          "subClasses": "Элементалист",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Сильный холод окружает одно существо, которое вы можете видеть в пределах дистанции заклинания.Цель должна совершить спасбросокТелосложения. При провале цель получает1к6урона холодом и следующий бросок атаки оружием до конца своего следующего хода совершает спомехой.Урон заклинания увеличивается на1к6, когда вы достигаете 5 уровня (2к6), 11 уровня (3к6) и 17 уровня (4к6).",
+          "url": "https://ttg.club/spells/frostbite"
+     },
+     {
+          "rusName": "Крепкий росток",
+          "engName": "Grasping Sprout",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Друид",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "росток"
+               }
+          },
+          "description": "Вы призываете маленький росток с радиусом досягаемости в 5 футов, в указанной вами точке. Всякий раз, когда существо приближается к ростку, на расстояние 5 футов, вы можете использовать своюреакцию, чтобы схватить его за ноги, остановив его движение. Цель должна преуспеть в спасброскеЛовкостиили ее передвижение закончится до начала следующего хода.",
+          "url": "https://ttg.club/spells/grasping_sprout"
+     },
+     {
+          "rusName": "Добродетель",
+          "engName": "Virtue",
+          "level": 0,
+          "schools": [
+               "abjuration"
+          ],
+          "isRitual": false,
+          "classes": "Жрец",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы касаетесь одного существа, наполняя его жизненной силой.Если у цели есть хотя бы 1 хит, она получает количество временных хитов, равное1к4+ ваш модификатор характеристики заклинания. Временные хиты теряются, когда заклинание заканчивается.",
+          "url": "https://ttg.club/spells/virtue"
+     },
+     {
+          "rusName": "Шипастый щит",
+          "engName": "Thorn Shield",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Друид, Жрец",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "bonus_action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы призываете деревянный щит, усеянный шипами, в свою свободную руку по вашему выбору.Этот щит обеспечивает ту же защиту, что и обычный щит. Всякий раз, когда вы успешно атакуете существо с помощью вашего шипастого щита, то оно получает1к8колющего урона. Если вы выпускаете щит из рук, то он исчезает.",
+          "url": "https://ttg.club/spells/thorn_shield"
+     },
+     {
+          "rusName": "Сотворение пламени",
+          "engName": "Produce Flame",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Друид, Шаман",
+          "subClasses": "Дженази (огненный)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "10"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "В вашей ладони появляется мерцающее пламя. Оно остаётся там, пока заклинание активно, и не вредит ни вам, ни вашему снаряжению. Огонь испускаетяркий светв радиусе 10 футов итусклый светв пределах ещё 10 футов.Заклинание оканчивается, если вы оканчиваете егоДействиемили накладываете ещё раз.Вы можете атаковать этим пламенем, но это тоже оканчивает заклинание. Когда вы накладываете это заклинание, или другим действием в одном из последующих ходов вы можете метнуть пламя в существо, находящееся в пределах 30 футов от вас.Совершитедальнобойную атаку заклинанием. При попадании цель получает1к8урона огнём.Урон этого заклинания увеличивается на1к8, когда вы достигаете 5 уровня (2к8), 11 уровня (3к8) и 17 уровня (4к8).",
+          "url": "https://ttg.club/spells/produce_flame"
+     },
+     {
+          "rusName": "Погребальный звон",
+          "engName": "Toll the Dead",
+          "level": 0,
+          "schools": [
+               "necromancy"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Жрец, Колдун, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы указываете на одно существо, которое можете видеть в пределах дистанции, и воздух вокруг него на мгновение наполняется скорбным звучанием колокола. Цель должна преуспеть в спасброскеМудростиили получает1к8урона некротической энергией.Если хиты цели были не полные, то вместо1к8она получает1к12урона некротической энергией.Урон заклинания увеличивается на одну кость, когда вы достигаете 5 уровня (2к8или2к12), 11 уровня (3к8или3к12) и 17 уровня (4к8или4к12).",
+          "url": "https://ttg.club/spells/toll_the_dead"
+     },
+     {
+          "rusName": "Малая иллюзия",
+          "engName": "Minor Illusion",
+          "level": 0,
+          "schools": [
+               "illusion"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Колдун, Чародей",
+          "subClasses": "Гном (лесной), Тифлинг (гласия)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": true,
+                    "materialDesc": "кусок овечьей шерсти"
+               }
+          },
+          "description": "Вы создаёте звук или образ предмета в пределах дистанции, существующий, пока активно заклинание. Иллюзия также оканчивается, если вы отпустите еёДействиемили используете это заклинание ещё раз.Если вы создаёте звук, его громкость может быть как шёпотом, так и криком. Это может быть ваш голос, чей-то другой голос, львиный рык, бой барабанов или любой другой звук. Звук звучит всю длительность заклинания, или вы можете создавать отдельные звуки в разное время, пока заклинание активно.Если вы создаёте образ предмета — например, стул, отпечаток в грязи, или небольшой сундук — он должен помещаться в куб с длиной ребра 5 футов. Образ не может издавать звуки, свет, запах или прочие сенсорные эффекты. Физическое взаимодействие с образом даёт понять, что это иллюзия, потому что сквозь него всё проходит.Если существо действием исследует звук или образ, оно можетпонять, что это иллюзия, совершив успешную проверкуИнтеллекта (Анализ)против Сл ваших заклинаний. Если существо распознаёт иллюзию, она для него становится нечёткой.",
+          "url": "https://ttg.club/spells/minor_illusion"
+     },
+     {
+          "rusName": "Свет",
+          "engName": "Light",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Жрец, Чародей, Изобретатель",
+          "subClasses": "Аасимар, Эльф (бледный), Эльф (астральный)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "hours",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "светлячок или фосфоресцирующий мох"
+               }
+          },
+          "description": "Вы касаетесь одного предмета, длина которого ни по одному из измерений не превышает 10 футов.Пока заклинание активно, предмет испускаетяркий светв радиусе 20 футов итусклый светв пределах ещё 20 футов. Свет может быть любого выбранного вами цвета. Полное покрытие предмета чем-то непрозрачным блокирует свет.Заклинание оканчивается, если вы наложите его ещё раз или окончитеДействием. Если вы нацелились на предмет, несомый или носимый враждебным существом, это существо должно преуспеть в спасброскеЛовкости, чтобы увернуться от заклинания.",
+          "url": "https://ttg.club/spells/light"
+     },
+     {
+          "rusName": "Священное пламя",
+          "engName": "Sacred Flame",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Жрец",
+          "subClasses": "Эльф (астральный)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Похожее на огонь сияние нисходит на существо, которое вы видите в пределах дистанции. Цель должна преуспеть в спасброскеЛовкости, иначе она получает1к8урона излучением. Для этого спасброска цель не получает преимуществ от укрытия.Урон этого заклинания увеличивается на1к8, когда вы достигаете 5 уровня (2к8), 11 уровня (3к8) и 17 уровня (4к8).",
+          "url": "https://ttg.club/spells/sacred_flame"
+     },
+     {
+          "rusName": "Дружба",
+          "engName": "Friends",
+          "level": 0,
+          "schools": [
+               "enchantment"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Колдун, Чародей",
+          "subClasses": "Тифлинг (фьёрна)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": true,
+                    "materialDesc": "небольшое количество грима, наносимое на лицо при накладывании этого заклинания"
+               }
+          },
+          "description": "Пока заклинание активно, вы совершаете спреимуществомвсе проверкиХаризмы, направленные на одно выбранное вами существо, не враждебное по отношению к вам.Когда заклинание оканчивается, существо понимает, что вы влияли на её отношение с помощью магии, и становится враждебным по отношению к вам. Существо, склонное к насилию, может напасть на вас. Другие могут требовать другого возмездия (решает Мастер), в зависимости от отношений, сложившихся между вами.",
+          "url": "https://ttg.club/spells/friends"
+     },
+     {
+          "rusName": "Пронзающий шип",
+          "engName": "Piercing Thorn",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "терновый шип"
+               }
+          },
+          "description": "Вы бросаете острый магический шип в существо в пределах дальности заклинания. Совершитедальнобойную атаку заклинанием. При попадании цель получает2к4колющего урона, а шип остается внутри существа на время действия заклинания или пока шип не взорвется.Если существо поражено заклинанием первого круга или выше, шип поглощает магическую силу заклинания и взрывается россыпью мелких шипов, нанося1к4колющего урона существу.Все существа в радиусе 5 футов должны преуспеть в спасброскеЛовкостиили получают1к4колющего урона.Начальный урон и урон от взрыва увеличивается на 5 уровне (3к4\\2к4), 11 уровне (5к4\\3к4), 17 уровень (6к4\\5к4).",
+          "url": "https://ttg.club/spells/piercing_thorn"
+     },
+     {
+          "rusName": "Иней",
+          "engName": "Hoarfrost",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": "Хранитель Кольца",
+          "statsBlock": {
+               "castTime": {
+                    "type": "bonus_action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Оружие ближнего боя, которое вы держите, пронизывается глубоким холодом. В течение всей длительности заклинания иней покрывает оружие, и из него поднимается легкий пар, если температура окрестностей выше нуля. Оружие наносит дополнительных1к4урона холодом при попадании. Заклинание оканчивается, если вы накладываете его снова или отпускаете оружие.Урон заговора растет на 1к4, когда вы получаете 5 уровень (2к4), 11 уровень (3к4) и 17 уровень (4к4).",
+          "url": "https://ttg.club/spells/hoarfrost"
+     },
+     {
+          "rusName": "Брызги кислоты",
+          "engName": "Acid Splash",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы кидаете кислотный шарик.Выберите одно видимое1вами существо в пределах дистанции или два видимых2вами существа в пределах дистанции, находящихся в пределах 5 футов друг от друга. Цель должна преуспеть в спасброскеЛовкости, иначе она получает1к6урона кислотой.Урон этого заклинания увеличивается на1к6, когда вы достигаете 5 уровня (2к6), 11 уровня (3к6) и 17 уровня (4к6).",
+          "url": "https://ttg.club/spells/acid_splash"
+     },
+     {
+          "rusName": "Раскат грома",
+          "engName": "Thunderclap",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Друид, Колдун, Чародей, Изобретатель, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "5"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы вызываете оглушительный раскат грома, который слышен на расстоянии до 100 футов. Все существа кроме вас в пределах 5 футов должны совершить спасбросокТелосложения. При провале существо получает1к6урона звуком.Урон заклинания увеличивается на1к6, когда вы достигаете 5 уровня (2к6), 11 уровня (3к6) и 17 уровня (4к6).",
+          "url": "https://ttg.club/spells/thunderclap"
+     },
+     {
+          "rusName": "Защита от оружия",
+          "engName": "Blade Ward",
+          "level": 0,
+          "schools": [
+               "abjuration"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Колдун, Чародей, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы протягиваете руку и рисуете в воздухе ограждающий знак. Вы получаете до конца своего следующего ходасопротивлениек дробящему, колющему и рубящему урону, причинённому атаками оружием.",
+          "url": "https://ttg.club/spells/blade_ward"
+     },
+     {
+          "rusName": "Писарь",
+          "engName": "Scribe",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Жрец",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Заклинание позволяет создать вам копию письменного произведения. Вы помешаете пустой свиток, книгу или страницу рядом с копируемой работой - все записи, иллюстрации и т.д. оригинала копируются ваши почерком на новый носитель. Он должен быть достаточно большим по размеру, чтобы вместить себя всё и исходного источника. Магические особенности оригинала не копируются, поэтому вы не можете создать копии свитков заклинаний или магических книг.",
+          "url": "https://ttg.club/spells/scribe"
+     },
+     {
+          "rusName": "Искусство друидов",
+          "engName": "Druidcraft",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Друид",
+          "subClasses": "Фэйри",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Пошептавшись с духами природы, вы создаёте один из следующих эффектов в пределах дистанции:Вы создаёте крохотный безвредный ощутимый эффект, предсказывающий погоду в текущем месте в течение следующих 24 часов. Это может быть золотистый шарик, означающий ясную погоду, облачко, означающее дождь, снежинка, и так далее. Эффект длится 1 раунд.Вы мгновенно заставляете цветок распуститься, семечко прорасти, или почку раскрыться.Вы создаёте мгновенный безвредный ощутимый эффект, такой как падающие листья, порыв ветра, звук маленького животного, или слабый запах скунса. Эффект должен находиться в кубе с длиной ребра 5 футов.Вы мгновенно зажигаете или тушите свечу, факел или небольшой костёр.",
+          "url": "https://ttg.club/spells/druidcraft"
+     },
+     {
+          "rusName": "Уход за умирающим",
+          "engName": "Spare the Dying",
+          "level": 0,
+          "schools": [
+               "necromancy"
+          ],
+          "isRitual": false,
+          "classes": "Жрец, Изобретатель, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы касаетесь живого существа, у которого 0 хитов. Оно становитсястабилизированным.Это заклинание не оказывает никакого эффекта на нежить и конструктов.",
+          "url": "https://ttg.club/spells/spare_the_dying"
+     },
+     {
+          "rusName": "Нашествие",
+          "engName": "Infestation",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "живая блоха"
+               }
+          },
+          "description": "Вы вызываете клещей, блох и других паразитов, которые мгновенно обволакивают одно существо, которое вы можете видеть в пределах дистанции.Цель должна преуспеть в спасброскеТелосложения, в противном случае она получает1к6урона ядом и перемещается на 5 футов в случайном направлении, если она может двигаться и её скорость составляет не менее 5 футов. Бросьтек4для определения направления: 1, север; 2, юг; 3, восток; или 4, запад.Это перемещение непровоцирует атакии, если выпавшее направление заблокировано, цель не перемещается.Урон заклинания увеличивается на1к6, когда вы достигаете 5 уровня (2к6), 11 уровня (3к6) и 17 уровня (4к6).",
+          "url": "https://ttg.club/spells/infestation"
+     },
+     {
+          "rusName": "Огненный снаряд",
+          "engName": "Fire Bolt",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "120"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы кидаете сгусток огня в существо или предмет в пределах дистанции.Совершите по целидальнобойную атаку заклинанием. При попадании цель получает1к10урона огнём. Горючие предметы, по которым попало это заклинание, воспламеняются, если их никто не несёт и не носит.Урон этого заклинания увеличивается на1к10, когда вы достигаете 5 уровня (2к10), 11 уровня (3к10) и 17 уровня (4к10).",
+          "url": "https://ttg.club/spells/fire_bolt"
+     },
+     {
+          "rusName": "Зашифровать/расшифровать",
+          "engName": "Encrypt or Decrypt",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Жрец",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Прикоснувшись к сообщению в письменной форме или книге, вы скрываете её содержимое. Все существа, пытающиеся прочесть содержимое, видят лишь одну тарабарщину.Этот эффект заканчивается, либо, когда вы повторно накладываете заклинание на предмет, либо вы накладываете на негорассеивание магии [dispel magic].",
+          "url": "https://ttg.club/spells/encrypt_or_decrypt"
+     },
+     {
+          "rusName": "Сопротивление",
+          "engName": "Resistance",
+          "level": 0,
+          "schools": [
+               "abjuration"
+          ],
+          "isRitual": false,
+          "classes": "Друид, Жрец, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "крошечный плащ"
+               }
+          },
+          "description": "Вы касаетесь одного согласного существа.Пока заклинание активно, цель может один раз броситьк4и добавить выпавшее число к одному спасброску на свой выбор. Кость можно кидать до или после спасброска. После этого заклинание оканчивается.",
+          "url": "https://ttg.club/spells/resistance"
+     },
+     {
+          "rusName": "Сияющие руки",
+          "engName": "Hand of Radiance",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Жрец",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "5"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы поднимаете руку, и из нее вырывается жгучее сияние.Каждое существо по вашему выбору, которое вы можете видеть в пределах 5 футов от себя, должно преуспеть в спасброскеТелосложенияили получить1к6урона излучением.",
+          "url": "https://ttg.club/spells/hand_of_radiance"
+     },
+     {
+          "rusName": "Обессиливающий укол",
+          "engName": "Sapping Sting",
+          "level": 0,
+          "schools": [
+               "necromancy"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы истощаете жизненные силы одного существа, которое можете видеть в пределах дистанции. Цель должна преуспеть в спасброскеТелосложенияили получит1к4урона некротической энергией и станетсбитой с ног.Урон от этого заклинания увеличивается на1к4при достижении 5-го уровня (2к4), 11-го уровня (3к4) и 17-го уровня (4к4).",
+          "url": "https://ttg.club/spells/sapping_sting"
+     },
+     {
+          "rusName": "Шквал",
+          "engName": "Gust",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Чародей, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы контролируете окружающий воздух и можете создать один из нижеперечисленных эффектов в точке, которую видите в пределах дистанции заклинания:Одно существо с размером не больше Среднего должно преуспеть в спасброскеСилы, иначе его оттолкнёт на 5 футов от вас.Вы создаёте небольшой порыв ветра, способный переместить предмет массой не более 5 фунтов, который никто не несёт и который ни на кого не надет. Объект толкается на расстояние до 10 футов от вас. Этого толчка недостаточно, чтобы причинить урон.Вы создаёте безвредный эффект с использованием воздуха, например, заставляете листву шелестеть, ветром захлопнуть ставни или вашу одежду колыхаться на ветру.",
+          "url": "https://ttg.club/spells/gust"
+     },
+     {
+          "rusName": "Починка",
+          "engName": "Mending",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Друид, Жрец, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "time",
+                    "units": "minutes",
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "два магнетита"
+               }
+          },
+          "description": "Это заклинание чинит одно повреждение или разрыв на предмете, которого касаетесь, например, разорванное звено цепи, две половинки сломанного ключа, порванный плащ или протекающий бурдюк.Если повреждение или разрыв не больше 1 фута в длину, вы чините его, не оставляя следов. Это заклинание может физически починить магический предмет или конструкта, но не может восстановить магию в таких предметах.",
+          "url": "https://ttg.club/spells/mending"
+     },
+     {
+          "rusName": "Клинок зелёного пламени",
+          "engName": "Green Flame Blade",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": true,
+                    "materialDesc": "рукопашное оружие стоимостью не менее 1 см"
+               }
+          },
+          "description": "Вы делаете взмах рукопашным оружием, используемым при произнесении заклинания, и совершаете имрукопашную атаку оружиемпротив одного существа в пределах 5 футов от вас. При попадании, цель подвергается обычным эффектам атаки оружием, и вы можете заставить зеленый огонь перескочить с цели на другое существо по вашему выбору, которое вы видите в пределах 5 футов от нее. Второе существо получает урон огнем, равный вашему модификатору колдовской способности.Урон этого заклинания увеличивается при достижении определенных уровней. На 5-м уровнерукопашная атакананосит дополнительно1к8урона огнём цели при попадании, а урон, получаемый вторым существом, увеличивается до1к8+ модификатор вашей заклинательной характеристики.Оба этих урона увеличиваются на 11-м уровне (2к8и2к8) и 17-м уровне (3к8и3к8).",
+          "url": "https://ttg.club/spells/green_flame_blade"
+     },
+     {
+          "rusName": "Громовой клинок",
+          "engName": "Thunderblade",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "5"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "любое оружие"
+               }
+          },
+          "description": "Как часть действия, используемого для произнесения этого заклинания, вы должны сделатьрукопашную атаку оружиемпо одному из существ в радиусе действия заклинания или заклинание провалится. При попадании, цель получает нормальный урон от атаки и оказывается окутанной громовой энергией до начала вашего следующего хода. Если существо по собственной воле передвинется до того момента, оно немедленно получает1к8урона звуком, и заклинание заканчивается.Урон заклинания растёт с повышением вашего уровня. На 5м уровне рукопашная атака наносит дополнительно1к8урона звуком по цели и урон при передвижении возрастает до2к8. Обе кости урона возрастают на1к8на 11м и на 17м уровнях.",
+          "url": "https://ttg.club/spells/thunderblade"
+     },
+     {
+          "rusName": "Фокусы",
+          "engName": "Prestidigitation",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Колдун, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "10"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "hours",
+                    "value": "до"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Это заклинание — небольшой магический трюк, на котором практикуются начинающие заклинатели. Вы создаёте один из следующих магических эффектов в пределах дистанции:Вы создаёте мгновенный безвредный сенсорный эффект, такой как сноп искр, порыв ветра, тихую мелодию, или необычный запах.Вы мгновенно зажигаете или тушите свечу, факел или небольшой костёр.Вы мгновенно чистите или мараете предмет, размерами не превышающий 1 кубического фута.Вы остужаете, нагреваете или придаёте запах и вкус 1 кубическому футу неживой материи на 1 час.Вы создаёте на поверхности или предмете маленькую цветную метку или символ, существующую 1 час.Вы создаёте немагическую безделушку или иллюзорное изображение, помещающееся в вашу ладонь, и существующий до конца вашего следующего хода.Если вы накладываете это заклинание несколько раз, вы можете иметь не более трёх немгновенных эффектов одновременно, и можетеДействиемокончить один любой из этих эффектов.",
+          "url": "https://ttg.club/spells/prestidigitation"
+     },
+     {
+          "rusName": "Драконий рёв",
+          "engName": "Dragon Roar",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник",
+          "subClasses": "Драконьи Маски",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Громкость вашего голоса увеличивается для того, что произвести атаку по разуму существа. Цель должна совершить спасбросокХаризмы. При провале, цель получает1к4психического урона и становитсяиспуганнойвами до начала вашего следующего хода. Цель может получить эффект от Драконьего рёва единожды за 24 часа.Урон этого заговора увеличивается на 1к4, когда вы достигаете 5 уровня (2к4), 11 уровня (3к4) и 17 уровня (4к4).",
+          "url": "https://ttg.club/spells/dragon_roar"
+     },
+     {
+          "rusName": "Пляшущие огоньки",
+          "engName": "Dancing Lights",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Чародей, Изобретатель",
+          "subClasses": "Эльф (дроу), Полуэльф тёмный (полудроу), Эльф (астральный)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "120"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "кусочек фосфора, гнилушка или светлячок"
+               }
+          },
+          "description": "Вы создаёте до четырёх огоньков размером с факел в пределах дистанции, делая их похожими на факелы, фонари или светящиеся сферы, парящие в воздухе. Вы можете также объединить четыре огонька в одну светящуюся человекоподобную фигуру Среднего размера. Какую бы форму вы не выбрали, каждый огонёк излучаеттусклый светв радиусе 10 футов.Вы можетебонусным действиемв свой ход переместить огоньки на 60 футов в новое место в пределах дистанции. Каждый огонёк должен находиться в пределах 20 футов от другого огонька, созданного этим заклинанием, и огонёк тухнет, если оказывается за пределами дистанции заклинания.",
+          "url": "https://ttg.club/spells/dancing_lights"
+     },
+     {
+          "rusName": "Изменение растений",
+          "engName": "Mold Plant",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "hours",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы выбираете немагическое растение, занимающее 10-футовый куб, которое вы можете видеть в пределах дальности заклинания. Вы изменяете выбранное растение им одним из следующих способов:Вы меняете цвет растения на 1 час.Вы придаете растению новую форму. Его ветви и листья могут скручиваться в слова, создавать изображения или фигуры. Эти изменения остаются в течение 1 часа.Вы можете изменить ландшафт вокруг растения, на труднопроходимый или обычный ландшафт. Это изменение длится 1 час.Если вы произносите это заклинание несколько раз, вы можете получить не более двух из его эффектов одновременно, и вы можете прекратить любой эффект потратив действие.",
+          "url": "https://ttg.club/spells/mold_plant"
+     },
+     {
+          "rusName": "Воздушный хлыст",
+          "engName": "Wind Lash",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": "Элементалист",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "20"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Быстрым движением вы создаёте плотный порыв сильного ветра. Совершитерукопашную атаку заклинаниемпо существу. При попадании цель получает1к8рубящего урона иотталкиваетсяот вас на 5 футов.Урон заклинания увеличивается на1к8, когда вы достигаете 5 уровня (2к8), 11 уровня (3к8), и 17 уровня (4к8).",
+          "url": "https://ttg.club/spells/wind_lash"
+     },
+     {
+          "rusName": "Первобытная дикость",
+          "engName": "Primal Savagery",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Друид, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы направляете первобытную магию, затачивающую ваши зубы или ногти, и готовитесь к агрессивной атаке.Совершитерукопашную атаку заклинаниемпротив одного существа в пределах 5 футов от вас. При попадании цель получает1к10урона кислотой. После того, как вы совершите атаку, ваши зубы или ногти вернутся в нормальное состояние.Урон заклинания увеличивается на1к10, когда вы достигаете 5 уровня (2к10), 11 уровня (3к10) и 17 уровня (4к10).",
+          "url": "https://ttg.club/spells/primal_savagery"
+     },
+     {
+          "rusName": "Визитная карточка",
+          "engName": "Calling Card",
+          "level": 0,
+          "schools": [
+               "illusion"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Колдун, Следопыт, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "until_dispelled",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": true,
+                    "materialDesc": "печать с меткой, оставленная на вашей визитной карточке"
+               }
+          },
+          "description": "Вы касаетесь трупа и отмечаете его магической меткой. Вы можете выбрать, сделать эту метку видимой руной или словом на плоти трупа или вы можете сделать её невидимой. Существа, которые осматривают труп специально чтобы найти метку автоматически её находят, вне зависимости от того видимая она или невидимая.",
+          "url": "https://ttg.club/spells/calling_card"
+     },
+     {
+          "rusName": "Когти тьмы",
+          "engName": "Claws of Darkness",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "bonus_action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы придаёте теням форму когтей, которые вырастают из ваших пальцев и источают вокруг себя чернильно-чёрную тьму. Вы можетеДействиемсовершитьрукопашную атаку заклинаниемс помощью когтей, которые наносят1к10урона холодом и имеют досягаемость 10 футов.Количество атак увеличивается на больших уровнях: 2 атаки на 5 уровне, 3 атаки на 11 уровне и 4 атаки на 17 уровне.",
+          "url": "https://ttg.club/spells/claws_of_darkness"
+     },
+     {
+          "rusName": "Клуб дыма",
+          "engName": "Puff of Smoke",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "bonus_action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Используя первородную силу огня, вы преобразуете близлежащий воздух в клубы дыма.Одно существо, которое вы можете видеть, должно совершить спасбросокЛовкостив случае провала она становитсяослеплённымдо начала вашего следующего хода. Клуб дыма не оказывает воздействия на существ с чувством вибрации илислепым зрением.",
+          "url": "https://ttg.club/spells/puff_of_smoke"
+     },
+     {
+          "rusName": "Терновый кнут",
+          "engName": "Thorn Whip",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Друид, Изобретатель",
+          "subClasses": "Домен Правосудия",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "стебель растения с шипами"
+               }
+          },
+          "description": "Вы создаёте длинный, похожий на лозу кнут, покрытый шипами, бьющий по вашей команде существо, находящееся в пределах дистанции.Совершитерукопашную атаку заклинаниемпо цели. Если атака попадает, существо получает1к6колющего урона, и если размер существа не большеБольшого, вы подтягиваете существо на 10 футов к себе.Урон этого заклинания увеличивается на1к6, когда вы достигаете 5 уровня (2к6), 11 уровня (3к6) и 17 уровня (4к6).",
+          "url": "https://ttg.club/spells/thorn_whip"
+     },
+     {
+          "rusName": "Чудотворство",
+          "engName": "Thaumaturgy",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Жрец, Шаман",
+          "subClasses": "Тифлинг (асмодей), Тифлинг (вельзевул), Тифлинг (диспатер), Тифлинг (зариэль)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "до"
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы создаёте небольшое чудо, знак сверхъестественной силы. Вы создаёте один из следующих магических эффектов в пределах дистанции:Ваш голос в течение 1 минуты звучит в три раза громче.Вы заставляете пламя в течение 1 минуты мерцать, светить ярче или тусклее, или изменять цвет.Вы вызываете безвредную дрожь в полу в течение 1 минуты.Вы создаёте мгновенный звук, исходящий из выбранной вами точки в пределах дистанции, такой как раскат грома, крик ворона или зловещий шёпот.Вы мгновенно заставляете незапертое окно или дверь распахнуться или захлопнуться.Вы на 1 минуту изменяете внешний вид своих глаз.Если вы накладываете это заклинание несколько раз, у вас может быть до трёх активных эффектов с длительностью в 1 минуту, и вы можете оканчивать такие эффекты действием.",
+          "url": "https://ttg.club/spells/thaumaturgy"
+     },
+     {
+          "rusName": "Леденящее прикосновение",
+          "engName": "Chill Touch",
+          "level": 0,
+          "schools": [
+               "necromancy"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей, Шаман",
+          "subClasses": "Круг Спор",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "120"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы создаёте призрачную руку скелета в пространстве существа, находящегося в пределах дистанции.Совершитедальнобойную атаку заклинаниемпо существу, чтобы окутать его могильным холодом. При попадании цель получает1к8урона некротической энергией, и не может восстанавливать хиты до начала вашего следующего хода. Всё это время рука держится за цель.Если вы попадаете по нежити, то она также до конца вашего следующего хода совершает по вам броски атаки спомехой.Урон этого заклинания увеличивается на1к8, когда вы достигаете 5 уровня (2к8), 11 уровня (3к8), 17 уровня (4к8).",
+          "url": "https://ttg.club/spells/chill_touch"
+     },
+     {
+          "rusName": "Удар грома",
+          "engName": "Thunder Bolt",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы призываете на врага силу грома.Совершитедальнобойную атаку заклинанием. При попадании цель получает1к8урона звуком ине можетиспользоватьреакциидо начала вашего следующего хода.",
+          "url": "https://ttg.club/spells/thunder_bolt"
+     },
+     {
+          "rusName": "Зашифровать мысли",
+          "engName": "Encode Thoughts",
+          "level": 0,
+          "schools": [
+               "enchantment"
+          ],
+          "isRitual": false,
+          "classes": null,
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "hours",
+                    "value": "до"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Прикладывая палец к своей голове, вы извлекаете воспоминание, идею или сообщение из своего разума и трансформируете её в осязаемую ленту светящейся энергии, которую называют мысленной лентой, которая существует длительность заклинания или пока вы не наложите это заклинание снова. Мысленная лента появляется в свободном пространстве в 5 футах от вас как крошечный, невесомый полутвёрдый предмет который можно держать и нести как ленту. В остальном она неподвижна.Если вы накладываете это заклинание пока концентрируетесь на заклинании или способности, позволяющей читать или манипулировать мыслями других людей (такие какобнаружение мыслей [detect thoughts]), вы можете трансформировать читаемые мысли или воспоминания в мысленную ленту.Если вы накладываете это заклинание пока держите мысленную ленту, вы мгновенно получаете ту информацию, что содержит лента. (Накладываниеобнаружение мыслей [detect thoughts]на ленту имеет тот же эффект).",
+          "url": "https://ttg.club/spells/encode_thoughts"
+     },
+     {
+          "rusName": "Звёздный взрыв",
+          "engName": "Starburst",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник",
+          "subClasses": "Иллюминация",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы призываете частицу из звёздного света в любую точку, что вы можете видеть в пределах 60 футов. Через мгновение она взрывается. Каждое существо в пределах 5 футов от взрыва должно совершить успешный спасбросокХаризмы, или получить1к8урона излучением.Урон, наносимый заклинанием, увеличивается на1к8на 5 (2к8), 11 (3к8) и 17 (4к8) уровнях.",
+          "url": "https://ttg.club/spells/starburst"
+     },
+     {
+          "rusName": "Меткий удар",
+          "engName": "True Strike",
+          "level": 0,
+          "schools": [
+               "divination"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы вытягиваете руку и указываете пальцем на цель, находящуюся в пределах дистанции. Ваша магия даёт краткое понимание защит цели.В своём следующем ходу вы совершаете спреимуществомпервый бросок атаки по цели, при условии, что заклинание к тому моменту не окончится.",
+          "url": "https://ttg.club/spells/true_strike"
+     },
+     {
+          "rusName": "Включить/Выключить",
+          "engName": "On or Off",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": true,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Магия этого заклинания позволяет вам активировать или деактивировать любое электронное устройство в пределах досягаемости, если устройство имеет четко определенную функцию включения или выключения, к которой можно легко получить доступ снаружи устройства. Любое устройство, для активации или деактивации которого требуется программная последовательность выключения, не может быть затронуто включением/выключением.",
+          "url": "https://ttg.club/spells/on_or_off"
+     },
+     {
+          "rusName": "Злая насмешка",
+          "engName": "Vicious Mockery",
+          "level": 0,
+          "schools": [
+               "enchantment"
+          ],
+          "isRitual": false,
+          "classes": "Бард",
+          "subClasses": "Тифлинг (язык дьявола)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы испускаете на существо, видимое в пределах дистанции, поток оскорблений вперемешку с тонкой магией.Если цель слышит вас (при этом она не обязана вас понимать), она должна преуспеть в спасброскеМудрости, иначе получит1к4урона психической энергией, и следующий бросок атаки до конца своего следующего хода совершит спомехой.Урон этого заклинания увеличивается на1к4, когда вы достигаете 5 уровня (2к4), 11 уровня (3к4) и 17 уровня (4к4).",
+          "url": "https://ttg.club/spells/vicious_mockery"
+     },
+     {
+          "rusName": "Лассо молнии",
+          "engName": "Lightning Lure",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы создаёте хлыст из молний, поражающий одно существо по вашему выбору, которое вы можете видеть в пределах 15 футов от вас. Цель должна преуспеть в спасброскеСилы, иначе будет притянута на 10 футов по прямой к вам, после чего получит1к8урона электричеством, если окажется в пределах 5 футов от вас.Урон этого заклинания увеличивается на1к8, когда вы достигаете 5-го уровня (2к8), 11-го уровня (3к8) и 17-го уровня (4к8).",
+          "url": "https://ttg.club/spells/lightning_lure"
+     },
+     {
+          "rusName": "Оплошность",
+          "engName": "Misstep",
+          "level": 0,
+          "schools": [
+               "enchantment"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Жрец",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы выбираете одно существо, которое вы можете видеть в пределах досягаемости. Оно должно совершить успешный спасбросокМудрости, в случае провала будучи вынуждено использовать свою реакцию и передвинуться на 5 футов в выбранном вами направлении. Это движение не провоцирует атаки по возможности. Заклинание не срабатываете если цель уже использовала свою реакцию или вы хотите направить её в опасную зону яма-ловушка, костёр, край скалы.",
+          "url": "https://ttg.club/spells/misstep"
+     },
+     {
+          "rusName": "Силуэт",
+          "engName": "Silhouette",
+          "level": 0,
+          "schools": [
+               "illusion"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник",
+          "subClasses": "Иллюминация",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы создаёте театр теней на холсте или стене. Заклинание может охватывать собой поверхность в 100 квадратных футов и количество появившихся существ равно удвоенному значению вашегоИнтеллекта.Теневые фигуры не издают звуков, но могут танцевать, бегать, двигаться, целоваться, драться и так далее. Большинство из них представляют собой какую-то общую концепцию кролик, дварф, но некоторые из них (количество равно модификаторуИнтеллекта) могут быть вполне узнаваемыми, конкретными личностями.",
+          "url": "https://ttg.club/spells/silhouette"
+     },
+     {
+          "rusName": "Железный кулак",
+          "engName": "Fist of Iron",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Жрец",
+          "subClasses": "Школа Часовых Механизмов",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы превращаете вашу руку в железо.Вашибезоружные атакинаносят1к6урона и считаются магическими.",
+          "url": "https://ttg.club/spells/fist_of_iron"
+     },
+     {
+          "rusName": "Потусторонняя хватка",
+          "engName": "Otherworldly Grasp",
+          "level": 0,
+          "schools": [
+               "illusion"
+          ],
+          "isRitual": false,
+          "classes": "Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": true,
+                    "materialDesc": "ваша пустая рука"
+               }
+          },
+          "description": "Вы направляете некротическую силу духов в свою руку, превращая ее в иссохший призрак самой себя.Совершитерукопашную атаку заклинаниемпо существу в пределах вашей досягаемости. При попадании существо получает1к8урона некротической энергии, а вы получаете1к4временных хитов, которые сохраняются на время вашей концентрации.Урон этого заклинания и получаемые временные хиты увеличивается, когда вы достигаете определённых уровней. На 5-м уровне (2к8и2к4), 11-го уровня (3к8и3к4) и 17-го уровня (4к8и4к4).",
+          "url": "https://ttg.club/spells/otherworldly_grasp"
+     },
+     {
+          "rusName": "Ослепление тенью",
+          "engName": "Shadow Blindness",
+          "level": 0,
+          "schools": [
+               "illusion"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник",
+          "subClasses": "Иллюминация",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Совершитедальнобойную атаку заклинаниемпротив существа стёмным зрением. В случае успеха цель теряет его на 1 раунд.Это заклинание не действует натёмное зрение, полученное с помощью магических предметов или других заклинаний, и все остальные чувства цели остаются нетронутыми. Когда эффект заклинания оканчивается,тёмное зрениесущества возвращается.",
+          "url": "https://ttg.club/spells/shadow_blindness"
+     },
+     {
+          "rusName": "Лепка земли",
+          "engName": "Mold Earth",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Чародей, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Выберите область земли или камня, видимую в пределах дистанции заклинания и помещающуюся в 5-футовый куб. Вы можете управлять ею одним из нижеперечисленных способов:Если вы нацелились на область рыхлой земли, вы можете мгновенно извлечь её и переместить на расстояние до 5 футов. Это перемещение не обладает достаточной силой, чтобы причинить урон.Вы можете создавать узоры или цвета на поверхности земли или камня для передачи слов, изображений или форм. Эффект действует 1 час.Если выбранная область находится на поверхности земли, вы можете сделать еётруднопроходимой. В качестве альтернативы вы можете сделатьтруднопроходимую местностьнормальной. Эффект действует 1 час.Если вы сотворяете это заклинание несколько раз, вы можете поддерживать не более двух его немгновенных эффектов одновременно. Вы можетеДействиемотменить один из действующих эффектов.",
+          "url": "https://ttg.club/spells/mold_earth"
+     },
+     {
+          "rusName": "Чувство охотника",
+          "engName": "Hunter Sense",
+          "level": 0,
+          "schools": [
+               "divination"
+          ],
+          "isRitual": false,
+          "classes": "Друид, Следопыт",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы касаетесь одного согласного существа. Пока заклинание активно, каждый раз, когда существо совершает проверкуМудрости (Внимательность)оно может при выпадении нак20результата «1–9» считать, что выпало «10».",
+          "url": "https://ttg.club/spells/hunter_sense"
+     },
+     {
+          "rusName": "Мистический заряд",
+          "engName": "Eldritch Blast",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Колдун",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "120"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "К существу, находящемуся в пределах дистанции, устремляется луч потрескивающей энергии.Совершитедальнобойную атаку заклинаниемпо цели. При попадании цель получает1к10урона силовым полем.Заклинание создаёт ещё один луч, когда вы достигаете больших уровней: два луча на 5 уровне, три луча на 11 уровне четыре луча на 17 уровне.Вы можете направить лучи в одну цель или в разных. Для каждого луча совершите свой бросок атаки.",
+          "url": "https://ttg.club/spells/eldritch_blast"
+     },
+     {
+          "rusName": "Благословенная защита",
+          "engName": "Benediction",
+          "level": 0,
+          "schools": [
+               "abjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Жрец",
+          "subClasses": "Ангельский Писарь",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы называете имя ангела и призываете его благословение.Существо, которое вы способны видеть, окутывает слабый белый свет. В следующий раз, когда существо получает урон, оно может бросить1к4и уменьшить его на выпавшее число. После этого заклинание заканчивается.",
+          "url": "https://ttg.club/spells/benediction"
+     },
+     {
+          "rusName": "Власть над огнём",
+          "engName": "Control Flames",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Чародей, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы выбираете немагическое пламя, которое вы можете видеть в пределах дистанции и которое помещается в 5-футовый куб. Вы воздействуете на него одним из следующих способов:Вы мгновенно распространяете пламя на 5 футов в одном направлении, при условии, что там есть дерево или другой горючий материал.Вы мгновенно гасите огонь в кубе.Вы в два раза увеличиваете или уменьшаете областияркого светаитусклого света, отбрасываемого пламенем, изменяете его цвет, или и то, и другое. Изменение длится 1 час.Вы вызываете в пламени простые образы, такие как расплывчатое изображение существа, неодушевленного предмета или места, которые движутся по вашему желанию. Образы существуют 1 час.Если вы сотворяете это заклинание несколько раз, одновременно вы можете поддерживать до трех его немгновенных эффектов, и вы можете действием отменить такой эффект.",
+          "url": "https://ttg.club/spells/control_flames"
+     },
+     {
+          "rusName": "Ядовитые брызги",
+          "engName": "Poison Spray",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Колдун, Чародей, Изобретатель, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "10"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы простираете руку к существу, видимому в пределах дистанции, и выпускаете из ладони клубы токсичного газа. Это существо должно преуспеть в спасброскеТелосложения, иначе оно получит1к12урона ядом.Урон этого заклинания увеличивается на1к12, когда вы достигаете 5 уровня (2к12), 11 уровня (3к12) и 17 уровня (4к12).",
+          "url": "https://ttg.club/spells/poison_spray"
+     },
+     {
+          "rusName": "Громовой клинок",
+          "engName": "Booming Blade",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "self",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": false,
+                    "material": true,
+                    "materialDesc": "рукопашное оружие стоимостью не менее 1 см."
+               }
+          },
+          "description": "Вы взмахиваете оружием, выбранным в качестве материального компонента, и совершаете им атаку ближнего боя против одного существа в пределах 5 футов от вас. При попадании цель получает обычный эффект атаки этим оружием, и становится покрытой бушующей энергией до начала вашего следующего хода. Если цель добровольно перемещается на 5 футов или более до окончания действия заклинания, то получает1к8урона звуком, а заклинание заканчивается.Урон этого заклинания увеличивается, когда вы достигаете определенных уровней. На 5-м уровне рукопашная атака наносит дополнительно1к8урона звуком при попадании, а урон получаемый при перемещении, увеличивается до2к8. Оба броска урона снова увеличиваются на1к8на 11-м уровне (2к8и3к8) и на 17-м уровне (3к8и4к8).",
+          "url": "https://ttg.club/spells/booming_blade"
+     },
+     {
+          "rusName": "Луч холода",
+          "engName": "Ray of Frost",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Чародей, Изобретатель",
+          "subClasses": "Тифлинг (левистус)",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Холодный сине-белый луч устремляется к существу, находящемуся в пределах дистанции.Совершите по целидальнобойную атаку заклинанием. При попадании цель получает1к8урона холодом, а скорость до начала вашего следующего хода уменьшается на 10 футов.Урон от заклинания увеличивается на1к8, когда вы достигаете 5 уровня (2к8), 11 уровня (3к8) и 17 уровня (4к8).",
+          "url": "https://ttg.club/spells/ray_of_frost"
+     },
+     {
+          "rusName": "Сообщение",
+          "engName": "Message",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник, Чародей, Изобретатель",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "120"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "кусочек медной проволоки"
+               }
+          },
+          "description": "Вы указываете пальцем на существо, находящееся в пределах дистанции, и шепчете послание. Цель (и только цель) слышит его, и может ответить шёпотом, который услышите только вы. Вы можете использовать это заклинание сквозь твёрдые препятствия, если вы знакомы с целью и знаете, что она находится за барьером.Магическая тишина, 1 фут камня, 1 дюйм обычного металла, тонкий лист свинца или 3 фута дерева блокируют заклинание. Заклинание не обязано идти по прямой линии, и может огибать углы и проходить через отверстия.",
+          "url": "https://ttg.club/spells/message"
+     },
+     {
+          "rusName": "Анализ устройства",
+          "engName": "Analyze Device",
+          "level": 0,
+          "schools": [
+               "divination"
+          ],
+          "isRitual": false,
+          "classes": "Бард, Волшебник",
+          "subClasses": "Домен Часовых Механизмов, Школа Часовых Механизмов",
+          "statsBlock": {
+               "castTime": {
+                    "type": "time",
+                    "units": "hours",
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "полный набор инструментов часовщика"
+               }
+          },
+          "description": "Вы раскрываете все механические свойства, механизмы и функции одного конструкта или часового механизма, в том числе как активировать/деактивировать эти функции, если применимо.",
+          "url": "https://ttg.club/spells/analyze_device"
+     },
+     {
+          "rusName": "Исцеление древа",
+          "engName": "Tree Heal",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": null,
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы касаетесь растения или существа с типом растение, после чего оно восстанавливает1к4хитов.Вы также можете вылечить у цели одно заболевание или вывести из него вредителей.После того, как вы наложили это заклинание на растение или существо с типом растение, вы не сможете снова наложить его на эту же цель в течение 24 часов.",
+          "url": "https://ttg.club/spells/tree_heal"
+     },
+     {
+          "rusName": "Указание",
+          "engName": "Guidance",
+          "level": 0,
+          "schools": [
+               "divination"
+          ],
+          "isRitual": false,
+          "classes": "Друид, Жрец, Изобретатель, Шаман",
+          "subClasses": "Круг Звезд",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы касаетесь одного согласного существа.Один раз, пока заклинание активно, цель может броситьк4и добавить выпавшее число к одной проверке характеристики на свой выбор.Эту кость можно бросить до или после совершения проверки. После этого заклинание оканчивается.",
+          "url": "https://ttg.club/spells/guidance"
+     },
+     {
+          "rusName": "Слово Сияния",
+          "engName": "Word of Radiance",
+          "level": 0,
+          "schools": [
+               "evocation"
+          ],
+          "isRitual": false,
+          "classes": "Жрец",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "5"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "священный символ"
+               }
+          },
+          "description": "Вы произносите божественное слово и извергаете из себя обжигающее сияние. Каждое существо по вашему выбору, которое вы можете видеть в пределах дистанции, должно преуспеть в спасброскеТелосложенияили получит1к6урона излучением.Урон заклинания увеличивается на1к6, когда вы достигаете 5 уровня (2к6), 11 уровня (3к6) и 17 уровня (4к6).",
+          "url": "https://ttg.club/spells/word_of_radiance"
+     },
+     {
+          "rusName": "Расщепление разума",
+          "engName": "Mind Sliver",
+          "level": 0,
+          "schools": [
+               "enchantment"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": "Аберрантный Разум",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы вводите дезориентирующий всплеск психической энергии в разум одного существа, которого видите в пределах досягаемости.Цель должна преуспеть в спасброскеИнтеллекта, иначе получит1к6урона психической энергией и вычтет1к4из следующего спасброска, который она сделает до конца вашего следующего хода.Урон этого заклинания увеличивается на1к6при достижении определенных уровней: 5-го уровня (2к6), 11-го уровня (3к6) и 17-го уровня (4к6).",
+          "url": "https://ttg.club/spells/mind_sliver"
+     },
+     {
+          "rusName": "Волшебный камень",
+          "engName": "Magic Stone",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Друид, Колдун, Изобретатель, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "bonus_action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы касаетесь от 1 до 3 камней и наделяете их магической силой.Вы или кто-либо ещё можете совершитьдальнобойную атаку заклинанием, кинув один из этих камней или запустив его при помощи пращи. Дальность броска рукой составляет 60 футов. Если кто-либо другой атакует этим камнем, он использует для броска атаки ваш модификатор базовой характеристики вместо своего.При попадании цель получает дробящий урон, равный1к6+ модификатор вашей базовой характеристики.Вне зависимости от того, попал камень или нет, это заклинание перестаёт на него действовать. Если вы сотворяете это заклинание ещё раз, его эффект преждевременно заканчивается на тех камнях, что были зачарованы прежде.",
+          "url": "https://ttg.club/spells/magic_stone"
+     },
+     {
+          "rusName": "Благословление мёртвых",
+          "engName": "Bless the Dead",
+          "level": 0,
+          "schools": [
+               "abjuration"
+          ],
+          "isRitual": false,
+          "classes": "Жрец",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы благословляете умершее существо, позволяя ему спокойно перейти в царство мёртвых. После произношения заклинания цель не может восстать как нежить. Заклинание не действует на тех, кто ещё жив и на тех, кто уже стал нежитью.",
+          "url": "https://ttg.club/spells/bless_the_dead"
+     },
+     {
+          "rusName": "Сотворение костра",
+          "engName": "Create Bonfire",
+          "level": 0,
+          "schools": [
+               "conjuration"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Друид, Колдун, Чародей, Изобретатель, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "60"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "концентрация,"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы создаёте огонь на поверхности земли в точке, которую можете видеть в пределах дистанции заклинания. Пока заклинание действует, огонь занимает область в 5-футовом кубе.Все существа, оказавшиеся в этом пространстве в момент накладывания заклинания, должны преуспеть в спасброскеЛовкости, иначе получат1к8урона огнём. Существо также должно совершать спасбросокЛовкости, когда впервые за ход оказывается в области действия заклинания или заканчивает свой ход в ней.Пламя поджигает все горючие предметы, ни на кого не надетые и никем не переносимые.Урон заклинания увеличивается на1к8, когда вы достигаете 5 уровня (2к8), 11 уровня (3к8) и 17 уровня (4к8).",
+          "url": "https://ttg.club/spells/create_bonfire"
+     },
+     {
+          "rusName": "Дубинка",
+          "engName": "Shillelagh",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Друид, Шаман",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "bonus_action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "touch",
+                    "units": null,
+                    "value": -1
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "minutes",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": true,
+                    "materialDesc": "омела, лист клевера и дубинка или боевой посох"
+               }
+          },
+          "description": "Дерево дубинки или боевого посоха, который вы держите, наполняется силой природы.Пока заклинание активно, вы можете использовать свою базовую характеристику вместоСилыдля бросков рукопашной атаки и урона при использовании этого оружия, и кость урона становится равной1к8.Если оружие не было магическим, оно становится им.Заклинание оканчивается, если вы наложите его ещё раз или выпустите оружие из рук.",
+          "url": "https://ttg.club/spells/shillelagh"
+     },
+     {
+          "rusName": "Погасить свет",
+          "engName": "Douse Light",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Колдун, Чародей",
+          "subClasses": null,
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "instant",
+                    "units": null,
+                    "value": -1
+               },
+               "components": {
+                    "somatic": true,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "С помощью жеста руки и заклинания, вы можете погасить один небольшой источник света в пределах диапазона. Это заклинание гасит факел, свечу, фонарь или источники света, созданные такими заговорами каксвет [light]илипляшущие огоньки [dancing lights].",
+          "url": "https://ttg.club/spells/douse_light"
+     },
+     {
+          "rusName": "Остановка",
+          "engName": "Tick Stop",
+          "level": 0,
+          "schools": [
+               "transmutation"
+          ],
+          "isRitual": false,
+          "classes": "Волшебник, Чародей",
+          "subClasses": "Школа Часовых Механизмов",
+          "statsBlock": {
+               "castTime": {
+                    "type": "action",
+                    "units": null,
+                    "value": "1"
+               },
+               "range": {
+                    "type": "fixed",
+                    "units": "foots",
+                    "value": "30"
+               },
+               "duration": {
+                    "type": "fixed",
+                    "units": "rounds",
+                    "value": "1"
+               },
+               "components": {
+                    "somatic": false,
+                    "verbal": true,
+                    "material": false,
+                    "materialDesc": null
+               }
+          },
+          "description": "Вы произносите команду и выбранный конструкт может совершить толькодействиеилибонусное действиев свой следующий ход, но не оба. Конструкт получаетиммунитетк последующим остановкам от того же заклинателя на 24 часа.",
+          "url": "https://ttg.club/spells/tick_stop"
+     }
+]
