@@ -1,27 +1,20 @@
-import config from './config.ts'
-import Grid from './Logic/Grid.ts'
-import VisualEngine from './Visual/VisualEngine.ts'
+import GameModel from './Model/GameModel.ts'
+import Utils from './Utils.ts'
+import View from './View/View.ts'
+import ViewModel from './ViewModel/ViewModel.ts'
 
 export default class InteractiveMap {
-	private _grid: Grid
-	private _visualEngine: VisualEngine
+	private _viewModel!: ViewModel
+	private _model!: GameModel
+	private _view!: View
 
-	constructor() {
-		this._visualEngine = new VisualEngine()
+	constructor() {}
 
-		this._grid = new Grid(config.grid.width, config.grid.height) // TODO: TEMP SOLUTION
-	}
+	public async init(levelFilePath: string): Promise<void> {
+		const levelData = await Utils.loadFileData(levelFilePath)
 
-	public async init(): Promise<void> {
-		await this._visualEngine.init()
-		this._visualEngine.setupScene(this._grid)
-
-		document.body.appendChild(this._visualEngine.canvas)
-
-		this.loop()
-	}
-
-	private loop(): void {
-		this._visualEngine.onUpdate(() => {})
+		this._model = new GameModel(levelData)
+		this._viewModel = new ViewModel(this._model)
+		this._view = new View(this._viewModel)
 	}
 }

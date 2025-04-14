@@ -1,6 +1,7 @@
 // import DiceRoller from './DiceRoller/DiceRoller.ts'
 // import InteractiveMap from './InteractiveMap/InteractiveMap.ts'
-import MapEditor from './MapEditor/MapEditor.ts'
+
+import InteractiveMap from './InteractiveMap/InteractiveMap.ts'
 
 // Dice Roller
 // export const diceRoller = new DiceRoller() // TODO: remove "export" in the end (used it in GUI)
@@ -11,5 +12,8 @@ import MapEditor from './MapEditor/MapEditor.ts'
 // await interactiveMap.init()
 
 // const gui = new Interface(diceRoller) // GUI - temp solution TODO: remove it in the end
-const mapEditor = new MapEditor()
-await mapEditor.init()
+// const mapEditor = new MapEditor()
+// await mapEditor.init()
+
+const interactiveMap = new InteractiveMap()
+await interactiveMap.init('/spellsData/spells_level_0.json')

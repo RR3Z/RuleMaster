@@ -1,8 +1,0 @@
-export enum StatType {
-	STRENGTH,
-	DEXTERITY,
-	CONSTITUTION,
-	INTELLIGENCE,
-	WISDOM,
-	CHARISMA,
-}
