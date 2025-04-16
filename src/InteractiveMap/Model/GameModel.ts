@@ -1,9 +1,17 @@
-import Grid from './Map/Grid.ts'
+import { EnemyData } from './Entities/Characters/Enemy.d'
+import { PlayerData } from './Entities/Characters/Player.d'
+import Grid, { GridData } from './Map/Grid.ts'
+
+export type MapData = {
+	grid: GridData
+	player: PlayerData
+	enemies: EnemyData[]
+}
 
 export default class GameModel {
 	private _grid: Grid
 
-	constructor(levelData: object) {
-		this._grid = new Grid(5, 5)
+	constructor(data: MapData) {
+		this._grid = new Grid(data.grid)
 	}
 }
