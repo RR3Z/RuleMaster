@@ -11,9 +11,9 @@ export default class AStarPathFinder {
 	private _maxPathLength: number
 	private _stepCost: number
 
-	constructor(maxPathLength: number, stepCost: number) {
-		this._maxPathLength = maxPathLength
-		this._stepCost = stepCost
+	constructor(data: PathFinderData) {
+		this._maxPathLength = data.maxPathLength
+		this._stepCost = data.stepCost
 	}
 
 	public shortestPath(start: Cell, end: Cell): Map<Cell, Cell | undefined> {
