@@ -11,10 +11,14 @@ export default class Cell {
 	private _y: number
 	private _content: Entity | undefined
 
+	public neighbors: Set<Cell>
+
 	constructor(data: CellData) {
 		this._x = data.x
 		this._y = data.y
 		this._content = data.content
+
+		this.neighbors = new Set()
 	}
 
 	public get x(): number {
