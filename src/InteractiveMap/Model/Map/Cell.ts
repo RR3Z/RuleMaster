@@ -32,7 +32,7 @@ export default class Cell {
 	public putContent(content: Entity) {
 		if (this._content !== undefined)
 			throw new Error(
-				`Cell (${this._x}, ${this._y}): has already content (${this._content}): `
+				`Cell (${this._x}, ${this._y}): already has content (${this._content.type})`
 			)
 
 		this._content = content
@@ -40,9 +40,11 @@ export default class Cell {
 
 	public pullContent(): Entity | undefined {
 		if (this._content === undefined)
-			throw new Error(`Cell (${this._x}, ${this._y}): has no content `)
-
-		if (this._content.type === EntityType.BOUNDARY) return undefined
+			throw new Error(`Cell (${this._x}, ${this._y}): has no content`)
+		else if (this._content.type === EntityType.BOUNDARY)
+			throw new Error(
+				`Cell (${this._x}, ${this._y}): is Boundary (you can't pull it)!`
+			)
 
 		const content = this._content
 		this._content = undefined
