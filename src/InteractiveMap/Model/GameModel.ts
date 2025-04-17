@@ -2,7 +2,7 @@ import { EnemyData } from './Entities/Characters/Enemy.d'
 import { PlayerData } from './Entities/Characters/Player.d'
 import Grid, { GridData } from './Map/Grid.ts'
 
-export type MapData = {
+export interface MapData {
 	grid: GridData
 	player: PlayerData
 	enemies: EnemyData[]
