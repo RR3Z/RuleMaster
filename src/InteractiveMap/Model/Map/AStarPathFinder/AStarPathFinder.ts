@@ -2,6 +2,11 @@ import { EntityType } from '../../Entities/Entity.ts'
 import Cell from '../Cell.ts'
 import PriorityQueue from './PriorityQueue.ts'
 
+export interface PathFinderData {
+	maxPathLength: number
+	stepCost: number
+}
+
 export default class AStarPathFinder {
 	private _maxPathLength: number
 	private _stepCost: number
