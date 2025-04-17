@@ -1,6 +1,29 @@
 import { SpellSlots } from '../../Spell/Spell.ts'
-import { Class, Skill, Stat } from './Character.ts'
-import { Background, Race } from './Player.ts'
+import {
+	Class,
+	Race,
+	SavingThrowData,
+	Skill,
+	SkillData,
+	Stat,
+} from './Character.d'
+
+export enum Background {
+	ENTERTAINER,
+	SAILOR,
+	PIRATE,
+	OUTLANDER,
+	URCHIN,
+	SAGE,
+	CRIMINAL,
+	CHARLATAN,
+	NOBLE,
+	FOLK_HERO,
+	ACOLYTE,
+	GUILD_ARTISAN,
+	HERMIT,
+	SOLDIER,
+}
 
 export interface PlayerData {
 	name: string
@@ -20,14 +43,4 @@ export interface PlayerMainInfo {
 	background: Background
 	maxHealth: number
 	defenceClass: number
-}
-
-export interface SavingThrowData {
-	value: number
-	hasIt: boolean
-}
-
-export interface SkillData {
-	value: number
-	hasIt: boolean
 }

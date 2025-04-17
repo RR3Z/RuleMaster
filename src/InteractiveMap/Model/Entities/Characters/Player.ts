@@ -1,37 +1,8 @@
 import { EntityType } from '../Entity.ts'
 import Character from './Character.ts'
-import { PlayerData } from './Player.d'
-
-export enum Race {
-	GNOME,
-	DWARF,
-	DRAGONBORN,
-	HALF_ORC,
-	HALFLING,
-	HALF_ELF,
-	TIEFLING,
-	HUMAN,
-	ELF,
-}
-export enum Background {
-	ENTERTAINER,
-	SAILOR,
-	PIRATE,
-	OUTLANDER,
-	URCHIN,
-	SAGE,
-	CRIMINAL,
-	CHARLATAN,
-	NOBLE,
-	FOLK_HERO,
-	ACOLYTE,
-	GUILD_ARTISAN,
-	HERMIT,
-	SOLDIER,
-}
+import { Background, PlayerData } from './Player.d'
 
 export default class Player extends Character {
-	private _race: Race
 	private _background: Background
 
 	constructor(data: PlayerData) {

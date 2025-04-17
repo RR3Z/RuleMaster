@@ -1,50 +1,7 @@
 import { SpellData, SpellSlots } from '../../Spell/Spell.ts'
 import Entity from '../Entity.ts'
-import { SavingThrowData, SkillData } from './Player.d'
-
-export enum Class {
-	BARD,
-	BARBARIAN,
-	FIGHTER,
-	WIZARD,
-	DRUID,
-	CLERIC,
-	ARTIFICER,
-	WARLOCK,
-	MONK,
-	PALADIN,
-	ROGUE,
-	RANGER,
-	SORCERER,
-}
-export enum Stat {
-	STRENGTH,
-	DEXTERITY,
-	CONSTITUTION,
-	INTELLIGENCE,
-	WISDOM,
-	CHARISMA,
-}
-export enum Skill {
-	ACROBATICS,
-	ANIMAL_HANDLING,
-	ARCANA,
-	ATHLETICS,
-	DECEPTION,
-	HISTORY,
-	INSIGHT,
-	INTIMIDATION,
-	INVESTIGATION,
-	MEDICINE,
-	NATURE,
-	PERSUASION,
-	PERCEPTION,
-	RELIGION,
-	SLEIGHT_OF_HAND,
-	SURVIVAL,
-	STEALTH,
-	PERFORMANCE,
-}
+import { Class, Race, SavingThrowData, Skill, Stat } from './Character.d'
+import { SkillData } from './Player.d'
 
 export default abstract class Character extends Entity {
 	protected _name!: string
@@ -58,6 +15,7 @@ export default abstract class Character extends Entity {
 	protected _savingThrows!: Map<Stat, SavingThrowData>
 	protected _spells!: Map<string, SpellData>
 	protected _spellSlots!: Map<number, SpellSlots>
+	protected _race!: Race
 
 	// TODO:
 	public takeDamage(value: number): void {}

@@ -1,0 +1,67 @@
+export enum Class {
+	BARD,
+	BARBARIAN,
+	FIGHTER,
+	WIZARD,
+	DRUID,
+	CLERIC,
+	ARTIFICER,
+	WARLOCK,
+	MONK,
+	PALADIN,
+	ROGUE,
+	RANGER,
+	SORCERER,
+}
+
+export enum Stat {
+	STRENGTH,
+	DEXTERITY,
+	CONSTITUTION,
+	INTELLIGENCE,
+	WISDOM,
+	CHARISMA,
+}
+
+export enum Skill {
+	ACROBATICS,
+	ANIMAL_HANDLING,
+	ARCANA,
+	ATHLETICS,
+	DECEPTION,
+	HISTORY,
+	INSIGHT,
+	INTIMIDATION,
+	INVESTIGATION,
+	MEDICINE,
+	NATURE,
+	PERSUASION,
+	PERCEPTION,
+	RELIGION,
+	SLEIGHT_OF_HAND,
+	SURVIVAL,
+	STEALTH,
+	PERFORMANCE,
+}
+
+export interface SkillData {
+	value: number
+	hasIt: boolean
+}
+
+export enum Race {
+	GNOME,
+	DWARF,
+	DRAGONBORN,
+	HALF_ORC,
+	HALFLING,
+	HALF_ELF,
+	TIEFLING,
+	HUMAN,
+	ELF,
+}
+
+export interface SavingThrowData {
+	value: number
+	hasIt: boolean
+}
