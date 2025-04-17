@@ -11,26 +11,23 @@ export default class AStarPathFinder {
 		this._stepCost = stepCost
 	}
 
-	public shortestPath(
-		startPos: Cell,
-		endPos: Cell
-	): Map<Cell, Cell | undefined> {
+	public shortestPath(start: Cell, end: Cell): Map<Cell, Cell | undefined> {
 		const path: Map<Cell, Cell | undefined> = new Map()
-		path.set(startPos, undefined)
-		if (startPos === endPos) return path
+		path.set(start, undefined)
+		if (start === end) return path
 
 		const costs: Map<Cell, number> = new Map()
-		costs.set(startPos, 0)
+		costs.set(start, 0)
 
 		const frontier: PriorityQueue<Cell> = new PriorityQueue()
-		frontier.put(startPos, 0)
+		frontier.put(start, 0)
 
 		const steps: Map<Cell, number> = new Map()
-		steps.set(startPos, 0)
+		steps.set(start, 0)
 
 		while (true) {
 			const current = frontier.get()
-			if (current === endPos || current === undefined) break
+			if (current === end || current === undefined) break
 
 			const currentSteps = steps.get(current)!
 			if (currentSteps >= this._maxPathLength) break
@@ -40,7 +37,7 @@ export default class AStarPathFinder {
 				if (!costs.has(neighbor) || newCost < costs.get(neighbor)!) {
 					steps.set(neighbor, currentSteps + 1)
 					costs.set(neighbor, newCost)
-					const priority = newCost + this.euclidean(neighbor, endPos)
+					const priority = newCost + this.euclideanDistance(neighbor, end)
 					frontier.put(neighbor, priority)
 					path.set(neighbor, current)
 				}
@@ -62,7 +59,7 @@ export default class AStarPathFinder {
 		}
 	}
 
-	private euclidean(first: Cell, second: Cell): number {
+	private euclideanDistance(first: Cell, second: Cell): number {
 		const dx = first.x - second.x
 		const dy = first.y - second.y
 		return Math.sqrt(dx * dx + dy * dy)
