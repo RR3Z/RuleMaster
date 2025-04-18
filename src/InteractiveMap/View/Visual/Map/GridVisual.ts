@@ -11,17 +11,17 @@ export default class GridVisual extends Container {
 
 	private _cellVisuals!: CellVisual[][]
 
-	constructor(grid: GridVisualData) {
+	constructor(data: GridVisualData) {
 		super()
 
-		this.draw(grid, this.cellSize)
+		this.draw(data)
 	}
 
-	private draw(grid: GridVisualData, cellSize: number): void {
-		const height = grid.height
-		const width = grid.width
+	private draw(data: GridVisualData): void {
+		const height = data.height
+		const width = data.width
 
-		if (this.isDebugEnabled) this.drawDebug(grid, cellSize)
+		if (this.isDebugEnabled) this.drawDebug(data)
 
 		// Vertical lines
 		for (
@@ -30,8 +30,8 @@ export default class GridVisual extends Container {
 			i++
 		) {
 			const line = new Graphics()
-				.moveTo(i * cellSize, 0)
-				.lineTo(i * cellSize, cellSize * height)
+				.moveTo(i * this.cellSize, 0)
+				.lineTo(i * this.cellSize, this.cellSize * height)
 				.stroke({ color: this.cellColor, pixelLine: true })
 			this.addChild(line)
 		}
@@ -43,24 +43,24 @@ export default class GridVisual extends Container {
 			i++
 		) {
 			const line = new Graphics()
-				.moveTo(0, i * cellSize)
-				.lineTo(cellSize * width, i * cellSize)
+				.moveTo(0, i * this.cellSize)
+				.lineTo(this.cellSize * width, i * this.cellSize)
 				.stroke({ color: this.cellColor, pixelLine: true })
 			this.addChild(line)
 		}
 	}
 
-	private drawDebug(grid: GridVisualData, cellSize: number): void {
-		const height = grid.height
-		const width = grid.width
+	private drawDebug(data: GridVisualData): void {
+		const height = data.height
+		const width = data.width
 
 		this._cellVisuals = Array.from({ length: height }, () =>
 			Array.from({ length: width } as CellVisual[])
 		)
 
-		const cells = new Set<CellVisualData>(grid.cells)
+		const cells = new Set<CellVisualData>(data.cells)
 		cells.forEach((cell: CellVisualData) => {
-			this._cellVisuals[cell.x][cell.y] = new CellVisual(cell, cellSize)
+			this._cellVisuals[cell.x][cell.y] = new CellVisual(cell, this.cellSize)
 			this.addChild(this._cellVisuals[cell.x][cell.y])
 		})
 	}
