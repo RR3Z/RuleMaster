@@ -1,11 +1,8 @@
-// import DiceRoller from './DiceRoller/DiceRoller.ts'
-// import InteractiveMap from './InteractiveMap/InteractiveMap.ts'
-
-import InteractiveMap from './InteractiveMap/InteractiveMap.ts'
-
 // Dice Roller
 // export const diceRoller = new DiceRoller() // TODO: remove "export" in the end (used it in GUI)
 // await diceRoller.loadDices('models/dices/dices.gltf')
+
+import InteractiveMap from './InteractiveMap/InteractiveMap.ts'
 
 // Interactive Map
 // const interactiveMap = new InteractiveMap()
@@ -16,4 +13,4 @@ import InteractiveMap from './InteractiveMap/InteractiveMap.ts'
 // await mapEditor.init()
 
 const interactiveMap = new InteractiveMap()
-await interactiveMap.init('/spellsData/spells_level_0.json')
+interactiveMap.init('/levelsData/test.json')
