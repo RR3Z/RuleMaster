@@ -1,8 +1,4 @@
-export enum EntityType {
-	ENEMY,
-	PLAYER,
-	BOUNDARY,
-}
+import { EntityType } from '../../_Enums/EntityType.ts'
 
 export default abstract class Entity {
 	protected _type: EntityType

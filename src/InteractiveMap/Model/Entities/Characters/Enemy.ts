@@ -1,6 +1,6 @@
-import { EntityType } from '../Entity.ts'
+import { EntityType } from '../../../_Enums/EntityType.ts'
+import { EnemyData } from '../../../_Types/Characters.ts'
 import Character from './Character.ts'
-import { EnemyData } from './Enemy.d'
 
 export default class Enemy extends Character {
 	// TODO:

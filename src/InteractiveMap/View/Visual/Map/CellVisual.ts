@@ -1,26 +1,18 @@
 import { Graphics } from 'pixi.js'
-import { EntityType } from '../../../Model/Entities/Entity.ts'
+import { EntityType } from '../../../_Enums/EntityType'
+import { CellVisualData } from '../../../_Types/Map'
 
 export default class CellVisual extends Graphics {
-	// TODO: REMOVE TYPE IN THE END
-	constructor(
-		x: number,
-		y: number,
-		cellSize: number,
-		type: EntityType | undefined
-	) {
+	constructor(data: CellVisualData, cellSize: number) {
 		super()
-		this.draw(x, y, cellSize, type)
+		this.draw(data, cellSize)
 	}
 
-	private draw(
-		x: number,
-		y: number,
-		cellSize: number,
-		type: EntityType | undefined
-	) {
-		this.rect(x * cellSize, y * cellSize, cellSize, cellSize).fill(0xff0000)
-		if (type === EntityType.BOUNDARY) this.alpha = 0.5
+	private draw(data: CellVisualData, cellSize: number) {
+		this.rect(data.x * cellSize, data.y * cellSize, cellSize, cellSize).fill(
+			0xff0000
+		)
+		if (data.type === EntityType.BOUNDARY) this.alpha = 0.5
 		else this.alpha = 0
 	}
 }

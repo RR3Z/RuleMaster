@@ -1,4 +1,4 @@
-import { GridData } from '../Model/Map/Grid.ts'
+import { MapVisualData } from '../_Types/Map.ts'
 import ViewModel from '../ViewModel/ViewModel.ts'
 import VisualEngine from './Visual/VisualEngine.ts'
 
@@ -11,8 +11,8 @@ export default class View {
 		this._visualEngine = new VisualEngine()
 	}
 
-	public async init(grid: GridData): Promise<void> {
+	public async init(data: MapVisualData): Promise<void> {
 		await this._visualEngine.init()
-		this._visualEngine.initScene(grid)
+		this._visualEngine.initScene(data)
 	}
 }

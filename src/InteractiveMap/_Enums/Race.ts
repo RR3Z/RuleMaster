@@ -1,0 +1,11 @@
+export enum Race {
+	GNOME,
+	DWARF,
+	DRAGONBORN,
+	HALF_ORC,
+	HALFLING,
+	HALF_ELF,
+	TIEFLING,
+	HUMAN,
+	ELF,
+}

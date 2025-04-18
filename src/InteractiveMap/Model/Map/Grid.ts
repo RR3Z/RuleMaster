@@ -1,10 +1,5 @@
-import Cell, { CellData } from './Cell.ts'
-
-export type GridData = {
-	width: number
-	height: number
-	cells: CellData[]
-}
+import { CellData, GridData } from '../../_Types/Map.ts'
+import Cell from './Cell.ts'
 
 export default class Grid {
 	// Settings

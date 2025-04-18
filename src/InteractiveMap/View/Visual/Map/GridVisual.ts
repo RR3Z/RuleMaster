@@ -1,22 +1,23 @@
 import { Container, Graphics } from 'pixi.js'
-import { CellData } from '../../../Model/Map/Cell.ts'
-import { GridData } from '../../../Model/Map/Grid.ts'
+import { CellVisualData, GridVisualData } from '../../../_Types/Map.ts'
 import CellVisual from './CellVisual.ts'
 
 export default class GridVisual extends Container {
 	public isDebugEnabled: boolean = true
 	public isBoundariesEnabled: boolean = true
+
 	public cellColor: number = 0x333333
+	public cellSize: number = 50
+
 	private _cellVisuals!: CellVisual[][]
 
-	constructor(grid: GridData) {
+	constructor(grid: GridVisualData) {
 		super()
 
-		this.sortableChildren = true // TODO: убрать это в конце
-		this.draw(grid, 50) // TODO: брать откуда-то извне значение CellSize
+		this.draw(grid, this.cellSize)
 	}
 
-	private draw(grid: GridData, cellSize: number): void {
+	private draw(grid: GridVisualData, cellSize: number): void {
 		const height = grid.height
 		const width = grid.width
 
@@ -49,7 +50,7 @@ export default class GridVisual extends Container {
 		}
 	}
 
-	private drawDebug(grid: GridData, cellSize: number): void {
+	private drawDebug(grid: GridVisualData, cellSize: number): void {
 		const height = grid.height
 		const width = grid.width
 
@@ -57,14 +58,9 @@ export default class GridVisual extends Container {
 			Array.from({ length: width } as CellVisual[])
 		)
 
-		const cells = new Set<CellData>(grid.cells)
-		cells.forEach((cell: CellData) => {
-			this._cellVisuals[cell.x][cell.y] = new CellVisual(
-				cell.x,
-				cell.y,
-				cellSize,
-				cell.content.type
-			)
+		const cells = new Set<CellVisualData>(grid.cells)
+		cells.forEach((cell: CellVisualData) => {
+			this._cellVisuals[cell.x][cell.y] = new CellVisual(cell, cellSize)
 			this.addChild(this._cellVisuals[cell.x][cell.y])
 		})
 	}

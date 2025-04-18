@@ -1,19 +1,13 @@
-import AStarPathFinder, {
-	PathFinderData,
-} from './Map/AStarPathFinder/AStarPathFinder.ts'
-import Grid, { GridData } from './Map/Grid.ts'
-
-export type MapData = {
-	grid: GridData
-	pathFinder: PathFinderData
-}
+import { MapLogicData } from '../_Types/Map.ts'
+import AStarPathFinder from './Map/AStarPathFinder/AStarPathFinder.ts'
+import Grid from './Map/Grid.ts'
 
 export default class GameModel {
 	private _grid: Grid
 	private _pathFinder: AStarPathFinder
 
-	constructor(data: MapData) {
+	constructor(data: MapLogicData) {
 		this._grid = new Grid(data.grid)
-		this._pathFinder = new AStarPathFinder(data.pathFinder)
+		this._pathFinder = new AStarPathFinder()
 	}
 }

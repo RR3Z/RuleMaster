@@ -1,27 +1,17 @@
-import Boundary from '../Entities/Boundary'
-import Enemy from '../Entities/Characters/Enemy'
-import { EnemyData } from '../Entities/Characters/Enemy.d'
-import Player from '../Entities/Characters/Player'
-import { PlayerData } from '../Entities/Characters/Player.d'
-import Entity, { EntityType } from '../Entities/Entity'
-
-export type CellContentData = {
-	type: EntityType | undefined
-	data: PlayerData | EnemyData | undefined
-}
-
-export type CellData = {
-	x: number
-	y: number
-	content: CellContentData
-}
+import { EntityType } from '../../_Enums/EntityType.ts'
+import { EnemyData, PlayerData } from '../../_Types/Characters.ts'
+import { CellContentData, CellData } from '../../_Types/Map.ts'
+import Boundary from '../Entities/Boundary.ts'
+import Enemy from '../Entities/Characters/Enemy.ts'
+import Player from '../Entities/Characters/Player.ts'
+import Entity from '../Entities/Entity.ts'
 
 export default class Cell {
+	public neighbors: Set<Cell>
+
 	private _x: number
 	private _y: number
 	private _content: Entity | undefined
-
-	public neighbors: Set<Cell>
 
 	constructor(data: CellData) {
 		this._x = data.x

@@ -1,5 +1,5 @@
 import { Application, Container } from 'pixi.js'
-import { GridData } from '../../Model/Map/Grid.ts'
+import { MapVisualData } from '../../_Types/Map.ts'
 import Camera from './Camera.ts'
 import GridVisual from './Map/GridVisual.ts'
 
@@ -16,10 +16,9 @@ export default class VisualEngine extends Application {
 		this.canvas.id = 'interactiveMap'
 
 		document.body.append(this.canvas)
-		// document.getElementById('interactveMap')!.style.display = 'none'
 	}
 
-	public initScene(grid: GridData): void {
+	public initScene(data: MapVisualData): void {
 		// Camera
 		this._camera = new Camera(this.renderer)
 		this.stage.addChild(this._camera)
@@ -29,6 +28,6 @@ export default class VisualEngine extends Application {
 		this._camera.addChild(this._sceneObjects)
 
 		// Grid
-		this._sceneObjects.addChild(new GridVisual(grid))
+		this._sceneObjects.addChild(new GridVisual(data.grid))
 	}
 }

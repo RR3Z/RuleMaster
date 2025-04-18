@@ -1,4 +1,4 @@
-import { EntityType } from '../../Entities/Entity.ts'
+import { EntityType } from '../../../_Enums/EntityType.ts'
 import Cell from '../Cell.ts'
 import PriorityQueue from './PriorityQueue.ts'
 
@@ -8,13 +8,10 @@ export interface PathFinderData {
 }
 
 export default class AStarPathFinder {
-	private _maxPathLength: number
-	private _stepCost: number
+	public maxPathLength: number = 5
+	public stepCost: number = 5
 
-	constructor(data: PathFinderData) {
-		this._maxPathLength = data.maxPathLength
-		this._stepCost = data.stepCost
-	}
+	constructor() {}
 
 	public shortestPath(start: Cell, end: Cell): Map<Cell, Cell | undefined> {
 		const path: Map<Cell, Cell | undefined> = new Map()
@@ -35,7 +32,7 @@ export default class AStarPathFinder {
 			if (current === end || current === undefined) break
 
 			const currentSteps = steps.get(current)!
-			if (currentSteps >= this._maxPathLength) break
+			if (currentSteps >= this.maxPathLength) break
 
 			current.neighbors.forEach((neighbor: Cell) => {
 				const newCost = costs.get(current)! + this.defineCellCost(neighbor)
@@ -56,11 +53,11 @@ export default class AStarPathFinder {
 		switch (cell.contentType) {
 			case EntityType.ENEMY:
 			case EntityType.PLAYER:
-				return this._stepCost * 2
+				return this.stepCost * 2
 			case EntityType.BOUNDARY:
 				return Infinity
 			case undefined:
-				return this._stepCost
+				return this.stepCost
 		}
 	}
 
