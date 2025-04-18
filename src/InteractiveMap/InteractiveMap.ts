@@ -18,6 +18,6 @@ export default class InteractiveMap {
 		this._viewModel = new ViewModel(this._model)
 		this._view = new View(this._viewModel)
 
-		await this._view.init(mapData.visual.grid)
+		await this._view.init(mapData.visual)
 	}
 }
