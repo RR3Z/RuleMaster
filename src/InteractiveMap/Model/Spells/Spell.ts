@@ -1,9 +1,9 @@
-export interface SpellSlots {
+export type SpellSlots = {
 	max: number
 	available: number
 }
 
 // TODO:
-export interface SpellData {
+export type SpellData = {
 	level: number
 }

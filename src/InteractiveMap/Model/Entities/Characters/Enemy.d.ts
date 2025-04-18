@@ -1,7 +1,7 @@
-import { SpellSlots } from '../../Spell/Spell.ts'
+import { SpellSlots } from '../../Spells/Spell.ts'
 import { Class, Race, SavingThrowData, Stat } from './Character.d'
 
-export interface EnemyData {
+export type EnemyData = {
 	name: string
 	mainInfo: EnemyMainInfo
 	stats: Map<Stat, number>
@@ -11,7 +11,7 @@ export interface EnemyData {
 	items: string[]
 }
 
-export interface EnemyMainInfo {
+export type EnemyMainInfo = {
 	class: Class | undefined
 	race: Race
 	maxHealth: number

@@ -44,11 +44,6 @@ export enum Skill {
 	PERFORMANCE,
 }
 
-export interface SkillData {
-	value: number
-	hasIt: boolean
-}
-
 export enum Race {
 	GNOME,
 	DWARF,
@@ -61,7 +56,12 @@ export enum Race {
 	ELF,
 }
 
-export interface SavingThrowData {
+export type SkillData = {
+	value: number
+	hasIt: boolean
+}
+
+export type SavingThrowData = {
 	value: number
 	hasIt: boolean
 }

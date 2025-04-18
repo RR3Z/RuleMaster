@@ -1,4 +1,4 @@
-import { SpellSlots } from '../../Spell/Spell.ts'
+import { SpellSlots } from '../../Spells/Spell.ts'
 import {
 	Class,
 	Race,
@@ -25,18 +25,18 @@ export enum Background {
 	SOLDIER,
 }
 
-export interface PlayerData {
+export type PlayerData = {
 	name: string
 	mainInfo: PlayerMainInfo
-	stats: Map<Stat, number>
-	savingThrows: Map<Stat, SavingThrowData>
-	skills: Map<Skill, SkillData>
+	stats: [Stat, number][]
+	savingThrows: [Stat, SavingThrowData][]
+	skills: [Skill, SkillData][]
 	spells: string[]
-	spellSlots: Map<number, SpellSlots> // Level, SpellSlots data
+	spellSlots: [number, SpellSlots][] // Level, SpellSlots data
 	items: string[]
 }
 
-export interface PlayerMainInfo {
+export type PlayerMainInfo = {
 	level: number
 	class: Class
 	race: Race

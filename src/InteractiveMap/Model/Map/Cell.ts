@@ -1,9 +1,19 @@
+import Boundary from '../Entities/Boundary'
+import Enemy from '../Entities/Characters/Enemy'
+import { EnemyData } from '../Entities/Characters/Enemy.d'
+import Player from '../Entities/Characters/Player'
+import { PlayerData } from '../Entities/Characters/Player.d'
 import Entity, { EntityType } from '../Entities/Entity'
 
-export interface CellData {
+export type CellContentData = {
+	type: EntityType | undefined
+	data: PlayerData | EnemyData | undefined
+}
+
+export type CellData = {
 	x: number
 	y: number
-	content: Entity | undefined
+	content: CellContentData
 }
 
 export default class Cell {
@@ -16,7 +26,7 @@ export default class Cell {
 	constructor(data: CellData) {
 		this._x = data.x
 		this._y = data.y
-		this._content = data.content
+		this.setContent(data.content)
 
 		this.neighbors = new Set()
 	}
@@ -53,5 +63,22 @@ export default class Cell {
 		const content = this._content
 		this._content = undefined
 		return content
+	}
+
+	private setContent(data: CellContentData): void {
+		switch (data.type) {
+			case EntityType.BOUNDARY:
+				this._content = new Boundary()
+				break
+			case EntityType.PLAYER:
+				this._content = new Player(data.data as PlayerData)
+				break
+			case EntityType.ENEMY:
+				this._content = new Enemy(data.data as EnemyData)
+				break
+			case undefined:
+				this._content = undefined
+				break
+		}
 	}
 }

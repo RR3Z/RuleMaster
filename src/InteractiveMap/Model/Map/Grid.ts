@@ -1,9 +1,9 @@
 import Cell, { CellData } from './Cell.ts'
 
-export interface GridData {
+export type GridData = {
 	width: number
 	height: number
-	cells: Set<CellData>
+	cells: CellData[]
 }
 
 export default class Grid {
@@ -15,7 +15,7 @@ export default class Grid {
 	constructor(data: GridData) {
 		this._width = data.width
 		this._height = data.height
-		this.fill(data.cells)
+		this.fill(new Set(data.cells))
 	}
 
 	public get width(): number {
@@ -24,6 +24,10 @@ export default class Grid {
 
 	public get height(): number {
 		return this._height
+	}
+
+	public cells(): Readonly<Cell[][]> {
+		return this._cells
 	}
 
 	public cell(x: number, y: number): Cell {

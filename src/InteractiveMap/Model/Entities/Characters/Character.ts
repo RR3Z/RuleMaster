@@ -1,7 +1,13 @@
-import { SpellData, SpellSlots } from '../../Spell/Spell.ts'
+import { SpellData, SpellSlots } from '../../Spells/Spell.ts'
 import Entity from '../Entity.ts'
-import { Class, Race, SavingThrowData, Skill, Stat } from './Character.d'
-import { SkillData } from './Player.d'
+import {
+	Class,
+	Race,
+	SavingThrowData,
+	Skill,
+	SkillData,
+	Stat,
+} from './Character.d'
 
 export default abstract class Character extends Entity {
 	protected _name!: string
