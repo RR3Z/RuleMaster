@@ -45,6 +45,11 @@ export type EnemyMainInfo = {
 }
 
 // General Data (LOGIC)
+export type Position = {
+	x: number
+	y: number
+}
+
 export type SkillData = {
 	value: number
 	hasIt: boolean
