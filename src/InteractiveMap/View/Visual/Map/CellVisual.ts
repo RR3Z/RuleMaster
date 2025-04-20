@@ -7,7 +7,7 @@ export default class CellVisual extends Graphics {
 		this.draw(data, cellSize)
 	}
 
-	private draw(data: CellVisualData, cellSize: number) {
+	private draw(data: CellVisualData, cellSize: number): void {
 		this.rect(data.pos.x * cellSize, data.pos.y * cellSize, cellSize, cellSize)
 		this.alpha = 0.5
 

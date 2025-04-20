@@ -12,6 +12,8 @@ import Token from './Token.ts'
 export default class CharacterToken extends Token {
 	// Fields
 	private _character: Character
+	protected _isDragging: boolean
+
 	// Events
 	public positionChanged$: Subject<CharacterPosition>
 

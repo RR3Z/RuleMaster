@@ -5,7 +5,6 @@ import VisualUtils from '../../../VisualUtils.ts'
 export default abstract class Token extends Graphics {
 	// Fields
 	protected _parent!: Container
-	protected _isDragging!: boolean
 	protected _radius!: number
 
 	protected init(data: TokenVisualData): void {
