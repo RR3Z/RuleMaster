@@ -25,7 +25,7 @@ export default class GameModel {
 	}
 
 	public moveCharacterTo(character: Character, newPos: Position): void {
-		const oldPos = character.position
+		const oldPos = character.position.value
 		const path = this._pathFinder.shortestPath(
 			this._grid.cell(oldPos.x, oldPos.y),
 			this._grid.cell(newPos.x, newPos.y)
@@ -36,10 +36,10 @@ export default class GameModel {
 		while (nextCell !== undefined) {
 			const content = prevCell.pullContent()
 			nextCell.putContent(content!)
+			content!.position.next({ x: nextCell.x, y: nextCell.y })
+
 			prevCell = nextCell
 			nextCell = path.get(prevCell)
 		}
-
-		character.position = { x: prevCell.x, y: prevCell.y }
 	}
 }
