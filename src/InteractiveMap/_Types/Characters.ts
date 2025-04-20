@@ -59,6 +59,5 @@ export type SavingThrowData = {
 export type CharacterVisualData = {
 	x: number
 	y: number
-	radius: number
 	picture: string
 }
