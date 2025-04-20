@@ -1,6 +1,7 @@
 import { Container, FederatedPointerEvent } from 'pixi.js'
 import { Subject } from 'rxjs'
-import { Position, TokenVisualData } from '../../../_Types/Characters.ts'
+import { TokenVisualData } from '../../../_Types/Characters.ts'
+import { Position } from '../../../_Types/Map.ts'
 import Character from '../../../Model/Entities/Characters/Character.ts'
 import VisualUtils from '../../../VisualUtils.ts'
 import Token from './Token.ts'
