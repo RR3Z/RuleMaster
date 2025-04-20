@@ -16,6 +16,7 @@ export type PlayerData = {
 	spells: string[]
 	spellSlots: [number, SpellSlots][] // Level, SpellSlots data
 	items: string[]
+	position: Position
 }
 
 export type PlayerMainInfo = {
@@ -36,6 +37,7 @@ export type EnemyData = {
 	spells: string[]
 	spellSlots: Map<number, SpellSlots>
 	items: string[]
+	position: Position
 }
 
 export type EnemyMainInfo = {
