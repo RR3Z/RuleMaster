@@ -38,7 +38,7 @@ export default class Cell {
 		this._content = content
 	}
 
-	public pullContent(): Entity | undefined {
+	public pullContent(): Entity {
 		if (this._content === undefined)
 			throw new Error(`Cell (${this._x}, ${this._y}): has no content`)
 		else if (this._content.type === EntityType.BOUNDARY)
