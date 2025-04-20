@@ -3,8 +3,15 @@ import { Class } from '../_Enums/Class.ts'
 import { Race } from '../_Enums/Race.ts'
 import { Skill } from '../_Enums/Skill.ts'
 import { Stat } from '../_Enums/Stat.ts'
+import Character from '../Model/Entities/Characters/Character.ts'
 import { Position } from './Map.ts'
 import { SpellSlots } from './Spell.ts'
+
+// General
+export type CharacterPosition = {
+	character: Character
+	pos: Position
+}
 
 // Player Data (LOGIC)
 export type PlayerData = {
@@ -32,10 +39,10 @@ export type PlayerMainInfo = {
 export type EnemyData = {
 	name: string
 	mainInfo: EnemyMainInfo
-	stats: Map<Stat, number>
-	savingThrows: Map<Stat, SavingThrowData>
+	stats: [Stat, number][]
+	savingThrows: [Stat, SavingThrowData][]
 	spells: string[]
-	spellSlots: Map<number, SpellSlots>
+	spellSlots: [number, SpellSlots][]
 	items: string[]
 	position: Position
 }

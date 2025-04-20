@@ -29,7 +29,7 @@ export default class Cell {
 		return this._content?.type
 	}
 
-	public putContent(content: Entity) {
+	public putContent(content: Entity): void {
 		if (this._content !== undefined)
 			throw new Error(
 				`Cell (${this._x}, ${this._y}): already has content (${this._content.type})`

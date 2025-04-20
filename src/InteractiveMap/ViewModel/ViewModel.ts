@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs'
+import { CharacterPosition } from '../_Types/Characters.ts'
 import { Position } from '../_Types/Map.ts'
 import GameModel from '../Model/GameModel.ts'
-import { CharacterPosition } from '../View/Visual/Characters/CharacterToken.ts'
 
 export default class ViewModel {
 	private _model: GameModel

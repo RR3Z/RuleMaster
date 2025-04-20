@@ -1,9 +1,9 @@
+import { CharacterPosition } from '../_Types/Characters.ts'
 import { MapVisualData, Position } from '../_Types/Map.ts'
 import Enemy from '../Model/Entities/Characters/Enemy.ts'
 import Player from '../Model/Entities/Characters/Player.ts'
 import ViewModel from '../ViewModel/ViewModel.ts'
 import VisualUtils from '../VisualUtils.ts'
-import { CharacterPosition } from './Visual/Characters/CharacterToken.ts'
 import VisualEngine from './Visual/VisualEngine.ts'
 
 export default class View {

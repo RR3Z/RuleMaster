@@ -11,11 +11,6 @@ export default abstract class Entity {
 	constructor(type: EntityType, pos: Position) {
 		this._type = type
 		this.position = new BehaviorSubject(pos)
-		// this.position.subscribe(position => {
-		// 	console.log(
-		// 		`Entity (${this._type}) position: ${this.position.value.x},${this.position.value.y}`
-		// 	)
-		// })
 	}
 
 	public get type() {
