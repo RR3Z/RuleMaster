@@ -18,6 +18,7 @@
 		"@dimforge/rapier3d-compat": "^0.14.0",
 		"pixi-viewport": "^6.0.3",
 		"pixi.js": "^8.8.1",
+		"rxjs": "^7.8.2",
 		"sweetalert2": "^11.17.2",
 		"three": "^0.173.0"
 	}
