@@ -24,5 +24,6 @@ export default class Player extends Character {
 		this._savingThrows = new Map<Stat, SavingThrowData>(data.savingThrows)
 		//TODO: this._spells = data.spells
 		this._spellSlots = new Map<number, SpellSlots>(data.spellSlots)
+		this.position.next(data.position)
 	}
 }
