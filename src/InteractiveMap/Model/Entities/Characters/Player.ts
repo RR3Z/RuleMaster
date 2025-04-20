@@ -9,7 +9,7 @@ export default class Player extends Character {
 	private _background: Background
 
 	constructor(data: PlayerData) {
-		super(EntityType.PLAYER)
+		super(EntityType.PLAYER, data.position)
 
 		this._name = data.name
 		this._maxHealth = data.mainInfo.maxHealth
@@ -24,6 +24,5 @@ export default class Player extends Character {
 		this._savingThrows = new Map<Stat, SavingThrowData>(data.savingThrows)
 		//TODO: this._spells = data.spells
 		this._spellSlots = new Map<number, SpellSlots>(data.spellSlots)
-		this.position.next(data.position)
 	}
 }
