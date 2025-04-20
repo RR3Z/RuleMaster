@@ -1,12 +1,17 @@
 import { Application, Container } from 'pixi.js'
 import { MapVisualData } from '../../_Types/Map.ts'
+import Enemy from '../../Model/Entities/Characters/Enemy.ts'
+import Player from '../../Model/Entities/Characters/Player.ts'
 import Camera from './Camera.ts'
-import Token from './Characters/Token.ts'
+import CharacterToken from './Characters/CharacterToken.ts'
 import GridVisual from './Map/GridVisual.ts'
 
 export default class VisualEngine extends Application {
 	private _sceneObjects!: Container
+
 	private _camera!: Camera
+	private _grid!: GridVisual
+	public player!: CharacterToken
 
 	constructor() {
 		super()
@@ -19,7 +24,11 @@ export default class VisualEngine extends Application {
 		document.body.append(this.canvas)
 	}
 
-	public initScene(data: MapVisualData): void {
+	public initScene(
+		data: MapVisualData,
+		player: Player,
+		enemies: Set<Enemy>
+	): void {
 		// Camera
 		this._camera = new Camera(this.renderer)
 		this.stage.addChild(this._camera)
@@ -29,12 +38,16 @@ export default class VisualEngine extends Application {
 		this._camera.addChild(this._sceneObjects)
 
 		// Grid
-		const gridVisual = new GridVisual(data.grid)
-		this._sceneObjects.addChild(gridVisual)
+		this._grid = new GridVisual(data.grid)
+		this._sceneObjects.addChild(this._grid)
 
 		// Player
-		this._sceneObjects.addChild(
-			new Token(data.player, this._camera, gridVisual.cellSize)
+		this.player = new CharacterToken(
+			data.player,
+			this._camera,
+			this._grid.cellSize,
+			player
 		)
+		this._sceneObjects.addChild(this.player)
 	}
 }
