@@ -29,6 +29,13 @@ export default class Token extends Graphics {
 		this.circle(0, 0, this._radius)
 		this.fill(0x888888) // TODO: Change on picture
 
+		this.hitArea = new Rectangle(
+			-this._radius,
+			-this._radius,
+			this._radius * 2,
+			this._radius * 2
+		)
+
 		this.eventMode = 'static'
 		this.cursor = 'pointer'
 	}
