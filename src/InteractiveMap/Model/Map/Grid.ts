@@ -1,4 +1,4 @@
-import { CellData, GridData } from '../../_Types/Map.ts'
+import { GridData } from '../../_Types/Map.ts'
 import Cell from './Cell.ts'
 
 export default class Grid {
@@ -10,7 +10,7 @@ export default class Grid {
 	constructor(data: GridData) {
 		this._width = data.width
 		this._height = data.height
-		this.fill(new Set(data.cells))
+		this.fill()
 	}
 
 	public get width(): number {
@@ -32,16 +32,18 @@ export default class Grid {
 		return this._cells[x][y]
 	}
 
-	private fill(cellsData: Set<CellData>): void {
+	private fill(): void {
 		// Creating an empty two-dimensional array corresponding to the grid size
 		this._cells = Array.from({ length: this._width }, () =>
 			Array.from({ length: this._height } as Cell[])
 		)
 
 		// Filling grid with cells
-		cellsData.forEach((cellData: CellData) => {
-			this._cells[cellData.x][cellData.y] = new Cell(cellData)
-		})
+		for (let x = 0; x < this._width; x++) {
+			for (let y = 0; y < this._height; y++) {
+				this._cells[x][y] = new Cell({ x: x, y: y })
+			}
+		}
 
 		// Set neighbors for cells
 		let neighbors: Set<Cell>

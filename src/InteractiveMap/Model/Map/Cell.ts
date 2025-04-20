@@ -1,5 +1,5 @@
 import { EntityType } from '../../_Enums/EntityType.ts'
-import { CellData } from '../../_Types/Map.ts'
+import { Position } from '../../_Types/Map.ts'
 import Entity from '../Entities/Entity.ts'
 
 export default class Cell {
@@ -9,9 +9,9 @@ export default class Cell {
 	private _y: number
 	private _content: Entity | undefined
 
-	constructor(data: CellData) {
-		this._x = data.x
-		this._y = data.y
+	constructor(pos: Position) {
+		this._x = pos.x
+		this._y = pos.y
 		this._content = undefined
 
 		this.neighbors = new Set()
