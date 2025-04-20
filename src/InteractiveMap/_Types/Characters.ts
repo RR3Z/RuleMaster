@@ -3,6 +3,7 @@ import { Class } from '../_Enums/Class.ts'
 import { Race } from '../_Enums/Race.ts'
 import { Skill } from '../_Enums/Skill.ts'
 import { Stat } from '../_Enums/Stat.ts'
+import { Position } from './Map.ts'
 import { SpellSlots } from './Spell.ts'
 
 // Player Data (LOGIC)
@@ -45,11 +46,6 @@ export type EnemyMainInfo = {
 }
 
 // General Data (LOGIC)
-export type Position = {
-	x: number
-	y: number
-}
-
 export type SkillData = {
 	value: number
 	hasIt: boolean
@@ -61,8 +57,7 @@ export type SavingThrowData = {
 }
 
 // Characters Data (VISUAL)
-export type CharacterVisualData = {
-	x: number
-	y: number
+export type TokenVisualData = {
+	pos: Position
 	picture: string
 }

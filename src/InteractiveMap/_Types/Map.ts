@@ -1,5 +1,10 @@
 import { EntityType } from '../_Enums/EntityType.ts'
-import { CharacterVisualData, EnemyData, PlayerData } from './Characters.ts'
+import { EnemyData, PlayerData, TokenVisualData } from './Characters.ts'
+
+export type Position = {
+	x: number
+	y: number
+}
 
 export type MapData = {
 	logic: MapLogicData
@@ -8,30 +13,21 @@ export type MapData = {
 
 export type MapLogicData = {
 	grid: GridData
+	player: PlayerData
+	enemies: EnemyData[]
+	boundaries: Position[]
 }
 
 export type MapVisualData = {
 	grid: GridVisualData
-	player: CharacterVisualData
-	enemies: CharacterVisualData[]
+	player: TokenVisualData
+	enemies: TokenVisualData[]
 }
 
 // Grid Data (LOGIC)
 export type GridData = {
 	width: number
 	height: number
-	cells: CellData[]
-}
-
-export type CellData = {
-	x: number
-	y: number
-	content: CellContentData
-}
-
-export type CellContentData = {
-	type: EntityType | undefined
-	data: PlayerData | EnemyData | undefined
 }
 
 // Grid Data (VISUAL)
@@ -43,8 +39,7 @@ export type GridVisualData = {
 }
 
 export type CellVisualData = {
-	x: number
-	y: number
+	pos: Position
 	type: EntityType | undefined
 	color: number | undefined
 }
