@@ -1,9 +1,5 @@
 import { EntityType } from '../../_Enums/EntityType.ts'
-import { EnemyData, PlayerData } from '../../_Types/Characters.ts'
-import { CellContentData, CellData } from '../../_Types/Map.ts'
-import Boundary from '../Entities/Boundary.ts'
-import Enemy from '../Entities/Characters/Enemy.ts'
-import Player from '../Entities/Characters/Player.ts'
+import { CellData } from '../../_Types/Map.ts'
 import Entity from '../Entities/Entity.ts'
 
 export default class Cell {
@@ -16,7 +12,7 @@ export default class Cell {
 	constructor(data: CellData) {
 		this._x = data.x
 		this._y = data.y
-		this.setContent(data.content)
+		this._content = undefined
 
 		this.neighbors = new Set()
 	}
@@ -53,22 +49,5 @@ export default class Cell {
 		const content = this._content
 		this._content = undefined
 		return content
-	}
-
-	private setContent(data: CellContentData): void {
-		switch (data.type) {
-			case EntityType.BOUNDARY:
-				this._content = new Boundary()
-				break
-			case EntityType.PLAYER:
-				this._content = new Player(data.data as PlayerData)
-				break
-			case EntityType.ENEMY:
-				this._content = new Enemy(data.data as EnemyData)
-				break
-			case undefined:
-				this._content = undefined
-				break
-		}
 	}
 }
