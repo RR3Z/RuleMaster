@@ -1,19 +1,18 @@
-import { Container, FederatedPointerEvent, Graphics } from 'pixi.js'
+import { Container, FederatedPointerEvent, Graphics, Rectangle } from 'pixi.js'
 import { CharacterVisualData } from '../../../_Types/Characters.ts'
 import VisualUtils from '../../../VisualUtils.ts'
 
 export default class Token extends Graphics {
 	private _parent: Container
 	private _isDragging: boolean
+	private _radius: number
 
-	private _gridPosition: { x: number; y: number }
-
-	constructor(data: CharacterVisualData, parent: Container) {
+	constructor(data: CharacterVisualData, parent: Container, cellSize: number) {
 		super()
 
 		this._parent = parent
 		this._isDragging = false
-		this._gridPosition = { x: data.x, y: data.y }
+		this._radius = cellSize / 2
 
 		this.init(data)
 		this.subscribe()
@@ -23,11 +22,11 @@ export default class Token extends Graphics {
 		const pos = VisualUtils.coordinatesToPixelPosition(
 			data.x,
 			data.y,
-			data.radius
+			this._radius
 		)
 		this.position = pos
 
-		this.circle(0, 0, data.radius)
+		this.circle(0, 0, this._radius)
 		this.fill(0x888888) // TODO: Change on picture
 
 		this.eventMode = 'static'
