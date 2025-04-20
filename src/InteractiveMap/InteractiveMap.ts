@@ -15,9 +15,13 @@ export default class InteractiveMap {
 		const mapData: MapData = await Utils.loadFileData(levelFilePath)
 
 		this._model = new GameModel(mapData.logic)
-		this._viewModel = new ViewModel(this._model)
+		this._viewModel = new ViewModel(this._model, mapData.logic.player.position)
 		this._view = new View(this._viewModel)
 
-		await this._view.init(mapData.visual)
+		await this._view.init(
+			mapData.visual,
+			this._model.player,
+			this._model.enemies
+		)
 	}
 }
