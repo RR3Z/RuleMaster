@@ -10,6 +10,7 @@ export default class Camera extends Viewport {
 			disableOnContextMenu: true,
 		})
 
+		this.onResize = this.onResize.bind(this)
 		window.addEventListener('resize', this.onResize)
 	}
 
