@@ -10,8 +10,8 @@ export default abstract class Token extends Graphics {
 
 	protected init(data: TokenVisualData): void {
 		const pos = VisualUtils.coordinatesToPixelPosition(
-			data.x,
-			data.y,
+			data.pos.x,
+			data.pos.y,
 			this._radius
 		)
 		this.position = pos

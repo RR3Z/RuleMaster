@@ -1,181 +1,60 @@
 {
-  "logic": {
-    "grid": {
-      "width": 4,
-      "height": 4
-    },
-    "player": {
-      "name": "Player",
-      "mainInfo": {
-        "level": 1,
-        "class": 6,
-        "race": 2,
-        "background": 10,
-        "maxHealth": 10,
-        "defenceClass": 14
-      },
-      "stats": [
-        
-      ],
-      "savingThrows": [
-        
-      ],
-      "skills": [
-        
-      ],
-      "spells": [
-        
-      ],
-      "spellSlots": [
-        
-      ],
-      "items": [
-        
-      ],
-      "position": {
-        "x": 3,
-        "y": 3
-      }
-    },
-    "enemies": [
-      
-    ],
-    "boundaries": [
-      {
-        "x": 1,
-        "y": 1
-      },
-      {
-        "x": 2,
-        "y": 2
-      },
-      {
-        "x": 3,
-        "y": 2
-      }
-    ]
-  },
-  "visual": {
-    "grid": {
-      "width": 4,
-      "height": 4,
-      "cells": [
-        {
-          "pos": {
-            "x": 0,
-            "y": 0
-          }
-        },
-        {
-          "pos": {
-            "x": 0,
-            "y": 1
-          }
-        },
-        {
-          "pos": {
-            "x": 0,
-            "y": 2
-          }
-        },
-        {
-          "pos": {
-            "x": 0,
-            "y": 3
-          }
-        },
-        {
-          "pos": {
-            "x": 1,
-            "y": 0
-          }
-        },
-        {
-          "pos": {
-            "x": 1,
-            "y": 1
-          },
-          "type": 2,
-          "color": 12845056
-        },
-        {
-          "pos": {
-            "x": 1,
-            "y": 2
-          }
-        },
-        {
-          "pos": {
-            "x": 1,
-            "y": 3
-          }
-        },
-        {
-          "pos": {
-            "x": 2,
-            "y": 0
-          }
-        },
-        {
-          "pos": {
-            "x": 2,
-            "y": 1
-          }
-        },
-        {
-          "pos": {
-            "x": 2,
-            "y": 2
-          },
-          "type": 2,
-          "color": 12845056
-        },
-        {
-          "pos": {
-            "x": 2,
-            "y": 3
-          }
-        },
-        {
-          "pos": {
-            "x": 3,
-            "y": 0
-          }
-        },
-        {
-          "pos": {
-            "x": 3,
-            "y": 1
-          }
-        },
-        {
-          "pos": {
-            "x": 3,
-            "y": 2
-          },
-          "type": 2,
-          "color": 12845056
-        },
-        {
-          "pos": {
-            "x": 3,
-            "y": 3
-          },
-          "type": 1,
-          "color": 764161
-        }
-      ],
-      "picture": "a"
-    },
-    "player": {
-      "pos": {
-        "x": 3,
-        "y": 3
-      },
-      "picture": "b"
-    },
-    "enemies": [
-      
-    ]
-  }
+	"logic": {
+		"grid": {
+			"width": 4,
+			"height": 4,
+			"boundaries": [
+				{ "x": 1, "y": 1 },
+				{ "x": 2, "y": 2 },
+				{ "x": 3, "y": 2 },
+				{ "x": 1, "y": 2 }
+			]
+		},
+		"player": {
+			"name": "Player",
+			"mainInfo": {
+				"level": 1,
+				"class": 6,
+				"race": 2,
+				"background": 10,
+				"maxHealth": 10,
+				"defenceClass": 14
+			},
+			"stats": [],
+			"savingThrows": [],
+			"skills": [],
+			"spells": [],
+			"spellSlots": [],
+			"items": [],
+			"position": { "x": 3, "y": 3 }
+		},
+		"enemies": []
+	},
+	"visual": {
+		"grid": {
+			"width": 4,
+			"height": 4,
+			"cells": [
+				{ "pos": { "x": 0, "y": 0 } },
+				{ "pos": { "x": 0, "y": 1 } },
+				{ "pos": { "x": 0, "y": 2 } },
+				{ "pos": { "x": 0, "y": 3 } },
+				{ "pos": { "x": 1, "y": 0 } },
+				{ "pos": { "x": 1, "y": 1 }, "type": 2, "color": 12845056 },
+				{ "pos": { "x": 1, "y": 2 }, "type": 2, "color": 12845056 },
+				{ "pos": { "x": 1, "y": 3 } },
+				{ "pos": { "x": 2, "y": 0 } },
+				{ "pos": { "x": 2, "y": 1 } },
+				{ "pos": { "x": 2, "y": 2 }, "type": 2, "color": 12845056 },
+				{ "pos": { "x": 2, "y": 3 } },
+				{ "pos": { "x": 3, "y": 0 } },
+				{ "pos": { "x": 3, "y": 1 } },
+				{ "pos": { "x": 3, "y": 2 }, "type": 2, "color": 12845056 },
+				{ "pos": { "x": 3, "y": 3 }, "type": 1, "color": 764161 }
+			],
+			"picture": "a"
+		},
+		"player": { "pos": { "x": 3, "y": 3 }, "picture": "b" },
+		"enemies": []
+	}
 }

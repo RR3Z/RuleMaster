@@ -15,7 +15,6 @@ export type MapLogicData = {
 	grid: GridData
 	player: PlayerData
 	enemies: EnemyData[]
-	boundaries: Position[]
 }
 
 export type MapVisualData = {
@@ -28,6 +27,7 @@ export type MapVisualData = {
 export type GridData = {
 	width: number
 	height: number
+	boundaries: Position[]
 }
 
 // Grid Data (VISUAL)

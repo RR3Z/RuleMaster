@@ -60,8 +60,11 @@ export default class GridVisual extends Container {
 
 		const cells = new Set<CellVisualData>(data.cells)
 		cells.forEach((cell: CellVisualData) => {
-			this._cellVisuals[cell.x][cell.y] = new CellVisual(cell, this.cellSize)
-			this.addChild(this._cellVisuals[cell.x][cell.y])
+			this._cellVisuals[cell.pos.x][cell.pos.y] = new CellVisual(
+				cell,
+				this.cellSize
+			)
+			this.addChild(this._cellVisuals[cell.pos.x][cell.pos.y])
 		})
 	}
 }

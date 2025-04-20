@@ -1,4 +1,6 @@
-import { GridData } from '../../_Types/Map.ts'
+import { GridData, Position } from '../../_Types/Map.ts'
+import Boundary from '../Entities/Boundary.ts'
+import Player from '../Entities/Characters/Player.ts'
 import Cell from './Cell.ts'
 
 export default class Grid {
@@ -7,10 +9,10 @@ export default class Grid {
 	private _height: number
 	private _cells!: Cell[][]
 
-	constructor(data: GridData) {
+	constructor(data: GridData, player: Player) {
 		this._width = data.width
 		this._height = data.height
-		this.fill()
+		this.fill(data.boundaries, player)
 	}
 
 	public get width(): number {
@@ -32,7 +34,7 @@ export default class Grid {
 		return this._cells[x][y]
 	}
 
-	private fill(): void {
+	private fill(boundaries: Position[], player: Player): void {
 		// Creating an empty two-dimensional array corresponding to the grid size
 		this._cells = Array.from({ length: this._width }, () =>
 			Array.from({ length: this._height } as Cell[])
@@ -44,6 +46,16 @@ export default class Grid {
 				this._cells[x][y] = new Cell({ x: x, y: y })
 			}
 		}
+
+		// Set Boundaries
+		boundaries.forEach((pos: Position) => {
+			this._cells[pos.x][pos.y].putContent(new Boundary(pos))
+		})
+
+		// Set Player
+		this._cells[player.position.value.x][player.position.value.y].putContent(
+			player
+		)
 
 		// Set neighbors for cells
 		let neighbors: Set<Cell>

@@ -1,9 +1,11 @@
+import { EntityType } from '../_Enums/EntityType.ts'
 import { EnemyData } from '../_Types/Characters.ts'
 import { MapLogicData, Position } from '../_Types/Map.ts'
 import Character from './Entities/Characters/Character.ts'
 import Enemy from './Entities/Characters/Enemy.ts'
 import Player from './Entities/Characters/Player.ts'
 import AStarPathFinder from './Map/AStarPathFinder/AStarPathFinder.ts'
+import Cell from './Map/Cell.ts'
 import Grid from './Map/Grid.ts'
 
 export default class GameModel {
@@ -15,8 +17,8 @@ export default class GameModel {
 
 	constructor(data: MapLogicData) {
 		this._pathFinder = new AStarPathFinder()
-		this._grid = new Grid(data.grid)
 		this.player = new Player(data.player)
+		this._grid = new Grid(data.grid, this.player)
 
 		this.enemies = new Set<Enemy>()
 		data.enemies.forEach((data: EnemyData) => {
@@ -26,20 +28,30 @@ export default class GameModel {
 
 	public moveCharacterTo(character: Character, newPos: Position): void {
 		const oldPos = character.position.value
-		const path = this._pathFinder.shortestPath(
+
+		if (
+			this._grid.cell(newPos.x, newPos.y).contentType === EntityType.BOUNDARY
+		) {
+			character.position.next({ x: oldPos.x, y: oldPos.y })
+			return
+		}
+
+		const path: Cell[] = this._pathFinder.shortestPath(
 			this._grid.cell(oldPos.x, oldPos.y),
 			this._grid.cell(newPos.x, newPos.y)
 		)
 
 		let prevCell = this._grid.cell(oldPos.x, oldPos.y)
-		let nextCell = path.get(prevCell)
-		while (nextCell !== undefined) {
+		for (const cell of path) {
 			const content = prevCell.pullContent()
-			nextCell.putContent(content!)
-			content!.position.next({ x: nextCell.x, y: nextCell.y })
 
-			prevCell = nextCell
-			nextCell = path.get(prevCell)
+			if (content !== character)
+				throw new Error('GameModel -> moveCharacterTo: smth went wrong!')
+
+			cell.putContent(content)
+			content.position.next({ x: cell.x, y: cell.y })
+
+			prevCell = cell
 		}
 	}
 }

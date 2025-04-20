@@ -64,8 +64,13 @@ export default class CharacterToken extends Token {
 			this._parent.off('pointermove', this.onDragMove, this)
 			this.alpha = 1
 			this._isDragging = false
+			const newPos: Position = VisualUtils.pixelToCoordinatesPosition(
+				this.position.x,
+				this.position.y,
+				this._radius
+			)
 			this.positionChanged$.next({
-				pos: { x: this.position.x, y: this.position.y },
+				pos: newPos,
 				character: this._character,
 			})
 		}
