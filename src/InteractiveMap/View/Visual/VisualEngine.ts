@@ -1,6 +1,7 @@
 import { Application, Container } from 'pixi.js'
 import { MapVisualData } from '../../_Types/Map.ts'
 import Camera from './Camera.ts'
+import Token from './Characters/Token.ts'
 import GridVisual from './Map/GridVisual.ts'
 
 export default class VisualEngine extends Application {
@@ -28,6 +29,12 @@ export default class VisualEngine extends Application {
 		this._camera.addChild(this._sceneObjects)
 
 		// Grid
-		this._sceneObjects.addChild(new GridVisual(data.grid))
+		const gridVisual = new GridVisual(data.grid)
+		this._sceneObjects.addChild(gridVisual)
+
+		// Player
+		this._sceneObjects.addChild(
+			new Token(data.player, this._camera, gridVisual.cellSize)
+		)
 	}
 }
