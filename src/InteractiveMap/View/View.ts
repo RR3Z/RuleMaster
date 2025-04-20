@@ -21,5 +21,10 @@ export default class View {
 	): Promise<void> {
 		await this._visualEngine.init()
 		this._visualEngine.initScene(data, player, enemies)
+
+		this._visualEngine.player.positionChanged$.subscribe(
+			(data: CharacterPosition) =>
+				this._viewModel.onCharacterPositionChanged(data)
+		)
 	}
 }
