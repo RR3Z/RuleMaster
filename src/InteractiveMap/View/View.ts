@@ -8,11 +8,11 @@ import VisualEngine from './Visual/VisualEngine.ts'
 
 export default class View {
 	private _viewModel: ViewModel
-	private _visualEngine: VisualEngine
+	private _mapVisualEngine: VisualEngine
 
 	constructor(viewModel: ViewModel) {
 		this._viewModel = viewModel
-		this._visualEngine = new VisualEngine()
+		this._mapVisualEngine = new VisualEngine()
 	}
 
 	public async init(
@@ -20,11 +20,11 @@ export default class View {
 		player: Player,
 		enemies: Set<Enemy>
 	): Promise<void> {
-		await this._visualEngine.init()
-		this._visualEngine.initScene(data, player, enemies)
+		await this._mapVisualEngine.init()
+		this._mapVisualEngine.initScene(data, player, enemies)
 
 		// Notify ViewModel
-		this._visualEngine.player.positionChanged$.subscribe(
+		this._mapVisualEngine.player.positionChanged$.subscribe(
 			(data: CharacterPosition) =>
 				this._viewModel.onCharacterPositionChanged(data)
 		)
@@ -36,10 +36,11 @@ export default class View {
 	}
 
 	private onPlayerPositionChanged(data: Position): void {
-		this._visualEngine.player.position = VisualUtils.coordinatesToPixelPosition(
-			data.x,
-			data.y,
-			this._visualEngine.player.getBounds().width / 2
-		)
+		this._mapVisualEngine.player.position =
+			VisualUtils.coordinatesToPixelPosition(
+				data.x,
+				data.y,
+				this._mapVisualEngine.player.getBounds().width / 2
+			)
 	}
 }
