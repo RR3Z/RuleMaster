@@ -1,5 +1,5 @@
-import { EntityType } from '../../../_Enums/EntityType.ts'
-import Cell from '../Cell.ts'
+import { EntityType } from '../../_Enums/EntityType.ts'
+import Cell from '../Map/Cell.ts'
 import PriorityQueue from './PriorityQueue.ts'
 
 export default class AStarPathFinder {

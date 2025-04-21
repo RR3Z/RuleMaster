@@ -1,9 +1,9 @@
 import { EnemyData } from '../_Types/Characters.ts'
 import { MapLogicData, Position } from '../_Types/Map.ts'
+import AStarPathFinder from './AStarPathFinder/AStarPathFinder.ts'
 import Character from './Entities/Characters/Character.ts'
 import Enemy from './Entities/Characters/Enemy.ts'
 import Player from './Entities/Characters/Player.ts'
-import AStarPathFinder from './Map/AStarPathFinder/AStarPathFinder.ts'
 import Cell from './Map/Cell.ts'
 import Grid from './Map/Grid.ts'
 
