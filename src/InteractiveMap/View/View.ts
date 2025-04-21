@@ -30,14 +30,16 @@ export default class View {
 		)
 
 		// Listen ViewModel
-		this._viewModel.playerPosition$.subscribe(
-			(pos: Position) =>
-				(this._visualEngine.player.position =
-					VisualUtils.coordinatesToPixelPosition(
-						pos.x,
-						pos.y,
-						this._visualEngine.player.getBounds().width / 2
-					))
+		this._viewModel.playerPosition$.subscribe((pos: Position) =>
+			this.onPlayerPositionChanged(pos)
+		)
+	}
+
+	private onPlayerPositionChanged(data: Position): void {
+		this._visualEngine.player.position = VisualUtils.coordinatesToPixelPosition(
+			data.x,
+			data.y,
+			this._visualEngine.player.getBounds().width / 2
 		)
 	}
 }
