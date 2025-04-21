@@ -1,4 +1,3 @@
-import { EntityType } from '../_Enums/EntityType.ts'
 import { EnemyData } from '../_Types/Characters.ts'
 import { MapLogicData, Position } from '../_Types/Map.ts'
 import Character from './Entities/Characters/Character.ts'
@@ -29,9 +28,7 @@ export default class GameModel {
 	public moveCharacterTo(character: Character, newPos: Position): void {
 		const oldPos = character.position.value
 
-		if (
-			this._grid.cell(newPos.x, newPos.y).contentType === EntityType.BOUNDARY
-		) {
+		if (this._grid.cell(newPos.x, newPos.y).contentType !== undefined) {
 			character.position.next({ x: oldPos.x, y: oldPos.y })
 			return
 		}
