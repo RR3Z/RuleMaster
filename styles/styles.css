@@ -3,19 +3,12 @@
 	padding: 0;
 }
 
-#diceRoller,
-#interactiveMap,
-#mapEditor {
+canvas {
 	position: fixed;
 	top: 0;
 	left: 0;
 	outline: none;
 	z-index: 1;
-}
-
-#tutorialMessageBox {
-	z-index: 10;
-	position: fixed;
 }
 
 .newMapWindow,
