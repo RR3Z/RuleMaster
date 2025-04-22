@@ -13,17 +13,17 @@ export default class GameModel {
 	// Fields
 	public readonly player: Player
 	public readonly enemies: Set<Enemy>
+	public readonly tutorialManager: TutorialManager
 	private _grid: Grid
 	private _pathFinder: AStarPathFinder
 	private _triggersManager: TriggersManager
-	private _tutorialManager: TutorialManager
 
 	constructor(data: MapLogicData) {
 		this.player = new Player(data.player)
 		this._grid = new Grid(data.grid, this.player)
 		this._pathFinder = new AStarPathFinder()
 		this._triggersManager = new TriggersManager(data.triggers, this.player)
-		this._tutorialManager = new TutorialManager(
+		this.tutorialManager = new TutorialManager(
 			data.tutorial,
 			this._triggersManager.triggers
 		)
