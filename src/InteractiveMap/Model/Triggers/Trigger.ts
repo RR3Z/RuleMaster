@@ -29,6 +29,7 @@ export default class Trigger {
 
 	public switchState(): void {
 		this._isEnabled = !this._isEnabled
+		this._onTriggerEnterEvent$.complete()
 	}
 
 	public onEnter(): void {
