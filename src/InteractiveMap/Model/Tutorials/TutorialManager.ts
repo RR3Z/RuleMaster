@@ -24,7 +24,7 @@ export default class TutorialManager {
 		})
 	}
 
-	public messageBoxData$(): Observable<MessageBoxData> {
+	public get messageBoxData$(): Observable<MessageBoxData> {
 		return this._messageBoxData$.asObservable()
 	}
 
