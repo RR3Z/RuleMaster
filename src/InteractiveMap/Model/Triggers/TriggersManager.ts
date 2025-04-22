@@ -1,16 +1,21 @@
 import { Position } from '../../_Types/Map.ts'
 import { TriggerData } from '../../_Types/Triggers.ts'
+import Player from '../Entities/Characters/Player.ts'
 import Trigger from './Trigger.ts'
 
 export default class TriggersManager {
 	private _triggers: Set<Trigger>
 
-	constructor(triggersData: TriggerData[]) {
+	constructor(triggersData: TriggerData[], player: Player) {
 		this._triggers = new Set()
 
 		for (let i = 0; i < triggersData.length; i++) {
 			this._triggers.add(new Trigger(triggersData[i]))
 		}
+
+		player.position.subscribe((pos: Position) => {
+			this.check(pos)
+		})
 	}
 
 	public get triggers(): ReadonlySet<Trigger> {
