@@ -8,7 +8,6 @@ export default class TriggersManager {
 
 	constructor(triggersData: TriggerData[], player: Player) {
 		this._triggers = new Set()
-
 		for (let i = 0; i < triggersData.length; i++) {
 			this._triggers.add(new Trigger(triggersData[i]))
 		}
@@ -35,8 +34,11 @@ export default class TriggersManager {
 	private disableAllTriggersByTutorialStepIndex(
 		tutorialStepIndex: number
 	): void {
-		this._triggers.forEach((trigger: Trigger) => {
-			if (trigger.tutorialStepIndex === tutorialStepIndex) trigger.switchState()
-		})
+		for (const trigger of this._triggers) {
+			if (trigger.tutorialStepIndex === tutorialStepIndex) {
+				trigger.switchState()
+				this._triggers.delete(trigger)
+			}
+		}
 	}
 }
