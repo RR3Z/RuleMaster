@@ -10,6 +10,12 @@
 	top: 0;
 	left: 0;
 	outline: none;
+	z-index: 1;
+}
+
+#tutorialMessageBox {
+	z-index: 10;
+	position: fixed;
 }
 
 .newMapWindow,
