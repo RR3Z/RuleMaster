@@ -1,4 +1,7 @@
 export default class VisualUtils {
+	public static gridWidth: number = 0
+	public static gridHeight: number = 0
+
 	public static coordinatesToPixelPosition(
 		x: number,
 		y: number,
@@ -26,15 +29,18 @@ export default class VisualUtils {
 		y: number,
 		radius: number
 	): { x: number; y: number } {
-		// const maxPosWidth = radius * 2 * width
-		// const maxPosHeight = radius * 2 * height
+		if (this.gridWidth === 0 || this.gridHeight === 0)
+			throw new Error('VisualUtils -> Grid Sizes are incorrect!')
+
+		const maxPosWidth = radius * 2 * this.gridWidth
+		const maxPosHeight = radius * 2 * this.gridHeight
 		let posX = Math.floor(x / (radius * 2)) * radius * 2 + radius
 		let posY = Math.floor(y / (radius * 2)) * radius * 2 + radius
 
-		// if (x >= maxPosWidth) posX = maxPosWidth - radius * 2 + offsetX
-		// if (x < 0) posX = offsetX
-		// if (y >= maxPosHeight) posY = maxPosHeight - radius * 2 + offsetY
-		// if (y < 0) posY = offsetY
+		if (x >= maxPosWidth) posX = maxPosWidth - radius * 2 + radius
+		if (x < 0) posX = radius
+		if (y >= maxPosHeight) posY = maxPosHeight - radius * 2 + radius
+		if (y < 0) posY = radius
 
 		return {
 			x: posX,

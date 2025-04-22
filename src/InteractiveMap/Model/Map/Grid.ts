@@ -1,4 +1,5 @@
 import { GridData, Position } from '../../_Types/Map.ts'
+import VisualUtils from '../../VisualUtils.ts'
 import Boundary from '../Entities/Boundary.ts'
 import Player from '../Entities/Characters/Player.ts'
 import Cell from './Cell.ts'
@@ -10,8 +11,12 @@ export default class Grid {
 	private _cells!: Cell[][]
 
 	constructor(data: GridData, player: Player) {
+		VisualUtils.gridHeight = data.height
+		VisualUtils.gridWidth = data.width
+
 		this._width = data.width
 		this._height = data.height
+
 		this.fill(data.boundaries, player)
 	}
 
