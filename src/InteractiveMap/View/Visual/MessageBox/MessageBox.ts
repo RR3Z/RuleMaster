@@ -29,7 +29,6 @@ export default class MessageBox {
 
 		// Events
 		this._closeButton.addEventListener('click', this.switchVisibility)
-		// TODO: Показал сообщение -> тыкнул далее -> messageBox скрылся -> вызвался updateData
 		this._nextButton.addEventListener('click', this.switchVisibility)
 	}
 
