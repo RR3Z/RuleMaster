@@ -28,7 +28,11 @@
 			"items": [],
 			"position": { "x": 3, "y": 3 }
 		},
-		"enemies": []
+		"enemies": [],
+		"triggers": [{ "tutorialStepIndex": 0, "cellPos": { "x": 3, "y": 1 } }],
+		"tutorial": [
+			{ "index": 0, "needNext": false, "message": "Тестовый текст!" }
+		]
 	},
 	"visual": {
 		"grid": {
