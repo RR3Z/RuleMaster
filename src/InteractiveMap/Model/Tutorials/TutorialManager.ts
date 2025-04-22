@@ -1,9 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import {
-	MessageBoxData,
-	TutorialData,
-	TutorialStepData,
-} from '../../_Types/Tutorials.ts'
+import { MessageBoxData, TutorialStepData } from '../../_Types/Tutorials.ts'
 import Trigger from '../Triggers/Trigger.ts'
 
 export default class TutorialManager {
@@ -11,8 +7,8 @@ export default class TutorialManager {
 	private _stepIndex: number
 	private readonly _messageBoxData$: BehaviorSubject<MessageBoxData>
 
-	constructor(data: TutorialData, triggers: Set<Trigger>) {
-		this._steps = data.steps
+	constructor(data: TutorialStepData[], triggers: ReadonlySet<Trigger>) {
+		this._steps = data
 		this._stepIndex = 0
 		this._messageBoxData$ = new BehaviorSubject<MessageBoxData>(undefined)
 
