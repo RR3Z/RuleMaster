@@ -6,19 +6,27 @@ import Enemy from './Entities/Characters/Enemy.ts'
 import Player from './Entities/Characters/Player.ts'
 import Cell from './Map/Cell.ts'
 import Grid from './Map/Grid.ts'
+import TriggersManager from './Triggers/TriggersManager.ts'
+import TutorialManager from './Tutorials/TutorialManager.ts'
 
 export default class GameModel {
 	// Fields
 	public readonly player: Player
 	public readonly enemies: Set<Enemy>
-	private _pathFinder: AStarPathFinder
 	private _grid: Grid
+	private _pathFinder: AStarPathFinder
+	private _triggersManager: TriggersManager
+	private _tutorialManager: TutorialManager
 
 	constructor(data: MapLogicData) {
-		this._pathFinder = new AStarPathFinder()
 		this.player = new Player(data.player)
 		this._grid = new Grid(data.grid, this.player)
-
+		this._pathFinder = new AStarPathFinder()
+		this._triggersManager = new TriggersManager(data.triggers, this.player)
+		this._tutorialManager = new TutorialManager(
+			data.tutorial,
+			this._triggersManager.triggers
+		)
 		this.enemies = new Set<Enemy>()
 		data.enemies.forEach((data: EnemyData) => {
 			this.enemies.add(new Enemy(data))
