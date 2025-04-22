@@ -9,10 +9,10 @@ import Character from '../../../Model/Entities/Characters/Character.ts'
 import VisualUtils from '../../../VisualUtils.ts'
 import Token from './Token.ts'
 
-export default class CharacterToken extends Token {
+export default class PlayerToken extends Token {
 	// Fields
 	private _character: Character
-	protected _isDragging: boolean
+	private _isDragging: boolean
 
 	// Events
 	public positionChanged$: Subject<CharacterPosition>
@@ -25,7 +25,7 @@ export default class CharacterToken extends Token {
 	) {
 		super()
 
-		this._parent = parent // TODO: зачем мне хранить ссылку на своего parent, если такое уже есть в Graphics? (Если это только не разные объекты)
+		this._parent = parent
 		this._isDragging = false
 		this._radius = cellSize / 2
 		this._character = character

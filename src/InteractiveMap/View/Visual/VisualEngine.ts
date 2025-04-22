@@ -3,7 +3,7 @@ import { MapVisualData } from '../../_Types/Map.ts'
 import Enemy from '../../Model/Entities/Characters/Enemy.ts'
 import Player from '../../Model/Entities/Characters/Player.ts'
 import Camera from './Camera.ts'
-import CharacterToken from './Characters/CharacterToken.ts'
+import PlayerToken from './Characters/PlayerToken.ts'
 import GridVisual from './Map/GridVisual.ts'
 
 export default class VisualEngine extends Application {
@@ -11,7 +11,7 @@ export default class VisualEngine extends Application {
 
 	private _camera!: Camera
 	private _grid!: GridVisual
-	public player!: CharacterToken
+	public player!: PlayerToken
 
 	constructor() {
 		super()
@@ -42,7 +42,7 @@ export default class VisualEngine extends Application {
 		this._sceneObjects.addChild(this._grid)
 
 		// Player
-		this.player = new CharacterToken(
+		this.player = new PlayerToken(
 			data.player,
 			this._camera,
 			this._grid.cellSize,
