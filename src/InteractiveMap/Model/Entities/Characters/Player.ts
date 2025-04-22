@@ -3,6 +3,7 @@ import { EntityType } from '../../../_Enums/EntityType.ts'
 import { Stat } from '../../../_Enums/Stat.ts'
 import { PlayerData, SavingThrowData } from '../../../_Types/Characters.ts'
 import { SpellSlots } from '../../../_Types/Spell.ts'
+import CharacterStateMachine from '../CharacterStateMachine/CharacterStateMachine.ts'
 import Character from './Character.ts'
 
 export default class Player extends Character {
@@ -10,6 +11,8 @@ export default class Player extends Character {
 
 	constructor(data: PlayerData) {
 		super(EntityType.PLAYER, data.position)
+
+		this.stateMachine = new CharacterStateMachine()
 
 		this._name = data.name
 		this._maxHealth = data.mainInfo.maxHealth
