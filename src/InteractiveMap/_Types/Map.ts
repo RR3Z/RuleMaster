@@ -1,5 +1,7 @@
 import { EntityType } from '../_Enums/EntityType.ts'
 import { EnemyData, PlayerData, TokenVisualData } from './Characters.ts'
+import { TriggerData } from './Triggers.ts'
+import { TutorialStepData } from './Tutorials.ts'
 
 export type Position = {
 	x: number
@@ -15,6 +17,8 @@ export type MapLogicData = {
 	grid: GridData
 	player: PlayerData
 	enemies: EnemyData[]
+	triggers: TriggerData[]
+	tutorial: TutorialStepData[]
 }
 
 export type MapVisualData = {
