@@ -33,6 +33,8 @@ export default class Trigger {
 	}
 
 	public onEnter(): void {
-		this._onTriggerEnterEvent$.next(this._tutorialStepIndex)
+		if (this._isEnabled) {
+			this._onTriggerEnterEvent$.next(this._tutorialStepIndex)
+		}
 	}
 }
