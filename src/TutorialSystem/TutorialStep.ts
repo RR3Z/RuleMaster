@@ -1,9 +1,9 @@
 import { Action } from './Action.ts'
-import { UserTutorialActionType } from './UserTutorialActionType.ts'
+import { UserActionType } from './UserActionType.ts'
 
 export type TutorialStep = {
 	id: number
 	messages: string[]
-	allowedActions: UserTutorialActionType[]
+	allowedActions: UserActionType[]
 	expectedAction: Action
 }
