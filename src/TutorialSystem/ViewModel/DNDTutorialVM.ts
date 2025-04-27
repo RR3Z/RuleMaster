@@ -1,24 +1,25 @@
 import { Observable, Subject } from 'rxjs'
+import { DNDTutorialStep } from '../Steps/DND/DNDTutorialStep.ts'
 import { TutorialStep } from '../Steps/TutorialStep.ts'
 import TutorialModel from '../TutorialModel.ts'
 import TutorialVM from './TutorialVM.ts'
 
 export default class DNDTutorialVM extends TutorialVM {
-	private _currentStep$ = new Subject<TutorialStep>()
+	private _currentStep$ = new Subject<DNDTutorialStep>()
 
 	constructor(model: TutorialModel) {
 		super()
 
 		this._model = model
-		this._currentStep$ = new Subject<TutorialStep>()
+		this._currentStep$ = new Subject<DNDTutorialStep>()
 
 		// Model Events Subscriptions
 		this._model.currentStep$.subscribe((stepData: TutorialStep) => {
-			this._currentStep$.next(stepData)
+			this._currentStep$.next(stepData as DNDTutorialStep)
 		})
 	}
 
-	public get currentStep$(): Observable<TutorialStep> {
+	public get currentStep$(): Observable<DNDTutorialStep> {
 		return this._currentStep$.asObservable()
 	}
 
