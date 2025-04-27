@@ -9,8 +9,8 @@ export default class TutorialModel {
 	private _currentStepIndex: number
 
 	// Event
-	private _currentStep$: Subject<TutorialStep>
-	private _onTutorialEnd$: Subject<void>
+	private readonly _currentStep$: Subject<TutorialStep>
+	private readonly _onTutorialEnd$: Subject<void>
 
 	constructor() {
 		this._steps = []
