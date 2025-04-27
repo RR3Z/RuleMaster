@@ -19,11 +19,11 @@ export default class TutorialModel {
 		this._onTutorialEnd$ = new Subject<void>()
 	}
 
-	public get currentStep(): Observable<TutorialStep> {
+	public get currentStep$(): Observable<TutorialStep> {
 		return this._currentStep$.asObservable()
 	}
 
-	public get onTutorialEnd(): Observable<void> {
+	public get onTutorialEnd$(): Observable<void> {
 		return this._onTutorialEnd$.asObservable()
 	}
 
