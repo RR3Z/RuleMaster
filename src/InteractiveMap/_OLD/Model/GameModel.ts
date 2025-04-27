@@ -1,3 +1,4 @@
+import { CharacterState } from '../_Enums/CharacterState.ts'
 import { EnemyData } from '../_Types/Characters.ts'
 import { MapLogicData, Position } from '../_Types/Map.ts'
 import AStarPathFinder from './AStarPathFinder/AStarPathFinder.ts'
@@ -34,6 +35,14 @@ export default class GameModel {
 	}
 
 	public moveCharacterTo(character: Character, newPos: Position): void {
+		if (
+			character.stateMachine.currentState !== CharacterState.DEFAULT &&
+			character.stateMachine.currentState !== CharacterState.BATTLE
+		)
+			throw new Error(
+				"GameModel -> moveCharacterTo(): Character can't move (incorrect state)"
+			)
+
 		const oldPos = character.position.value
 
 		if (this._grid.cell(newPos.x, newPos.y).contentType !== undefined) {
@@ -58,5 +67,11 @@ export default class GameModel {
 
 			prevCell = cell
 		}
+	}
+
+	public attack(who: Character, whom: Character, value: number): void {}
+
+	private distance(first: Position, second: Position): number {
+		return Math.max(Math.abs(first.x - second.x), Math.abs(first.y - second.y))
 	}
 }
