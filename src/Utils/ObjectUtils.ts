@@ -1,4 +1,4 @@
-export function areObjectDataEqual(a: object, b: object): boolean {
+export function areObjectsDataEqual(a: object, b: object): boolean {
 	if (
 		a === null ||
 		b === null ||
@@ -25,7 +25,7 @@ export function areObjectDataEqual(a: object, b: object): boolean {
 			typeof valB === 'object' &&
 			valB !== null
 		) {
-			if (!areObjectDataEqual(valA, valB)) return false
+			if (!areObjectsDataEqual(valA, valB)) return false
 		} else if (valA !== valB) {
 			return false
 		}
