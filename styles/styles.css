@@ -11,6 +11,13 @@ canvas {
 	z-index: 1;
 }
 
+button {
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
 .newMapWindow,
 .loadMapWindow {
 	display: flex;
