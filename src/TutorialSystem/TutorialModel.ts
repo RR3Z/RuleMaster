@@ -51,4 +51,9 @@ export default class TutorialModel {
 
 		return true
 	}
+
+	public dispose(): void {
+		this._currentStep$.complete()
+		this._onTutorialEnd$.complete()
+	}
 }
