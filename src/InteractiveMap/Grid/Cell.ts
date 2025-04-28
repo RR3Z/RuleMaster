@@ -1,6 +1,6 @@
 import { default as Entity } from '../Entities/Entity'
 import { EntityType } from '../Entities/EntityType'
-import { Position } from '../Types/Position'
+import { Position } from '../_Types/Position'
 
 export default class Cell {
 	private readonly _pos: Position
