@@ -1,4 +1,4 @@
-import { Position } from '../Types/Position'
+import { Position } from '../_Types/Position'
 import Character from './Character'
 import { EntityType } from './EntityType'
 

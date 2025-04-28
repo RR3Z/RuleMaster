@@ -1,10 +1,10 @@
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Position } from '../Types/Position'
+import { Position } from '../_Types/Position'
 import { EntityType } from './EntityType'
 
 export default abstract class Entity {
-	protected readonly _entityType!: EntityType
-	protected readonly _pos$!: BehaviorSubject<Position>
+	protected readonly _entityType: EntityType
+	protected readonly _pos$: BehaviorSubject<Position>
 
 	constructor(type: EntityType, pos: Position) {
 		this._entityType = type

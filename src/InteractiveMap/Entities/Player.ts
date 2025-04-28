@@ -1,9 +1,9 @@
-import { Position } from '../Types/Position'
+import { DNDCharacterData } from '../_Types/DNDCharacterData'
 import Character from './Character'
 import { EntityType } from './EntityType'
 
 export default class Player extends Character {
-	constructor(pos: Position) {
-		super(EntityType.PLAYER, pos)
+	constructor(data: DNDCharacterData) {
+		super(EntityType.PLAYER, data)
 	}
 }
