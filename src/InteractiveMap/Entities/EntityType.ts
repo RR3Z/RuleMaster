@@ -1,4 +1,5 @@
 export enum EntityType {
 	WALL,
-	CHARACTER,
+	PLAYER,
+	ENEMY,
 }
