@@ -6,6 +6,11 @@ export default abstract class Entity {
 	protected readonly _entityType!: EntityType
 	protected readonly _pos$!: BehaviorSubject<Position>
 
+	constructor(type: EntityType, pos: Position) {
+		this._entityType = type
+		this._pos$ = new BehaviorSubject<Position>(pos)
+	}
+
 	public get type(): EntityType {
 		return this._entityType
 	}

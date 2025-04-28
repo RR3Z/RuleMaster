@@ -1,10 +1,9 @@
+import { Position } from '../Types/Position'
+import Entity from './Entity'
 import { EntityType } from './EntityType'
-import IEntity from './IEntity'
 
-export default class Wall implements IEntity {
-	readonly entityType: EntityType
-
-	constructor() {
-		this.entityType = EntityType.WALL
+export default class Wall extends Entity {
+	constructor(pos: Position) {
+		super(EntityType.WALL, pos)
 	}
 }
