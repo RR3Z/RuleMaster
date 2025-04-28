@@ -5,11 +5,13 @@ import { Position } from '../../_Types/Position'
 
 export default abstract class Token extends Graphics {
 	protected _parent: Container
+	protected _radius: number
 
-	constructor(parent: Container) {
+	constructor(parent: Container, radius: number) {
 		super()
 
 		this._parent = parent
+		this._radius = radius
 	}
 
 	protected draw(

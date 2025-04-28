@@ -14,14 +14,12 @@ export type DraggableTokenParams = {
 
 export default class DraggableToken extends Token {
 	private _isDragging: boolean
-	private _radius: number
 	private _pos$: Subject<Position>
 
 	constructor(params: DraggableTokenParams) {
-		super(params.parentContainer)
+		super(params.parentContainer, params.radius)
 
 		this._isDragging = false
-		this._radius = params.radius
 		this._pos$ = new Subject<Position>()
 
 		this.draw(params.visualData, params.radius, params.startPos)
