@@ -1,3 +1,4 @@
+import { Position } from '../Types/Position'
 import Cell from './Cell'
 
 export default class Grid {
@@ -23,14 +24,15 @@ export default class Grid {
 		return this._height
 	}
 
-	public cell(x: number, y: number): Cell {
-		return this._cells[x][y]
+	public cell(pos: Position): Cell {
+		return this._cells[pos.x][pos.y]
 	}
 
+	// TODO: добавить соседей для всех ячеек
 	private fillGrid(): void {
 		for (let x = 0; x < this._width; x++) {
 			for (let y = 0; y < this._height; y++) {
-				this._cells[x][y] = new Cell(x, y)
+				this._cells[x][y] = new Cell({ x, y })
 			}
 		}
 	}
