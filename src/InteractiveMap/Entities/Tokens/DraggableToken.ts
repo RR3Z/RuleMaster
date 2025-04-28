@@ -14,13 +14,13 @@ export type DraggableTokenParams = {
 
 export default class DraggableToken extends Token {
 	private _isDragging: boolean
-	private _pos$: Subject<Position>
+	private _gridPos$: Subject<Position>
 
 	constructor(params: DraggableTokenParams) {
 		super(params.parentContainer, params.radius)
 
 		this._isDragging = false
-		this._pos$ = new Subject<Position>()
+		this._gridPos$ = new Subject<Position>()
 
 		this.draw(params.visualData, params.radius, params.startPos)
 
@@ -29,8 +29,8 @@ export default class DraggableToken extends Token {
 		this.on('pointerupoutside', this.onDragEnd, this)
 	}
 
-	public get pos$(): Observable<Position> {
-		return this._pos$.asObservable()
+	public get gridPos$(): Observable<Position> {
+		return this._gridPos$.asObservable()
 	}
 
 	private onDragStart(event: FederatedPointerEvent): void {
@@ -64,7 +64,7 @@ export default class DraggableToken extends Token {
 				this.position.y,
 				this._radius
 			)
-			this._pos$.next(newPos)
+			this._gridPos$.next(newPos)
 		}
 	}
 }
