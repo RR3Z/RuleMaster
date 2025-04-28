@@ -1,4 +1,5 @@
 import { Position } from '../_Types/Position'
+import { EntityType } from '../Entities/EntityType'
 import Cell from './Cell'
 
 export default class Grid {
@@ -26,6 +27,16 @@ export default class Grid {
 
 	public cell(pos: Position): Cell {
 		return this._cells[pos.x][pos.y]
+	}
+
+	public playerPos(): Position {
+		for (let x = 0; x < this._width; x++) {
+			for (let y = 0; x < this._height; x++) {
+				if (this._cells[x][y].contentType === EntityType.PLAYER) return { x, y }
+			}
+		}
+
+		throw new Error("Grid -> playerPos(): Can't find Player on Grid")
 	}
 
 	// TODO: добавить соседей для всех ячеек
