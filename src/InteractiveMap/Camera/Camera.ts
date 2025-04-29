@@ -2,9 +2,6 @@ import { Viewport } from 'pixi-viewport'
 import { Renderer } from 'pixi.js'
 
 export default abstract class Camera extends Viewport {
-	protected _zoomMinScale: number = 0.25
-	protected _zoomMaxScale: number = 0.3
-
 	constructor(renderer: Renderer) {
 		super({
 			screenHeight: window.innerHeight,
