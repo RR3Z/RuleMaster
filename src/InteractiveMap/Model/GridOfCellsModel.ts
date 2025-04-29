@@ -13,7 +13,7 @@ export default class GridOfCellsModel extends MapModel {
 		this._grid = new Grid(data.gridSizes.width, data.gridSizes.height)
 	}
 
-	public get grid(): Readonly<Grid> {
+	public get grid(): Grid {
 		return this._grid
 	}
 }
