@@ -9,7 +9,7 @@ export type DraggableTokenParams = {
 	visualData: CharacterVisualData
 	startPos: Position
 	radius: number
-	parentContainer: Container
+	worldSpaceContainer: Container
 }
 
 export default class DraggableToken extends Token {
@@ -17,7 +17,7 @@ export default class DraggableToken extends Token {
 	private _gridPos$: Subject<Position>
 
 	constructor(params: DraggableTokenParams) {
-		super(params.parentContainer, params.radius)
+		super(params.worldSpaceContainer, params.radius)
 
 		this._isDragging = false
 		this._gridPos$ = new Subject<Position>()
@@ -37,7 +37,7 @@ export default class DraggableToken extends Token {
 		if (event.button === 0) {
 			this.alpha = 0.5
 			this._isDragging = true
-			this._parent.on('pointermove', this.onDragMove, this)
+			this._worldSpaceContainer.on('pointermove', this.onDragMove, this)
 		}
 	}
 
@@ -56,7 +56,7 @@ export default class DraggableToken extends Token {
 
 	private onDragEnd(event: FederatedPointerEvent): void {
 		if (this._isDragging) {
-			this._parent.off('pointermove', this.onDragMove, this)
+			this._worldSpaceContainer.off('pointermove', this.onDragMove, this)
 			this.alpha = 1
 			this._isDragging = false
 			const newPos: Position = VisualUtils.pixelToCoordinatesPosition(
