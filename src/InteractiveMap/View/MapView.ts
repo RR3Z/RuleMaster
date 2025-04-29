@@ -8,4 +8,8 @@ export default class MapView {
 	constructor(viewModel: MapVM) {
 		this._viewModel = viewModel
 	}
+
+	public async init(): Promise<void> {
+		await this._visualEngine.init()
+	}
 }
