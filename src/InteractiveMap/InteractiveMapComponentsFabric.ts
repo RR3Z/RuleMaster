@@ -1,3 +1,4 @@
+import { GameType } from './_Types/GameType'
 import { MapData } from './_Types/MapData'
 import { MapType } from './_Types/MapType'
 import GridOfCellsModel from './Model/GridOfCellsModel'
@@ -16,10 +17,14 @@ export type InteractiveMapComponents = {
 export default class InteractiveMapComponentsFabric {
 	constructor() {}
 
-	public create(mapType: MapType, mapData: MapData): InteractiveMapComponents {
+	public create(
+		gameType: GameType,
+		mapType: MapType,
+		mapData: MapData
+	): InteractiveMapComponents {
 		switch (mapType) {
 			case MapType.GRID_OF_CELLS:
-				const model = new GridOfCellsModel(mapData.logic)
+				const model = new GridOfCellsModel(gameType, mapData.logic)
 				const viewModel = new GridOfCellsVM(model)
 				const view = new GridOfCellsView({
 					data: mapData.visual,

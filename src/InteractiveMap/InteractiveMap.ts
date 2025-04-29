@@ -1,3 +1,4 @@
+import { GameType } from './_Types/GameType'
 import { MapData } from './_Types/MapData'
 import { MapType } from './_Types/MapType'
 import InteractiveMapComponentsFabric from './InteractiveMapComponentsFabric'
@@ -10,10 +11,10 @@ export default class InteractiveMap {
 	private _viewModel: MapVM
 	private _model: MapModel
 
-	constructor(type: MapType, data: MapData) {
+	constructor(gameType: GameType, mapType: MapType, data: MapData) {
 		const fabric = new InteractiveMapComponentsFabric()
 
-		const components = fabric.create(type, data)
+		const components = fabric.create(gameType, mapType, data)
 		this._view = components.view
 		this._viewModel = components.viewModel
 		this._model = components.model
