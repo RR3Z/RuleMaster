@@ -11,6 +11,7 @@ export default class GridOfCellsModel extends MapModel {
 		super(player)
 
 		this._grid = new Grid(data.gridSizes.width, data.gridSizes.height)
+		this._grid.cell(player.pos).putContent(player)
 	}
 
 	public get grid(): Grid {
