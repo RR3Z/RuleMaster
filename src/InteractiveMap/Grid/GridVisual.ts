@@ -20,8 +20,8 @@ export default class GridVisual extends Container {
 			i++
 		) {
 			const line = new Graphics()
-				.moveTo(i * data.cell.radius, 0)
-				.lineTo(i * data.cell.radius, data.cell.radius * gridSizes.height)
+				.moveTo(i * data.cell.size, 0)
+				.lineTo(i * data.cell.size, data.cell.size * gridSizes.height)
 				.stroke({ color: data.cell.color, pixelLine: true })
 			this.addChild(line)
 		}
@@ -33,8 +33,8 @@ export default class GridVisual extends Container {
 			i++
 		) {
 			const line = new Graphics()
-				.moveTo(0, i * data.cell.radius)
-				.lineTo(data.cell.radius * gridSizes.width, i * data.cell.radius)
+				.moveTo(0, i * data.cell.size)
+				.lineTo(data.cell.size * gridSizes.width, i * data.cell.size)
 				.stroke({ color: data.cell.color, pixelLine: true })
 			this.addChild(line)
 		}

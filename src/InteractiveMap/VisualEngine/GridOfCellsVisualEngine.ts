@@ -26,8 +26,8 @@ export default class GridOfCellsVisualEngine extends MapVisualEngine {
 		this._player = new DraggableToken({
 			visualData: data.player,
 			startPos: grid.playerPos(),
-			radius: data.cell.radius,
-			parentContainer: this._sceneObjects, // TODO: здесь должна быть камера, чтобы корректно работал Drag
+			radius: data.cell.size / 2,
+			worldSpaceContainer: this._sceneObjects, // TODO: здесь должна быть камера, чтобы корректно работал Drag
 		})
 		this._sceneObjects.addChild(this._player)
 	}
