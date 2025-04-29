@@ -1,5 +1,4 @@
 import { Container, FederatedPointerEvent } from 'pixi.js'
-import { Observable, Subject } from 'rxjs'
 import VisualUtils from '../../../Utils/VisualUtils'
 import { CharacterVisualData } from '../../_Types/ChararcterVisualData'
 import { Position } from '../../_Types/Position'
@@ -15,23 +14,17 @@ export type DraggableTokenParams = {
 
 export default class DraggableToken extends Token {
 	private _isDragging: boolean
-	private _gridPos$: Subject<Position>
 
 	constructor(params: DraggableTokenParams) {
 		super(params.worldSpaceContainer, params.radius, params.visualUtils)
 
 		this._isDragging = false
-		this._gridPos$ = new Subject<Position>()
 
 		this.draw(params.visualData, params.radius, params.startPos)
 
 		this.on('pointerdown', this.onDragStart, this)
 		this.on('pointerup', this.onDragEnd, this)
 		this.on('pointerupoutside', this.onDragEnd, this)
-	}
-
-	public get gridPos$(): Observable<Position> {
-		return this._gridPos$.asObservable()
 	}
 
 	private onDragStart(event: FederatedPointerEvent): void {
@@ -65,7 +58,7 @@ export default class DraggableToken extends Token {
 				this.position.y,
 				this._radius
 			)
-			this._gridPos$.next(newPos)
+			this._pos$.next(newPos)
 		}
 	}
 }
