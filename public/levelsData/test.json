@@ -13,6 +13,6 @@
 	"visual": {
 		"gridBackgroundImg": "",
 		"player": { "tokenImg": "" },
-		"cell": { "cellSize": 50, "color": 7697781 }
+		"cell": { "size": 50, "color": 7697781 }
 	}
 }
