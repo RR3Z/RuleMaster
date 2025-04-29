@@ -12,9 +12,11 @@ export default class InteractiveMap {
 	private _model: MapModel
 
 	constructor(gameType: GameType, mapType: MapType, data: MapData) {
-		const fabric = new InteractiveMapComponentsFabric()
-
-		const components = fabric.create(gameType, mapType, data)
+		const components = InteractiveMapComponentsFabric.create(
+			gameType,
+			mapType,
+			data
+		)
 		this._view = components.view
 		this._viewModel = components.viewModel
 		this._model = components.model

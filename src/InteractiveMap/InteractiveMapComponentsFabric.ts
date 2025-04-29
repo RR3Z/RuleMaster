@@ -15,9 +15,7 @@ export type InteractiveMapComponents = {
 }
 
 export default class InteractiveMapComponentsFabric {
-	constructor() {}
-
-	public create(
+	public static create(
 		gameType: GameType,
 		mapType: MapType,
 		mapData: MapData

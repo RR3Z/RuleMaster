@@ -4,7 +4,7 @@ import { EntityType } from '../EntityType'
 import DNDCharacter from './DNDCharacter'
 
 export default class CharactersFabric {
-	public createPlayer(gameType: GameType, data: CharacterLogicData) {
+	public static createPlayer(gameType: GameType, data: CharacterLogicData) {
 		switch (gameType) {
 			case GameType.DND:
 				return new DNDCharacter(EntityType.PLAYER, data)

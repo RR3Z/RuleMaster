@@ -12,8 +12,7 @@ export default class GridOfCellsModel extends MapModel {
 
 		this._gameType = gameType
 
-		const charactersFabric = new CharactersFabric()
-		this._player = charactersFabric.createPlayer(gameType, data.player)
+		this._player = CharactersFabric.createPlayer(gameType, data.player)
 
 		this._grid = new Grid(data.gridSizes.width, data.gridSizes.height)
 		this._grid.cell(this._player.pos).putContent(this._player)
