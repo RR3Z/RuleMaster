@@ -9,7 +9,7 @@ export default abstract class Character extends Entity {
 		return this._name
 	}
 
-	public get currentHealth(): number {
+	public get health(): number {
 		return this._currentHealth
 	}
 }
