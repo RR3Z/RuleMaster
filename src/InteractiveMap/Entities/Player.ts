@@ -1,5 +1,5 @@
 import { DNDCharacterData } from '../_Types/DNDCharacterData'
-import Character from './Character'
+import Character from './Characters/Character'
 import { EntityType } from './EntityType'
 
 export default class Player extends Character {

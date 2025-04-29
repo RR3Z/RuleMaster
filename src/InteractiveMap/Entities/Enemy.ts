@@ -1,5 +1,5 @@
 import { Position } from '../_Types/Position'
-import Character from './Character'
+import Character from './Characters/Character'
 import { EntityType } from './EntityType'
 
 export default class Enemy extends Character {
