@@ -1,9 +1,9 @@
-import { DNDCharacterData } from './DNDCharacterData'
+import { CharacterLogicData } from './CharacterLogicData'
 import { GridSizes } from './GridSizes'
 import { Position } from './Position'
 
 export type GridOfCellsLogicData = {
 	gridSizes: GridSizes
-	player: DNDCharacterData
+	player: CharacterLogicData
 	walls: Position[]
 }
