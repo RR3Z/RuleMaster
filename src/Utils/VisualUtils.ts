@@ -1,8 +1,16 @@
 export default class VisualUtils {
-	public static gridWidth: number = 0
-	public static gridHeight: number = 0
+	private readonly _gridWidth: number
+	private readonly _gridHeight: number
 
-	public static coordinatesToPixelPosition(
+	constructor(gridWidth: number, gridHeight: number) {
+		if (gridWidth <= 0 || gridHeight <= 0) {
+			throw new Error('VisualUtils -> Grid Sizes are incorrect!')
+		}
+		this._gridWidth = gridWidth
+		this._gridHeight = gridHeight
+	}
+
+	public coordinatesToPixelPosition(
 		x: number,
 		y: number,
 		radius: number
@@ -13,7 +21,7 @@ export default class VisualUtils {
 		}
 	}
 
-	public static pixelToCoordinatesPosition(
+	public pixelToCoordinatesPosition(
 		x: number,
 		y: number,
 		radius: number
@@ -24,16 +32,16 @@ export default class VisualUtils {
 		}
 	}
 
-	public static snapToCell(
+	public snapToCell(
 		x: number,
 		y: number,
 		radius: number
 	): { x: number; y: number } {
-		if (this.gridWidth === 0 || this.gridHeight === 0)
+		if (this._gridWidth === 0 || this._gridHeight === 0)
 			throw new Error('VisualUtils -> Grid Sizes are incorrect!')
 
-		const maxPosWidth = radius * 2 * this.gridWidth
-		const maxPosHeight = radius * 2 * this.gridHeight
+		const maxPosWidth = radius * 2 * this._gridWidth
+		const maxPosHeight = radius * 2 * this._gridHeight
 		let posX = Math.floor(x / (radius * 2)) * radius * 2 + radius
 		let posY = Math.floor(y / (radius * 2)) * radius * 2 + radius
 

@@ -10,6 +10,7 @@ export type DraggableTokenParams = {
 	startPos: Position
 	radius: number
 	worldSpaceContainer: Container
+	visualUtils: VisualUtils
 }
 
 export default class DraggableToken extends Token {
@@ -17,7 +18,7 @@ export default class DraggableToken extends Token {
 	private _gridPos$: Subject<Position>
 
 	constructor(params: DraggableTokenParams) {
-		super(params.worldSpaceContainer, params.radius)
+		super(params.worldSpaceContainer, params.radius, params.visualUtils)
 
 		this._isDragging = false
 		this._gridPos$ = new Subject<Position>()
@@ -46,7 +47,7 @@ export default class DraggableToken extends Token {
 			// Convert global position to local
 			this.parent.toLocal(event.global, undefined, this.position)
 			// Snap Token to Cell
-			this.position = VisualUtils.snapToCell(
+			this.position = this._visualUtils.snapToCell(
 				this.position.x,
 				this.position.y,
 				this.getBounds().width / 2
@@ -59,7 +60,7 @@ export default class DraggableToken extends Token {
 			this._worldSpaceContainer.off('pointermove', this.onDragMove, this)
 			this.alpha = 1
 			this._isDragging = false
-			const newPos: Position = VisualUtils.pixelToCoordinatesPosition(
+			const newPos: Position = this._visualUtils.pixelToCoordinatesPosition(
 				this.position.x,
 				this.position.y,
 				this._radius

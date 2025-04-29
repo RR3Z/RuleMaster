@@ -1,3 +1,4 @@
+import VisualUtils from '../../Utils/VisualUtils'
 import { GridOfCellsVisualData } from '../_Types/GridOfCellsVisualData'
 import PlayerTrackingCamera from '../Camera/PlayerTrackingCamera'
 import DraggableToken from '../Entities/Tokens/DraggableToken'
@@ -10,12 +11,14 @@ export default class GridOfCellsVisualEngine extends MapVisualEngine {
 	private readonly _gridLogic: Grid
 
 	private _player!: DraggableToken
+	private _visualUtils: VisualUtils
 
 	constructor(data: GridOfCellsVisualData, grid: Grid) {
 		super()
 
 		this._data = data
 		this._gridLogic = grid
+		this._visualUtils = new VisualUtils(grid.width, grid.height)
 	}
 
 	public override async init(): Promise<void> {
@@ -36,6 +39,7 @@ export default class GridOfCellsVisualEngine extends MapVisualEngine {
 			startPos: this._gridLogic.playerPos(),
 			radius: this._data.cell.size / 2,
 			worldSpaceContainer: camera,
+			visualUtils: this._visualUtils,
 		})
 		camera.target = this._player
 		this._sceneObjects.addChild(this._player)

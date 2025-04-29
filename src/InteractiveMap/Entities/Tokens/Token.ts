@@ -7,11 +7,18 @@ export default abstract class Token extends Graphics {
 	protected _worldSpaceContainer: Container
 	protected _radius: number
 
-	constructor(worldSpaceContainer: Container, radius: number) {
+	protected _visualUtils: VisualUtils
+
+	constructor(
+		worldSpaceContainer: Container,
+		radius: number,
+		visualUtils: VisualUtils
+	) {
 		super()
 
 		this._worldSpaceContainer = worldSpaceContainer
 		this._radius = radius
+		this._visualUtils = visualUtils
 	}
 
 	protected draw(
@@ -19,7 +26,7 @@ export default abstract class Token extends Graphics {
 		radius: number,
 		startPos: Position
 	): void {
-		const pos = VisualUtils.coordinatesToPixelPosition(
+		const pos = this._visualUtils.coordinatesToPixelPosition(
 			startPos.x,
 			startPos.y,
 			radius
