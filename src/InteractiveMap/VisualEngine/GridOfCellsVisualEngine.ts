@@ -2,18 +2,18 @@ import VisualUtils from '../../Utils/VisualUtils'
 import { GridOfCellsVisualData } from '../_Types/GridOfCellsVisualData'
 import PlayerTrackingCamera from '../Camera/PlayerTrackingCamera'
 import DraggableToken from '../Entities/Tokens/DraggableToken'
-import Grid from '../Grid/Grid'
-import GridVisual from '../Grid/GridVisual'
+import GridOfCells from '../Grid/GridOfCells'
+import GridOfCellsVisual from '../Grid/GridOfCellsVisual'
 import MapVisualEngine from './MapVisualEngine'
 
 export default class GridOfCellsVisualEngine extends MapVisualEngine {
 	private readonly _data: GridOfCellsVisualData
-	private readonly _gridLogic: Grid
+	private readonly _gridLogic: GridOfCells
 
 	private _player!: DraggableToken
 	private _visualUtils: VisualUtils
 
-	constructor(data: GridOfCellsVisualData, grid: Grid) {
+	constructor(data: GridOfCellsVisualData, grid: GridOfCells) {
 		super()
 
 		this._data = data
@@ -28,7 +28,7 @@ export default class GridOfCellsVisualEngine extends MapVisualEngine {
 		this.stage.addChild(camera)
 		camera.addChild(this._sceneObjects)
 
-		const gridVisual = new GridVisual(this._data, {
+		const gridVisual = new GridOfCellsVisual(this._data, {
 			width: this._gridLogic.width,
 			height: this._gridLogic.height,
 		})

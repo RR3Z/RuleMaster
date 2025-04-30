@@ -13,6 +13,6 @@ export default class DNDCharacter extends Character {
 		// Specific
 		const dndCharacterData = data.data as DNDCharacterData
 		this._maxHealth = dndCharacterData.maxHealth
-		this._currentHealth = dndCharacterData.maxHealth
+		this._health = dndCharacterData.maxHealth
 	}
 }

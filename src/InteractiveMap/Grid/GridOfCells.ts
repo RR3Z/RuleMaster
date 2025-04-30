@@ -2,7 +2,7 @@ import { Position } from '../_Types/Position'
 import { EntityType } from '../Entities/EntityType'
 import Cell from './Cell'
 
-export default class Grid {
+export default class GridOfCells {
 	private _width: number
 	private _height: number
 	private _cells: Cell[][]
@@ -14,7 +14,7 @@ export default class Grid {
 			Array.from({ length: this._height } as Cell[])
 		)
 
-		this.fillGrid()
+		this.fill()
 	}
 
 	public get width(): number {
@@ -39,8 +39,7 @@ export default class Grid {
 		throw new Error("Grid -> playerPos(): Can't find Player on Grid")
 	}
 
-	// TODO: добавить соседей для всех ячеек
-	private fillGrid(): void {
+	private fill(): void {
 		for (let x = 0; x < this._width; x++) {
 			for (let y = 0; y < this._height; y++) {
 				this._cells[x][y] = new Cell({ x, y })

@@ -1,7 +1,7 @@
 import { GridOfCellsLogicData } from './GridOfCellsLogicData'
 import { GridOfCellsVisualData } from './GridOfCellsVisualData'
 
-export type GridOfCellsMapData = {
+export type DNDMapData = {
 	logic: GridOfCellsLogicData
 	visual: GridOfCellsVisualData
 }

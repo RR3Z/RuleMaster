@@ -1,3 +1,3 @@
-import { GridOfCellsMapData } from './GridOfCellsMapData'
+import { DNDMapData } from './DNDMapData'
 
-export type MapData = GridOfCellsMapData
+export type MapData = DNDMapData

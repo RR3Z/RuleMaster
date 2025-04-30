@@ -3,7 +3,7 @@ import { GridSizes } from './GridSizes'
 import { Position } from './Position'
 
 export type GridOfCellsLogicData = {
-	gridSizes: GridSizes
+	sizes: GridSizes
 	player: CharacterLogicData
 	walls: Position[]
 }
