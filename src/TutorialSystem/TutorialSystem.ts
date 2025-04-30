@@ -1,4 +1,4 @@
-import { BRPGame } from './BRPGame.ts'
+import { Game } from '../InteractiveMap/_Types/GameType.ts'
 import TutorialSystemComponentsFabric from './Fabrics/TutorialSystemComponentsFabric.ts'
 import { Scenario } from './Scenario.ts'
 import TutorialModel from './TutorialModel.ts'
@@ -10,12 +10,16 @@ export default class TutorialSystem {
 	private _viewModel: TutorialVM
 	private _view: TutorialView
 
-	constructor(game: BRPGame) {
-		const componentsFabric = new TutorialSystemComponentsFabric()
-
+	constructor(game: Game) {
 		this._model = new TutorialModel()
-		this._viewModel = componentsFabric.createViewModel(game, this._model)
-		this._view = componentsFabric.createView(game, this._viewModel)
+		this._viewModel = TutorialSystemComponentsFabric.createViewModel(
+			game,
+			this._model
+		)
+		this._view = TutorialSystemComponentsFabric.createView(
+			game,
+			this._viewModel
+		)
 	}
 
 	public start(data: Scenario): void {
