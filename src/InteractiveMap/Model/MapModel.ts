@@ -1,9 +1,9 @@
-import Player from '../Entities/Player'
+import Character from '../Entities/Characters/Character'
 
 export default abstract class MapModel {
-	protected _player!: Player
+	protected _player!: Character
 
-	public get player(): Readonly<Player> {
+	public get player(): Readonly<Character> {
 		return this._player
 	}
 }
