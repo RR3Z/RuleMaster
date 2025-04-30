@@ -14,8 +14,7 @@ export default class DNDMapModel extends MapModel {
 		this._player = new DNDCharacter(EntityType.PLAYER, data.player)
 
 		// Grid
-		this._grid = new GridOfCells(data.sizes.width, data.sizes.height)
-		this._grid.cell(data.player.pos).putContent(this._player)
+		this._grid = new GridOfCells(data, this._player)
 	}
 
 	public get grid(): GridOfCells {
