@@ -1,6 +1,6 @@
 import { Container, Graphics, Rectangle } from 'pixi.js'
 import { Observable, Subject } from 'rxjs'
-import VisualUtils from '../../../Utils/VisualUtils'
+import InteractiveMapVisualUtils from '../../../Utils/InteractiveMapVisualUtils'
 import { CharacterVisualData } from '../../_Types/ChararcterVisualData'
 import { Position } from '../../_Types/Position'
 
@@ -9,12 +9,12 @@ export default abstract class Token extends Graphics {
 	protected _radius: number
 	protected _pos$: Subject<Position>
 
-	protected _visualUtils: VisualUtils
+	protected _visualUtils: InteractiveMapVisualUtils
 
 	constructor(
 		worldSpaceContainer: Container,
 		radius: number,
-		visualUtils: VisualUtils
+		visualUtils: InteractiveMapVisualUtils
 	) {
 		super()
 

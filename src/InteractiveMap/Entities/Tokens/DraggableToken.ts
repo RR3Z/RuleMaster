@@ -1,5 +1,5 @@
 import { Container, FederatedPointerEvent } from 'pixi.js'
-import VisualUtils from '../../../Utils/VisualUtils'
+import InteractiveMapVisualUtils from '../../../Utils/InteractiveMapVisualUtils'
 import { CharacterVisualData } from '../../_Types/ChararcterVisualData'
 import { Position } from '../../_Types/Position'
 import Token from './Token'
@@ -9,7 +9,7 @@ export type DraggableTokenParams = {
 	startPos: Position
 	radius: number
 	worldSpaceContainer: Container
-	visualUtils: VisualUtils
+	visualUtils: InteractiveMapVisualUtils
 }
 
 export default class DraggableToken extends Token {
