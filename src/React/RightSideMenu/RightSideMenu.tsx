@@ -5,6 +5,12 @@ import MenuControlButton from './MenuControlButton'
 
 type ActiveTabs = 'logs' | 'diceRoller'
 
+const StyledRightSideMenu = styled.div`
+	* {
+		z-index: 1;
+	}
+`
+
 const StyledCollapsedRightSideMenu = styled.div`
 	position: absolute;
 	background-color: gray;
@@ -53,7 +59,7 @@ export default function RightSideMenu() {
 	const [activeTab, setActiveTab] = useState<ActiveTabs>('logs')
 
 	return (
-		<div id='rightSideMenu'>
+		<StyledRightSideMenu id='rightSideMenu'>
 			{isCollapsed ? (
 				<>
 					<StyledCollapsedRightSideMenu id='collapsedMenuControl'>
@@ -94,6 +100,6 @@ export default function RightSideMenu() {
 					</StyledRightSideMenuContent>
 				</>
 			)}
-		</div>
+		</StyledRightSideMenu>
 	)
 }
