@@ -43,8 +43,8 @@ export default class DiceRollerPhysicEngine {
 	}
 
 	private createWorldBounds(): void {
-		const width = 100
-		const height = 50
+		const width = 107
+		const height = 53
 
 		const wallsConfig = [
 			{
@@ -52,30 +52,30 @@ export default class DiceRollerPhysicEngine {
 				position: [0, 0, 0],
 				size: [width / 2, 0.5, height / 2],
 			},
-			{
-				type: 'roof',
-				position: [0, 50, 0],
-				size: [width / 2, 0.5, height / 2],
-			},
+			// {
+			// 	type: 'roof',
+			// 	position: [0, height, 0],
+			// 	size: [width / 2, 0.5, height / 2],
+			// },
 			{
 				type: 'left',
-				position: [-width / 2, 25, 0],
-				size: [0.5, 25, height / 2],
+				position: [-width / 2, 2.5, 0],
+				size: [0.5, 5, height / 2],
 			},
 			{
 				type: 'right',
-				position: [width / 2, 25, 0],
-				size: [0.5, 25, height / 2],
+				position: [width / 2, 2.5, 0],
+				size: [0.5, 5, height / 2],
 			},
 			{
 				type: 'back',
-				position: [0, 25, -height / 2],
-				size: [width / 2, 25, 0.5],
+				position: [0, 2.5, -height / 2],
+				size: [width / 2, 5, 0.5],
 			},
 			{
 				type: 'front',
-				position: [0, 25, height / 2],
-				size: [width / 2, 25, 0.5],
+				position: [0, 2.5, height / 2],
+				size: [width / 2, 5, 0.5],
 			},
 		]
 

@@ -87,25 +87,25 @@ export default class Dice {
 		switch (startPos) {
 			case StartPosition.UP:
 				this._rigidBody.setTranslation(
-					new Vector3(Math.random() * 40 - 40, 25, -20),
+					new Vector3(Math.random() * 160 - 80, 50, -27),
 					true
 				)
 				break
 			case StartPosition.DOWN:
 				this._rigidBody.setTranslation(
-					new Vector3(Math.random() * 40 - 40, 25, 20),
+					new Vector3(Math.random() * 160 - 80, 50, 27),
 					true
 				)
 				break
 			case StartPosition.RIGHT:
 				this._rigidBody.setTranslation(
-					new Vector3(40, 25, Math.random() * 20 - 20),
+					new Vector3(80, 50, Math.random() * 54 - 27),
 					true
 				)
 				break
 			case StartPosition.LEFT:
 				this._rigidBody.setTranslation(
-					new Vector3(-40, 25, Math.random() * 20 - 20),
+					new Vector3(-80, 50, Math.random() * 54 - 27),
 					true
 				)
 				break
@@ -127,8 +127,8 @@ export default class Dice {
 	}
 
 	private setMoveDirectionToCenter(): void {
-		let forceMagnitude = 2
-		if (this._type === DiceType.D4) forceMagnitude = 3
+		let forceMagnitude = 50
+		if (this._type === DiceType.D4) forceMagnitude = 100
 
 		const centerPosition = new Vector3(0, 0, 0)
 		const dicePosition = this.rigidBody.translation()
