@@ -1,55 +1,50 @@
-import * as RAPIER from "@dimforge/rapier3d-compat"
-import { Mesh, Object3D, Vector3 } from "three"
-
-export enum DiceType {
-	D4,
-	D6,
-	D8,
-	D10,
-	D12,
-	D20,
-}
-
-export enum StartPosition {
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-}
+import { Collider, RigidBody } from '@dimforge/rapier3d-compat'
+import { Mesh, Object3D, Vector3 } from 'three'
+import { DiceType } from '../_Types/DiceType'
+import { StartPosition } from '../_Types/StartPosition'
 
 export default class Dice {
-	public visual: Object3D
-	public collider!: RAPIER.Collider
-	public rigidBody!: RAPIER.RigidBody
-	public type: DiceType
-	private _normals: Vector3[] = []
-	private _diceValues: number[] = []
+	private _visual: Object3D
+	private _collider: Collider
+	private _rigidBody: RigidBody
+	private _type: DiceType
+	private _normals: Vector3[]
+	private _diceValues: number[]
 
 	constructor(
 		visual: Object3D,
-		type: DiceType,
-		collider?: RAPIER.Collider,
-		rigidBody?: RAPIER.RigidBody
+		collider: Collider,
+		rigidBody: RigidBody,
+		type: DiceType
 	) {
-		this.visual = visual
-		this.type = type
-		if (collider) this.collider = collider
-		if (rigidBody) this.rigidBody = rigidBody
+		this._visual = visual
+		this._collider = collider
+		this._rigidBody = rigidBody
+		this._type = type
+		this._normals = []
+		this._diceValues = []
 
-		this.defineValues()
-		this.computeNormals()
-
-		this.visual.scale.set(2, 2, 2)
+		this.init()
 	}
 
-	public init() {
-		this.setRandomStartPosition()
-		this.setRandomAngularVelocity()
-		this.setMoveDirectionToCenter()
+	public get visual(): Object3D {
+		return this._visual
 	}
 
-	public value(): number {
+	public get collider(): Collider {
+		return this._collider
+	}
+
+	public get rigidBody(): RigidBody {
+		return this._rigidBody
+	}
+
+	public get value(): number {
 		return this._diceValues[this.topFaceIndex()]
+	}
+
+	public get type(): DiceType {
+		return this._type
 	}
 
 	public isStopped(): boolean {
@@ -67,6 +62,62 @@ export default class Dice {
 		return linSpeed < 0.001 && angSpeed < 0.001
 	}
 
+	private init(): void {
+		// Visual Settings
+		this._visual.receiveShadow = true
+		this._visual.castShadow = true
+		this._visual.scale.set(4, 4, 4)
+
+		// Object Form
+		this.computeNormals()
+		this.defineValues()
+
+		// Physic Settings
+		this.setRandomStartPosition()
+		this.setRandomAngularVelocity()
+		this.setMoveDirectionToCenter()
+	}
+
+	private setRandomStartPosition(): void {
+		const values: StartPosition[] = Object.values(StartPosition).filter(
+			v => typeof v === 'number'
+		)
+		let startPos: StartPosition =
+			values[Math.floor(Math.random() * values.length)]
+
+		switch (startPos) {
+			case StartPosition.UP:
+				this._rigidBody.setTranslation(
+					new Vector3(Math.random() * 40 - 40, 25, -20),
+					true
+				)
+				break
+			case StartPosition.DOWN:
+				this._rigidBody.setTranslation(
+					new Vector3(Math.random() * 40 - 40, 25, 20),
+					true
+				)
+				break
+			case StartPosition.RIGHT:
+				this._rigidBody.setTranslation(
+					new Vector3(40, 25, Math.random() * 20 - 20),
+					true
+				)
+				break
+			case StartPosition.LEFT:
+				this._rigidBody.setTranslation(
+					new Vector3(-40, 25, Math.random() * 20 - 20),
+					true
+				)
+				break
+			default:
+				console.error(
+					'Dice -> init() -> setRandomStartPosition() -> Unknown Start Position'
+				)
+				break
+		}
+	}
+
 	private setRandomAngularVelocity(): void {
 		const angularVelocity = new Vector3(
 			Math.random() * 5 + 3,
@@ -77,8 +128,8 @@ export default class Dice {
 	}
 
 	private setMoveDirectionToCenter(): void {
-		let forceMagnitude = 10
-		if (this.type === DiceType.D4) forceMagnitude = 5
+		let forceMagnitude = 2
+		if (this._type === DiceType.D4) forceMagnitude = 3
 
 		const centerPosition = new Vector3(0, 0, 0)
 		const dicePosition = this.rigidBody.translation()
@@ -98,46 +149,6 @@ export default class Dice {
 		)
 	}
 
-	private setRandomStartPosition(): void {
-		const values: StartPosition[] = Object.values(StartPosition).filter(
-			v => typeof v === "number"
-		)
-		let startPos: StartPosition =
-			values[Math.floor(Math.random() * values.length)]
-
-		switch (startPos) {
-			case StartPosition.UP:
-				this.rigidBody.setTranslation(
-					new Vector3(Math.random() * 25 - 25, 25, -15),
-					true
-				)
-				break
-			case StartPosition.DOWN:
-				this.rigidBody.setTranslation(
-					new Vector3(Math.random() * 25 - 25, 25, 15),
-					true
-				)
-				break
-			case StartPosition.RIGHT:
-				this.rigidBody.setTranslation(
-					new Vector3(25, 25, Math.random() * 15 - 15),
-					true
-				)
-				break
-			case StartPosition.LEFT:
-				this.rigidBody.setTranslation(
-					new Vector3(-25, 25, Math.random() * 15 - 15),
-					true
-				)
-				break
-			default:
-				console.error(
-					"Dice -> init() -> setRandomStartPosition() -> Unknown Start Position"
-				)
-				break
-		}
-	}
-
 	private computeNormals(): void {
 		this._normals.splice(0, this._normals.length)
 
@@ -146,7 +157,7 @@ export default class Dice {
 		const position = geometry.attributes.position
 		const indices = geometry.index!.array
 
-		if (this.type === DiceType.D4) {
+		if (this._type === DiceType.D4) {
 			const positions = position.array
 			const _normals: Record<string, Vector3> = {}
 
@@ -182,25 +193,8 @@ export default class Dice {
 		}
 	}
 
-	private topFaceIndex(): number {
-		let topFaceIndex: number = 0
-		let maxY: number = -Infinity
-
-		for (let i = 0; i < this._normals.length; i++) {
-			const worldNormal = this._normals[i].clone()
-			worldNormal.applyQuaternion(this.visual.quaternion)
-
-			if (worldNormal.y > maxY) {
-				maxY = worldNormal.y
-				topFaceIndex = i
-			}
-		}
-
-		return topFaceIndex
-	}
-
 	private defineValues(): void {
-		switch (this.type) {
+		switch (this._type) {
 			case DiceType.D4:
 				this._diceValues = [1, 4, 3, 2]
 				break
@@ -222,8 +216,25 @@ export default class Dice {
 				]
 				break
 			default:
-				alert("Dice -> defineValues -> unknown DiceType")
+				alert('Dice -> defineValues -> unknown DiceType')
 				break
 		}
+	}
+
+	private topFaceIndex(): number {
+		let topFaceIndex: number = 0
+		let maxY: number = -Infinity
+
+		for (let i = 0; i < this._normals.length; i++) {
+			const worldNormal = this._normals[i].clone()
+			worldNormal.applyQuaternion(this.visual.quaternion)
+
+			if (worldNormal.y > maxY) {
+				maxY = worldNormal.y
+				topFaceIndex = i
+			}
+		}
+
+		return topFaceIndex
 	}
 }

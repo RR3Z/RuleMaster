@@ -1,4 +1,4 @@
-import { AmbientLight, Object3D, PointLight } from "three"
+import { AmbientLight, Object3D, PointLight } from 'three'
 
 export default class Light extends Object3D {
 	constructor() {
