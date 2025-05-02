@@ -66,7 +66,6 @@ export default class Dice {
 		// Visual Settings
 		this._visual.receiveShadow = true
 		this._visual.castShadow = true
-		this._visual.scale.set(4, 4, 4)
 
 		// Object Form
 		this.computeNormals()

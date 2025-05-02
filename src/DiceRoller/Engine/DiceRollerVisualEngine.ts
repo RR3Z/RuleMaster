@@ -42,6 +42,8 @@ export default class DiceRollerVisualEngine {
 			throw new Error('DiceRollerVisualEngine -> addDice(): Unknown dice type!')
 
 		const clone = model.clone(true)
+		clone.scale.set(4, 4, 4)
+
 		this._scene.add(clone)
 
 		return clone
