@@ -12,7 +12,7 @@ export default class DiceRollerEngine {
 	private _physicEngine: DiceRollerPhysicEngine
 	private _dices: Dice[]
 	private _shouldUpdate: boolean
-	private _onRollEnd$: Subject<DiceRollResult[]>
+	private readonly _onRollEnd$: Subject<DiceRollResult[]>
 
 	constructor() {
 		this._visualEngine = new DiceRollerVisualEngine()

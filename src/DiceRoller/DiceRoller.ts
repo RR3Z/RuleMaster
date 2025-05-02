@@ -5,7 +5,7 @@ import DiceRollerEngine from './Engine/DiceRollerEngine'
 
 export default class DiceRoller {
 	private _engine: DiceRollerEngine
-	private _rollResults$: Subject<DiceRollResult[]>
+	private readonly _rollResults$: Subject<DiceRollResult[]>
 
 	constructor() {
 		this._engine = new DiceRollerEngine()
