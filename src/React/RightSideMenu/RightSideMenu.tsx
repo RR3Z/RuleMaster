@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import DiceRoller from '../../DiceRoller/DiceRoller'
 import DiceRollerTab from '../DiceRollerTab/DiceRollerTab'
 import CollapsedMenuControlButton from './CollapsedMenuControlButton'
 import MenuControlButton from './MenuControlButton'
+
+export type RightSideMenuProps = {
+	diceRollerModule: DiceRoller
+}
 
 type ActiveTabs = 'logs' | 'diceRoller'
 
@@ -55,7 +60,9 @@ const StyledTabContent = styled.div`
 	overflow-y: auto;
 `
 
-export default function RightSideMenu() {
+export default function RightSideMenu({
+	diceRollerModule,
+}: RightSideMenuProps) {
 	const [isCollapsed, setCollapseState] = useState<boolean>(false)
 	const [activeTab, setActiveTab] = useState<ActiveTabs>('logs')
 
@@ -96,7 +103,9 @@ export default function RightSideMenu() {
 
 						<StyledTabContent id='tabContent'>
 							{activeTab === 'logs' ? 'Logs' : undefined}
-							{activeTab === 'diceRoller' ? <DiceRollerTab /> : undefined}
+							{activeTab === 'diceRoller' ? (
+								<DiceRollerTab diceRollerModule={diceRollerModule} />
+							) : undefined}
 						</StyledTabContent>
 					</StyledRightSideMenuContent>
 				</>

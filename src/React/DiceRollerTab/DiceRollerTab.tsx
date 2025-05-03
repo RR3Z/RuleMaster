@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { DiceFormula } from '../../DiceRoller/_Types/DiceFormula'
+import { DiceType } from '../../DiceRoller/_Types/DiceType'
+import DiceRoller from '../../DiceRoller/DiceRoller'
 import CustomMenuButton from '../CustomMenuButton/CustomMenuButton'
 import DiceSelector from '../DiceSelector/DiceSelector'
+
+export type DiceRollerTabProps = {
+	diceRollerModule: DiceRoller
+}
 
 const StyledTab = styled.div`
 	display: flex;
@@ -23,19 +30,38 @@ const DiceSelectors = styled.div`
 	height: 100%;
 `
 
-export default function DiceRollerTab() {
+export default function DiceRollerTab({
+	diceRollerModule,
+}: DiceRollerTabProps) {
+	const [D20Count, setD20Count] = useState<number>(0)
+	// TODO: добавить сюда другие кнопки
+
+	const makeRoll = () => {
+		const formulas: DiceFormula[] = []
+		if (D20Count > 0) formulas.push({ type: DiceType.D20, count: D20Count })
+
+		if (formulas.length > 0) {
+			diceRollerModule.makeRoll(formulas)
+			clearDicesCount()
+		}
+	}
+
+	const clearDicesCount = () => {
+		setD20Count(0)
+	}
+
 	return (
 		<StyledTab>
 			<DiceSelectors id='diceSelectors'>
-				<DiceSelector name='D20' imageSrc='/assets/dices/D20.svg' />
-				<DiceSelector name='D20' imageSrc='/assets/dices/D20.svg' />
-				<DiceSelector name='D20' imageSrc='/assets/dices/D20.svg' />
-				<DiceSelector name='D20' imageSrc='/assets/dices/D20.svg' />
-				<DiceSelector name='D20' imageSrc='/assets/dices/D20.svg' />
-				<DiceSelector name='D20' imageSrc='/assets/dices/D20.svg' />
+				<DiceSelector
+					name='D20'
+					imageSrc='/assets/dices/D20.svg'
+					value={D20Count}
+					updateValue={setD20Count}
+				/>
 			</DiceSelectors>
-			<CustomMenuButton text='Совершить бросок' />
-			<CustomMenuButton text='Очистить выбор' />
+			<CustomMenuButton text='Совершить бросок' onClick={makeRoll} />
+			<CustomMenuButton text='Очистить выбор' onClick={clearDicesCount} />
 		</StyledTab>
 	)
 }

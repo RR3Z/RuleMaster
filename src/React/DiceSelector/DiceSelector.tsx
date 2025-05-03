@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import CustomMenuButton from '../CustomMenuButton/CustomMenuButton'
 
 export type DiceSelectorProps = {
 	name: string
 	imageSrc: string
+	value: number
+	updateValue: (newValue: number) => void
 }
 
 const SelectorContainer = styled.div`
@@ -26,11 +28,15 @@ const SelectorSpan = styled.span`
 	margin: 0px 5px;
 `
 
-export default function DiceSelector({ name, imageSrc }: DiceSelectorProps) {
-	const [value, setStateValue] = useState<number>(0)
+export default function DiceSelector({
+	name,
+	imageSrc,
+	value,
+	updateValue,
+}: DiceSelectorProps) {
 	const setValue = (newVal: number) => {
 		const clamped = Math.max(0, Math.min(newVal, 10))
-		setStateValue(clamped)
+		updateValue(clamped)
 	}
 
 	return (

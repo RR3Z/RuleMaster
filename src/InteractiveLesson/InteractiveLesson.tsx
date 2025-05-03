@@ -19,14 +19,14 @@ export default class InteractiveLesson {
 		mapDataFilePath: string,
 		dicesModelFilePath: string
 	): Promise<void> {
-		await this.renderUI()
-
 		const mapData = await loadFileData(mapDataFilePath)
 		this._interactiveMap = new InteractiveMap(game, mapData)
 		await this._interactiveMap.init()
 
 		this._diceRoller = new DiceRoller()
 		await this._diceRoller.init(dicesModelFilePath)
+
+		await this.renderUI()
 
 		// TODO: add tutorialSystem
 		// TODO: add logging system
@@ -42,7 +42,7 @@ export default class InteractiveLesson {
 
 		return new Promise<void>(resolve => {
 			createRoot(rootElement as HTMLDivElement).render(
-				<App onMount={resolve} />
+				<App onMount={resolve} diceRollerModule={this._diceRoller} />
 			)
 		})
 	}
