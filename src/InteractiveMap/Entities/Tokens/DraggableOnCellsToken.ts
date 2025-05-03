@@ -3,16 +3,16 @@ import GridOfCellsVisualUtils from '../../../Utils/GridOfCellsVisualUtils'
 import { Position } from '../../_Types/Position'
 import Token, { TokenParams } from './Token'
 
-export type DNDDraggableTokenParams = TokenParams & {
+export type DraggableOnCellsTokenParams = TokenParams & {
 	visualUtils: GridOfCellsVisualUtils
 }
 
-export default class DraggableToken extends Token {
+export default class DraggableOnCellsToken extends Token {
 	private _isDragging: boolean
 	private _phantomToken: Token
 	private _visualUtils: GridOfCellsVisualUtils
 
-	constructor(params: DNDDraggableTokenParams) {
+	constructor(params: DraggableOnCellsTokenParams) {
 		super(params)
 
 		this._isDragging = false
