@@ -23,9 +23,20 @@ export default class DNDMapModel extends MapModel {
 		return this._grid
 	}
 
-	// TODO: добавить логику, что персонаж не может останавливаться в клетках, где уже что-то есть
+	// TODO: Подключиmь здесь AStarPathFinder
 	public moveCharacterTo(character: Character, newPos: Position): void {
 		const dndCharacter = character as DNDCharacter
+		const currentPosCell = this._grid.cell(dndCharacter.pos)
+		const newPosCell = this._grid.cell(newPos)
+
+		if (newPosCell.contentType !== null)
+			throw new Error(
+				'DNDMapModel -> moveCharacterTo(): Сell at the given position is already occupied'
+			)
+
+		const content = currentPosCell.pullContent()
+		newPosCell.putContent(content)
+
 		dndCharacter.pos$.next(newPos)
 	}
 }
