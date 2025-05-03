@@ -8,10 +8,6 @@ export default abstract class MapVM {
 
 	constructor() {
 		this._onPlayerPosChange$ = new Subject<Position>()
-
-		this._model.player.pos$.subscribe((pos: Position) =>
-			this.onModelPlayerPosChange(pos)
-		)
 	}
 
 	public get onPlayerPosChange$(): Observable<Position> {

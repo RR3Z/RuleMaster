@@ -8,6 +8,10 @@ export default class DNDMapVM extends MapVM {
 		super()
 
 		this._model = model
+
+		this._model.player.pos$.subscribe((pos: Position) =>
+			this.onModelPlayerPosChange(pos)
+		)
 	}
 
 	public onViewPlayerPosChange(pos: Position): void {
