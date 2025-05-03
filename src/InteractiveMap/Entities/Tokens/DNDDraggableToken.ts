@@ -26,14 +26,14 @@ export default class DraggableToken extends Token {
 		})
 		this._phantomToken.alpha = 0
 
-		this.updateTokenPosition(params.startPos)
+		this.updatePosition(params.startPos)
 
 		this.on('pointerdown', this.onDragStart, this)
 		this.on('pointerup', this.onDragEnd, this)
 		this.on('pointerupoutside', this.onDragEnd, this)
 	}
 
-	private updateTokenPosition(position: Position): void {
+	public updatePosition(position: Position): void {
 		const pos = this._visualUtils.coordinatesToPixelPosition(
 			position.x,
 			position.y,
