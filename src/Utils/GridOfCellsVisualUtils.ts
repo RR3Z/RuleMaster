@@ -1,4 +1,4 @@
-export default class InteractiveMapVisualUtils {
+export default class GridOfCellsVisualUtils {
 	private readonly _gridWidth: number
 	private readonly _gridHeight: number
 

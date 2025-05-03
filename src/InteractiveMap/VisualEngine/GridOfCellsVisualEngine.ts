@@ -1,4 +1,4 @@
-import InteractiveMapVisualUtils from '../../Utils/InteractiveMapVisualUtils'
+import GridOfCellsVisualUtils from '../../Utils/GridOfCellsVisualUtils'
 import { GridOfCellsVisualData } from '../_Types/GridOfCellsVisualData'
 import PlayerTrackingCamera from '../Camera/PlayerTrackingCamera'
 import DraggableToken from '../Entities/Tokens/DraggableToken'
@@ -11,14 +11,14 @@ export default class GridOfCellsVisualEngine extends MapVisualEngine {
 	private readonly _gridLogic: GridOfCells
 
 	private _player!: DraggableToken
-	private _visualUtils: InteractiveMapVisualUtils
+	private _visualUtils: GridOfCellsVisualUtils
 
 	constructor(data: GridOfCellsVisualData, grid: GridOfCells) {
 		super()
 
 		this._data = data
 		this._gridLogic = grid
-		this._visualUtils = new InteractiveMapVisualUtils(grid.width, grid.height)
+		this._visualUtils = new GridOfCellsVisualUtils(grid.width, grid.height)
 	}
 
 	public override async init(): Promise<void> {
