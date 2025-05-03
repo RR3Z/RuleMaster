@@ -1,27 +1,28 @@
 import { Container, Graphics, Rectangle } from 'pixi.js'
 import { Observable, Subject } from 'rxjs'
-import InteractiveMapVisualUtils from '../../../Utils/InteractiveMapVisualUtils'
 import { CharacterVisualData } from '../../_Types/ChararcterVisualData'
 import { Position } from '../../_Types/Position'
+
+export type TokenParams = {
+	visualData: CharacterVisualData
+	startPos: Position
+	radius: number
+	worldSpaceContainer: Container
+}
 
 export default class Token extends Graphics {
 	protected _worldSpaceContainer: Container
 	protected _radius: number
 	protected _pos$: Subject<Position>
 
-	protected _visualUtils: InteractiveMapVisualUtils
-
-	constructor(
-		worldSpaceContainer: Container,
-		radius: number,
-		visualUtils: InteractiveMapVisualUtils
-	) {
+	constructor(params: TokenParams) {
 		super()
 
-		this._worldSpaceContainer = worldSpaceContainer
-		this._radius = radius
-		this._visualUtils = visualUtils
+		this._worldSpaceContainer = params.worldSpaceContainer
+		this._radius = params.radius
 		this._pos$ = new Subject<Position>()
+
+		this.draw(params.visualData, params.radius, params.startPos)
 	}
 
 	public get pos$(): Observable<Position> {
@@ -33,12 +34,7 @@ export default class Token extends Graphics {
 		radius: number,
 		startPos: Position
 	): void {
-		const pos = this._visualUtils.coordinatesToPixelPosition(
-			startPos.x,
-			startPos.y,
-			radius
-		)
-		this.position = pos
+		this.position = startPos
 
 		this.circle(0, 0, radius)
 		this.fill(0x888888) // TODO: Change on picture from visualData
