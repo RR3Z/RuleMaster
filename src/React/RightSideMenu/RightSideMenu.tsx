@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import DiceRollerTab from '../DiceRollerTab/DiceRollerTab'
 import CollapsedMenuControlButton from './CollapsedMenuControlButton'
 import MenuControlButton from './MenuControlButton'
 
@@ -47,7 +48,7 @@ const StyledHorizontalLine = styled.hr`
 `
 
 const StyledTabContent = styled.div`
-	padding: 5px 3px;
+	padding: 5px 0px;
 	flex: 1;
 	width: 100%;
 	box-sizing: border-box;
@@ -81,7 +82,7 @@ export default function RightSideMenu() {
 							></MenuControlButton>
 							<MenuControlButton
 								id='diceRollerButton'
-								imgPath='/assets/button/messageBoxButton.png'
+								imgPath='/assets/menuIcons/diceRollerTab.svg'
 								onClick={() => setActiveTab('diceRoller')}
 							></MenuControlButton>
 							<MenuControlButton
@@ -95,7 +96,7 @@ export default function RightSideMenu() {
 
 						<StyledTabContent id='tabContent'>
 							{activeTab === 'logs' ? 'Logs' : undefined}
-							{activeTab === 'diceRoller' ? 'DiceRoller' : undefined}
+							{activeTab === 'diceRoller' ? <DiceRollerTab /> : undefined}
 						</StyledTabContent>
 					</StyledRightSideMenuContent>
 				</>
