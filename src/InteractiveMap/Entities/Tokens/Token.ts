@@ -4,7 +4,7 @@ import InteractiveMapVisualUtils from '../../../Utils/InteractiveMapVisualUtils'
 import { CharacterVisualData } from '../../_Types/ChararcterVisualData'
 import { Position } from '../../_Types/Position'
 
-export default abstract class Token extends Graphics {
+export default class Token extends Graphics {
 	protected _worldSpaceContainer: Container
 	protected _radius: number
 	protected _pos$: Subject<Position>
