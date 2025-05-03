@@ -1,7 +1,7 @@
 import GridOfCellsVisualUtils from '../../Utils/GridOfCellsVisualUtils'
 import { GridOfCellsVisualData } from '../_Types/GridOfCellsVisualData'
 import PlayerTrackingCamera from '../Camera/PlayerTrackingCamera'
-import DraggableToken from '../Entities/Tokens/DraggableToken'
+import DraggableToken from '../Entities/Tokens/DNDDraggableToken'
 import GridOfCells from '../Grid/GridOfCells'
 import GridOfCellsVisual from '../Grid/GridOfCellsVisual'
 import MapVisualEngine from './MapVisualEngine'
