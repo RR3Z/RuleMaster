@@ -11,9 +11,17 @@ export default class DiceRoller {
 		this._engine = new DiceRollerEngine()
 		this._rollResults$ = new BehaviorSubject<DiceRollResult[]>([])
 
-		this._engine.onRollEnd$.subscribe(rollResults =>
+		this._engine.onRollEnd$.subscribe((rollResults: DiceRollResult[]) =>
 			this._rollResults$.next(rollResults)
 		)
+	}
+
+	public get onRollStart$(): Observable<void> {
+		return this._engine.onRollStart$
+	}
+
+	public get onRollEnd$(): Observable<DiceRollResult[]> {
+		return this._engine.onRollEnd$
 	}
 
 	public get rollResults$(): Observable<DiceRollResult[]> {

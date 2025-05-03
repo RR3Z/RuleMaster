@@ -13,6 +13,7 @@ export default class DiceRollerEngine {
 	private _dices: Dice[]
 	private _shouldUpdate: boolean
 	private readonly _onRollEnd$: Subject<DiceRollResult[]>
+	private readonly _onRollStart$: Subject<void>
 
 	constructor() {
 		this._visualEngine = new DiceRollerVisualEngine()
@@ -20,6 +21,7 @@ export default class DiceRollerEngine {
 		this._dices = []
 		this._shouldUpdate = false
 		this._onRollEnd$ = new Subject<DiceRollResult[]>()
+		this._onRollStart$ = new Subject<void>()
 
 		this._visualEngine.graphic.domElement.style.visibility = 'hidden'
 		document.body.appendChild(this._visualEngine.graphic.domElement)
@@ -31,6 +33,10 @@ export default class DiceRollerEngine {
 
 	public get onRollEnd$(): Observable<DiceRollResult[]> {
 		return this._onRollEnd$.asObservable()
+	}
+
+	public get onRollStart$(): Observable<void> {
+		return this._onRollStart$.asObservable()
 	}
 
 	public addDices(formulas: DiceFormula[]): void {
@@ -52,6 +58,7 @@ export default class DiceRollerEngine {
 			}
 		}
 
+		this._onRollStart$.next()
 		this.switchState()
 	}
 
@@ -85,7 +92,6 @@ export default class DiceRollerEngine {
 			}
 
 			if (this.areDicesStopped()) {
-				this._onRollEnd$.next(this.rollResult())
 				this.switchState()
 			}
 		})
@@ -116,15 +122,14 @@ export default class DiceRollerEngine {
 		this._visualEngine.graphic.shouldUpdate = this._shouldUpdate
 
 		if (this._shouldUpdate) {
-			// document.body.appendChild(this._visualEngine.graphic.domElement)
 			this._visualEngine.graphic.domElement.style.visibility = 'visible'
 			this.startLoop()
 		} else {
 			setTimeout(() => {
-				// document.getElementById('diceRoller')!.remove()
 				this._visualEngine.graphic.domElement.style.visibility = 'hidden'
+				this._onRollEnd$.next(this.rollResult())
 				this.removeDices()
-			}, 2000)
+			}, 1000)
 		}
 	}
 }
