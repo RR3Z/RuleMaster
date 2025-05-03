@@ -26,7 +26,7 @@ export default function MenuControlButton({
 }: MenuControlButtonProps) {
 	return (
 		<StyledMenuControlButton id={id} onClick={onClick}>
-			<img src={imgPath} width='15px' height='15px' />
+			<img src={imgPath} width='20px' height='20px' />
 		</StyledMenuControlButton>
 	)
 }
