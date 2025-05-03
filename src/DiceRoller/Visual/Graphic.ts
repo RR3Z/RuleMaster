@@ -1,4 +1,4 @@
-import { Box3, Scene, WebGLRenderer } from 'three'
+import { Scene, WebGLRenderer } from 'three'
 import Camera from './Camera'
 
 export default class Graphic extends WebGLRenderer {
@@ -45,24 +45,9 @@ export default class Graphic extends WebGLRenderer {
 	private addWindowResizeListener(): void {
 		window.addEventListener('resize', () => {
 			this._camera.updateSizes()
-			this.updateSceneScale()
 
-			this.setSize(window.innerWidth, window.innerHeight)
 			this.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+			this.setSize(window.innerWidth, window.innerHeight)
 		})
-	}
-
-	private updateSceneScale(): void {
-		const boundingBox = new Box3().setFromObject(this._scene)
-
-		const width = boundingBox.max.x - boundingBox.min.x
-		const height = boundingBox.max.y - boundingBox.min.y
-
-		const scaleFactor = Math.min(
-			window.innerWidth / width,
-			window.innerHeight / height
-		)
-
-		this._scene.scale.set(scaleFactor, scaleFactor, scaleFactor)
 	}
 }

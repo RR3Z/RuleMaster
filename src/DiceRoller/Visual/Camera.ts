@@ -28,29 +28,15 @@ export default class Camera extends OrthographicCamera {
 	}
 
 	public updateSizes(): void {
-		const aspectRatio = window.innerWidth / window.innerHeight
+		const width = window.innerWidth
+		const height = window.innerHeight
+		const aspectRatio = width / height
+		const frustumSize = 52
 
-		// World Bounds (взято из DiceRollerPhysicEngine -> createWorldBounds)
-		let width = 107
-		let height = 53
-
-		// Корректировка с учетом соотношения сторон окна
-		if (aspectRatio >= 1) {
-			// Ширина окна больше высоты
-			width = height * aspectRatio
-		} else {
-			// Высота окна больше ширины
-			height = width / aspectRatio
-		}
-
-		// Устанавливаем параметры ортографической камеры
-		const halfWidth = width / 2
-		const halfHeight = height / 2
-
-		this.left = -halfWidth
-		this.right = halfWidth
-		this.top = halfHeight
-		this.bottom = -halfHeight
+		this.left = (frustumSize * aspectRatio) / -2
+		this.right = (frustumSize * aspectRatio) / 2
+		this.top = frustumSize / 2
+		this.bottom = frustumSize / -2
 
 		this.updateProjectionMatrix()
 	}
