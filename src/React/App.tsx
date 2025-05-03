@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ActionsPanel from './ActionsPanel/ActionsPanel.tsx'
 import MessageBox from './MessageBox/MessageBox.tsx'
 import RightSideMenu from './RightSideMenu/RightSideMenu.tsx'
 
-export default function App() {
+export default function App({ onMount }: { onMount: () => void }) {
+	useEffect(() => {
+		onMount()
+	}, [])
+
 	return (
 		<>
 			<MessageBox />
