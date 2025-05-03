@@ -4,6 +4,7 @@ import styled from 'styled-components'
 type CollapsedMenuControlProps = {
 	id: string
 	imgPath: string
+	isVisible: boolean
 	onClick: () => void
 }
 
@@ -20,11 +21,14 @@ const StyledCollapsedMenuControlButton = styled.button`
 export default function CollapsedMenuControlButton({
 	id,
 	imgPath,
+	isVisible,
 	onClick,
 }: CollapsedMenuControlProps) {
-	return (
-		<StyledCollapsedMenuControlButton id={id} onClick={onClick}>
-			<img src={imgPath} width='15px' height='15px' />
-		</StyledCollapsedMenuControlButton>
-	)
+	return isVisible ? (
+		<>
+			<StyledCollapsedMenuControlButton id={id} onClick={onClick}>
+				<img src={imgPath} width='15px' height='15px' />
+			</StyledCollapsedMenuControlButton>
+		</>
+	) : null
 }

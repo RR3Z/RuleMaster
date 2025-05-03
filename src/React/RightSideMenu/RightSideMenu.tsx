@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import DiceRoller from '../../DiceRoller/DiceRoller'
 import DiceRollerTab from '../DiceRollerTab/DiceRollerTab'
@@ -65,6 +65,26 @@ export default function RightSideMenu({
 }: RightSideMenuProps) {
 	const [isCollapsed, setCollapseState] = useState<boolean>(false)
 	const [activeTab, setActiveTab] = useState<ActiveTabs>('logs')
+	const [isUncollapseMenuButtonVisibile, setUncollapseMenuButtonVisibility] =
+		useState<boolean>(true)
+
+	useEffect(() => {
+		const onRollStartSubscription = diceRollerModule.onRollStart$.subscribe(
+			() => {
+				setCollapseState(true)
+				setUncollapseMenuButtonVisibility(false)
+			}
+		)
+		const onRollEndSubscription = diceRollerModule.onRollEnd$.subscribe(() => {
+			setCollapseState(false)
+			setUncollapseMenuButtonVisibility(true)
+		})
+
+		return () => {
+			onRollStartSubscription.unsubscribe()
+			onRollEndSubscription.unsubscribe()
+		}
+	}, [])
 
 	return (
 		<StyledRightSideMenu id='rightSideMenu'>
@@ -74,6 +94,7 @@ export default function RightSideMenu({
 						<CollapsedMenuControlButton
 							id='collapseRightSideMenuButton'
 							imgPath='/assets/button/messageBoxButton.png'
+							isVisible={isUncollapseMenuButtonVisibile}
 							onClick={() => setCollapseState(false)}
 						></CollapsedMenuControlButton>
 					</StyledCollapsedRightSideMenu>
