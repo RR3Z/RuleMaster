@@ -65,7 +65,7 @@ export default function RightSideMenu() {
 					<StyledCollapsedRightSideMenu id='collapsedMenuControl'>
 						<CollapsedMenuControlButton
 							id='collapseRightSideMenuButton'
-							imgPath='/public/assets/button/messageBoxButton.png'
+							imgPath='/assets/button/messageBoxButton.png'
 							onClick={() => setCollapseState(false)}
 						></CollapsedMenuControlButton>
 					</StyledCollapsedRightSideMenu>
@@ -76,17 +76,17 @@ export default function RightSideMenu() {
 						<StyledMenuControl id='menuControl'>
 							<MenuControlButton
 								id='logsButton'
-								imgPath='/public/assets/button/messageBoxButton.png'
+								imgPath='/assets/button/messageBoxButton.png'
 								onClick={() => setActiveTab('logs')}
 							></MenuControlButton>
 							<MenuControlButton
 								id='diceRollerButton'
-								imgPath='/public/assets/button/messageBoxButton.png'
+								imgPath='/assets/button/messageBoxButton.png'
 								onClick={() => setActiveTab('diceRoller')}
 							></MenuControlButton>
 							<MenuControlButton
 								id='collapseRightSideMenuButton'
-								imgPath='/public/assets/button/messageBoxButton.png'
+								imgPath='/assets/button/messageBoxButton.png'
 								onClick={() => setCollapseState(true)}
 							></MenuControlButton>
 						</StyledMenuControl>

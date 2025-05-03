@@ -7,7 +7,7 @@ const Button = styled.button`
 	background: none;
 	border: none;
 	cursor: pointer;
-	background-image: url('/public/assets/button/messageBoxButton.png');
+	background-image: url('/assets/button/messageBoxButton.png');
 	background-size: cover;
 	background-position: center;
 	position: absolute;
