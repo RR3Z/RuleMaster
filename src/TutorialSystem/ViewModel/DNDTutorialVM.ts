@@ -10,6 +10,7 @@ export default class DNDTutorialVM extends TutorialVM {
 
 		this._model = model
 		this._currentStep$ = new Subject<DNDTutorialStep>()
+		this._onTutorialEnd$ = new Subject<string[]>()
 
 		// Model Events Subscriptions
 		this._model.currentStep$.subscribe((stepData: TutorialStep) => {

@@ -7,11 +7,11 @@ export default abstract class TutorialVM {
 	protected _currentStep$!: Subject<TutorialStep>
 	protected _onTutorialEnd$!: Subject<string[]>
 
-	protected get currentStep$(): Observable<TutorialStep> {
+	public get currentStep$(): Observable<TutorialStep> {
 		return this._currentStep$.asObservable()
 	}
 
-	protected get onTutorialEnd$(): Observable<string[]> {
+	public get onTutorialEnd$(): Observable<string[]> {
 		return this._onTutorialEnd$.asObservable()
 	}
 }
