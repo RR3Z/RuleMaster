@@ -35,8 +35,13 @@ export default class MessageBox {
 		}
 		console.log('MessageBox -> showMessages(): ' + messages.length)
 
-		this._nextButton.style.display = 'flex'
-		this._closeButton.style.display = 'none'
+		if (messages.length > 1) {
+			this._nextButton.style.display = 'flex'
+			this._closeButton.style.display = 'none'
+		} else {
+			this._nextButton.style.display = 'none'
+			this._closeButton.style.display = 'flex'
+		}
 
 		let messageIndex = 0
 		this._text.textContent = messages[messageIndex]
