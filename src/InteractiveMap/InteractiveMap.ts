@@ -1,5 +1,6 @@
 import { Game } from './_Types/GameType'
 import { MapData } from './_Types/MapData'
+import Character from './Entities/Characters/Character'
 import InteractiveMapComponentsFabric from './InteractiveMapComponentsFabric'
 import MapModel from './Model/MapModel'
 import MapView from './View/MapView'
@@ -21,5 +22,9 @@ export default class InteractiveMap {
 
 	public async init(): Promise<void> {
 		await this._view.init()
+	}
+
+	public get player(): Readonly<Character> {
+		return this._model.player
 	}
 }

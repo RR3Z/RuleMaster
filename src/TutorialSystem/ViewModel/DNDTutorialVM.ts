@@ -6,6 +6,7 @@ import TutorialVM from './TutorialVM.ts'
 
 export default class DNDTutorialVM extends TutorialVM {
 	private _currentStep$ = new Subject<DNDTutorialStep>()
+	private _onTutorialEnd$ = new Subject<string[]>()
 
 	constructor(model: TutorialModel) {
 		super()
@@ -17,6 +18,9 @@ export default class DNDTutorialVM extends TutorialVM {
 		this._model.currentStep$.subscribe((stepData: TutorialStep) => {
 			this._currentStep$.next(stepData as DNDTutorialStep)
 		})
+		this._model.onTutorialEnd$.subscribe((onEndMessages: string[]) =>
+			this._onTutorialEnd$.next(onEndMessages)
+		)
 	}
 
 	public get currentStep$(): Observable<DNDTutorialStep> {

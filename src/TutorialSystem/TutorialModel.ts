@@ -1,5 +1,9 @@
 import { Observable, Subject } from 'rxjs'
+import { Position } from '../InteractiveMap/_Types/Position.ts'
+import Character from '../InteractiveMap/Entities/Characters/Character.ts'
 import { areObjectsDataEqual } from '../Utils/ObjectUtils.ts'
+import { DNDTutorialStep } from './Steps/DND/DNDTutorialStep.ts'
+import { DNDUserActionType } from './Steps/DND/DNDUserActionType.ts'
 import { TutorialStep } from './Steps/TutorialStep.ts'
 import { UserAction } from './Steps/UserAction.ts'
 
@@ -14,7 +18,7 @@ export default class TutorialModel {
 
 	constructor() {
 		this._steps = []
-		this._currentStepIndex = -1
+		this._currentStepIndex = 0
 		this._currentStep$ = new Subject<TutorialStep>()
 		this._onTutorialEnd$ = new Subject<void>()
 	}
@@ -27,8 +31,17 @@ export default class TutorialModel {
 		return this._onTutorialEnd$.asObservable()
 	}
 
-	public init(steps: TutorialStep[]): void {
+	public init(steps: TutorialStep[], player: Character): void {
 		this._steps = steps
+
+		player.pos$.subscribe((pos: Position) => {
+			if (
+				(this._steps[this._currentStepIndex] as DNDTutorialStep).expectedAction
+					.type === DNDUserActionType.MOVE
+			)
+				this.nextStep()
+		})
+
 		this.nextStep()
 	}
 

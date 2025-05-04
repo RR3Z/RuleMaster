@@ -1,4 +1,5 @@
 import { Game } from '../InteractiveMap/_Types/GameType.ts'
+import Character from '../InteractiveMap/Entities/Characters/Character.ts'
 import TutorialSystemComponentsFabric from './Fabrics/TutorialSystemComponentsFabric.ts'
 import { Scenario } from './Scenario.ts'
 import TutorialModel from './TutorialModel.ts'
@@ -22,7 +23,7 @@ export default class TutorialSystem {
 		)
 	}
 
-	public start(data: Scenario): void {
-		this._model.init(data.steps)
+	public start(data: Scenario, player: Character): void {
+		this._model.init(data.steps, player)
 	}
 }
