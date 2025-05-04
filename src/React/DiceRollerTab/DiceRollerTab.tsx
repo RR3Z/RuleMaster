@@ -8,10 +8,11 @@ import DiceSelector from '../DiceSelector/DiceSelector'
 
 export type DiceRollerTabProps = {
 	diceRollerModule: DiceRoller
+	isVisible: boolean
 }
 
-const StyledTab = styled.div`
-	display: flex;
+const StyledTab = styled.div<{ $isVisible: boolean }>`
+	display: ${props => (props.$isVisible ? 'none' : 'flex')};
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 0px 20px;
@@ -32,6 +33,7 @@ const DiceSelectors = styled.div`
 
 export default function DiceRollerTab({
 	diceRollerModule,
+	isVisible,
 }: DiceRollerTabProps) {
 	const [D20Count, setD20Count] = useState<number>(0)
 	// TODO: добавить сюда другие кнопки
@@ -51,7 +53,7 @@ export default function DiceRollerTab({
 	}
 
 	return (
-		<StyledTab>
+		<StyledTab $isVisible={isVisible} id='diceRollerTab'>
 			<DiceSelectors id='diceSelectors'>
 				<DiceSelector
 					name='D20'

@@ -11,6 +11,7 @@ const MessageBoxContainer = styled.div`
 	transform: translate(-50%, -50%);
 	padding: 10px;
 	display: flex;
+	visibility: hidden;
 
 	#tutorialText {
 		color: black;
@@ -24,8 +25,8 @@ export default function MessageBox() {
 	return (
 		<MessageBoxContainer id='tutorialMessageBox'>
 			<span id='tutorialText'>*empty*</span>
-			<MessageBoxButton id='messageBoxCloseBtn'></MessageBoxButton>
-			<MessageBoxButton id='messageBoxNextBtn'></MessageBoxButton>
+			<MessageBoxButton id='messageBoxCloseBtn' />
+			<MessageBoxButton id='messageBoxNextBtn' />
 		</MessageBoxContainer>
 	)
 }

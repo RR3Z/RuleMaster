@@ -36,7 +36,7 @@ export default function ActionsPanel({ diceRollerModule }: ActionsPanelProps) {
 	}, [])
 
 	return isPanelVisible === true ? (
-		<Panel>
+		<Panel id='actionsPanel'>
 			<ActionButton text='1' />
 			<ActionButton text='2' />
 			<ActionButton text='3' />

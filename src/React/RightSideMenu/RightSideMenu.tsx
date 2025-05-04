@@ -123,10 +123,10 @@ export default function RightSideMenu({
 						<StyledHorizontalLine />
 
 						<StyledTabContent id='tabContent'>
-							{activeTab === 'logs' ? 'Logs' : undefined}
-							{activeTab === 'diceRoller' ? (
-								<DiceRollerTab diceRollerModule={diceRollerModule} />
-							) : undefined}
+							<DiceRollerTab
+								diceRollerModule={diceRollerModule}
+								isVisible={activeTab === 'diceRoller'}
+							/>
 						</StyledTabContent>
 					</StyledRightSideMenuContent>
 				</>
