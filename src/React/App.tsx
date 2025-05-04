@@ -18,7 +18,7 @@ export default function App({ onMount, diceRollerModule }: AppProps) {
 		<>
 			<MessageBox />
 			<RightSideMenu diceRollerModule={diceRollerModule} />
-			<ActionsPanel />
+			<ActionsPanel diceRollerModule={diceRollerModule} />
 		</>
 	)
 }
