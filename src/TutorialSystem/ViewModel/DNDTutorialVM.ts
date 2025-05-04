@@ -27,6 +27,10 @@ export default class DNDTutorialVM extends TutorialVM {
 		return this._currentStep$.asObservable()
 	}
 
+	public get onTutorialEnd$(): Observable<string[]> {
+		return this._onTutorialEnd$.asObservable()
+	}
+
 	public dispose(): void {
 		this._currentStep$.complete()
 	}

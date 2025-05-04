@@ -14,20 +14,20 @@ export default class TutorialModel {
 
 	// Event
 	private readonly _currentStep$: Subject<TutorialStep>
-	private readonly _onTutorialEnd$: Subject<void>
+	private readonly _onTutorialEnd$: Subject<string[]>
 
 	constructor() {
 		this._steps = []
 		this._currentStepIndex = 0
 		this._currentStep$ = new Subject<TutorialStep>()
-		this._onTutorialEnd$ = new Subject<void>()
+		this._onTutorialEnd$ = new Subject<string[]>()
 	}
 
 	public get currentStep$(): Observable<TutorialStep> {
 		return this._currentStep$.asObservable()
 	}
 
-	public get onTutorialEnd$(): Observable<void> {
+	public get onTutorialEnd$(): Observable<string[]> {
 		return this._onTutorialEnd$.asObservable()
 	}
 
@@ -47,8 +47,10 @@ export default class TutorialModel {
 
 	public nextStep(): void {
 		this._currentStepIndex++
-		if (this._currentStepIndex >= this._steps.length)
-			this._onTutorialEnd$.next()
+		if (this._currentStepIndex >= this._steps.length) {
+			this._onTutorialEnd$.next(['Вы завершили урок!'])
+			return
+		}
 
 		this._currentStep$.next(this._steps[this._currentStepIndex])
 	}

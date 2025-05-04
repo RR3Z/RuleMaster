@@ -26,6 +26,13 @@ export default class DNDTutorialView extends TutorialView {
 				this._messageBox.showMessages(stepData.messages)
 			}
 		)
+		;(this._viewModel as DNDTutorialVM).onTutorialEnd$.subscribe(
+			(onEndMessages: string[]) => {
+				this._messageBox.showMessages(onEndMessages)
+				this.disableAllActions()
+				console.error('TUTORIAL END')
+			}
+		)
 	}
 
 	protected enableActions(allowedActions: DNDUserActionType[]): void {
