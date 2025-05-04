@@ -29,6 +29,7 @@ export default class TutorialModel {
 
 	public init(steps: TutorialStep[]): void {
 		this._steps = steps
+		this.nextStep()
 	}
 
 	public nextStep(): void {
