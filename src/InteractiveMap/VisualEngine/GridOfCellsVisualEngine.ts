@@ -11,6 +11,7 @@ export default class GridOfCellsVisualEngine extends MapVisualEngine {
 	private readonly _gridLogic: GridOfCells
 
 	private _player!: DraggableOnCellsToken
+	private _gridOfCells!: GridOfCellsVisual
 	private _visualUtils: GridOfCellsVisualUtils
 
 	constructor(data: GridOfCellsVisualData, grid: GridOfCells) {
@@ -25,6 +26,10 @@ export default class GridOfCellsVisualEngine extends MapVisualEngine {
 		return this._player
 	}
 
+	public get gridOfCellsVisual(): GridOfCellsVisual {
+		return this._gridOfCells
+	}
+
 	public override async init(): Promise<void> {
 		await super.init()
 
@@ -32,11 +37,11 @@ export default class GridOfCellsVisualEngine extends MapVisualEngine {
 		this.stage.addChild(camera)
 		camera.addChild(this._sceneObjects)
 
-		const gridVisual = new GridOfCellsVisual(this._data, {
+		this._gridOfCells = new GridOfCellsVisual(this._data, {
 			width: this._gridLogic.width,
 			height: this._gridLogic.height,
 		})
-		this._sceneObjects.addChild(gridVisual)
+		this._sceneObjects.addChild(this._gridOfCells)
 
 		this._player = new DraggableOnCellsToken({
 			visualData: this._data.player,
