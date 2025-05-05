@@ -4,11 +4,19 @@ import { Position } from '../_Types/Position'
 
 export default class Cell {
 	private readonly _pos: Position
+	private _neighbors: Set<Cell>
 	private _content: Entity | null
 
-	constructor(pos: Position, content: Entity | null = null) {
+	constructor(
+		pos: Position,
+		content: Entity | null = null,
+		neighbors?: Set<Cell>
+	) {
 		this._pos = pos
 		this._content = content
+
+		if (neighbors) this._neighbors = neighbors
+		else this._neighbors = new Set()
 	}
 
 	public get contentType(): EntityType | null {
@@ -18,6 +26,19 @@ export default class Cell {
 
 	public get pos(): Readonly<Position> {
 		return this._pos
+	}
+
+	public get neighbors(): Set<Cell> {
+		return this._neighbors
+	}
+
+	public addNeighbor(neighbor: Cell): void {
+		if (this._neighbors.has(neighbor))
+			throw new Error(
+				`Cell -> addNeighbor(): (${this._pos.x}, ${this._pos.y}) already has neighbor (${neighbor.pos.x}, ${neighbor.pos.y})`
+			)
+
+		this._neighbors.add(neighbor)
 	}
 
 	public putContent(content: Entity): void {

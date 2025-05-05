@@ -45,7 +45,31 @@ export default class GridOfCells {
 	private fill(data: GridOfCellsLogicData, player: Character): void {
 		for (let x = 0; x < this._width; x++) {
 			for (let y = 0; y < this._height; y++) {
-				this._cells[x][y] = new Cell({ x, y })
+				const newCell = new Cell({ x, y })
+				this._cells[x][y] = newCell
+
+				// Add Neighbors for newCell
+				for (let dx = -1; dx <= 1; dx++) {
+					for (let dy = -1; dy <= 1; dy++) {
+						if (dx === 0 && dy === 0) continue // Skip newCell
+
+						const nx = x + dx
+						const ny = y + dy
+
+						// Check if cell exists in that direction
+						if (
+							nx >= 0 &&
+							nx < this._width &&
+							ny >= 0 &&
+							ny < this._height &&
+							this._cells[nx][ny]
+						) {
+							const neighbor = this._cells[nx][ny]
+							newCell.addNeighbor(neighbor)
+							neighbor.addNeighbor(newCell)
+						}
+					}
+				}
 			}
 		}
 
