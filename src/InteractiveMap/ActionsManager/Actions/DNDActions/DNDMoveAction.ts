@@ -2,6 +2,7 @@ import { ActionPhase } from '../../../_Types/ActionPhase'
 import { Position } from '../../../_Types/Position'
 import CellsAStarPathFinder from '../../../AStarPathFinder/CellsAStarPathFinder'
 import Character from '../../../Entities/Characters/Character'
+import DNDCharacter from '../../../Entities/Characters/DNDCharacter'
 import Cell from '../../../Grid/Cell'
 import IPhasedAction from '../IPhasedAction'
 
@@ -25,6 +26,8 @@ export default class DNDMoveAction implements IPhasedAction {
 	}
 
 	public enterPhaseInput(actor: Character, newPos?: Position): void {
+		const dndActor = actor as DNDCharacter
+
 		switch (this._currentPhase) {
 			case ActionPhase.RANGE_CHECK:
 				if (newPos === undefined)
@@ -32,23 +35,23 @@ export default class DNDMoveAction implements IPhasedAction {
 						'DNDMoveAction -> enterPhaseInput() -> RANGE_CHECK: newPos is undefined!'
 					)
 
-				if (actor.pos.x === newPos.x && actor.pos.y === newPos.y) {
+				if (dndActor.pos.x === newPos.x && dndActor.pos.y === newPos.y) {
 					this._currentPhase = ActionPhase.COMPLETE
 					return
 				}
-				if (actor.movementDistance === 0)
+				if (dndActor.movementDistance === 0)
 					throw new Error(
-						`DNDMoveAction -> enterPhaseInput(): \"${actor.name}\" can't move (movement distance is 0)!`
+						`DNDMoveAction -> enterPhaseInput(): \"${dndActor.name}\" can't move (movement distance is 0)!`
 					)
 
-				this._pathFinder.maxPathCost = actor.movementDistance
-				this._path = this._pathFinder.shortestPath(actor.pos, newPos)
+				this._pathFinder.maxPathCost = dndActor.movementDistance
+				this._path = this._pathFinder.shortestPath(dndActor.pos, newPos)
 				this._currentPhase = ActionPhase.MOVING
-				this.enterPhaseInput(actor)
+				this.enterPhaseInput(dndActor)
 				break
 			case ActionPhase.MOVING:
 				if (this._path.length !== 0)
-					actor.pos$.next(this._path[this._path.length - 1].pos)
+					dndActor.pos$.next(this._path[this._path.length - 1].pos)
 				this._currentPhase = ActionPhase.COMPLETE
 				break
 			case ActionPhase.COMPLETE:
