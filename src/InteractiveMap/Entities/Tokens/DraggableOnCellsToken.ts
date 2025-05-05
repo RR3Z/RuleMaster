@@ -70,9 +70,11 @@ export default class DraggableOnCellsToken extends Token {
 		if (this._isDragging) {
 			this._worldSpaceContainer.off('pointermove', this.onDragMove, this)
 			this._worldSpaceContainer.removeChild(this._phantomToken)
+			this._isDragging = false
+
 			this.alpha = 1
 			this._phantomToken.alpha = 0
-			this._isDragging = false
+
 			const newPos: Position = this._visualUtils.pixelToCoordinatesPosition(
 				this._phantomToken.position.x,
 				this._phantomToken.position.y,
