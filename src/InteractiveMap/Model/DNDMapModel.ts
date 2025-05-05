@@ -1,44 +1,29 @@
-import Character from '../Entities/Characters/Character'
+import CellsAStarPathFinder from '../AStarPathFinder/CellsAStarPathFinder'
+import DNDActionsManager from '../ActionsManager/DNDActionsManager'
 import DNDCharacter from '../Entities/Characters/DNDCharacter'
 import { EntityType } from '../Entities/EntityType'
 import GridOfCells from '../Grid/GridOfCells'
 import { GridOfCellsLogicData } from '../_Types/GridOfCellsLogicData'
-import { Position } from '../_Types/Position'
 import MapModel from './MapModel'
 
 export default class DNDMapModel extends MapModel {
 	private _grid: GridOfCells
+	private _pathFinder: CellsAStarPathFinder
 
 	constructor(data: GridOfCellsLogicData) {
 		super()
 
-		// Entities
 		this._player = new DNDCharacter(EntityType.PLAYER, data.player)
-
-		// Grid
 		this._grid = new GridOfCells(data, this._player)
+		this._pathFinder = new CellsAStarPathFinder(this._grid)
+		this._actionsManager = new DNDActionsManager(this._pathFinder)
+	}
+
+	public override get actionsManager(): DNDActionsManager {
+		return this._actionsManager as DNDActionsManager
 	}
 
 	public get grid(): GridOfCells {
 		return this._grid
-	}
-
-	// TODO: Подключиmь здесь AStarPathFinder
-	public moveCharacterTo(character: Character, newPos: Position): void {
-		if (character.pos.x === newPos.x && character.pos.y === newPos.y) return
-
-		const dndCharacter = character as DNDCharacter
-		const currentPosCell = this._grid.cell(dndCharacter.pos)
-		const newPosCell = this._grid.cell(newPos)
-
-		if (newPosCell.contentType !== null)
-			throw new Error(
-				'DNDMapModel -> moveCharacterTo(): Сell at the given position is already occupied'
-			)
-
-		const content = currentPosCell.pullContent()
-		newPosCell.putContent(content)
-
-		dndCharacter.pos$.next(newPos)
 	}
 }
