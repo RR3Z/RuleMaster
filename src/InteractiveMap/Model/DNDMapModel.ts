@@ -25,6 +25,8 @@ export default class DNDMapModel extends MapModel {
 
 	// TODO: Подключиmь здесь AStarPathFinder
 	public moveCharacterTo(character: Character, newPos: Position): void {
+		if (character.pos.x === newPos.x && character.pos.y === newPos.y) return
+
 		const dndCharacter = character as DNDCharacter
 		const currentPosCell = this._grid.cell(dndCharacter.pos)
 		const newPosCell = this._grid.cell(newPos)
