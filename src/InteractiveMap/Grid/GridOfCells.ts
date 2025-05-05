@@ -18,6 +18,8 @@ export default class GridOfCells {
 		)
 
 		this.fill(data, player)
+
+		player.pos$.subscribe((newPos: Position) => this.onPlayerPosChange(newPos))
 	}
 
 	public get width(): number {
@@ -79,5 +81,21 @@ export default class GridOfCells {
 		// Add Player
 		this._cells[data.player.pos.x][data.player.pos.y].putContent(player)
 		// TODO: Add Enemies
+	}
+
+	private onPlayerPosChange(newPos: Position): void {
+		const oldPos = this.playerPos()
+		if (oldPos.x === newPos.x && oldPos.y === newPos.y) return
+
+		const oldPosCell = this.cell(oldPos)
+		const newPosCell = this.cell(newPos)
+
+		if (newPosCell.contentType !== null)
+			throw new Error(
+				'DNDMapModel -> moveCharacterTo(): Сell at the given position is already occupied'
+			)
+
+		const content = oldPosCell.pullContent()
+		newPosCell.putContent(content)
 	}
 }
