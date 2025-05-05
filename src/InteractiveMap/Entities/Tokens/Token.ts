@@ -1,5 +1,5 @@
 import { Container, Graphics, Rectangle } from 'pixi.js'
-import { Observable, Subject } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { CharacterVisualData } from '../../_Types/ChararcterVisualData'
 import { Position } from '../../_Types/Position'
 
@@ -13,20 +13,24 @@ export type TokenParams = {
 export default class Token extends Graphics {
 	protected _worldSpaceContainer: Container
 	protected _radius: number
-	protected _pos$: Subject<Position>
+	protected readonly _pos$: BehaviorSubject<Position>
 
 	constructor(params: TokenParams) {
 		super()
 
 		this._worldSpaceContainer = params.worldSpaceContainer
 		this._radius = params.radius
-		this._pos$ = new Subject<Position>()
+		this._pos$ = new BehaviorSubject<Position>(params.startPos)
 
 		this.draw(params.visualData, params.radius, params.startPos)
 	}
 
 	public get pos$(): Observable<Position> {
 		return this._pos$.asObservable()
+	}
+
+	public get pos(): Position {
+		return this._pos$.value
 	}
 
 	protected draw(
