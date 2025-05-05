@@ -1,15 +1,26 @@
 import { Container, Graphics } from 'pixi.js'
+import { CellVisualData } from '../_Types/CellVisualData'
 import { GridOfCellsVisualData } from '../_Types/GridOfCellsVisualData'
 import { GridSizes } from '../_Types/GridSizes'
+import CellVisual from './CellVisual'
 
 export default class GridOfCellsVisual extends Container {
 	// Settings
 	public isBoundariesEnabled: boolean = true
+	// Fields
+	private _cellsVisual: CellVisual[][]
 
 	constructor(data: GridOfCellsVisualData, sizes: GridSizes) {
 		super()
 
+		this._cellsVisual = []
+
 		this.draw(data, sizes)
+		this.createCellsVisual(data.cell)
+	}
+
+	public get cellsVisual(): Readonly<CellVisual[][]> {
+		return this._cellsVisual
 	}
 
 	private draw(data: GridOfCellsVisualData, sizes: GridSizes): void {
@@ -37,6 +48,18 @@ export default class GridOfCellsVisual extends Container {
 				.lineTo(data.cell.size * sizes.width, i * data.cell.size)
 				.stroke({ color: data.cell.color, pixelLine: true })
 			this.addChild(line)
+		}
+	}
+
+	private createCellsVisual(visualData: CellVisualData): void {
+		for (let x = 0; x < this._width; x++) {
+			const column: CellVisual[] = []
+			for (let y = 0; y < this._height; y++) {
+				const cell = new CellVisual(visualData.size, { x: x, y: y })
+				this.addChild(cell)
+				column.push(cell)
+			}
+			this._cellsVisual.push(column)
 		}
 	}
 }
