@@ -7,16 +7,28 @@ import CellVisual from './CellVisual'
 export default class GridOfCellsVisual extends Container {
 	// Settings
 	public isBoundariesEnabled: boolean = true
+	private _width: number
+	private _height: number
 	// Fields
 	private _cellsVisual: CellVisual[][]
 
 	constructor(data: GridOfCellsVisualData, sizes: GridSizes) {
 		super()
 
+		this._width = sizes.width
+		this._height = sizes.height
 		this._cellsVisual = []
 
 		this.draw(data, sizes)
 		this.createCellsVisual(data.cell)
+	}
+
+	public get width(): number {
+		return this._width
+	}
+
+	public get height(): number {
+		return this._height
 	}
 
 	public get cellsVisual(): Readonly<CellVisual[][]> {
