@@ -40,13 +40,13 @@ export default class DraggableOnCellsToken extends Token {
 			this._radius
 		)
 		this.position.set(pos.x, pos.y)
-		this._phantomToken.position.set(pos.x, pos.y)
 	}
 
 	private onDragStart(event: FederatedPointerEvent): void {
 		if (event.button === 0) {
 			this.alpha = 0.7
 			this._phantomToken.alpha = 0.5
+			this._phantomToken.position.set(this.position.x, this.position.y)
 			this._isDragging = true
 			this._worldSpaceContainer.addChild(this._phantomToken)
 			this._worldSpaceContainer.on('pointermove', this.onDragMove, this)
