@@ -1,0 +1,7 @@
+export enum ActionPhase {
+	RANGE_CHECK,
+	HIT_CHECK,
+	APPLY_DAMAGE,
+	MOVING,
+	COMPLETE,
+}
