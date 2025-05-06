@@ -14,4 +14,6 @@ export default abstract class Character extends Entity {
 	public get health(): number {
 		return this._health
 	}
+
+	public abstract get equipmentManager(): EquipmentManager
 }
