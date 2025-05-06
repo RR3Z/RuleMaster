@@ -5,7 +5,7 @@ import { SlotType } from '../_Types/SlotType'
 import { WeaponData } from '../_Types/WeaponData'
 import { WeaponType } from '../_Types/WeaponType'
 
-export default class EquipmentMaanger {
+export default class EquipmentManager {
 	private _equipmentSlots: Map<SlotType, ItemData | null>
 
 	constructor(equipment?: ItemData[]) {
