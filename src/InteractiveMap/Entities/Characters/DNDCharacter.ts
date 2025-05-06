@@ -1,13 +1,13 @@
 import { CharacterLogicData } from '../../_Types/CharacterLogicData'
 import { DNDCharacterData } from '../../_Types/DNDCharacterData'
-import EquipmentManager from '../../EquipmentManager/EquipmentManager'
+import DNDEquipmentManager from '../../EquipmentManager/DNDEquipmentManager'
 import { EntityType } from '../EntityType'
 import Character from './Character'
 
 export default class DNDCharacter extends Character {
 	private _maxMovementDistance: number
 	private _movementDistance: number
-	private _equipment: EquipmentManager
+	private _equipment: DNDEquipmentManager
 
 	constructor(entityType: EntityType, data: CharacterLogicData) {
 		super(entityType, data.pos)
@@ -22,7 +22,7 @@ export default class DNDCharacter extends Character {
 		this._health = this._maxHealth
 		this._maxMovementDistance = dndCharacterData.maxMovementDistance
 		this._movementDistance = this._maxMovementDistance
-		this._equipment = new EquipmentManager(dndCharacterData.items)
+		this._equipment = new DNDEquipmentManager(dndCharacterData.items)
 	}
 
 	public get maxMovementDistance(): number {
@@ -33,7 +33,7 @@ export default class DNDCharacter extends Character {
 		return this._movementDistance
 	}
 
-	public get equipmentManager(): EquipmentManager {
+	public get equipmentManager(): DNDEquipmentManager {
 		return this._equipment
 	}
 }
