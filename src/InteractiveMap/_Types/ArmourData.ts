@@ -5,5 +5,5 @@ export type ArmourData = {
 	name: string
 	type: ArmourType
 	description: string
-	amourClass: number
+	armourClass: number
 }
