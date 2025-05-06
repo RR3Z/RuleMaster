@@ -8,4 +8,5 @@ export type WeaponData = {
 	description: string
 	isRanged: boolean
 	damageFormula: DicesRollFormula
+	attackRange: number
 }
