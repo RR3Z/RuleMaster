@@ -107,6 +107,10 @@ export default class DNDEquipmentManager extends EquipmentManager {
 		}
 	}
 
+	public getItemData(slot: SlotType): Readonly<ItemData> | null {
+		return this._equipmentSlots.get(slot) ?? null
+	}
+
 	private equipStartItems(equipment: ItemData[]): void {
 		equipment.forEach((item: ItemData) => {
 			if (item.id === 'weapon') {
