@@ -16,7 +16,7 @@ export default class DNDMapModel extends MapModel {
 		this._player = new DNDCharacter(EntityType.PLAYER, data.player)
 		this._grid = new GridOfCells(data, this._player)
 		this._pathFinder = new CellsAStarPathFinder(this._grid)
-		this._actionsManager = new DNDActionsManager(this._pathFinder)
+		this._actionsManager = new DNDActionsManager(this._grid, this._pathFinder)
 	}
 
 	public override get actionsManager(): DNDActionsManager {
