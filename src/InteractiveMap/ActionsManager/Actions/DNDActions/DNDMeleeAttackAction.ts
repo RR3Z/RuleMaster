@@ -12,7 +12,6 @@ import IPhasedAction from '../IPhasedAction'
 export default class DNDMeleeAttackAction implements IPhasedAction {
 	// Fields
 	private _currentPhase: ActionPhase
-	// private _targets: Readonly<Character>[]
 	private _targets: [Readonly<Character>, HitType][]
 
 	// Dependecies
