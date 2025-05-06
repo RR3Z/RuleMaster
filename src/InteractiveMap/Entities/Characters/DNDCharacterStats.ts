@@ -1,4 +1,5 @@
 import { StatType } from '../../_Types/StatType'
+import { WeaponDescriptor } from '../../_Types/WeaponDescriptor'
 import DNDStatsManager from '../../StatsManager/DNDStatsManager'
 
 export default class DNDCharacterStats {
@@ -23,5 +24,11 @@ export default class DNDCharacterStats {
 
 	public statModifier(statType: StatType): number {
 		return this._stats.statModifier(statType)
+	}
+
+	public attackModifier(weaponDescriptors: WeaponDescriptor[]): number {
+		if (weaponDescriptors.includes(WeaponDescriptor.FENCING))
+			return this.statModifier(StatType.DEXTERITY) + this.proficiency
+		else return this.statModifier(StatType.STRENGTH) + this.proficiency
 	}
 }
