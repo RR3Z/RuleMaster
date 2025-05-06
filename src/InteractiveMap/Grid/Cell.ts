@@ -32,6 +32,10 @@ export default class Cell {
 		return this._neighbors
 	}
 
+	public get content(): Readonly<Entity> | null {
+		return this._content
+	}
+
 	public addNeighbor(neighbor: Cell): void {
 		if (this._neighbors.has(neighbor))
 			throw new Error(
