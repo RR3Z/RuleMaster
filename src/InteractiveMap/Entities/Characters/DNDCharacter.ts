@@ -3,10 +3,12 @@ import { DNDCharacterData } from '../../_Types/DNDCharacterData'
 import DNDEquipmentManager from '../../EquipmentManager/DNDEquipmentManager'
 import { EntityType } from '../EntityType'
 import Character from './Character'
+import DNDCharacterStats from './DNDCharacterStats'
 
 export default class DNDCharacter extends Character {
 	private _maxMovementDistance: number
 	private _movementDistance: number
+	private _stats: DNDCharacterStats
 
 	constructor(entityType: EntityType, data: CharacterLogicData) {
 		super(entityType, data.pos)
@@ -22,6 +24,10 @@ export default class DNDCharacter extends Character {
 		this._maxMovementDistance = dndCharacterData.maxMovementDistance
 		this._movementDistance = this._maxMovementDistance
 		this._equipment = new DNDEquipmentManager(dndCharacterData.items)
+		this._stats = new DNDCharacterStats(
+			new Map(dndCharacterData.stats),
+			dndCharacterData.proficiency
+		)
 	}
 
 	public get maxMovementDistance(): number {
@@ -34,5 +40,9 @@ export default class DNDCharacter extends Character {
 
 	public get equipmentManager(): DNDEquipmentManager {
 		return this._equipment as DNDEquipmentManager
+	}
+
+	public get statsStorage(): DNDCharacterStats {
+		return this._stats
 	}
 }
