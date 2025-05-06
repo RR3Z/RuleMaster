@@ -16,4 +16,6 @@ export default abstract class Character extends Entity {
 	}
 
 	public abstract get equipmentManager(): EquipmentManager
+
+	public abstract takeDamage(damage: number): void
 }

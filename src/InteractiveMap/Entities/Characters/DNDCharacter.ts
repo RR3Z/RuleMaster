@@ -61,4 +61,10 @@ export default class DNDCharacter extends Character {
 	public get statsStorage(): DNDCharacterStats {
 		return this._stats
 	}
+
+	public takeDamage(damage: number): void {
+		if (this._health === 0) return
+
+		this._health = Math.max(this._health - damage, 0)
+	}
 }
