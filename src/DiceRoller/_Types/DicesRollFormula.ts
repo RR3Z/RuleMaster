@@ -1,6 +1,6 @@
 import { DiceType } from './DiceType'
 
-export type DiceRollResult = {
+export type DicesRollFormula = {
 	type: DiceType
-	value: number
+	count: number
 }

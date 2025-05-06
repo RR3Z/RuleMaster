@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { DiceFormula } from '../../DiceRoller/_Types/DiceFormula'
+import { DicesRollFormula } from '../../DiceRoller/_Types/DicesRollFormula'
 import { DiceType } from '../../DiceRoller/_Types/DiceType'
 import DiceRoller from '../../DiceRoller/DiceRoller'
 import CustomMenuButton from '../CustomMenuButton/CustomMenuButton'
@@ -39,7 +39,7 @@ export default function DiceRollerTab({
 	// TODO: добавить сюда другие кнопки
 
 	const makeRoll = () => {
-		const formulas: DiceFormula[] = []
+		const formulas: DicesRollFormula[] = []
 		if (D20Count > 0) formulas.push({ type: DiceType.D20, count: D20Count })
 
 		if (formulas.length > 0) {

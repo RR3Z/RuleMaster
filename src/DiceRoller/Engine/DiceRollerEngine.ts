@@ -1,8 +1,8 @@
 import { RigidBodyType } from '@dimforge/rapier3d-compat'
 import { Observable, Subject } from 'rxjs'
 import { Mesh } from 'three'
-import { DiceFormula } from '../_Types/DiceFormula'
-import { DiceRollResult } from '../_Types/DiceRollResult'
+import { DicesRollFormula } from '../_Types/DicesRollFormula'
+import { DicesRollResult } from '../_Types/DicesRollResult'
 import Dice from '../Entities/Dice'
 import DiceRollerPhysicEngine from './DiceRollerPhysicEngine'
 import DiceRollerVisualEngine from './DiceRollerVisualEngine'
@@ -12,7 +12,7 @@ export default class DiceRollerEngine {
 	private _physicEngine: DiceRollerPhysicEngine
 	private _dices: Dice[]
 	private _shouldUpdate: boolean
-	private readonly _onRollEnd$: Subject<DiceRollResult[]>
+	private readonly _onRollEnd$: Subject<DicesRollResult[]>
 	private readonly _onRollStart$: Subject<void>
 
 	constructor() {
@@ -20,7 +20,7 @@ export default class DiceRollerEngine {
 		this._physicEngine = new DiceRollerPhysicEngine()
 		this._dices = []
 		this._shouldUpdate = false
-		this._onRollEnd$ = new Subject<DiceRollResult[]>()
+		this._onRollEnd$ = new Subject<DicesRollResult[]>()
 		this._onRollStart$ = new Subject<void>()
 
 		this._visualEngine.graphic.domElement.style.visibility = 'hidden'
@@ -31,7 +31,7 @@ export default class DiceRollerEngine {
 		await this._visualEngine.loadDicesVisual(dicesModelFilePath)
 	}
 
-	public get onRollEnd$(): Observable<DiceRollResult[]> {
+	public get onRollEnd$(): Observable<DicesRollResult[]> {
 		return this._onRollEnd$.asObservable()
 	}
 
@@ -39,7 +39,7 @@ export default class DiceRollerEngine {
 		return this._onRollStart$.asObservable()
 	}
 
-	public addDices(formulas: DiceFormula[]): void {
+	public addDices(formulas: DicesRollFormula[]): void {
 		if (formulas.length === 0) return
 
 		for (const formula of formulas) {
@@ -97,8 +97,8 @@ export default class DiceRollerEngine {
 		})
 	}
 
-	private rollResult(): DiceRollResult[] {
-		const results: DiceRollResult[] = []
+	private rollResult(): DicesRollResult[] {
+		const results: DicesRollResult[] = []
 		this._dices.forEach(dice => {
 			results.push({ type: dice.type, value: dice.value })
 		})
