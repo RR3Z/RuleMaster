@@ -49,12 +49,21 @@ export default class DNDEquipmentManager extends EquipmentManager {
 				this._equipmentSlots.set(slot, equipment)
 				break
 			case SlotType.MAIN_HAND:
-			case SlotType.OFF_HAND:
 				if ((equipment as WeaponData).type === WeaponType.TWO_HANDED) {
 					this._equipmentSlots.set(SlotType.MAIN_HAND, equipment)
 					this._equipmentSlots.set(SlotType.OFF_HAND, equipment)
 				} else {
 					this._equipmentSlots.set(slot, equipment)
+				}
+				break
+			case SlotType.OFF_HAND:
+				if ((equipment as WeaponData).type === WeaponType.TWO_HANDED) {
+					this._equipmentSlots.set(SlotType.MAIN_HAND, equipment)
+					this._equipmentSlots.set(SlotType.OFF_HAND, equipment)
+				} else {
+					if (this._equipmentSlots.get(SlotType.MAIN_HAND) === null)
+						this._equipmentSlots.set(SlotType.MAIN_HAND, equipment)
+					else this._equipmentSlots.set(slot, equipment)
 				}
 				break
 		}
