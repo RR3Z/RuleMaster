@@ -1,6 +1,8 @@
+import EquipmentManager from '../../EquipmentManager/EquipmentManager'
 import Entity from '../Entity'
 
 export default abstract class Character extends Entity {
+	protected _equipment!: EquipmentManager
 	protected _name!: string
 	protected _maxHealth!: number
 	protected _health!: number

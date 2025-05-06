@@ -7,7 +7,6 @@ import Character from './Character'
 export default class DNDCharacter extends Character {
 	private _maxMovementDistance: number
 	private _movementDistance: number
-	private _equipment: DNDEquipmentManager
 
 	constructor(entityType: EntityType, data: CharacterLogicData) {
 		super(entityType, data.pos)
@@ -34,6 +33,6 @@ export default class DNDCharacter extends Character {
 	}
 
 	public get equipmentManager(): DNDEquipmentManager {
-		return this._equipment
+		return this._equipment as DNDEquipmentManager
 	}
 }
