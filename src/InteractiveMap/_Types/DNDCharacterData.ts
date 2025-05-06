@@ -7,4 +7,5 @@ export type DNDCharacterData = {
 	proficiency: number
 	maxHealth: number
 	maxMovementDistance: number
+	defenceClass: number
 }
