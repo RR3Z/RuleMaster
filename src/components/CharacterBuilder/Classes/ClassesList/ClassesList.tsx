@@ -35,9 +35,7 @@ export default function ClassesList({ data, addClass }: ClassesListProps) {
 					image={classData.image}
 					imageAlt={classData.imageAlt}
 					name={classData.name}
-					onClick={() => {
-						handleClassClick(classData)
-					}}
+					onClick={() => handleClassClick(classData)}
 				></ClassButton>
 			))}
 
