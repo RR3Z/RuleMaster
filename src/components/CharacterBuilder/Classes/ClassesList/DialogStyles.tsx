@@ -78,3 +78,28 @@ export const HorizontalLine = styled.hr`
 	background-color: #364156;
 	margin-top: 10px;
 `
+
+export const ClassGeneralInfo = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 10px;
+`
+
+export const ClassTitle = styled.h4`
+	font-size: 1.35rem;
+	font-weight: 700;
+`
+
+export const ClassDescription = styled.span`
+	display: inline-block;
+	font-size: 1rem;
+	margin-top: 15px;
+`
+
+export const ClassFeatures = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-top: 15px;
+	font-size: 0.9rem;
+`
