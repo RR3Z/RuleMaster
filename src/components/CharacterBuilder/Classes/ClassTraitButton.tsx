@@ -2,6 +2,13 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+const ClassTrait = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`
+
 const ToggleButton = styled.button`
 	padding: 0px;
 	position: relative;
@@ -49,21 +56,28 @@ const ButtonLeftSide = styled.div`
 	align-items: flex-start;
 `
 
-const DropDownContainer = styled.div<{ $isVisible: boolean; $height: number }>`
-	background: #414d65;
-	width: 97%;
-	margin: -15px 0px;
+const DropDownContent = styled.div<{ visible: boolean; height: number }>`
+	overflow: hidden;
+	transition: max-height 0.3s ease;
+	max-height: ${({ visible, height }) => (visible ? `${height}px` : '0px')};
+	opacity: ${({ visible }) => (visible ? 1 : 0)};
+	transition: max-height 0.3s ease, opacity 0.2s ease;
+	margin: -15px 0px 0px 0px;
+	width: 98%;
+`
+
+const DropDownInner = styled.div`
+	padding: 10px 20px;
+	background-color: #f5f5f5;
+	color: #333;
+	font-size: 1rem;
 	border-bottom-left-radius: 3px;
 	border-bottom-right-radius: 3px;
-	max-height: ${({ $isVisible, $height }) =>
-		$isVisible ? `${$height}px` : '0'};
-	padding: ${({ $isVisible }) => ($isVisible ? '5px 15px' : '0px 15px')};
-	overflow: hidden;
 `
 
 export default function ClassTraitButton() {
-	const [isDropDownVisible, setDropDownVisibility] = useState<boolean>(false)
-	const [dropDownContentHeight, setDropDownContentHeight] = useState<number>(0)
+	const [isDropDownVisible, setDropDownVisibility] = useState(false)
+	const [dropDownContentHeight, setDropDownContentHeight] = useState(0)
 	const dropDownContentRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
@@ -72,37 +86,41 @@ export default function ClassTraitButton() {
 	}, [isDropDownVisible])
 
 	return (
-		<ToggleButton onClick={() => setDropDownVisibility(!isDropDownVisible)}>
-			<ButtonBackground>
-				<Image
-					src='/classFeatureButtonBackground.svg'
-					alt='class-trait-button-background'
-					fill
-					style={{ objectFit: 'contain' }} // или 'contain', если не хочешь обрезания
-					priority
-				/>
-			</ButtonBackground>
-			<ButtonContent>
-				<ButtonLeftSide>
-					<ButtonTitle>Название</ButtonTitle>
-					<ButtonSubTitle>С какого уровня</ButtonSubTitle>
-				</ButtonLeftSide>
-				{isDropDownVisible ? 'ᐱ' : 'ᐯ'}
-			</ButtonContent>
-			{isDropDownVisible ? (
-				<DropDownContainer
-					$isVisible={isDropDownVisible}
-					$height={dropDownContentHeight}
-					ref={dropDownContentRef}
-				>
-					<div>test1</div>
-					<div>test2</div>
-					<div>test</div>
-					<div>test</div>
-					<div>test</div>
-					<div>test</div>
-				</DropDownContainer>
-			) : undefined}
-		</ToggleButton>
+		<ClassTrait>
+			<ToggleButton onClick={() => setDropDownVisibility(!isDropDownVisible)}>
+				<ButtonBackground>
+					<Image
+						src='/classTraitButtonBackground.svg'
+						alt='class-trait-button-background'
+						fill
+						style={{ objectFit: 'contain' }}
+						priority
+					/>
+				</ButtonBackground>
+				<ButtonContent>
+					<ButtonLeftSide>
+						<ButtonTitle>Название</ButtonTitle>
+						<ButtonSubTitle>С какого уровня</ButtonSubTitle>
+					</ButtonLeftSide>
+					{isDropDownVisible ? 'ᐱ' : 'ᐯ'}
+				</ButtonContent>
+			</ToggleButton>
+
+			<DropDownContent
+				ref={dropDownContentRef}
+				visible={isDropDownVisible}
+				height={dropDownContentHeight}
+			>
+				<DropDownInner>
+					<p>Описание особенности класса или другая полезная информация.</p>
+					<p>Описание особенности класса или другая полезная информация.</p>
+					<p>Описание особенности класса или другая полезная информация.</p>
+					<p>Описание особенности класса или другая полезная информация.</p>
+					<p>Описание особенности класса или другая полезная информация.</p>
+					<p>Описание особенности класса или другая полезная информация.</p>
+					<p>Описание особенности класса или другая полезная информация.</p>
+				</DropDownInner>
+			</DropDownContent>
+		</ClassTrait>
 	)
 }
