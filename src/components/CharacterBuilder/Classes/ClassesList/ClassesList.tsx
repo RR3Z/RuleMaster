@@ -2,6 +2,7 @@ import { DNDClass } from '@/types/CharacterBuilder/DNDClass'
 import { ClassData } from '@/types/CharacterBuilder/Steps/ClassData'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
+import TextSection from '../../TextSection'
 import ClassButton from '../ClassButton'
 import {
 	ClassDescription,
@@ -34,6 +35,10 @@ export default function ClassesList({ data, addClass }: ClassesListProps) {
 
 	return (
 		<>
+			<TextSection
+				title='Список классов'
+				text='Здесь вы можете увидеть все классы. Для этого, нажмите на соответствующую кнопку и увидите особенности этого класса.'
+			></TextSection>
 			{data.map((classData: ClassData, index: number) => (
 				<ClassButton
 					key={index}
