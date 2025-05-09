@@ -1,3 +1,4 @@
+import { ClassTraitData } from '../ClassTraitData'
 import { DNDClass } from '../DNDClass'
 
 export type ClassData = {
@@ -9,4 +10,5 @@ export type ClassData = {
 	primalAbility: string
 	hitPointDice: string
 	savingThrows: string
+	traits: ClassTraitData[]
 }
