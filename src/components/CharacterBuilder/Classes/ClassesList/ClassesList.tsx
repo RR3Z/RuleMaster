@@ -10,6 +10,7 @@ import {
 	ClassFeatures,
 	ClassGeneralInfo,
 	ClassTitle,
+	ClassTraitsContainer,
 	Dialog,
 	DialogBody,
 	DialogFooter,
@@ -90,6 +91,9 @@ export default function ClassesList({ data, addClass }: ClassesListProps) {
 					</ClassGeneralInfo>
 
 					<HorizontalLine />
+
+					<ClassTraitsContainer>
+					</ClassTraitsContainer>
 				</DialogBody>
 				<DialogFooter>
 					<FooterDialogCloseButton onClick={() => dialogRef.current!.close()}>
