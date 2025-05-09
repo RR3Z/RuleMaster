@@ -2,18 +2,20 @@ import styled from 'styled-components'
 
 export const Dialog = styled.dialog`
 	margin: auto auto;
-	min-width: 40vw;
-	max-width: 40vw;
-	min-height: 80vh;
-	max-height: 80vh;
+	width: 40vw;
+	height: 80vh;
 	border-radius: 5px;
 	background: none;
 	color: white;
-
 	padding: 0;
+	overflow: hidden;
+`
+
+export const DialogInner = styled.div`
+	width: 100%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
-	overflow: hidden;
 `
 
 export const DialogHeader = styled.header`
@@ -40,6 +42,7 @@ export const DialogBody = styled.div`
 	min-height: 50vh;
 	padding: 15px;
 	overflow-y: auto;
+	flex-grow: 1;
 
 	&::-webkit-scrollbar {
 		width: 8px;
