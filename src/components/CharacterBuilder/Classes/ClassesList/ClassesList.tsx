@@ -1,5 +1,6 @@
 import { DNDClass } from '@/types/CharacterBuilder/DNDClass'
 import { ClassData } from '@/types/CharacterBuilder/Steps/ClassData'
+import { X } from 'lucide-react'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import TextSection from '../../TextSection'
@@ -53,7 +54,7 @@ export default function ClassesList({ data, addClass }: ClassesListProps) {
 				<DialogHeader>
 					Выбор класса
 					<DialogHeaderButton onClick={() => dialogRef.current?.close()}>
-						☓
+						<X />
 					</DialogHeaderButton>
 				</DialogHeader>
 				<DialogBody>
