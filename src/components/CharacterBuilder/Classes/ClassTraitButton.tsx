@@ -1,126 +1,97 @@
-import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { ChevronDown } from 'lucide-react'
+import { useState } from 'react'
 import styled from 'styled-components'
 
-const ClassTrait = styled.div`
+const MainContainer = styled.div`
+	width: 100%;
+
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 `
 
-const ToggleButton = styled.button`
-	padding: 0px;
+const Button = styled.button`
 	position: relative;
 	cursor: pointer;
+	border: none;
+	background: none;
 	width: 100%;
-	min-height: 80px;
-	aspect-ratio: 8/1;
-	display: flex;
-	justify-content: center;
+	min-height: 40px;
+	padding: 0px;
 	align-items: center;
-	flex-direction: column;
+
+	background: #364156;
+	border: 1px solid #6d788b;
 `
 
-const ButtonBackground = styled.div`
-	position: absolute;
-	inset: 0;
-	z-index: 0;
-`
-
-const ButtonContent = styled.div`
-	padding: 10px 20px;
-	position: relative;
-	z-index: 1;
+const ButtonText = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 	width: 100%;
 	height: 100%;
+	padding: 5px 15px;
+`
+
+const ButtonLeftText = styled.div`
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	align-self: flex-start;
-	box-sizing: border-box;
-	font-size: 1.5rem;
+	flex-direction: column;
 `
 
 const ButtonTitle = styled.span`
-	font-size: 1.1rem;
-`
-
-const ButtonSubTitle = styled.span`
-	font-size: 0.9rem;
-`
-
-const ButtonLeftSide = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-`
-
-const DropDownContent = styled.div<{ visible: boolean; height: number }>`
-	overflow: hidden;
-	transition: max-height 0.3s ease;
-	max-height: ${({ visible, height }) => (visible ? `${height}px` : '0px')};
-	opacity: ${({ visible }) => (visible ? 1 : 0)};
-	transition: max-height 0.3s ease, opacity 0.2s ease;
-	margin: -15px 0px 0px 0px;
-	width: 98%;
-`
-
-const DropDownInner = styled.div`
-	padding: 10px 20px;
-	background-color: #f5f5f5;
-	color: #333;
 	font-size: 1rem;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
+	align-self: flex-start;
+`
+
+const ButtonSubtitle = styled.span`
+	font-size: 0.8rem;
+	align-self: flex-start;
+	color: #b4b4b4;
+`
+
+const Content = styled.div<{ $isVisible: boolean }>`
+	display: ${props => (props.$isVisible ? 'block' : 'none')};
+	width: 98%;
+	background: #364156;
+	border: 1px solid #6d788b;
+	border-top: none;
+	padding: 10px 15px;
+`
+
+const ChevronIcon = styled.div<{ $isOpen: boolean }>`
+	transition: transform 0.3s ease;
+	transform: ${props => (props.$isOpen ? 'rotate(180deg)' : 'rotate(0)')};
 `
 
 export default function ClassTraitButton() {
-	const [isDropDownVisible, setDropDownVisibility] = useState(false)
-	const [dropDownContentHeight, setDropDownContentHeight] = useState(0)
-	const dropDownContentRef = useRef<HTMLDivElement>(null)
+	const [isOpened, setOpenedState] = useState(false)
 
-	useEffect(() => {
-		if (dropDownContentRef.current)
-			setDropDownContentHeight(dropDownContentRef.current.scrollHeight)
-	}, [isDropDownVisible])
+	const toggleContent = () => {
+		setOpenedState(prevState => !prevState)
+	}
 
 	return (
-		<ClassTrait>
-			<ToggleButton onClick={() => setDropDownVisibility(!isDropDownVisible)}>
-				<ButtonBackground>
-					<Image
-						src='/classTraitButtonBackground.svg'
-						alt='class-trait-button-background'
-						fill
-						style={{ objectFit: 'contain' }}
-						priority
-					/>
-				</ButtonBackground>
-				<ButtonContent>
-					<ButtonLeftSide>
-						<ButtonTitle>Название</ButtonTitle>
-						<ButtonSubTitle>С какого уровня</ButtonSubTitle>
-					</ButtonLeftSide>
-					{isDropDownVisible ? 'ᐱ' : 'ᐯ'}
-				</ButtonContent>
-			</ToggleButton>
-
-			<DropDownContent
-				ref={dropDownContentRef}
-				visible={isDropDownVisible}
-				height={dropDownContentHeight}
-			>
-				<DropDownInner>
-					<p>Описание особенности класса или другая полезная информация.</p>
-					<p>Описание особенности класса или другая полезная информация.</p>
-					<p>Описание особенности класса или другая полезная информация.</p>
-					<p>Описание особенности класса или другая полезная информация.</p>
-					<p>Описание особенности класса или другая полезная информация.</p>
-					<p>Описание особенности класса или другая полезная информация.</p>
-					<p>Описание особенности класса или другая полезная информация.</p>
-				</DropDownInner>
-			</DropDownContent>
-		</ClassTrait>
+		<MainContainer>
+			<Button onClick={toggleContent}>
+				<ButtonText>
+					<ButtonLeftText>
+						<ButtonTitle>Тут название</ButtonTitle>
+						<ButtonSubtitle>Тут уровень</ButtonSubtitle>
+					</ButtonLeftText>
+					<ChevronIcon $isOpen={isOpened}>
+						<ChevronDown />
+					</ChevronIcon>
+				</ButtonText>
+			</Button>
+			<Content $isVisible={isOpened}>
+				<p>TEST 1</p>
+				<p>TEST 2</p>
+				<p>TEST 3</p>
+				<p>TEST 4</p>
+				<p>TEST 5</p>
+				<p>TEST 6</p>
+			</Content>
+		</MainContainer>
 	)
 }
