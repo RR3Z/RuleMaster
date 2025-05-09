@@ -44,6 +44,7 @@ export const DialogBody = styled.div`
 	overflow-y: auto;
 	flex-grow: 1;
 
+	scrollbar-gutter: stable;
 	&::-webkit-scrollbar {
 		width: 8px;
 	}
