@@ -125,3 +125,9 @@ export const ClassFeatures = styled.div`
 	margin-top: 15px;
 	font-size: 0.9rem;
 `
+
+export const ClassTraitsContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+`
