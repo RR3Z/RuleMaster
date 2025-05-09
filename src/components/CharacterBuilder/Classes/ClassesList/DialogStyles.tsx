@@ -9,6 +9,11 @@ export const Dialog = styled.dialog`
 	border-radius: 5px;
 	background: none;
 	color: white;
+
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
 `
 
 export const DialogHeader = styled.header`
@@ -22,6 +27,7 @@ export const DialogHeader = styled.header`
 	font-weight: 600;
 	position: sticky;
 	top: 0;
+	z-index: 10;
 `
 
 export const DialogHeaderButton = styled.button`
@@ -33,6 +39,20 @@ export const DialogBody = styled.div`
 	width: 100%;
 	min-height: 50vh;
 	padding: 15px;
+	overflow-y: auto;
+
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: #212d40;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #4a5568;
+		border-radius: 2px;
+	}
 `
 
 export const DialogFooter = styled.footer`
@@ -42,6 +62,8 @@ export const DialogFooter = styled.footer`
 	bottom: 0;
 	display: flex;
 	flex-direction: row;
+	background: #364156;
+	z-index: 10;
 `
 
 export const FooterDialogCloseButton = styled.button`
