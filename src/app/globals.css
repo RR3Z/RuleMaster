@@ -16,3 +16,42 @@ button {
 	padding: 3px 5px;
 	border-radius: 2px;
 }
+
+.trait-table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+	border: 1px solid #6d788b;
+}
+
+.trait-table th,
+.trait-table td {
+	text-align: left;
+	padding: 8px 12px;
+	vertical-align: top;
+	border-left: 1px solid #6d788b;
+	border-right: 1px solid #6d788b;
+}
+
+.trait-table tr {
+	border-bottom: 1px solid #6d788b;
+}
+
+.trait-table tr:nth-child(odd) {
+	background-color: #212d40;
+}
+
+.trait-table tr:nth-child(even) {
+	background-color: #364156;
+}
+
+.trait-table th {
+	width: 30%;
+	font-weight: 600;
+	color: #ffffff;
+	border-right: 1px solid #6d788b; /* вертикальная граница между столбцами */
+}
+
+.trait-table td {
+	color: #dddddd;
+}
