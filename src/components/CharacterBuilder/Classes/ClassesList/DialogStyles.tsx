@@ -98,7 +98,7 @@ export const HorizontalLine = styled.hr`
 	border: none;
 	height: 2px;
 	background-color: #364156;
-	margin-top: 10px;
+	margin: 10px 0px;
 `
 
 export const ClassGeneralInfo = styled.div`
