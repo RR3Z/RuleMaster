@@ -18,7 +18,7 @@
 	"classesData": [
 		{
 			"id": "Bard",
-			"image": "/CharacterBuilder/classes/Bard.jpg",
+			"image": "/CharacterBuilder/classes/Bard.png",
 			"imageAlt": "bard-icon",
 			"name": "Бард",
 			"description": "Барды умеют вдохновлять других, успокаивать обидчиков, удручать врагов и создавать иллюзии.",
@@ -90,7 +90,7 @@
 		},
 		{
 			"id": "Barbarian",
-			"image": "/CharacterBuilder/classes/Barbarian.jpg",
+			"image": "/CharacterBuilder/classes/Barbarian.png",
 			"imageAlt": "barbarian-icon",
 			"name": "Варвар",
 			"description": "Варвары - могучие воины, которых питают первобытные силы мультивселенной, проявляющиеся в виде Ярости.",
