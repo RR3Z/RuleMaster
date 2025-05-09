@@ -109,7 +109,7 @@ export default function CharacterBuilder({ data }: { data: BuilderData }) {
 						/>
 					)
 				)
-			case BuilderStep.CLASS:
+			case BuilderStep.CLASS_SELECTION:
 				return <ClassesList data={data.classesData} addClass={addClass} />
 		}
 	}

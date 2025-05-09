@@ -1,6 +1,6 @@
 export enum BuilderStep {
 	LESSON_WELCOME,
 	CLASS_WELCOME,
-	CLASS,
+	CLASS_SELECTION,
 	END,
 }
