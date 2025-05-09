@@ -28,6 +28,12 @@ const Container = styled.div`
 	gap: 20px;
 `
 
+const ImageContainer = styled.div`
+	position: relative;
+	min-width: 42px;
+	min-height: 42px;
+`
+
 type ClassButtonProps = {
 	image: string
 	imageAlt: string
@@ -44,14 +50,17 @@ export default function ClassButton({
 	return (
 		<Button onClick={onClick}>
 			<Container>
-				<Image
-					src={image}
-					alt={imageAlt}
-					width={42}
-					height={42}
-					style={{ objectFit: 'contain' }}
-					priority
-				/>
+				<ImageContainer>
+					<Image
+						src={image}
+						alt={imageAlt}
+						fill
+						sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+						style={{ objectFit: 'contain' }}
+						priority
+					/>
+				</ImageContainer>
+
 				<b>{name}</b>
 			</Container>
 			❯
