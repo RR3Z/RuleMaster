@@ -1,3 +1,4 @@
+import { ClassTraitData } from '@/types/CharacterBuilder/ClassTraitData'
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -57,6 +58,7 @@ const Content = styled.div<{ $isVisible: boolean }>`
 	border: 1px solid #6d788b;
 	border-top: none;
 	padding: 10px 15px;
+	font-size: 0.85rem;
 `
 
 const ChevronIcon = styled.div<{ $isOpen: boolean }>`
@@ -64,7 +66,11 @@ const ChevronIcon = styled.div<{ $isOpen: boolean }>`
 	transform: ${props => (props.$isOpen ? 'rotate(180deg)' : 'rotate(0)')};
 `
 
-export default function ClassTraitButton() {
+type ClassTraitButtonProps = {
+	data: ClassTraitData
+}
+
+export default function ClassTraitButton({ data }: ClassTraitButtonProps) {
 	const [isOpened, setOpenedState] = useState(false)
 
 	const toggleContent = () => {
@@ -76,22 +82,18 @@ export default function ClassTraitButton() {
 			<Button onClick={toggleContent}>
 				<ButtonText>
 					<ButtonLeftText>
-						<ButtonTitle>Тут название</ButtonTitle>
-						<ButtonSubtitle>Тут уровень</ButtonSubtitle>
+						<ButtonTitle>{data.name}</ButtonTitle>
+						<ButtonSubtitle>{data.level}</ButtonSubtitle>
 					</ButtonLeftText>
 					<ChevronIcon $isOpen={isOpened}>
 						<ChevronDown />
 					</ChevronIcon>
 				</ButtonText>
 			</Button>
-			<Content $isVisible={isOpened}>
-				<p>TEST 1</p>
-				<p>TEST 2</p>
-				<p>TEST 3</p>
-				<p>TEST 4</p>
-				<p>TEST 5</p>
-				<p>TEST 6</p>
-			</Content>
+			<Content
+				$isVisible={isOpened}
+				dangerouslySetInnerHTML={{ __html: data.description }}
+			/>
 		</MainContainer>
 	)
 }
