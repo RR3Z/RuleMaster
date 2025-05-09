@@ -112,6 +112,14 @@ export const ClassGeneralInfo = styled.div`
 	gap: 10px;
 `
 
+export const ClassIcon = styled.div`
+	position: relative;
+	min-width: 30px;
+	max-width: 100px;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+`
+
 export const ClassTitle = styled.h4`
 	font-size: 1.35rem;
 	font-weight: 700;

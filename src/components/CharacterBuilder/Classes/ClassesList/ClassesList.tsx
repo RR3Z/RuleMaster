@@ -11,6 +11,7 @@ import {
 	ClassDescription,
 	ClassFeatures,
 	ClassGeneralInfo,
+	ClassIcon,
 	ClassTitle,
 	ClassTraitsContainer,
 	Dialog,
@@ -84,14 +85,16 @@ export default function ClassesList({ data, addClass }: ClassesListProps) {
 									</span>
 								</ClassFeatures>
 							</div>
-							<Image
-								src={selectedClassData?.image || '/Images/noImage.webp'}
-								alt={selectedClassData?.imageAlt || 'no-image'}
-								width={100}
-								height={100}
-								style={{ objectFit: 'contain' }}
-								priority
-							/>
+							<ClassIcon>
+								<Image
+									src={selectedClassData?.image || '/Images/noImage.webp'}
+									alt={selectedClassData?.imageAlt || 'no-image'}
+									fill
+									sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+									style={{ objectFit: 'contain' }}
+									priority
+								/>
+							</ClassIcon>
 						</ClassGeneralInfo>
 
 						<HorizontalLine />
