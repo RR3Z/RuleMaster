@@ -1,3 +1,4 @@
+import { ClassTraitData } from '@/types/CharacterBuilder/ClassTraitData'
 import { DNDClass } from '@/types/CharacterBuilder/DNDClass'
 import { ClassData } from '@/types/CharacterBuilder/Steps/ClassData'
 import { X } from 'lucide-react'
@@ -5,6 +6,7 @@ import Image from 'next/image'
 import { useRef, useState } from 'react'
 import TextSection from '../../TextSection'
 import ClassButton from '../ClassButton'
+import ClassTraitButton from '../ClassTraitButton'
 import {
 	ClassDescription,
 	ClassFeatures,
@@ -16,6 +18,7 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogHeaderButton,
+	DialogInner,
 	FooterDialogAddButton,
 	FooterDialogCloseButton,
 	HorizontalLine,
@@ -51,63 +54,70 @@ export default function ClassesList({ data, addClass }: ClassesListProps) {
 				></ClassButton>
 			))}
 
-			<Dialog ref={dialogRef} open={false}>
-				<DialogHeader>
-					Выбор класса
-					<DialogHeaderButton onClick={() => dialogRef.current?.close()}>
-						<X />
-					</DialogHeaderButton>
-				</DialogHeader>
-				<DialogBody>
-					<ClassGeneralInfo>
-						<div>
-							<ClassTitle>{selectedClassData?.name}</ClassTitle>
-							<ClassDescription>
-								{selectedClassData?.description}
-							</ClassDescription>
-							<ClassFeatures>
-								<span>
-									<b>Основная характеристика: </b>
-									{selectedClassData?.primalAbility}
-								</span>
-								<span>
-									<b>Кость здоровья: </b>
-									{selectedClassData?.hitPointDice}
-								</span>
-								<span>
-									<b>Спасброски: </b>
-									{selectedClassData?.savingThrows}
-								</span>
-							</ClassFeatures>
-						</div>
-						<Image
-							src={selectedClassData?.image || '/Images/noImage.webp'}
-							alt={selectedClassData?.imageAlt || 'no-image'}
-							width={100}
-							height={100}
-							style={{ objectFit: 'contain' }}
-							priority
-						/>
-					</ClassGeneralInfo>
+			<Dialog ref={dialogRef}>
+				<DialogInner>
+					<DialogHeader>
+						Выбор класса
+						<DialogHeaderButton onClick={() => dialogRef.current?.close()}>
+							<X />
+						</DialogHeaderButton>
+					</DialogHeader>
+					<DialogBody>
+						<ClassGeneralInfo>
+							<div>
+								<ClassTitle>{selectedClassData?.name}</ClassTitle>
+								<ClassDescription>
+									{selectedClassData?.description}
+								</ClassDescription>
+								<ClassFeatures>
+									<span>
+										<b>Основная характеристика: </b>
+										{selectedClassData?.primalAbility}
+									</span>
+									<span>
+										<b>Кость здоровья: </b>
+										{selectedClassData?.hitPointDice}
+									</span>
+									<span>
+										<b>Спасброски: </b>
+										{selectedClassData?.savingThrows}
+									</span>
+								</ClassFeatures>
+							</div>
+							<Image
+								src={selectedClassData?.image || '/Images/noImage.webp'}
+								alt={selectedClassData?.imageAlt || 'no-image'}
+								width={100}
+								height={100}
+								style={{ objectFit: 'contain' }}
+								priority
+							/>
+						</ClassGeneralInfo>
 
-					<HorizontalLine />
+						<HorizontalLine />
 
-					<ClassTraitsContainer>
-					</ClassTraitsContainer>
-				</DialogBody>
-				<DialogFooter>
-					<FooterDialogCloseButton onClick={() => dialogRef.current!.close()}>
-						Отмена
-					</FooterDialogCloseButton>
-					<FooterDialogAddButton
-						onClick={() => {
-							dialogRef.current!.close()
-							addClass(selectedClassData?.id as DNDClass)
-						}}
-					>
-						Выбрать
-					</FooterDialogAddButton>
-				</DialogFooter>
+						<ClassTraitsContainer>
+							{selectedClassData?.traits.map(
+								(traitData: ClassTraitData, index: number) => (
+									<ClassTraitButton key={index} data={traitData} />
+								)
+							)}
+						</ClassTraitsContainer>
+					</DialogBody>
+					<DialogFooter>
+						<FooterDialogCloseButton onClick={() => dialogRef.current!.close()}>
+							Отмена
+						</FooterDialogCloseButton>
+						<FooterDialogAddButton
+							onClick={() => {
+								dialogRef.current!.close()
+								addClass(selectedClassData?.id as DNDClass)
+							}}
+						>
+							Выбрать
+						</FooterDialogAddButton>
+					</DialogFooter>
+				</DialogInner>
 			</Dialog>
 		</>
 	)
