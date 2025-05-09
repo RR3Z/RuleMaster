@@ -11,7 +11,7 @@ const MainContainer = styled.div`
 	align-items: center;
 `
 
-const Button = styled.button`
+const Button = styled.button<{ $isOpened: boolean }>`
 	position: relative;
 	cursor: pointer;
 	border: none;
@@ -20,9 +20,9 @@ const Button = styled.button`
 	min-height: 40px;
 	padding: 0px;
 	align-items: center;
-
-	background: #364156;
+	background: ${({ $isOpened }) => ($isOpened ? '#4a5872' : '#364156')};
 	border: 1px solid #6d788b;
+	transition: background 0.3s ease;
 `
 
 const ButtonText = styled.div`
@@ -71,7 +71,7 @@ type ClassTraitButtonProps = {
 }
 
 export default function ClassTraitButton({ data }: ClassTraitButtonProps) {
-	const [isOpened, setOpenedState] = useState(false)
+	const [isOpened, setOpenedState] = useState(true)
 
 	const toggleContent = () => {
 		setOpenedState(prevState => !prevState)
@@ -79,7 +79,7 @@ export default function ClassTraitButton({ data }: ClassTraitButtonProps) {
 
 	return (
 		<MainContainer>
-			<Button onClick={toggleContent}>
+			<Button $isOpened={isOpened} onClick={toggleContent}>
 				<ButtonText>
 					<ButtonLeftText>
 						<ButtonTitle>{data.name}</ButtonTitle>
