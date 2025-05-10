@@ -1,5 +1,21 @@
 @import 'tailwindcss';
 
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #596273 transparent;
+}
+
+*::-webkit-scrollbar {
+	width: 6px;
+}
+*::-webkit-scrollbar-thumb {
+	background-color: #596273;
+	border-radius: 3px;
+}
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
+
 body {
 	background: #11151c;
 	color: whitesmoke;
@@ -17,41 +33,53 @@ button {
 	border-radius: 2px;
 }
 
-.trait-table {
+.spells-table {
 	width: 100%;
+	align-items: flex-start;
 	border-collapse: collapse;
-	table-layout: fixed;
 	border: 1px solid #6d788b;
 }
 
-.trait-table th,
-.trait-table td {
+.spells-table caption {
+	caption-side: top;
 	text-align: left;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+.spells-table th,
+.spells-table td {
 	padding: 8px 12px;
-	vertical-align: top;
+	text-align: center;
 	border-left: 1px solid #6d788b;
 	border-right: 1px solid #6d788b;
 }
 
-.trait-table tr {
+.spells-table tr {
 	border-bottom: 1px solid #6d788b;
 }
 
-.trait-table tr:nth-child(odd) {
+.spells-table thead th {
+	background-color: #e0e0e0;
+	font-weight: 600;
+}
+
+.spells-table tr:nth-child(odd) {
 	background-color: #212d40;
 }
 
-.trait-table tr:nth-child(even) {
-	background-color: #364156;
+.spells-table tr:nth-child(even) {
+	background-color: #2b3950;
 }
 
-.trait-table th {
+.table-header th {
 	width: 30%;
-	font-weight: 600;
 	color: #ffffff;
-	border-right: 1px solid #6d788b; /* вертикальная граница между столбцами */
+	border-right: 1px solid #6d788b;
+	font-weight: bold;
 }
 
-.trait-table td {
+.spell-slots td {
 	color: #dddddd;
+	font-weight: 600;
 }
