@@ -32,9 +32,15 @@ const Title = styled.h3`
 	}
 `
 
-const Text = styled.span`
+const Text = styled.div`
+	display: block;
 	font-size: 1rem;
 	font-weight: 400;
+
+	ul {
+		padding-left: 1.2em;
+		list-style-type: disc;
+	}
 
 	@media (max-width: 2560px) {
 		font-size: 1.7rem;
