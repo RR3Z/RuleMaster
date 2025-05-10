@@ -44,9 +44,11 @@ export type Props = {
 
 export default function CharacterLessonOne({ data }: Props) {
 	// Character Data
-	const [race, setRace] = useState<RaceData>()
-	const [clazz, setClazz] = useState<ClassData>()
-	const [origin, setOrigin] = useState<OriginData>()
+	const [race, setRace] = useState<RaceData | undefined>(data.racesData[0])
+	const [clazz, setClazz] = useState<ClassData | undefined>(data.classesData[0])
+	const [origin, setOrigin] = useState<OriginData | undefined>(
+		data.originsData[0]
+	)
 
 	// Steps
 	const [currentStep, setStep] = useState<LessonStep>(
