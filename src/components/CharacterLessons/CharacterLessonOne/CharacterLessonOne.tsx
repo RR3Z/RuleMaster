@@ -1,5 +1,6 @@
 'use client'
 import { ClassData } from '@/types/CharacterLesson/Classes/ClassData'
+import { Instrument } from '@/types/CharacterLesson/Instruments/Instrument'
 import { LessonOneData } from '@/types/CharacterLesson/LessonOneData'
 import { OriginData } from '@/types/CharacterLesson/Origins/OriginData'
 import { RaceData } from '@/types/CharacterLesson/Races/RaceData'
@@ -49,6 +50,19 @@ export default function CharacterLessonOne({ data }: Props) {
 	const [origin, setOrigin] = useState<OriginData | undefined>(
 		data.originsData[0]
 	)
+	const [selectedMusicalInstruments, setMusicalInstruments] = useState<
+		Set<Instrument>
+	>(new Set())
+	const addMusicalInstrument = (instrument: Instrument) => {
+		setMusicalInstruments(prev => new Set(prev).add(instrument))
+	}
+	const removeMusicalInstrument = (instrument: Instrument) => {
+		setMusicalInstruments(prev => {
+			const newSet = new Set(prev)
+			newSet.delete(instrument)
+			return newSet
+		})
+	}
 
 	// Steps
 	const [currentStep, setStep] = useState<LessonStep>(
