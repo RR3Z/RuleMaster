@@ -52,8 +52,7 @@ export const ButtonSubtitle = styled.span`
 `
 
 export const Content = styled.div<{ $isVisible: boolean }>`
-	display: ${props => (props.$isVisible ? 'flex' : 'none')};
-	flex-direction: column;
+	display: ${props => (props.$isVisible ? 'block' : 'none')};
 	gap: 10px;
 	width: 98%;
 	background: #364156;

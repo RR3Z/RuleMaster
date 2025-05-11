@@ -13,8 +13,8 @@ import {
 	Description,
 	MainContainer,
 	StatusIndicator,
+	XIcon,
 } from '../../../DropDownButtonStyles'
-import { XIcon } from '../../DialogStyles'
 import MusicalInstrumentsSelect from './MusicalInstrumentsSelect'
 
 type Props = {
