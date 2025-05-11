@@ -35,7 +35,6 @@ button {
 
 .spells-table {
 	width: 100%;
-	align-items: flex-start;
 	border-collapse: collapse;
 	border: 1px solid #6d788b;
 }
@@ -72,14 +71,14 @@ button {
 	background-color: #2b3950;
 }
 
-.table-header th {
+.spells-table .table-header th {
 	width: 30%;
 	color: #ffffff;
 	border-right: 1px solid #6d788b;
 	font-weight: bold;
 }
 
-.spell-slots td {
+.spells-table .spell-slots td {
 	color: #dddddd;
 	font-weight: 600;
 }
