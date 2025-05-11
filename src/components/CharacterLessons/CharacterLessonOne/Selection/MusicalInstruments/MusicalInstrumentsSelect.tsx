@@ -1,6 +1,6 @@
 import { Instrument } from '@/types/CharacterLesson/Instruments/Instrument'
 import { useEffect, useState } from 'react'
-import { Option, Select } from './SelectStyles'
+import { Option, Select } from '../SelectStyles'
 
 const instrumentOptions: { value: Instrument; label: string }[] = [
 	{ value: Instrument.DRUM, label: 'Барабан' },

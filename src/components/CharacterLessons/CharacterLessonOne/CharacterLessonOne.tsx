@@ -6,6 +6,7 @@ import { InstrumentType } from '@/types/CharacterLesson/Instruments/InstrumentTy
 import { LessonOneData } from '@/types/CharacterLesson/LessonOneData'
 import { OriginData } from '@/types/CharacterLesson/Origins/OriginData'
 import { RaceData } from '@/types/CharacterLesson/Races/RaceData'
+import { Skill } from '@/types/CharacterLesson/Skills/Skill'
 import { LessonStep } from '@/types/CharacterLesson/Steps/LessonStep'
 import { TextData } from '@/types/CharacterLesson/Steps/TextData'
 import { useEffect, useState } from 'react'
@@ -51,18 +52,40 @@ export default function CharacterLessonOne({ data }: Props) {
 	const [race, setRace] = useState<RaceData | undefined>()
 	const [clazz, setClazz] = useState<ClassData | undefined>()
 	const [origin, setOrigin] = useState<OriginData | undefined>()
-	const [selectedMusicalInstruments, setMusicalInstruments] = useState<
+
+	const [masteryMusicalInstruments, setMusicalInstrumentsMastery] = useState<
 		Map<number, Instrument>
 	>(new Map())
-	const addMusicalInstrument = (index: number, instrument: Instrument) => {
-		setMusicalInstruments(prev => {
+	const addMusicalInstrumentMastery = (
+		index: number,
+		instrument: Instrument
+	) => {
+		setMusicalInstrumentsMastery(prev => {
 			const newMap = new Map(prev)
 			newMap.set(index, instrument)
 			return newMap
 		})
 	}
-	const removeMusicalInstrument = (index: number) => {
-		setMusicalInstruments(prev => {
+	const removeMusicalInstrumentMastery = (index: number) => {
+		setMusicalInstrumentsMastery(prev => {
+			const newMap = new Map(prev)
+			newMap.delete(index)
+			return newMap
+		})
+	}
+
+	const [masterySkills, setSkillsMastery] = useState<Map<number, Skill>>(
+		new Map()
+	)
+	const addSkillMastery = (index: number, skill: Skill) => {
+		setSkillsMastery(prev => {
+			const newMap = new Map(prev)
+			newMap.set(index, skill)
+			return newMap
+		})
+	}
+	const removeSkillMastery = (index: number) => {
+		setSkillsMastery(prev => {
 			const newMap = new Map(prev)
 			newMap.delete(index)
 			return newMap
@@ -129,9 +152,12 @@ export default function CharacterLessonOne({ data }: Props) {
 					<SelectionList
 						clazz={clazz!}
 						origin={origin!}
-						musicalInstruments={selectedMusicalInstruments}
-						addMusicalInstrument={addMusicalInstrument}
-						removeMusicalInstrument={removeMusicalInstrument}
+						musicalInstruments={masteryMusicalInstruments}
+						addMusicalInstrument={addMusicalInstrumentMastery}
+						removeMusicalInstrument={removeMusicalInstrumentMastery}
+						skills={masterySkills}
+						addSkill={addSkillMastery}
+						removeSkill={removeSkillMastery}
 					/>
 				)
 			default:
@@ -218,9 +244,9 @@ export default function CharacterLessonOne({ data }: Props) {
 					},
 					0
 				)
-				console.log(selectedMusicalInstruments.size)
+				console.log(masteryMusicalInstruments.size)
 				if (
-					selectedMusicalInstruments.size !==
+					masteryMusicalInstruments.size !==
 					originMusicalCount + clazzMusicalCount
 				)
 					setNextButtonActivity(false)
@@ -230,7 +256,14 @@ export default function CharacterLessonOne({ data }: Props) {
 				setButtonErrorMessage('Вы еще не все выбрали!')
 				break
 		}
-	}, [currentStep, race, clazz, origin, selectedMusicalInstruments])
+	}, [
+		currentStep,
+		race,
+		clazz,
+		origin,
+		masteryMusicalInstruments,
+		masterySkills,
+	])
 
 	return (
 		<MainContainer>

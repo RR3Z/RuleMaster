@@ -1,14 +1,15 @@
 import { ClassData } from '@/types/CharacterLesson/Classes/ClassData'
-import { ChoiceType } from '@/types/CharacterLesson/Components/ChoiceType'
 import { Instrument } from '@/types/CharacterLesson/Instruments/Instrument'
 import { InstrumentData } from '@/types/CharacterLesson/Instruments/InstrumentData'
 import { InstrumentType } from '@/types/CharacterLesson/Instruments/InstrumentType'
 import { OriginData } from '@/types/CharacterLesson/Origins/OriginData'
+import { Skill } from '@/types/CharacterLesson/Skills/Skill'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TextSection from '../../TextSection'
 import { HR } from '../DialogStyles'
-import SelectionButton from './SelectionButton'
+import MusicalInstrumentsButton from './MusicalInstruments/MusicalInstrumentsButton'
+import SkillsButton from './Skills/SkillsButton'
 
 const MainContainer = styled.div`
 	width: 100%;
@@ -34,8 +35,11 @@ type Props = {
 	clazz: ClassData
 	origin: OriginData
 	musicalInstruments: Map<number, Instrument>
-	addMusicalInstrument: (index: number, instrument: Instrument) => void
-	removeMusicalInstrument: (index: number, instrument: Instrument) => void
+	addMusicalInstrument: (index: number, value: Instrument) => void
+	removeMusicalInstrument: (index: number, value: Instrument) => void
+	skills: Map<number, Skill>
+	addSkill: (index: number, value: Skill) => void
+	removeSkill: (index: number, value: Skill) => void
 }
 
 export default function SelectionList({
@@ -44,14 +48,17 @@ export default function SelectionList({
 	musicalInstruments,
 	addMusicalInstrument,
 	removeMusicalInstrument,
+	skills,
+	addSkill,
+	removeSkill,
 }: Props) {
-	let counter = 0
 	const [
 		musicalInstrumentsForOriginCount,
 		setMusicalInstrumentsForOriginCount,
 	] = useState<number>(0)
 	const [musicalInstrumentsForClassCount, setMusicalInstrumentsForClassCount] =
 		useState<number>(0)
+	const [skillsForClassCount, setSkillsForClassCount] = useState<number>(0)
 
 	useEffect(() => {
 		// Musical Instruments
@@ -61,7 +68,7 @@ export default function SelectionList({
 		).length
 		setMusicalInstrumentsForOriginCount(originMusicalCount)
 
-		const clazzMusicalCount = clazz.instrumentsChoice.reduce(
+		const classMusicalCount = clazz.instrumentsChoice.reduce(
 			(sum, instrument) => {
 				return instrument.type === InstrumentType.MUSICAL
 					? sum + instrument.count
@@ -69,7 +76,14 @@ export default function SelectionList({
 			},
 			0
 		)
-		setMusicalInstrumentsForClassCount(clazzMusicalCount)
+		setMusicalInstrumentsForClassCount(classMusicalCount)
+
+		// Skills
+		const classSkillsCount = clazz.skillsChoice.reduce(
+			(sum, skill) => sum + skill.count,
+			0
+		)
+		setSkillsForClassCount(classSkillsCount)
 	}, [origin, clazz])
 
 	return (
@@ -85,10 +99,21 @@ export default function SelectionList({
 
 			<ListContainer>
 				<ListContainerInner>
+					{skillsForClassCount > 0 && (
+						<SkillsButton
+							count={skillsForClassCount}
+							title={'Выбор навыков'}
+							forWhat={`За Класс`}
+							description={`Вам надо выбрать Навыки, которыми вы владеете. Если какого-то навыка нет, значит вы уже владеете им. ${skillsForClassCount}`}
+							values={skills}
+							addValue={addSkill}
+							removeValue={removeSkill}
+						/>
+					)}
+
 					{musicalInstrumentsForOriginCount + musicalInstrumentsForClassCount >
 						0 && (
-						<SelectionButton
-							type={ChoiceType.MUSICAL_INSTRUMENTS}
+						<MusicalInstrumentsButton
 							count={
 								musicalInstrumentsForOriginCount +
 								musicalInstrumentsForClassCount
@@ -100,7 +125,7 @@ export default function SelectionList({
 							]
 								.filter(Boolean) // Убираем пустые значения
 								.join(', ')}`}
-							description={`Вам надо выбрать Музыкальные инструменты, которыми вы владеете. ${
+							description={`Вам надо выбрать Музыкальные инструменты, которыми вы владеете. Если какого-то инструмента нет, значит вы уже умеете им пользоваться. ${
 								musicalInstrumentsForOriginCount +
 								musicalInstrumentsForClassCount
 							}`}

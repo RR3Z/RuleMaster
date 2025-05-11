@@ -12,4 +12,5 @@ export type ClassData = {
 	imageAlt: string
 	traits: TraitData[]
 	instrumentsChoice: { count: number; type: InstrumentType }[]
+	skillsChoice: { count: number }[]
 }

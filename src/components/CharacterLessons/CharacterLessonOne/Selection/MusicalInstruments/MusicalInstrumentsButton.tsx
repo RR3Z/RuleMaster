@@ -1,4 +1,3 @@
-import { ChoiceType } from '@/types/CharacterLesson/Components/ChoiceType'
 import { Instrument } from '@/types/CharacterLesson/Instruments/Instrument'
 import { Check, ChevronDown, X } from 'lucide-react'
 import { useState } from 'react'
@@ -111,19 +110,17 @@ const XIcon = styled(X)`
 `
 
 type Props = {
-	type: ChoiceType
 	values: Map<number, Instrument>
 	initialValue?: Instrument
-	addValue: (index: number, instrument: Instrument) => void
-	removeValue: (index: number, instrument: Instrument) => void
+	addValue: (index: number, value: Instrument) => void
+	removeValue: (index: number, value: Instrument) => void
 	count: number
 	title: string
 	forWhat: string
 	description: string
 }
 
-export default function SelectionButton({
-	type,
+export default function MusicalInstrumentsButton({
 	values,
 	initialValue,
 	addValue,
@@ -158,19 +155,18 @@ export default function SelectionButton({
 			<Content $isVisible={isOpened}>
 				<Description dangerouslySetInnerHTML={{ __html: description }} />
 
-				{type === ChoiceType.MUSICAL_INSTRUMENTS &&
-					Array.from({ length: count }).map((_, index) => (
-						<MusicalInstrumentsSelect
-							key={index}
-							index={index + 1}
-							placeholder='Выберите музыкальный инструмент'
-							values={values}
-							addValue={addValue}
-							removeValue={removeValue}
-							updateButtonState={updateSelectedOptionsCount}
-							initialValue={initialValue}
-						/>
-					))}
+				{Array.from({ length: count }).map((_, index) => (
+					<MusicalInstrumentsSelect
+						key={index}
+						index={index + 1}
+						placeholder='Выберите музыкальный инструмент'
+						values={values as Map<number, Instrument>}
+						initialValue={initialValue as Instrument}
+						addValue={addValue}
+						removeValue={removeValue}
+						updateButtonState={updateSelectedOptionsCount}
+					/>
+				))}
 			</Content>
 		</MainContainer>
 	)
