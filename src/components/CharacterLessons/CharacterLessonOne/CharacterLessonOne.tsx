@@ -49,9 +49,9 @@ export type Props = {
 
 export default function CharacterLessonOne({ data }: Props) {
 	// Character Data
-	const [race, setRace] = useState<RaceData | undefined>()
-	const [clazz, setClazz] = useState<ClassData | undefined>()
-	const [origin, setOrigin] = useState<OriginData | undefined>()
+	const [race, setRace] = useState<RaceData | undefined>(undefined)
+	const [clazz, setClazz] = useState<ClassData | undefined>(undefined)
+	const [origin, setOrigin] = useState<OriginData | undefined>(undefined)
 
 	const [masteryMusicalInstruments, setMusicalInstrumentsMastery] = useState<
 		Map<number, Instrument>
@@ -96,75 +96,6 @@ export default function CharacterLessonOne({ data }: Props) {
 	const [currentStep, setStep] = useState<LessonStep>(
 		LessonStep.LESSON_INTRODUCTION
 	)
-
-	const renderStep = () => {
-		switch (currentStep) {
-			case LessonStep.LESSON_INTRODUCTION:
-				return data.introduction.map((data: TextData, index: number) => (
-					<TextSection data={data} key={index} />
-				))
-			case LessonStep.LEVEL_EXPLANATION:
-				return data.levelExplanation.map((data: TextData, index: number) => (
-					<TextSection data={data} key={index} />
-				))
-			case LessonStep.CLASS_EXPLANATION:
-				return data.classExplanation.map((data: TextData, index: number) => (
-					<TextSection data={data} key={index} />
-				))
-			case LessonStep.CLASS_SELECTION:
-				return (
-					<ClassesList
-						data={data.classesData}
-						selectedClass={clazz}
-						selectClass={setClazz}
-					/>
-				)
-			case LessonStep.RACE_EXPLANATION:
-				return data.raceExplanation.map((data: TextData, index: number) => (
-					<TextSection data={data} key={index} />
-				))
-			case LessonStep.RACE_SELECTION:
-				return (
-					<RacesList
-						data={data.racesData}
-						selectedRace={race}
-						selectRace={setRace}
-					/>
-				)
-			case LessonStep.ORIGIN_EXPLANATION:
-				return data.originExplanation.map((data: TextData, index: number) => (
-					<TextSection data={data} key={index} />
-				))
-			case LessonStep.ORIGIN_SELECTION:
-				return (
-					<OriginsList
-						data={data.originsData}
-						selectedOrigin={origin}
-						selectOrigin={setOrigin}
-					/>
-				)
-			case LessonStep.MASTERY_EXPLANATION:
-				return data.masteryExplanation.map((data: TextData, index: number) => (
-					<TextSection data={data} key={index} />
-				))
-			case LessonStep.MASTERY_SELECTION:
-				return (
-					<SelectionList
-						clazz={clazz!}
-						origin={origin!}
-						musicalInstruments={masteryMusicalInstruments}
-						addMusicalInstrument={addMusicalInstrumentMastery}
-						removeMusicalInstrument={removeMusicalInstrumentMastery}
-						skills={masterySkills}
-						addSkill={addSkillMastery}
-						removeSkill={removeSkillMastery}
-					/>
-				)
-			default:
-				console.error('CharacterLessonOne -> renderStep(): Unknown step!')
-				break
-		}
-	}
 
 	// Buttons
 	const [nextButtonActivity, setNextButtonActivity] = useState<boolean>(true)
@@ -236,18 +167,19 @@ export default function CharacterLessonOne({ data }: Props) {
 					(instrument: InstrumentData & { isChosable: boolean }) =>
 						instrument.isChosable
 				).length
-				const clazzMusicalCount = clazz!.instrumentsChoice.reduce(
-					(sum, instrument) => {
-						return instrument.type === InstrumentType.MUSICAL
-							? sum + instrument.count
-							: sum
-					},
-					0
-				)
-				console.log(masteryMusicalInstruments.size)
+				const clazzMusicalCount = clazz!.instrumentsChoice
+					? clazz!.instrumentsChoice.type.includes(InstrumentType.MUSICAL)
+						? clazz!.instrumentsChoice.count
+						: 0
+					: 0
+				const classSkillsCount = clazz!.skillsChoice
+					? clazz!.skillsChoice.count
+					: 0
+
 				if (
 					masteryMusicalInstruments.size !==
-					originMusicalCount + clazzMusicalCount
+						originMusicalCount + clazzMusicalCount ||
+					masterySkills.size !== classSkillsCount
 				)
 					setNextButtonActivity(false)
 				else setNextButtonActivity(true)
@@ -264,6 +196,75 @@ export default function CharacterLessonOne({ data }: Props) {
 		masteryMusicalInstruments,
 		masterySkills,
 	])
+
+	const renderStep = () => {
+		switch (currentStep) {
+			case LessonStep.LESSON_INTRODUCTION:
+				return data.introduction.map((data: TextData, index: number) => (
+					<TextSection data={data} key={index} />
+				))
+			case LessonStep.LEVEL_EXPLANATION:
+				return data.levelExplanation.map((data: TextData, index: number) => (
+					<TextSection data={data} key={index} />
+				))
+			case LessonStep.CLASS_EXPLANATION:
+				return data.classExplanation.map((data: TextData, index: number) => (
+					<TextSection data={data} key={index} />
+				))
+			case LessonStep.CLASS_SELECTION:
+				return (
+					<ClassesList
+						data={data.classesData}
+						selectedClass={clazz}
+						selectClass={setClazz}
+					/>
+				)
+			case LessonStep.RACE_EXPLANATION:
+				return data.raceExplanation.map((data: TextData, index: number) => (
+					<TextSection data={data} key={index} />
+				))
+			case LessonStep.RACE_SELECTION:
+				return (
+					<RacesList
+						data={data.racesData}
+						selectedRace={race}
+						selectRace={setRace}
+					/>
+				)
+			case LessonStep.ORIGIN_EXPLANATION:
+				return data.originExplanation.map((data: TextData, index: number) => (
+					<TextSection data={data} key={index} />
+				))
+			case LessonStep.ORIGIN_SELECTION:
+				return (
+					<OriginsList
+						data={data.originsData}
+						selectedOrigin={origin}
+						selectOrigin={setOrigin}
+					/>
+				)
+			case LessonStep.MASTERY_EXPLANATION:
+				return data.masteryExplanation.map((data: TextData, index: number) => (
+					<TextSection data={data} key={index} />
+				))
+			case LessonStep.MASTERY_SELECTION:
+				return (
+					<SelectionList
+						clazz={clazz!}
+						origin={origin!}
+						musicalInstruments={masteryMusicalInstruments}
+						addMusicalInstrument={addMusicalInstrumentMastery}
+						removeMusicalInstrument={removeMusicalInstrumentMastery}
+						skills={masterySkills}
+						addSkill={addSkillMastery}
+						removeSkill={removeSkillMastery}
+					/>
+				)
+			default:
+				console.error('CharacterLessonOne -> renderStep(): Unknown step!')
+				break
+		}
+	}
 
 	return (
 		<MainContainer>

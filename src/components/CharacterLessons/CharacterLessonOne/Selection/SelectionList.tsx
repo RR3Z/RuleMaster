@@ -68,21 +68,15 @@ export default function SelectionList({
 		).length
 		setMusicalInstrumentsForOriginCount(originMusicalCount)
 
-		const classMusicalCount = clazz.instrumentsChoice.reduce(
-			(sum, instrument) => {
-				return instrument.type === InstrumentType.MUSICAL
-					? sum + instrument.count
-					: sum
-			},
-			0
-		)
+		const classMusicalCount = clazz.instrumentsChoice
+			? clazz.instrumentsChoice.type.includes(InstrumentType.MUSICAL)
+				? clazz.instrumentsChoice.count
+				: 0
+			: 0
 		setMusicalInstrumentsForClassCount(classMusicalCount)
 
 		// Skills
-		const classSkillsCount = clazz.skillsChoice.reduce(
-			(sum, skill) => sum + skill.count,
-			0
-		)
+		const classSkillsCount = clazz.skillsChoice ? clazz.skillsChoice.count : 0
 		setSkillsForClassCount(classSkillsCount)
 	}, [origin, clazz])
 

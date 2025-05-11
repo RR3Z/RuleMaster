@@ -1,5 +1,4 @@
-export enum Characteristric {
+export enum Characteristic {
 	INTELLIGENCE = 'Intelligence',
 	AGILITY = 'Agility',
-	CONSTITUTION = 'Constitution',
 }

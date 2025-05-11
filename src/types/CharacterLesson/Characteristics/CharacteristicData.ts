@@ -1,6 +1,6 @@
-import { Characteristric } from './Characteristic'
+import { Characteristic } from './Characteristic'
 
 export type CharacteristicData = {
-	type: Characteristric
+	type: Characteristic
 	value: number
 }
