@@ -5,7 +5,7 @@ import { Option, Select } from '../SelectStyles'
 const skillOptions: { value: Skill; label: string }[] = [
 	{ value: Skill.ACROBATICS, label: 'Акробатика' },
 	{ value: Skill.ANIMAL_HANDLING, label: 'Обращение с животными' },
-	{ value: Skill.ARCANA, label: 'Аркана' },
+	{ value: Skill.ARCANA, label: 'Магия' },
 	{ value: Skill.ATHLETICS, label: 'Атлетика' },
 	{ value: Skill.DECEPTION, label: 'Обман' },
 	{ value: Skill.HISTORY, label: 'История' },
@@ -30,7 +30,6 @@ type Props = {
 	initialValue?: Skill
 	addValue: (index: number, instrument: Skill) => void
 	removeValue: (index: number, instrument: Skill) => void
-	updateButtonState: (value: number) => void
 }
 
 export default function SkillsSelect({
@@ -40,7 +39,6 @@ export default function SkillsSelect({
 	initialValue,
 	addValue,
 	removeValue,
-	updateButtonState,
 }: Props) {
 	const [selected, setSelected] = useState<Skill | ''>(initialValue || '')
 
@@ -54,13 +52,11 @@ export default function SkillsSelect({
 				Array.from(values.keys()).find(key => values.get(key) === selected)!,
 				selected
 			)
-			updateButtonState(-1)
 		}
 
 		if (newValue && !Array.from(values.values()).includes(newValue)) {
 			addValue(index, newValue)
 			setSelected(newValue)
-			updateButtonState(1)
 		} else setSelected('')
 	}
 

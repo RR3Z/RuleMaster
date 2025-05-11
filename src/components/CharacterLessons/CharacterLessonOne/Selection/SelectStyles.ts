@@ -16,3 +16,10 @@ export const Option = styled.option`
 	color: white;
 	padding: 8px;
 `
+
+export const Selectors = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 10px;
+`

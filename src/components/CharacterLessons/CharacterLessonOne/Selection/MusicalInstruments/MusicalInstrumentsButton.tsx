@@ -15,11 +15,11 @@ import {
 	StatusIndicator,
 	XIcon,
 } from '../../../DropDownButtonStyles'
+import { Selectors } from '../SelectStyles'
 import MusicalInstrumentsSelect from './MusicalInstrumentsSelect'
 
 type Props = {
 	values: Map<number, Instrument>
-	initialValue?: Instrument
 	addValue: (index: number, value: Instrument) => void
 	removeValue: (index: number, value: Instrument) => void
 	count: number
@@ -30,7 +30,6 @@ type Props = {
 
 export default function MusicalInstrumentsButton({
 	values,
-	initialValue,
 	addValue,
 	removeValue,
 	count,
@@ -40,15 +39,12 @@ export default function MusicalInstrumentsButton({
 }: Props) {
 	const [isOpened, setOpenedState] = useState<boolean>(false)
 	const toggleContent = () => setOpenedState(prevState => !prevState)
-	const [selectedOptionsCount, setSelectedOptionsCount] = useState<number>(0)
-	const updateSelectedOptionsCount = (value: number) =>
-		setSelectedOptionsCount(prev => prev + value)
 
 	return (
 		<MainContainer>
 			<Button $isOpened={isOpened} onClick={toggleContent}>
 				<StatusIndicator>
-					{selectedOptionsCount === count ? <CheckIcon /> : <XIcon />}
+					{values.size === count ? <CheckIcon /> : <XIcon />}
 				</StatusIndicator>
 				<ButtonText>
 					<ButtonLeftText>
@@ -63,18 +59,19 @@ export default function MusicalInstrumentsButton({
 			<Content $isVisible={isOpened}>
 				<Description dangerouslySetInnerHTML={{ __html: description }} />
 
-				{Array.from({ length: count }).map((_, index) => (
-					<MusicalInstrumentsSelect
-						key={index}
-						index={index + 1}
-						placeholder='Выберите музыкальный инструмент'
-						values={values as Map<number, Instrument>}
-						initialValue={initialValue as Instrument}
-						addValue={addValue}
-						removeValue={removeValue}
-						updateButtonState={updateSelectedOptionsCount}
-					/>
-				))}
+				<Selectors>
+					{Array.from({ length: count }).map((_, index) => (
+						<MusicalInstrumentsSelect
+							key={index}
+							index={index}
+							placeholder='Выберите музыкальный инструмент'
+							values={values}
+							initialValue={values.has(index) ? values.get(index) : undefined}
+							addValue={addValue}
+							removeValue={removeValue}
+						/>
+					))}
+				</Selectors>
 			</Content>
 		</MainContainer>
 	)

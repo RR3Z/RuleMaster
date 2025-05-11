@@ -1,6 +1,6 @@
 import { Skill } from '@/types/CharacterLesson/Skills/Skill'
 import { ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
 	Button,
 	ButtonLeftText,
@@ -15,11 +15,11 @@ import {
 	StatusIndicator,
 	XIcon,
 } from '../../../DropDownButtonStyles'
+import { Selectors } from '../SelectStyles'
 import SkillsSelect from './SkillsSelect'
 
 type Props = {
 	values: Map<number, Skill>
-	initialValue?: Skill
 	addValue: (index: number, value: Skill) => void
 	removeValue: (index: number, value: Skill) => void
 	count: number
@@ -30,7 +30,6 @@ type Props = {
 
 export default function SkillsButton({
 	values,
-	initialValue,
 	addValue,
 	removeValue,
 	count,
@@ -41,15 +40,13 @@ export default function SkillsButton({
 	const [isOpened, setOpenedState] = useState<boolean>(false)
 	const toggleContent = () => setOpenedState(prevState => !prevState)
 
-	const [selectedOptionsCount, setSelectedOptionsCount] = useState<number>(0)
-	const updateSelectedOptionsCount = (value: number) =>
-		setSelectedOptionsCount(prev => prev + value)
+	useEffect(() => {}, [values])
 
 	return (
 		<MainContainer>
 			<Button $isOpened={isOpened} onClick={toggleContent}>
 				<StatusIndicator>
-					{selectedOptionsCount === count ? <CheckIcon /> : <XIcon />}
+					{values.size === count ? <CheckIcon /> : <XIcon />}
 				</StatusIndicator>
 				<ButtonText>
 					<ButtonLeftText>
@@ -64,18 +61,19 @@ export default function SkillsButton({
 			<Content $isVisible={isOpened}>
 				<Description dangerouslySetInnerHTML={{ __html: description }} />
 
-				{Array.from({ length: count }).map((_, index) => (
-					<SkillsSelect
-						key={index}
-						index={index + 1}
-						placeholder='Выберите навык'
-						values={values}
-						initialValue={initialValue}
-						addValue={addValue}
-						removeValue={removeValue}
-						updateButtonState={updateSelectedOptionsCount}
-					/>
-				))}
+				<Selectors>
+					{Array.from({ length: count }).map((_, index) => (
+						<SkillsSelect
+							key={index}
+							index={index}
+							placeholder='Выберите навык'
+							values={values}
+							initialValue={values.has(index) ? values.get(index) : undefined}
+							addValue={addValue}
+							removeValue={removeValue}
+						/>
+					))}
+				</Selectors>
 			</Content>
 		</MainContainer>
 	)

@@ -22,7 +22,6 @@ type Props = {
 	initialValue?: Instrument
 	addValue: (index: number, instrument: Instrument) => void
 	removeValue: (index: number, instrument: Instrument) => void
-	updateButtonState: (value: number) => void
 }
 
 export default function MusicalInstrumentsSelect({
@@ -32,7 +31,6 @@ export default function MusicalInstrumentsSelect({
 	initialValue,
 	addValue,
 	removeValue,
-	updateButtonState,
 }: Props) {
 	const [selected, setSelected] = useState<Instrument | ''>(initialValue || '')
 
@@ -46,13 +44,11 @@ export default function MusicalInstrumentsSelect({
 				Array.from(values.keys()).find(key => values.get(key) === selected)!,
 				selected
 			)
-			updateButtonState(-1)
 		}
 
 		if (newValue && !Array.from(values.values()).includes(newValue)) {
 			addValue(index, newValue)
 			setSelected(newValue)
-			updateButtonState(1)
 		} else setSelected('')
 	}
 
