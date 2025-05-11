@@ -1,77 +1,16 @@
 import { TraitData } from '@/types/CharacterLesson/TraitData'
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
-import styled from 'styled-components'
-
-const MainContainer = styled.div`
-	width: 100%;
-
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-`
-
-const Button = styled.button<{ $isOpened: boolean }>`
-	position: relative;
-	cursor: pointer;
-	border: none;
-	background: none;
-	width: 100%;
-	min-height: 40px;
-	padding: 0px;
-	align-items: center;
-	background: ${({ $isOpened }) => ($isOpened ? '#4a5872' : '#364156')};
-	border: 1px solid #6d788b;
-	transition: background 0.3s ease;
-`
-
-const ButtonText = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	height: 100%;
-	padding: 5px 15px;
-`
-
-const ButtonLeftText = styled.div`
-	display: flex;
-	flex-direction: column;
-`
-
-const ButtonTitle = styled.span`
-	font-size: 1rem;
-	font-weight: bold;
-	align-self: flex-start;
-`
-
-const ButtonSubtitle = styled.span`
-	font-size: 0.8rem;
-	align-self: flex-start;
-	color: #b4b4b4;
-`
-
-const Content = styled.div<{ $isVisible: boolean }>`
-	display: ${props => (props.$isVisible ? 'block' : 'none')};
-	width: 98%;
-	background: #364156;
-	border: 1px solid #6d788b;
-	border-top: none;
-	padding: 10px 15px;
-	font-size: 0.85rem;
-
-	a {
-		color: #dd1f42;
-		text-decoration: underline;
-	}
-`
-
-const ChevronIcon = styled.div<{ $isOpen: boolean }>`
-	transition: transform 0.3s ease;
-	transform: ${props => (props.$isOpen ? 'rotate(180deg)' : 'rotate(0)')};
-`
-
+import {
+	Button,
+	ButtonLeftText,
+	ButtonSubtitle,
+	ButtonText,
+	ButtonTitle,
+	ChevronIcon,
+	Content,
+	MainContainer,
+} from './DropDownButtonStyles'
 type Props = {
 	data: TraitData
 }
