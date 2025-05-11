@@ -1,6 +1,8 @@
 'use client'
 import { ClassData } from '@/types/CharacterLesson/Classes/ClassData'
 import { Instrument } from '@/types/CharacterLesson/Instruments/Instrument'
+import { InstrumentData } from '@/types/CharacterLesson/Instruments/InstrumentData'
+import { InstrumentType } from '@/types/CharacterLesson/Instruments/InstrumentType'
 import { LessonOneData } from '@/types/CharacterLesson/LessonOneData'
 import { OriginData } from '@/types/CharacterLesson/Origins/OriginData'
 import { RaceData } from '@/types/CharacterLesson/Races/RaceData'
@@ -13,6 +15,7 @@ import TextSection from '../TextSection'
 import ClassesList from './Classes/ClassesList'
 import OriginsList from './Origins/OriginsList'
 import RacesList from './Races/RacesList'
+import SelectionList from './Selection/SelectionList'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -45,22 +48,24 @@ export type Props = {
 
 export default function CharacterLessonOne({ data }: Props) {
 	// Character Data
-	const [race, setRace] = useState<RaceData | undefined>(data.racesData[0])
-	const [clazz, setClazz] = useState<ClassData | undefined>(data.classesData[0])
-	const [origin, setOrigin] = useState<OriginData | undefined>(
-		data.originsData[0]
-	)
+	const [race, setRace] = useState<RaceData | undefined>()
+	const [clazz, setClazz] = useState<ClassData | undefined>()
+	const [origin, setOrigin] = useState<OriginData | undefined>()
 	const [selectedMusicalInstruments, setMusicalInstruments] = useState<
-		Set<Instrument>
-	>(new Set())
-	const addMusicalInstrument = (instrument: Instrument) => {
-		setMusicalInstruments(prev => new Set(prev).add(instrument))
-	}
-	const removeMusicalInstrument = (instrument: Instrument) => {
+		Map<number, Instrument>
+	>(new Map())
+	const addMusicalInstrument = (index: number, instrument: Instrument) => {
 		setMusicalInstruments(prev => {
-			const newSet = new Set(prev)
-			newSet.delete(instrument)
-			return newSet
+			const newMap = new Map(prev)
+			newMap.set(index, instrument)
+			return newMap
+		})
+	}
+	const removeMusicalInstrument = (index: number) => {
+		setMusicalInstruments(prev => {
+			const newMap = new Map(prev)
+			newMap.delete(index)
+			return newMap
 		})
 	}
 
@@ -113,6 +118,20 @@ export default function CharacterLessonOne({ data }: Props) {
 						data={data.originsData}
 						selectedOrigin={origin}
 						selectOrigin={setOrigin}
+					/>
+				)
+			case LessonStep.MASTERY_EXPLANATION:
+				return data.masteryExplanation.map((data: TextData, index: number) => (
+					<TextSection data={data} key={index} />
+				))
+			case LessonStep.MASTERY_SELECTION:
+				return (
+					<SelectionList
+						clazz={clazz!}
+						origin={origin!}
+						musicalInstruments={selectedMusicalInstruments}
+						addMusicalInstrument={addMusicalInstrument}
+						removeMusicalInstrument={removeMusicalInstrument}
 					/>
 				)
 			default:
@@ -180,8 +199,38 @@ export default function CharacterLessonOne({ data }: Props) {
 				setEndButtonActivity(false)
 				setButtonErrorMessage('Вы должны выбрать происхождение!')
 				break
+			case LessonStep.MASTERY_EXPLANATION:
+				setNextButtonActivity(true)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('')
+				break
+			case LessonStep.MASTERY_SELECTION:
+				const originMusicalCount = origin!.instruments.filter(
+					(instrument: InstrumentData & { isChosable: boolean }) =>
+						instrument.isChosable
+				).length
+				const clazzMusicalCount = clazz!.instrumentsChoice.reduce(
+					(sum, instrument) => {
+						return instrument.type === InstrumentType.MUSICAL
+							? sum + instrument.count
+							: sum
+					},
+					0
+				)
+				console.log(selectedMusicalInstruments.size)
+				if (
+					selectedMusicalInstruments.size !==
+					originMusicalCount + clazzMusicalCount
+				)
+					setNextButtonActivity(false)
+				else setNextButtonActivity(true)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('Вы еще не все выбрали!')
+				break
 		}
-	}, [currentStep, race, clazz, origin])
+	}, [currentStep, race, clazz, origin, selectedMusicalInstruments])
 
 	return (
 		<MainContainer>
