@@ -1,4 +1,4 @@
-export enum LessonStep {
+export enum LessonOneStep {
 	LESSON_INTRODUCTION,
 	LEVEL_EXPLANATION,
 	CLASS_EXPLANATION,
