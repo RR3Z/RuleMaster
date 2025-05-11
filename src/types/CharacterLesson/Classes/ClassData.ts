@@ -1,4 +1,5 @@
 import { DNDClass } from '../DNDClass'
+import { InstrumentType } from '../Instruments/InstrumentType'
 import { TraitData } from '../TraitData'
 
 export type ClassData = {
@@ -10,4 +11,5 @@ export type ClassData = {
 	image: string
 	imageAlt: string
 	traits: TraitData[]
+	instrumentsChoice: { count: number; type: InstrumentType }[]
 }
