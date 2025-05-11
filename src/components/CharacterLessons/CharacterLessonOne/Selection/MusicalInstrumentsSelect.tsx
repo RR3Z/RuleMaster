@@ -16,33 +16,41 @@ const instrumentOptions: { value: Instrument; label: string }[] = [
 ]
 
 type Props = {
+	index: number
 	placeholder: string
-	values: Set<Instrument>
-	addValue: (value: Instrument) => void
-	removeValue: (value: Instrument) => void
+	values: Map<number, Instrument>
+	initialValue?: Instrument
+	addValue: (index: number, instrument: Instrument) => void
+	removeValue: (index: number, instrument: Instrument) => void
 	updateButtonState: (value: number) => void
 }
 
 export default function MusicalInstrumentsSelect({
+	index,
 	placeholder,
 	values,
+	initialValue,
 	addValue,
 	removeValue,
 	updateButtonState,
 }: Props) {
-	const [selected, setSelected] = useState<Instrument | ''>('')
+	const [selected, setSelected] = useState<Instrument | ''>(initialValue || '')
 
 	useEffect(() => {}, [values])
 
 	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const newValue = e.target.value as Instrument
 
-		if (selected && values.has(selected)) {
-			removeValue(selected)
+		if (selected && values.has(index)) {
+			removeValue(
+				Array.from(values.keys()).find(key => values.get(key) === selected)!,
+				selected
+			)
 			updateButtonState(-1)
 		}
-		if (newValue && !values.has(newValue)) {
-			addValue(newValue)
+
+		if (newValue && !Array.from(values.values()).includes(newValue)) {
+			addValue(index, newValue)
 			setSelected(newValue)
 			updateButtonState(1)
 		} else setSelected('')
@@ -53,7 +61,7 @@ export default function MusicalInstrumentsSelect({
 			<Option value=''>{placeholder}</Option>
 			{instrumentOptions.map(({ value, label }) => {
 				const isSelected = value === selected
-				const alreadyChosen = values.has(value)
+				const alreadyChosen = Array.from(values.values()).includes(value)
 
 				if (!alreadyChosen || isSelected)
 					return (
