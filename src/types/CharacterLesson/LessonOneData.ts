@@ -16,6 +16,6 @@ export type LessonOneData = {
 	classesData: ClassData[]
 	skillsExplanation: TextData[]
 	skillsData: SkillData[]
-	instrumentsExplanation: TextData[]
+	masteryExplanation: TextData[]
 	instrumentsData: InstrumentData[]
 }
