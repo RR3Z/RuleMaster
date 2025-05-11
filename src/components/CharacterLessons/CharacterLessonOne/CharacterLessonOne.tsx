@@ -7,7 +7,7 @@ import { LessonOneData } from '@/types/CharacterLesson/LessonOneData'
 import { OriginData } from '@/types/CharacterLesson/Origins/OriginData'
 import { RaceData } from '@/types/CharacterLesson/Races/RaceData'
 import { Skill } from '@/types/CharacterLesson/Skills/Skill'
-import { LessonStep } from '@/types/CharacterLesson/Steps/LessonStep'
+import { LessonOneStep } from '@/types/CharacterLesson/Steps/LessonOneStep'
 import { TextData } from '@/types/CharacterLesson/Steps/TextData'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
@@ -93,8 +93,8 @@ export default function CharacterLessonOne({ data }: Props) {
 	}
 
 	// Steps
-	const [currentStep, setStep] = useState<LessonStep>(
-		LessonStep.LESSON_INTRODUCTION
+	const [currentStep, setStep] = useState<LessonOneStep>(
+		LessonOneStep.LESSON_INTRODUCTION
 	)
 
 	// Buttons
@@ -105,64 +105,45 @@ export default function CharacterLessonOne({ data }: Props) {
 
 	useEffect(() => {
 		switch (currentStep) {
-			case LessonStep.LESSON_INTRODUCTION:
+			case LessonOneStep.LESSON_INTRODUCTION:
 				setNextButtonActivity(true)
 				setPrevButtonActivity(false)
 				setEndButtonActivity(false)
 				setButtonErrorMessage('')
 				break
-			case LessonStep.LEVEL_EXPLANATION:
+			case LessonOneStep.LEVEL_EXPLANATION:
+			case LessonOneStep.CLASS_EXPLANATION:
+			case LessonOneStep.RACE_EXPLANATION:
+			case LessonOneStep.ORIGIN_EXPLANATION:
+			case LessonOneStep.MASTERY_EXPLANATION_1:
+			case LessonOneStep.MASTERY_EXPLANATION_2:
 				setNextButtonActivity(true)
 				setPrevButtonActivity(true)
 				setEndButtonActivity(false)
 				setButtonErrorMessage('')
 				break
-			case LessonStep.CLASS_EXPLANATION:
-				setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('')
-				break
-			case LessonStep.CLASS_SELECTION:
+			case LessonOneStep.CLASS_SELECTION:
 				if (clazz === undefined) setNextButtonActivity(false)
 				else setNextButtonActivity(true)
 				setPrevButtonActivity(true)
 				setEndButtonActivity(false)
 				setButtonErrorMessage('Вы должны выбрать класс!')
 				break
-			case LessonStep.RACE_EXPLANATION:
-				setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('')
-				break
-			case LessonStep.RACE_SELECTION:
+			case LessonOneStep.RACE_SELECTION:
 				if (race === undefined) setNextButtonActivity(false)
 				else setNextButtonActivity(true)
 				setPrevButtonActivity(true)
 				setEndButtonActivity(false)
 				setButtonErrorMessage('Вы должны выбрать расу!')
 				break
-			case LessonStep.ORIGIN_EXPLANATION:
-				setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('')
-				break
-			case LessonStep.ORIGIN_SELECTION:
+			case LessonOneStep.ORIGIN_SELECTION:
 				if (origin === undefined) setNextButtonActivity(false)
 				else setNextButtonActivity(true)
 				setPrevButtonActivity(true)
 				setEndButtonActivity(false)
 				setButtonErrorMessage('Вы должны выбрать происхождение!')
 				break
-			case LessonStep.MASTERY_EXPLANATION:
-				setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('')
-				break
-			case LessonStep.MASTERY_SELECTION:
+			case LessonOneStep.MASTERY_SELECTION:
 				const originMusicalCount = origin!.instruments.filter(
 					(instrument: InstrumentData & { isChosable: boolean }) =>
 						instrument.isChosable
@@ -199,19 +180,19 @@ export default function CharacterLessonOne({ data }: Props) {
 
 	const renderStep = () => {
 		switch (currentStep) {
-			case LessonStep.LESSON_INTRODUCTION:
+			case LessonOneStep.LESSON_INTRODUCTION:
 				return data.introduction.map((data: TextData, index: number) => (
 					<TextSection data={data} key={index} />
 				))
-			case LessonStep.LEVEL_EXPLANATION:
+			case LessonOneStep.LEVEL_EXPLANATION:
 				return data.levelExplanation.map((data: TextData, index: number) => (
 					<TextSection data={data} key={index} />
 				))
-			case LessonStep.CLASS_EXPLANATION:
+			case LessonOneStep.CLASS_EXPLANATION:
 				return data.classExplanation.map((data: TextData, index: number) => (
 					<TextSection data={data} key={index} />
 				))
-			case LessonStep.CLASS_SELECTION:
+			case LessonOneStep.CLASS_SELECTION:
 				return (
 					<ClassesList
 						data={data.classesData}
@@ -219,11 +200,11 @@ export default function CharacterLessonOne({ data }: Props) {
 						selectClass={setClazz}
 					/>
 				)
-			case LessonStep.RACE_EXPLANATION:
+			case LessonOneStep.RACE_EXPLANATION:
 				return data.raceExplanation.map((data: TextData, index: number) => (
 					<TextSection data={data} key={index} />
 				))
-			case LessonStep.RACE_SELECTION:
+			case LessonOneStep.RACE_SELECTION:
 				return (
 					<RacesList
 						data={data.racesData}
@@ -231,11 +212,11 @@ export default function CharacterLessonOne({ data }: Props) {
 						selectRace={setRace}
 					/>
 				)
-			case LessonStep.ORIGIN_EXPLANATION:
+			case LessonOneStep.ORIGIN_EXPLANATION:
 				return data.originExplanation.map((data: TextData, index: number) => (
 					<TextSection data={data} key={index} />
 				))
-			case LessonStep.ORIGIN_SELECTION:
+			case LessonOneStep.ORIGIN_SELECTION:
 				return (
 					<OriginsList
 						data={data.originsData}
@@ -243,11 +224,15 @@ export default function CharacterLessonOne({ data }: Props) {
 						selectOrigin={setOrigin}
 					/>
 				)
-			case LessonStep.MASTERY_EXPLANATION:
-				return data.masteryExplanation.map((data: TextData, index: number) => (
+			case LessonOneStep.MASTERY_EXPLANATION_1:
+				return data.masteryExplanation1.map((data: TextData, index: number) => (
 					<TextSection data={data} key={index} />
 				))
-			case LessonStep.MASTERY_SELECTION:
+			case LessonOneStep.MASTERY_EXPLANATION_2:
+				return data.masteryExplanation2.map((data: TextData, index: number) => (
+					<TextSection data={data} key={index} />
+				))
+			case LessonOneStep.MASTERY_SELECTION:
 				return (
 					<SelectionList
 						clazz={clazz!}
@@ -270,7 +255,7 @@ export default function CharacterLessonOne({ data }: Props) {
 		<MainContainer>
 			{renderStep()}
 			<ButtonsContainer>
-				{currentStep !== LessonStep.LESSON_INTRODUCTION ? (
+				{currentStep !== LessonOneStep.LESSON_INTRODUCTION ? (
 					<LessonButton
 						id='prevStep'
 						text='❮  Назад'
@@ -279,7 +264,7 @@ export default function CharacterLessonOne({ data }: Props) {
 						errorMessage={buttonErrorMessage}
 					/>
 				) : undefined}
-				{currentStep !== LessonStep.END ? (
+				{currentStep !== LessonOneStep.END ? (
 					<LessonButton
 						id='nextStep'
 						text='Далее  ❯'
