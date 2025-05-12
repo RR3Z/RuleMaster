@@ -3,7 +3,7 @@ import { InstrumentData } from './Instruments/InstrumentData'
 import { OriginData } from './Origins/OriginData'
 import { RaceData } from './Races/RaceData'
 import { SkillData } from './Skills/SkillData'
-import { TextData } from './Steps/TextData'
+import { TextData } from './TextData'
 
 export type LessonOneData = {
 	introduction: TextData[]
@@ -19,4 +19,5 @@ export type LessonOneData = {
 	masteryExplanation1: TextData[]
 	masteryExplanation2: TextData[]
 	instrumentsData: InstrumentData[]
+	characteristicsExplanation: TextData[]
 }
