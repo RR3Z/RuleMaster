@@ -1,4 +1,4 @@
-import { TextData } from '@/types/CharacterLesson/Steps/TextData'
+import { TextData } from '@/types/CharacterLesson/TextData'
 import sanitizeHtml from 'sanitize-html'
 import styled from 'styled-components'
 
