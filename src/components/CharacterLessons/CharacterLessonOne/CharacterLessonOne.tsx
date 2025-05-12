@@ -1,4 +1,5 @@
 'use client'
+import { Characteristic } from '@/types/CharacterLesson/Characteristics/Characteristic'
 import { ClassData } from '@/types/CharacterLesson/Classes/ClassData'
 import { Instrument } from '@/types/CharacterLesson/Instruments/Instrument'
 import { InstrumentData } from '@/types/CharacterLesson/Instruments/InstrumentData'
@@ -14,6 +15,7 @@ import styled from 'styled-components'
 import CharacterName from '../CharacterName'
 import LessonButton from '../LessonButton'
 import TextSection from '../TextSection'
+import CharacteristicsSelection from './Characteristics/CharacteristicsSelection'
 import ClassesList from './Classes/ClassesList'
 import { HR } from './DialogStyles'
 import OriginsList from './Origins/OriginsList'
@@ -28,6 +30,22 @@ const MainContainer = styled.div`
 	max-width: 50vw;
 	margin: 20px auto;
 	gap: 10px;
+`
+
+const TopContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	align-items: flex-end;
+`
+
+const CharacterInfo = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	font-size: 1.1rem;
+	text-align: end;
 `
 
 const ButtonsContainer = styled.div`
@@ -94,6 +112,27 @@ export default function CharacterLessonOne({ data }: Props) {
 		})
 	}
 
+	const [characteristics, setCharacteristics] = useState<
+		Map<Characteristic, number | undefined>
+	>(new Map())
+	const updateCharacteristic = (
+		key: Characteristic,
+		value: number | undefined
+	) => {
+		setCharacteristics(prev => {
+			const newMap = new Map(prev)
+			newMap.set(key, value)
+			return newMap
+		})
+	}
+	const resetCharacteristic = (key: Characteristic) => {
+		setCharacteristics(prev => {
+			const newMap = new Map(prev)
+			newMap.delete(key)
+			return newMap
+		})
+	}
+
 	// Steps
 	const [currentStep, setStep] = useState<LessonOneStep>(
 		LessonOneStep.LESSON_INTRODUCTION
@@ -117,6 +156,7 @@ export default function CharacterLessonOne({ data }: Props) {
 			case LessonOneStep.CLASS_EXPLANATION:
 			case LessonOneStep.RACE_EXPLANATION:
 			case LessonOneStep.ORIGIN_EXPLANATION:
+			case LessonOneStep.CHARACTERISTICS_EXPLANATION:
 			case LessonOneStep.MASTERY_EXPLANATION_1:
 			case LessonOneStep.MASTERY_EXPLANATION_2:
 				setNextButtonActivity(true)
@@ -144,6 +184,13 @@ export default function CharacterLessonOne({ data }: Props) {
 				setPrevButtonActivity(true)
 				setEndButtonActivity(false)
 				setButtonErrorMessage('Вы должны выбрать происхождение!')
+				break
+			case LessonOneStep.CHARACTERISTICS_SELECTION:
+				if (characteristics.size < 6) setNextButtonActivity(false)
+				else setNextButtonActivity(true)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('Вы распределили не все характеристики!')
 				break
 			case LessonOneStep.MASTERY_SELECTION:
 				const originMusicalCount = origin!.instruments.filter(
@@ -178,6 +225,7 @@ export default function CharacterLessonOne({ data }: Props) {
 		origin,
 		masteryMusicalInstruments,
 		masterySkills,
+		characteristics,
 	])
 
 	const renderStep = () => {
@@ -226,6 +274,22 @@ export default function CharacterLessonOne({ data }: Props) {
 						selectOrigin={setOrigin}
 					/>
 				)
+			case LessonOneStep.CHARACTERISTICS_EXPLANATION:
+				return data.characteristicsExplanation.map(
+					(data: TextData, index: number) => (
+						<TextSection data={data} key={index} />
+					)
+				)
+			case LessonOneStep.CHARACTERISTICS_SELECTION:
+				return (
+					<CharacteristicsSelection
+						characteristics={characteristics}
+						updateCharacteristic={updateCharacteristic}
+						resetCharacteristic={resetCharacteristic}
+						race={race!}
+						dndClass={clazz!.id}
+					/>
+				)
 			case LessonOneStep.MASTERY_EXPLANATION_1:
 				return data.masteryExplanation1.map((data: TextData, index: number) => (
 					<TextSection data={data} key={index} />
@@ -255,13 +319,35 @@ export default function CharacterLessonOne({ data }: Props) {
 
 	return (
 		<MainContainer>
-			<CharacterName
-				value={name}
-				placeholder={'Безымянный'}
-				changeValue={setName}
-			/>
+			<TopContainer>
+				<CharacterName
+					value={name}
+					placeholder={'Безымянный'}
+					changeValue={setName}
+				/>
+				<CharacterInfo>
+					{clazz && (
+						<span>
+							<b>Класс:</b> <u>{clazz.name}</u>
+						</span>
+					)}
+					{race && (
+						<span>
+							<b>Раса:</b> <u>{race.name}</u>
+						</span>
+					)}
+					{origin && (
+						<span>
+							<b>Происхождение:</b> <u>{origin.name}</u>
+						</span>
+					)}
+				</CharacterInfo>
+			</TopContainer>
+
 			<HR />
+
 			{renderStep()}
+
 			<ButtonsContainer>
 				{currentStep !== LessonOneStep.LESSON_INTRODUCTION ? (
 					<LessonButton
