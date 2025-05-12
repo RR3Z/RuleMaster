@@ -26,7 +26,7 @@ const MainContainer = styled.div`
 	justify-content: center;
 	min-height: 100vh;
 	max-width: 50vw;
-	margin: 0 auto;
+	margin: 20px auto;
 	gap: 10px;
 `
 
@@ -53,7 +53,7 @@ export default function CharacterLessonOne({ data }: Props) {
 	const [race, setRace] = useState<RaceData | undefined>(undefined)
 	const [clazz, setClazz] = useState<ClassData | undefined>(undefined)
 	const [origin, setOrigin] = useState<OriginData | undefined>(undefined)
-	const [name, setName] = useState<string>('')
+	const [name, setName] = useState<string>('Безымянный')
 
 	const [masteryMusicalInstruments, setMusicalInstrumentsMastery] = useState<
 		Map<number, Instrument>
