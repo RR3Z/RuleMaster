@@ -11,9 +11,11 @@ import { LessonOneStep } from '@/types/CharacterLesson/Steps/LessonOneStep'
 import { TextData } from '@/types/CharacterLesson/Steps/TextData'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import CharacterName from '../CharacterName'
 import LessonButton from '../LessonButton'
 import TextSection from '../TextSection'
 import ClassesList from './Classes/ClassesList'
+import { HR } from './DialogStyles'
 import OriginsList from './Origins/OriginsList'
 import RacesList from './Races/RacesList'
 import SelectionList from './Selection/SelectionList'
@@ -21,7 +23,6 @@ import SelectionList from './Selection/SelectionList'
 const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
 	max-width: 50vw;
@@ -52,6 +53,7 @@ export default function CharacterLessonOne({ data }: Props) {
 	const [race, setRace] = useState<RaceData | undefined>(undefined)
 	const [clazz, setClazz] = useState<ClassData | undefined>(undefined)
 	const [origin, setOrigin] = useState<OriginData | undefined>(undefined)
+	const [name, setName] = useState<string>('')
 
 	const [masteryMusicalInstruments, setMusicalInstrumentsMastery] = useState<
 		Map<number, Instrument>
@@ -253,6 +255,12 @@ export default function CharacterLessonOne({ data }: Props) {
 
 	return (
 		<MainContainer>
+			<CharacterName
+				value={name}
+				placeholder={'Безымянный'}
+				changeValue={setName}
+			/>
+			<HR />
 			{renderStep()}
 			<ButtonsContainer>
 				{currentStep !== LessonOneStep.LESSON_INTRODUCTION ? (
