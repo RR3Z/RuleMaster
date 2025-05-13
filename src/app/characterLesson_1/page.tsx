@@ -1,14 +1,11 @@
 import CharacterLessonOne from '@/components/CharacterLessons/CharacterLessonOne/CharacterLessonOne'
-import { LessonOneData } from '@/types/CharacterLesson/LessonOneData'
-import fs from 'fs'
-import path from 'path'
+import { CONFIG } from '../config'
 
-export default function CharacterLessonOnePage() {
-	const filePath = path.join(
-		process.cwd(),
-		'/public/CharacterLessons/lesson_1.json'
+export default async function CharacterLessonOnePage() {
+	const lessonDataRes = await fetch(
+		`${CONFIG.siteURL}/CharacterLessons/lesson_1.json`
 	)
-	const data = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as LessonOneData
+	const lessonData = await lessonDataRes.json()
 
-	return <CharacterLessonOne data={data} />
+	return <CharacterLessonOne data={lessonData} />
 }
