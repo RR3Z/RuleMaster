@@ -26,6 +26,7 @@ type Props = {
 	title: string
 	forWhat: string
 	description: string
+	originSkills: Skill[]
 }
 
 export default function SkillsButton({
@@ -36,6 +37,7 @@ export default function SkillsButton({
 	title,
 	forWhat,
 	description,
+	originSkills,
 }: Props) {
 	const [isOpened, setOpenedState] = useState<boolean>(false)
 	const toggleContent = () => setOpenedState(prevState => !prevState)
@@ -71,6 +73,7 @@ export default function SkillsButton({
 							initialValue={values.has(index) ? values.get(index) : undefined}
 							addValue={addValue}
 							removeValue={removeValue}
+							originSkills={originSkills}
 						/>
 					))}
 				</Selectors>

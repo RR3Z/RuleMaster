@@ -28,6 +28,7 @@ type Props = {
 	placeholder: string
 	values: Map<number, Skill>
 	initialValue?: Skill
+	originSkills: Skill[]
 	addValue: (index: number, instrument: Skill) => void
 	removeValue: (index: number, instrument: Skill) => void
 }
@@ -39,6 +40,7 @@ export default function SkillsSelect({
 	initialValue,
 	addValue,
 	removeValue,
+	originSkills,
 }: Props) {
 	const [selected, setSelected] = useState<Skill | ''>(initialValue || '')
 
@@ -66,8 +68,9 @@ export default function SkillsSelect({
 			{skillOptions.map(({ value, label }) => {
 				const isSelected = value === selected
 				const alreadyChosen = Array.from(values.values()).includes(value)
+				const isOriginSkill = originSkills.includes(value)
 
-				if (!alreadyChosen || isSelected)
+				if ((!alreadyChosen && !isOriginSkill) || isSelected)
 					return (
 						<Option key={value} value={value}>
 							{label}

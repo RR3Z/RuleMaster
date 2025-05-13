@@ -102,6 +102,7 @@ export default function SelectionList({
 							values={skills}
 							addValue={addSkill}
 							removeValue={removeSkill}
+							originSkills={origin.skillsMasteries}
 						/>
 					)}
 
