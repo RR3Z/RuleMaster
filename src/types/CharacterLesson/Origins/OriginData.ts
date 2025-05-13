@@ -8,7 +8,7 @@ export type OriginData = {
 	name: string
 	description: string
 	features: string
-	skills: Skill[]
+	skillsMasteries: Skill[]
 	instruments: (InstrumentData & { isChosable: boolean })[]
 	equipment: string
 	languages: string[]

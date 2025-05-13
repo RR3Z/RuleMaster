@@ -51,7 +51,7 @@ export default function ClassDialog({ ref, classData, select }: Props) {
 		<Dialog ref={ref}>
 			<DialogInner>
 				<DialogHeader>
-					Раса
+					Класс
 					<DialogHeaderButton onClick={handleCloseClick}>
 						<XIcon />
 					</DialogHeaderButton>

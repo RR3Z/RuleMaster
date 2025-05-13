@@ -3,6 +3,6 @@ import { InstrumentType } from './InstrumentType'
 
 export type InstrumentData = {
 	type: InstrumentType
-	instrument: Instrument
+	id: Instrument
 	name: string
 }

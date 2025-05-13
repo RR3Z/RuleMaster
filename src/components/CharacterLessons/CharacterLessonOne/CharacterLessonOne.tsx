@@ -17,7 +17,7 @@ import LessonButton from '../LessonButton'
 import TextSection from '../TextSection'
 import CharacteristicsSelection from './Characteristics/CharacteristicsSelection'
 import ClassesList from './Classes/ClassesList'
-import { HR } from './DialogStyles'
+import EndComponent from './EndComponent'
 import OriginsList from './Origins/OriginsList'
 import RacesList from './Races/RacesList'
 import SelectionList from './Selection/SelectionList'
@@ -73,28 +73,25 @@ export default function CharacterLessonOne({ data }: Props) {
 	const [origin, setOrigin] = useState<OriginData | undefined>(undefined)
 	const [name, setName] = useState<string>('Безымянный')
 
-	const [masteryMusicalInstruments, setMusicalInstrumentsMastery] = useState<
+	const [instrumentsMastery, setInstrumentsMastery] = useState<
 		Map<number, Instrument>
 	>(new Map())
-	const addMusicalInstrumentMastery = (
-		index: number,
-		instrument: Instrument
-	) => {
-		setMusicalInstrumentsMastery(prev => {
+	const addInstrumentMastery = (index: number, instrument: Instrument) => {
+		setInstrumentsMastery(prev => {
 			const newMap = new Map(prev)
 			newMap.set(index, instrument)
 			return newMap
 		})
 	}
-	const removeMusicalInstrumentMastery = (index: number) => {
-		setMusicalInstrumentsMastery(prev => {
+	const removeInstrumentMastery = (index: number) => {
+		setInstrumentsMastery(prev => {
 			const newMap = new Map(prev)
 			newMap.delete(index)
 			return newMap
 		})
 	}
 
-	const [masterySkills, setSkillsMastery] = useState<Map<number, Skill>>(
+	const [skillsMastery, setSkillsMastery] = useState<Map<number, Skill>>(
 		new Map()
 	)
 	const addSkillMastery = (index: number, skill: Skill) => {
@@ -137,96 +134,6 @@ export default function CharacterLessonOne({ data }: Props) {
 	const [currentStep, setStep] = useState<LessonOneStep>(
 		LessonOneStep.LESSON_INTRODUCTION
 	)
-
-	// Buttons
-	const [nextButtonActivity, setNextButtonActivity] = useState<boolean>(true)
-	const [prevButtonActivity, setPrevButtonActivity] = useState<boolean>(false)
-	const [endButtonActivity, setEndButtonActivity] = useState<boolean>(false)
-	const [buttonErrorMessage, setButtonErrorMessage] = useState('')
-
-	useEffect(() => {
-		switch (currentStep) {
-			case LessonOneStep.LESSON_INTRODUCTION:
-				setNextButtonActivity(true)
-				setPrevButtonActivity(false)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('')
-				break
-			case LessonOneStep.LEVEL_EXPLANATION:
-			case LessonOneStep.CLASS_EXPLANATION:
-			case LessonOneStep.RACE_EXPLANATION:
-			case LessonOneStep.ORIGIN_EXPLANATION:
-			case LessonOneStep.CHARACTERISTICS_EXPLANATION:
-			case LessonOneStep.MASTERY_EXPLANATION_1:
-			case LessonOneStep.MASTERY_EXPLANATION_2:
-				setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('')
-				break
-			case LessonOneStep.CLASS_SELECTION:
-				if (clazz === undefined) setNextButtonActivity(false)
-				else setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('Вы должны выбрать класс!')
-				break
-			case LessonOneStep.RACE_SELECTION:
-				if (race === undefined) setNextButtonActivity(false)
-				else setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('Вы должны выбрать расу!')
-				break
-			case LessonOneStep.ORIGIN_SELECTION:
-				if (origin === undefined) setNextButtonActivity(false)
-				else setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('Вы должны выбрать происхождение!')
-				break
-			case LessonOneStep.CHARACTERISTICS_SELECTION:
-				if (characteristics.size < 6) setNextButtonActivity(false)
-				else setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('Вы распределили не все характеристики!')
-				break
-			case LessonOneStep.MASTERY_SELECTION:
-				const originMusicalCount = origin!.instruments.filter(
-					(instrument: InstrumentData & { isChosable: boolean }) =>
-						instrument.isChosable
-				).length
-				const clazzMusicalCount = clazz!.instrumentsChoice
-					? clazz!.instrumentsChoice.type.includes(InstrumentType.MUSICAL)
-						? clazz!.instrumentsChoice.count
-						: 0
-					: 0
-				const classSkillsCount = clazz!.skillsChoice
-					? clazz!.skillsChoice.count
-					: 0
-
-				if (
-					masteryMusicalInstruments.size !==
-						originMusicalCount + clazzMusicalCount ||
-					masterySkills.size !== classSkillsCount
-				)
-					setNextButtonActivity(false)
-				else setNextButtonActivity(true)
-				setPrevButtonActivity(true)
-				setEndButtonActivity(false)
-				setButtonErrorMessage('Вы еще не все выбрали!')
-				break
-		}
-	}, [
-		currentStep,
-		race,
-		clazz,
-		origin,
-		masteryMusicalInstruments,
-		masterySkills,
-		characteristics,
-	])
 
 	const renderStep = () => {
 		switch (currentStep) {
@@ -303,12 +210,25 @@ export default function CharacterLessonOne({ data }: Props) {
 					<SelectionList
 						clazz={clazz!}
 						origin={origin!}
-						musicalInstruments={masteryMusicalInstruments}
-						addMusicalInstrument={addMusicalInstrumentMastery}
-						removeMusicalInstrument={removeMusicalInstrumentMastery}
-						skills={masterySkills}
+						musicalInstruments={instrumentsMastery}
+						addMusicalInstrument={addInstrumentMastery}
+						removeMusicalInstrument={removeInstrumentMastery}
+						skills={skillsMastery}
 						addSkill={addSkillMastery}
 						removeSkill={removeSkillMastery}
+					/>
+				)
+			case LessonOneStep.END:
+				return (
+					<EndComponent
+						clazz={clazz!}
+						race={race!}
+						origin={origin!}
+						name={name}
+						level={1}
+						characteristics={characteristics}
+						instrumentsMastery={Array.from(instrumentsMastery.values())}
+						skillsMastery={Array.from(skillsMastery.values())}
 					/>
 				)
 			default:
@@ -316,6 +236,101 @@ export default function CharacterLessonOne({ data }: Props) {
 				break
 		}
 	}
+
+	// Buttons
+	const [nextButtonActivity, setNextButtonActivity] = useState<boolean>(true)
+	const [prevButtonActivity, setPrevButtonActivity] = useState<boolean>(false)
+	const [endButtonActivity, setEndButtonActivity] = useState<boolean>(false)
+	const [buttonErrorMessage, setButtonErrorMessage] = useState('')
+
+	useEffect(() => {
+		switch (currentStep) {
+			case LessonOneStep.LESSON_INTRODUCTION:
+				setNextButtonActivity(true)
+				setPrevButtonActivity(false)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('')
+				break
+			case LessonOneStep.LEVEL_EXPLANATION:
+			case LessonOneStep.CLASS_EXPLANATION:
+			case LessonOneStep.RACE_EXPLANATION:
+			case LessonOneStep.ORIGIN_EXPLANATION:
+			case LessonOneStep.CHARACTERISTICS_EXPLANATION:
+			case LessonOneStep.MASTERY_EXPLANATION_1:
+			case LessonOneStep.MASTERY_EXPLANATION_2:
+				setNextButtonActivity(true)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('')
+				break
+			case LessonOneStep.CLASS_SELECTION:
+				if (clazz === undefined) setNextButtonActivity(false)
+				else setNextButtonActivity(true)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('Вы должны выбрать класс!')
+				break
+			case LessonOneStep.RACE_SELECTION:
+				if (race === undefined) setNextButtonActivity(false)
+				else setNextButtonActivity(true)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('Вы должны выбрать расу!')
+				break
+			case LessonOneStep.ORIGIN_SELECTION:
+				if (origin === undefined) setNextButtonActivity(false)
+				else setNextButtonActivity(true)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('Вы должны выбрать происхождение!')
+				break
+			case LessonOneStep.CHARACTERISTICS_SELECTION:
+				if (characteristics.size < 6) setNextButtonActivity(false)
+				else setNextButtonActivity(true)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('Вы распределили не все характеристики!')
+				break
+			case LessonOneStep.MASTERY_SELECTION:
+				const originMusicalCount = origin!.instruments.filter(
+					(instrument: InstrumentData & { isChosable: boolean }) =>
+						instrument.isChosable
+				).length
+				const clazzMusicalCount = clazz!.instrumentsChoice
+					? clazz!.instrumentsChoice.type.includes(InstrumentType.MUSICAL)
+						? clazz!.instrumentsChoice.count
+						: 0
+					: 0
+				const classSkillsCount = clazz!.skillsChoice
+					? clazz!.skillsChoice.count
+					: 0
+
+				if (
+					instrumentsMastery.size !== originMusicalCount + clazzMusicalCount ||
+					skillsMastery.size !== classSkillsCount
+				)
+					setNextButtonActivity(false)
+				else setNextButtonActivity(true)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(false)
+				setButtonErrorMessage('Вы еще не все выбрали!')
+				break
+			case LessonOneStep.END:
+				setNextButtonActivity(false)
+				setPrevButtonActivity(true)
+				setEndButtonActivity(true)
+				setButtonErrorMessage('')
+				break
+		}
+	}, [
+		currentStep,
+		race,
+		clazz,
+		origin,
+		instrumentsMastery,
+		skillsMastery,
+		characteristics,
+	])
 
 	return (
 		<MainContainer>
@@ -326,6 +341,7 @@ export default function CharacterLessonOne({ data }: Props) {
 					changeValue={setName}
 				/>
 				<CharacterInfo>
+					<b>Ваш выбор</b>
 					{clazz && (
 						<span>
 							<b>Класс:</b> <u>{clazz.name}</u>
@@ -343,11 +359,7 @@ export default function CharacterLessonOne({ data }: Props) {
 					)}
 				</CharacterInfo>
 			</TopContainer>
-
-			<HR />
-
 			{renderStep()}
-
 			<ButtonsContainer>
 				{currentStep !== LessonOneStep.LESSON_INTRODUCTION ? (
 					<LessonButton
