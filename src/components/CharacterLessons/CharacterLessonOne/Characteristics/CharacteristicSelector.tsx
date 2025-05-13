@@ -93,7 +93,9 @@ export default function CharacteristicSelector({
 				value={selectedValues[index] ?? ''}
 				onChange={e => handleSelectChange(index, e.target.value)}
 			>
-				<Option value=''>?</Option>
+				<Option value='' hidden>
+					?
+				</Option>
 				{availableValues.map(value => (
 					<Option key={value} value={value}>
 						{value}
