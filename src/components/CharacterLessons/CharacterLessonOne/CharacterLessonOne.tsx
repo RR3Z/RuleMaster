@@ -384,7 +384,7 @@ export default function CharacterLessonOne({ data }: Props) {
 						text='Завершить ✓'
 						activity={endButtonActivity}
 						onClick={() =>
-							console.error('TODO: ВЫВОДИТЬ ЭТО В PDF И СОХРАНЯТЬ ПОЛЬЗОВАТЕЛЮ')
+							(window.location.href = 'https://forms.gle/J5XZvKwdJ5aMydvu5')
 						}
 						errorMessage={buttonErrorMessage}
 					/>
