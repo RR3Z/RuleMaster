@@ -107,7 +107,7 @@
 			"instruments": [
 				{
 					"type": "Craft",
-					"instrument": "Repairman's Tools",
+					"id": "Repairman's Tools",
 					"name": "Инструменты Ремонтника"
 				}
 			]
@@ -124,7 +124,7 @@
 			"id": "Entertainer",
 			"link": "https://dnd.su/backgrounds/757-entertainer/",
 			"name": "Артист",
-			"skills": ["Acrobatic", "Performance"],
+			"skillsMasteries": ["Acrobatic", "Performance"],
 			"instruments": [
 				{
 					"id": "Makeup Kit",
