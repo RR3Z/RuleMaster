@@ -34,6 +34,10 @@ export default class DNDStatsManager {
 		return -1
 	}
 
+	public initiativeModifier(): number {
+		return this.statModifier(DNDStatType.DEXTERITY)
+	}
+
 	private checkStats(): void {
 		const requiredStats = Object.values(DNDStatType)
 
