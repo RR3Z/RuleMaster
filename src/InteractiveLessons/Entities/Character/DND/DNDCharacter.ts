@@ -4,6 +4,9 @@ import Character from '../Character'
 import { DNDCharacterData } from './DNDCharacterData'
 
 export default class DNDCharacter extends Character {
+	// Managers
+	private _statsManager: DNDStatsManager
+
 	// Fields
 	private _data: Readonly<DNDCharacterData>
 	private _currentMovementSpeed: number

@@ -5,4 +5,6 @@ export type DNDCharacterData = {
 	maxMovementSpeed: number
 	maxSpellSlots: Map<number, number>
 	// TODO: spells:Set<>
+	stats: Map<DNDStatType, number>
+	proficiencies: Set<DNDStatType>
 }
