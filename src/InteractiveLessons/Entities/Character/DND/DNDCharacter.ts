@@ -28,4 +28,8 @@ export default class DNDCharacter extends Character {
 		this._statsManager = new DNDStatsManager(data.stats, data.proficiencies)
 		this._equipmentManager = new DNDEquipmentManager(data.equipment)
 	}
+
+	public get statsManager(): DNDStatsManager {
+		return this._statsManager
+	}
 }
