@@ -1,3 +1,4 @@
+import DNDActionsManager from '@/InteractiveLessons/ActionsManager/DND/DNDActionsManager'
 import DNDEquipmentManager from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentManager'
 import DNDStatsManager from '@/InteractiveLessons/StatsManager/DNDStatsManager'
 import { EntityType } from '../../EntityType'
@@ -27,6 +28,7 @@ export default class DNDCharacter extends Character {
 		// Managers
 		this._statsManager = new DNDStatsManager(data.stats, data.proficiencies)
 		this._equipmentManager = new DNDEquipmentManager(data.equipment)
+		this._actionsManager = new DNDActionsManager()
 	}
 
 	public get statsManager(): DNDStatsManager {

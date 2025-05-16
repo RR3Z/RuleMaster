@@ -1,6 +1,8 @@
+import ActionsManager from '@/InteractiveLessons/ActionsManager/ActionsManager'
 import Entity from '../Entity'
 
 export default abstract class Character extends Entity {
+	protected _actionsManager!: ActionsManager
 	protected _currentHealth!: number
 
 	public takeDamage(value: number): void {
