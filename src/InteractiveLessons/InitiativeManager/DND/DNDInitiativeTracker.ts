@@ -1,0 +1,30 @@
+import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
+
+export default class DNDInitiativeTracker {
+	private _turnsOrder!: DNDCharacter[]
+	private _currentIndex!: number
+
+	constructor() {}
+
+	public updateTurnsOrder(turnsOrder: DNDCharacter[]): void {
+		// Must be minimum 2 combatants
+		if (turnsOrder.length < 2)
+			throw new Error(
+				'DNDInitiativeTracker -> updateTurnsOrder(): turnsOrder length is < 2.'
+			)
+
+		this._turnsOrder = turnsOrder
+		this._currentIndex = 0
+	}
+
+	public next(): DNDCharacter {
+		if (!this._turnsOrder || this._turnsOrder.length === 0)
+			throw new Error('DNDInitiativeTracker -> next(): Turns not initialized!')
+
+		if (this._currentIndex === this._turnsOrder.length - 1)
+			this._currentIndex = 0
+		else this._currentIndex += 1
+
+		return this._turnsOrder[this._currentIndex]
+	}
+}
