@@ -1,3 +1,4 @@
+import { DNDItemData } from '@/InteractiveLessons/EquipmentManager/DND/DNDItemData'
 import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 
 export type DNDCharacterData = {
@@ -7,4 +8,5 @@ export type DNDCharacterData = {
 	// TODO: spells:Set<>
 	stats: Map<DNDStatType, number>
 	proficiencies: Set<DNDStatType>
+	equipment?: DNDItemData[]
 }
