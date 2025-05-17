@@ -1,3 +1,3 @@
 export enum DNDWeaponDescriptor {
-	FENCING,
+	FINESSE,
 }
