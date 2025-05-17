@@ -29,7 +29,6 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 		return this._currentPhase
 	}
 
-	// TODO:
 	public enterPhaseInput(
 		actor: DNDCharacter,
 		attackArea?: Position[],
@@ -52,7 +51,7 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 
 				if (attackArea === undefined) {
 					throw new Error(
-						'DNDMeleeAttackAction -> enterPhaseInput() -> RANGE_CHECK: newPos is undefined!'
+						'DNDMeleeAttackAction -> enterPhaseInput() -> RANGE_CHECK: attackArea is undefined!'
 					)
 				}
 
