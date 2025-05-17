@@ -2,6 +2,7 @@ import { DNDItemData } from '@/InteractiveLessons/EquipmentManager/DND/DNDItemDa
 import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 
 export type DNDCharacterData = {
+	type: 'DND'
 	maxHealth: number
 	maxMovementSpeed: number
 	maxSpellSlots: Map<number, number>
