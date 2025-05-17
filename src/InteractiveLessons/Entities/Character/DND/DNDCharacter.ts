@@ -19,6 +19,7 @@ export default class DNDCharacter extends Character {
 
 	// Fields
 	private _data: Readonly<DNDCharacterData>
+	private _maxMovementSpeed: number
 	private _currentMovementSpeed: number
 	private _spellSlots: Map<number, number>
 
@@ -29,6 +30,7 @@ export default class DNDCharacter extends Character {
 		this._type = type
 		this._data = data
 		this._currentHealth = data.maxHealth
+		this._maxMovementSpeed = data.maxMovementSpeed
 		this._currentMovementSpeed = data.maxMovementSpeed
 		this._spellSlots = data.maxSpellSlots
 		this._pos$ = new BehaviorSubject<Position>(startPos)
