@@ -4,16 +4,16 @@ import { DNDStatType } from './DNDStatType'
 
 export default class DNDStatsManager {
 	private _stats: Map<DNDStatType, number>
-	private _proficiencies: Set<DNDStatType>
+	private _savingThrowProficiencies: Set<DNDStatType>
 
 	constructor(
 		stats: Map<DNDStatType, number>,
-		proficiencies: Set<DNDStatType>
+		savingThrowProficiencies: Set<DNDStatType>
 	) {
 		this._stats = stats
 		this.checkStats()
 
-		this._proficiencies = proficiencies
+		this._savingThrowProficiencies = savingThrowProficiencies
 	}
 
 	public statValue(stat: DNDStatType): number {
@@ -24,8 +24,8 @@ export default class DNDStatsManager {
 		return Math.floor((this._stats.get(stat)! - 10) / 2)
 	}
 
-	public hasProficiency(stat: DNDStatType): boolean {
-		return this._proficiencies.has(stat)
+	public haveSavingThrowProficiency(stat: DNDStatType): boolean {
+		return this._savingThrowProficiencies.has(stat)
 	}
 
 	public attackModifier(
