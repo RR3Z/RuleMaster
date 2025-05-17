@@ -1,4 +1,5 @@
 import { DNDEffectType } from '@/InteractiveLessons/EffectsManager/DND/DNDEffectType'
+import DNDDashEffect from '@/InteractiveLessons/EffectsManager/DND/Effects/DNDDashEffect'
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
@@ -14,7 +15,6 @@ export default class DNDDashAction implements IPhasedAction {
 		return this._currentPhase
 	}
 
-	// TODO:
 	public enterPhaseInput(actor: DNDCharacter): void {
 		switch (this._currentPhase) {
 			case ActionPhase.DASH:
@@ -24,7 +24,7 @@ export default class DNDDashAction implements IPhasedAction {
 					)
 				}
 
-				actor.effectsManager.apply(DNDEffectType.DASH)
+				actor.effectsManager.add(new DNDDashEffect())
 				this._currentPhase = ActionPhase.COMPLETED
 				break
 			case ActionPhase.COMPLETED:
