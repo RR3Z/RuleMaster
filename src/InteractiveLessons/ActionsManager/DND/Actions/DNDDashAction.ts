@@ -1,4 +1,4 @@
-import Character from '@/InteractiveLessons/Entities/Character/Character'
+import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
 
@@ -14,7 +14,7 @@ export default class DNDDashAction implements IPhasedAction {
 	}
 
 	// TODO:
-	public enterPhaseInput(actor: Character): void {
+	public enterPhaseInput(actor: DNDCharacter): void {
 		switch (this._currentPhase) {
 			case ActionPhase.DASH:
 				break

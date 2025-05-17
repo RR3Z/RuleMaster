@@ -1,4 +1,4 @@
-import Character from '@/InteractiveLessons/Entities/Character/Character'
+import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
 
@@ -14,7 +14,12 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 	}
 
 	// TODO:
-	public enterPhaseInput(actor: Character, ...args: any): void {
+	public enterPhaseInput(
+		actor: DNDCharacter,
+		targets?: DNDCharacter[],
+		hitRolls?: number[],
+		damageRolls?: number[]
+	): void {
 		switch (this._currentPhase) {
 			case ActionPhase.RANGE_CHECK:
 				break

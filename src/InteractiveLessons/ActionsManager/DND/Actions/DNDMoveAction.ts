@@ -1,4 +1,5 @@
-import Character from '@/InteractiveLessons/Entities/Character/Character'
+import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
+import { Position } from '@/InteractiveLessons/Types/Position'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
 
@@ -14,7 +15,7 @@ export default class DNDMoveAction implements IPhasedAction {
 	}
 
 	// TODO:
-	public enterPhaseInput(actor: Character, ...args: any): void {
+	public enterPhaseInput(actor: DNDCharacter, newPos?: Position): void {
 		switch (this._currentPhase) {
 			case ActionPhase.MOVEMENT_SPEED_CHECK:
 				break
