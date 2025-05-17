@@ -24,4 +24,8 @@ export default abstract class Character extends Entity {
 	public get pos(): Position {
 		return this._pos$!.value
 	}
+
+	public set pos(newPos: Position) {
+		this._pos$.next(newPos)
+	}
 }
