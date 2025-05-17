@@ -87,6 +87,12 @@ export default class DNDCharacter extends Character {
 		return this._effectsManager
 	}
 
+	public onNewTurn(): void {
+		this._effectsManager.updateTurn()
+
+		this._currentMovementSpeed = this._maxMovementSpeed
+	}
+
 	private onNewEffect(effect: DNDEffectType): void {
 		switch (effect) {
 			case DNDEffectType.DASH:
