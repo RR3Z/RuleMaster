@@ -1,4 +1,5 @@
 import Character from '@/InteractiveLessons/Entities/Character/Character'
+import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
 import { ActionPhase } from '../ActionPhase'
 import ActionsManager from '../ActionsManager'
 import { IPhasedAction } from '../IPhasedAction'
@@ -16,10 +17,10 @@ export default class DNDActionsManager extends ActionsManager {
 	// TODO: private _spellCast: DNDSpellCastAction
 	// TODO: private _dodgeAction: DNDDodgeAction
 
-	constructor() {
+	constructor(pathFinder: CellsAStarPathFinder) {
 		super()
-		this._move = new DNDMoveAction()
 		this._meleeAttack = new DNDMeleeAttackAction()
+		this._move = new DNDMoveAction(pathFinder)
 		this._rangedAttack = new DNDRangedAttackAction()
 		this._dashAction = new DNDDashAction()
 	}
