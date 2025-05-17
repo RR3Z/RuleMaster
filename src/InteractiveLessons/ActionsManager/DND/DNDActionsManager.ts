@@ -22,7 +22,7 @@ export default class DNDActionsManager extends ActionsManager {
 		super()
 		this._move = new DNDMoveAction(pathFinder)
 		this._meleeAttack = new DNDMeleeAttackAction(gridOfCells)
-		this._rangedAttack = new DNDRangedAttackAction()
+		this._rangedAttack = new DNDRangedAttackAction(pathFinder, gridOfCells)
 		this._dashAction = new DNDDashAction()
 	}
 
