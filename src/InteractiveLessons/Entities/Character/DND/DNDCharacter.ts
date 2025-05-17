@@ -54,4 +54,8 @@ export default class DNDCharacter extends Character {
 	public get statsManager(): DNDStatsManager {
 		return this._statsManager
 	}
+
+	public override get equipmentManager(): DNDEquipmentManager {
+		return this._equipmentManager as DNDEquipmentManager
+	}
 }
