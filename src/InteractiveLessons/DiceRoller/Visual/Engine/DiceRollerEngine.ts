@@ -83,7 +83,7 @@ export default class DiceRollerEngine {
 		})
 	}
 
-	private rollResult(): DiceRollerResult[] {
+	private rollResults(): DiceRollerResult[] {
 		const results: DiceRollerResult[] = []
 		this._dices.forEach(dice =>
 			results.push({ type: dice.type, value: dice.value })
