@@ -31,11 +31,11 @@ export default class DNDCharacter extends Character {
 		this._currentHealth = data.maxHealth
 		this._currentMovementSpeed = data.maxMovementSpeed
 		this._spellSlots = data.maxSpellSlots
+		this._pos$ = new BehaviorSubject<Position>(startPos)
 
 		// Managers
 		this._statsManager = new DNDStatsManager(data.stats, data.proficiencies)
 		this._equipmentManager = new DNDEquipmentManager(data.equipment)
-		this._pos$ = new BehaviorSubject<Position>(startPos)
 		this._effectsManager = new DNDEffectsManager()
 
 		// Listen Effects Manager
