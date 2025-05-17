@@ -1,4 +1,4 @@
-import { DiceRollerFormula } from '@/InteractiveLessons/DiceRoller/DiceRollerFormula'
+import { DiceRollerFormula } from '@/InteractiveLessons/DiceRoller/Types/DiceRollerFormula'
 import { DNDWeaponDescriptor } from './DNDWeaponDescriptor'
 import { DNDWeaponRangeType } from './DNDWeaponRangeType'
 import { DNDWeaponType } from './DNDWeaponType'
