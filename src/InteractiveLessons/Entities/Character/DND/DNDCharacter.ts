@@ -1,6 +1,7 @@
 import { DNDArmourData } from '@/InteractiveLessons/EquipmentManager/DND/Armour/DNDArmourData'
 import DNDEquipmentManager from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentManager'
 import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentSlotType'
+import { DNDWeaponData } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponData'
 import DNDStatsManager from '@/InteractiveLessons/StatsManager/DNDStatsManager'
 import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 import { Position } from '@/InteractiveLessons/Types/Position'
@@ -49,6 +50,15 @@ export default class DNDCharacter extends Character {
 		if (armour === null)
 			return 10 + this._statsManager.statModifier(DNDStatType.DEXTERITY)
 		else return (armour as DNDArmourData).armourClass
+	}
+
+	public get maxWeaponRange(): number {
+		const weapon = this._equipmentManager.slotItem(
+			DNDEquipmentSlotType.MAIN_HAND
+		)
+
+		if (weapon === null) return 5
+		else return (weapon as DNDWeaponData).maxRange
 	}
 
 	public get statsManager(): DNDStatsManager {
