@@ -111,12 +111,7 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 				cell.contentType === EntityType.ENEMY ||
 				cell.contentType === EntityType.PLAYER
 			) {
-				const attackRange =
-					(
-						actor.equipmentManager.slotItem(
-							DNDEquipmentSlotType.MAIN_HAND
-						) as DNDWeaponData
-					).maxRange / 5
+				const attackRange = actor.maxWeaponRange
 
 				// Checking to see if Attack reaches this Character
 				if (
