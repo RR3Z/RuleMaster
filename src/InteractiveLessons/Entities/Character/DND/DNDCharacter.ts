@@ -1,5 +1,8 @@
+import { DNDArmourData } from '@/InteractiveLessons/EquipmentManager/DND/Armour/DNDArmourData'
 import DNDEquipmentManager from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentManager'
+import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentSlotType'
 import DNDStatsManager from '@/InteractiveLessons/StatsManager/DNDStatsManager'
+import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { BehaviorSubject } from 'rxjs'
 import { EntityType } from '../../EntityType'
@@ -37,6 +40,15 @@ export default class DNDCharacter extends Character {
 
 	public get currentMovementSpeed(): number {
 		return this._currentMovementSpeed
+	}
+
+	public get armourClass(): number {
+		const armour = (this._equipmentManager as DNDEquipmentManager).slotItem(
+			DNDEquipmentSlotType.ARMOUR
+		)
+		if (armour === null)
+			return 10 + this._statsManager.statModifier(DNDStatType.DEXTERITY)
+		else return (armour as DNDArmourData).armourClass
 	}
 
 	public get statsManager(): DNDStatsManager {
