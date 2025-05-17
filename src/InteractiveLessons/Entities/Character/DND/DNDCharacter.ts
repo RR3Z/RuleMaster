@@ -1,3 +1,5 @@
+import DNDEffectsManager from '@/InteractiveLessons/EffectsManager/DND/DNDEffectsManager'
+import { DNDEffectType } from '@/InteractiveLessons/EffectsManager/DND/DNDEffectType'
 import { DNDArmourData } from '@/InteractiveLessons/EquipmentManager/DND/Armour/DNDArmourData'
 import DNDEquipmentManager from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentManager'
 import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentSlotType'
@@ -13,6 +15,7 @@ import { DNDCharacterData } from './DNDCharacterData'
 export default class DNDCharacter extends Character {
 	// Managers
 	private _statsManager: DNDStatsManager
+	private _effectsManager: DNDEffectsManager
 
 	// Fields
 	private _data: Readonly<DNDCharacterData>
@@ -33,6 +36,15 @@ export default class DNDCharacter extends Character {
 		this._statsManager = new DNDStatsManager(data.stats, data.proficiencies)
 		this._equipmentManager = new DNDEquipmentManager(data.equipment)
 		this._pos$ = new BehaviorSubject<Position>(startPos)
+		this._effectsManager = new DNDEffectsManager()
+
+		// Listen Effects Manager
+		this._effectsManager.onNewEffect$.subscribe((effect: DNDEffectType) =>
+			this.onNewEffect(effect)
+		)
+		this._effectsManager.onRemoveEffect$.subscribe((effect: DNDEffectType) =>
+			this.onRemoveEffect(effect)
+		)
 	}
 
 	public get name(): string {
@@ -67,5 +79,41 @@ export default class DNDCharacter extends Character {
 
 	public override get equipmentManager(): DNDEquipmentManager {
 		return this._equipmentManager as DNDEquipmentManager
+	}
+
+	public get effectsManager(): DNDEffectsManager {
+		return this._effectsManager
+	}
+
+	private onNewEffect(effect: DNDEffectType): void {
+		switch (effect) {
+			case DNDEffectType.DASH:
+				this._maxMovementSpeed = this._data.maxMovementSpeed * 2
+				this._currentMovementSpeed += this._data.maxMovementSpeed
+				break
+			case DNDEffectType.DODGE:
+				/* NOTHING TO DO HERE */
+				break
+			default:
+				throw new Error(
+					`DNDCharacter \"${this.name}\" -> onNewEffect(): Unknown effect \"${effect}\"!`
+				)
+		}
+	}
+
+	private onRemoveEffect(effect: DNDEffectType): void {
+		switch (effect) {
+			case DNDEffectType.DASH:
+				this._maxMovementSpeed = this._data.maxMovementSpeed
+				this._currentMovementSpeed -= this._data.maxMovementSpeed
+				break
+			case DNDEffectType.DODGE:
+				/* NOTHING TO DO HERE */
+				break
+			default:
+				throw new Error(
+					`DNDCharacter \"${this.name}\" -> onRemoveEffect(): Unknown effect \"${effect}\"!`
+				)
+		}
 	}
 }
