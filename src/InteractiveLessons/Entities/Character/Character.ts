@@ -1,4 +1,3 @@
-import ActionsManager from '@/InteractiveLessons/ActionsManager/ActionsManager'
 import EquipmentManager from '@/InteractiveLessons/EquipmentManager/EquipmentManager'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { BehaviorSubject, Observable } from 'rxjs'
@@ -6,7 +5,6 @@ import Entity from '../Entity'
 
 export default abstract class Character extends Entity {
 	protected _pos$!: BehaviorSubject<Position>
-	protected _actionsManager!: ActionsManager
 	protected _currentHealth!: number
 	protected _equipmentManager!: EquipmentManager
 

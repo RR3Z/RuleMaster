@@ -1,4 +1,3 @@
-import DNDActionsManager from '@/InteractiveLessons/ActionsManager/DND/DNDActionsManager'
 import DNDEquipmentManager from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentManager'
 import DNDStatsManager from '@/InteractiveLessons/StatsManager/DNDStatsManager'
 import { Position } from '@/InteractiveLessons/Types/Position'
@@ -29,7 +28,6 @@ export default class DNDCharacter extends Character {
 		// Managers
 		this._statsManager = new DNDStatsManager(data.stats, data.proficiencies)
 		this._equipmentManager = new DNDEquipmentManager(data.equipment)
-		this._actionsManager = new DNDActionsManager()
 		this._pos$ = new BehaviorSubject<Position>(startPos)
 	}
 
