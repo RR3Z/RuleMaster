@@ -2,6 +2,7 @@ import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharact
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
 import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentSlotType'
 import { DNDWeaponData } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponData'
+import { DNDWeaponRangeType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponRangeType'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import { HitType } from '@/InteractiveLessons/Types/HitType'
 import { Position } from '@/InteractiveLessons/Types/Position'
@@ -36,6 +37,18 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 	): void {
 		switch (this._currentPhase) {
 			case ActionPhase.RANGE_CHECK:
+				const weapon = actor.equipmentManager.slotItem(
+					DNDEquipmentSlotType.MAIN_HAND
+				)
+				if (
+					weapon &&
+					(weapon as DNDWeaponData).rangeType !== DNDWeaponRangeType.MELEE
+				) {
+					throw new Error(
+						"DNDMeleeAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't attack without Melee Weapon!"
+					)
+				}
+
 				if (attackArea === undefined) {
 					throw new Error(
 						'DNDMeleeAttackAction -> enterPhaseInput() -> RANGE_CHECK: newPos is undefined!'
