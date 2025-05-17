@@ -3,6 +3,7 @@ import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 
 export type DNDCharacterData = {
 	type: 'DND'
+	name: string
 	maxHealth: number
 	maxMovementSpeed: number
 	maxSpellSlots: Map<number, number>

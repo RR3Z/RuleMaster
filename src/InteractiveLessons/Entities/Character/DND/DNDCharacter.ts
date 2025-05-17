@@ -33,6 +33,14 @@ export default class DNDCharacter extends Character {
 		this._pos$ = new BehaviorSubject<Position>(startPos)
 	}
 
+	public get name(): string {
+		return this._data.name
+	}
+
+	public get currentMovementSpeed(): number {
+		return this._currentMovementSpeed
+	}
+
 	public get statsManager(): DNDStatsManager {
 		return this._statsManager
 	}
