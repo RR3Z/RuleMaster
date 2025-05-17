@@ -8,7 +8,6 @@ import { DNDCharacterData } from './DNDCharacterData'
 export default class DNDCharacter extends Character {
 	// Managers
 	private _statsManager: DNDStatsManager
-	private _equipmentManager: DNDEquipmentManager
 
 	// Fields
 	private _data: Readonly<DNDCharacterData>
