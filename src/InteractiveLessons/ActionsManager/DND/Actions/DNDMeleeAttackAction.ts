@@ -4,6 +4,7 @@ import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/
 import { DNDWeaponData } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponData'
 import { DNDWeaponRangeType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponRangeType'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
+import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 import { HitType } from '@/InteractiveLessons/Types/HitType'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { ActionPhase } from '../../ActionPhase'
@@ -152,14 +153,20 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 			else {
 				const weapon = actor.equipmentManager.slotItem(
 					DNDEquipmentSlotType.MAIN_HAND
-				) as DNDWeaponData
+				)
 
-				const hitValue =
-					hitRolls[i] +
-					actor.statsManager.attackModifier(
-						weapon.rangeType,
-						weapon.descriptors
-					)
+				let hitValue
+				if (weapon) {
+					hitValue =
+						hitRolls[i] +
+						actor.statsManager.attackModifier(
+							(weapon as DNDWeaponData).rangeType,
+							(weapon as DNDWeaponData).descriptors
+						)
+				} else {
+					hitValue =
+						hitRolls[i] + actor.statsManager.statModifier(DNDStatType.STRENGTH)
+				}
 
 				if (hitValue >= (this._targets[i][0] as DNDCharacter).armourClass) {
 					newTargets.push([this._targets[i][0], HitType.DEFAULT])
