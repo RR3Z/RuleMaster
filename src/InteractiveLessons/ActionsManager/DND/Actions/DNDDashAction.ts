@@ -1,3 +1,4 @@
+import { DNDEffectType } from '@/InteractiveLessons/EffectsManager/DND/DNDEffectType'
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
@@ -17,6 +18,14 @@ export default class DNDDashAction implements IPhasedAction {
 	public enterPhaseInput(actor: DNDCharacter): void {
 		switch (this._currentPhase) {
 			case ActionPhase.DASH:
+				if (actor.effectsManager.has(DNDEffectType.DASH)) {
+					throw new Error(
+						`DNDDashAction -> enterPhaseInput() -> DASH: Character \"${actor.name}\" already has a dash!`
+					)
+				}
+
+				actor.effectsManager.apply(DNDEffectType.DASH)
+				this._currentPhase = ActionPhase.COMPLETED
 				break
 			case ActionPhase.COMPLETED:
 				/* NOTHING TO DO HERE */
