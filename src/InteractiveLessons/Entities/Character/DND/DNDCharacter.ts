@@ -165,6 +165,13 @@ export default class DNDCharacter extends Character {
 		return 8 + this.spellAttackModifier
 	}
 
+	public savingThrowModifier(stat: DNDStatType): number {
+		if (this.statsManager.haveSavingThrowProficiency(stat))
+			return this._statsManager.statModifier(stat) + this.bonusMastery
+
+		return this._statsManager.statModifier(stat)
+	}
+
 	public get statsManager(): DNDStatsManager {
 		return this._statsManager
 	}
