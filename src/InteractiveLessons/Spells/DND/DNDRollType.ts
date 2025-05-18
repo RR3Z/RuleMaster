@@ -1,0 +1,4 @@
+export enum DNDRollType {
+	ACTOR_ATTACK,
+	TARGET_SAVING_THROW,
+}
