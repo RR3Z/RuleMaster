@@ -13,6 +13,7 @@ import { BehaviorSubject } from 'rxjs'
 import { EntityType } from '../../EntityType'
 import Character from '../Character'
 import { DNDCharacterData } from './DNDCharacterData'
+import { DNDClass } from './DNDClass'
 
 export default class DNDCharacter extends Character {
 	// Managers
@@ -129,6 +130,32 @@ export default class DNDCharacter extends Character {
 		}
 	}
 
+	public get spellAttackModifier(): number {
+		switch (this._data.class) {
+			case DNDClass.ARTIFICER:
+			case DNDClass.WIZARD:
+				return (
+					this.statsManager.statModifier(DNDStatType.INTELLIGENCE) +
+					this.bonusMastery
+				)
+			case DNDClass.CLERIC:
+			case DNDClass.DRUID:
+			case DNDClass.RANGER:
+				return (
+					this.statsManager.statModifier(DNDStatType.WISDOM) + this.bonusMastery
+				)
+			case DNDClass.BARD:
+			case DNDClass.PALADIN:
+			case DNDClass.SORCERER:
+			case DNDClass.WARLOCK:
+				return (
+					this.statsManager.statModifier(DNDStatType.CHARISMA) +
+					this.bonusMastery
+				)
+			default:
+				throw new Error('DNDCharacter -> spellAttackModifier(): Unknown class!')
+		}
+	}
 
 	public get initiativeModifier(): number {
 		return this.statsManager.statModifier(DNDStatType.DEXTERITY)
