@@ -161,6 +161,10 @@ export default class DNDCharacter extends Character {
 		return this.statsManager.statModifier(DNDStatType.DEXTERITY)
 	}
 
+	public get savingThrowDifficulty(): number {
+		return 8 + this.spellAttackModifier
+	}
+
 	public get statsManager(): DNDStatsManager {
 		return this._statsManager
 	}
