@@ -25,7 +25,7 @@ export default class DNDActionsManager extends ActionsManager {
 		this._move = new DNDMoveAction(pathFinder)
 		this._meleeAttack = new DNDMeleeAttackAction(gridOfCells)
 		this._rangedAttack = new DNDRangedAttackAction(pathFinder, gridOfCells)
-		this._spellCast = new DNDSpellCastAction(gridOfCells)
+		this._spellCast = new DNDSpellCastAction(gridOfCells, pathFinder)
 		this._dashAction = new DNDDashAction()
 		this._dodgeAction = new DNDDodgeAction()
 	}
