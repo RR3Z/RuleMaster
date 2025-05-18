@@ -9,6 +9,7 @@ import DNDDodgeAction from './Actions/DNDDodgeAction'
 import DNDMeleeAttackAction from './Actions/DNDMeleeAttackAction'
 import DNDMoveAction from './Actions/DNDMoveAction'
 import DNDRangedAttackAction from './Actions/DNDRangedAttackAction'
+import DNDSpellCastAction from './Actions/DNDSpellCastAction'
 
 export default class DNDActionsManager extends ActionsManager {
 	private _current!: IPhasedAction
@@ -17,13 +18,14 @@ export default class DNDActionsManager extends ActionsManager {
 	private _rangedAttack: DNDRangedAttackAction
 	private _dashAction: DNDDashAction
 	private _dodgeAction: DNDDodgeAction
-	// TODO: private _spellCast: DNDSpellCastAction
+	private _spellCast: DNDSpellCastAction
 
 	constructor(pathFinder: CellsAStarPathFinder, gridOfCells: GridOfCells) {
 		super()
 		this._move = new DNDMoveAction(pathFinder)
 		this._meleeAttack = new DNDMeleeAttackAction(gridOfCells)
 		this._rangedAttack = new DNDRangedAttackAction(pathFinder, gridOfCells)
+		this._spellCast = new DNDSpellCastAction(gridOfCells)
 		this._dashAction = new DNDDashAction()
 		this._dodgeAction = new DNDDodgeAction()
 	}
@@ -68,5 +70,9 @@ export default class DNDActionsManager extends ActionsManager {
 
 	public get dodgeAction(): DNDDodgeAction {
 		return this._dodgeAction
+	}
+
+	public get spellCastAction(): DNDSpellCastAction {
+		return this._spellCast
 	}
 }
