@@ -5,6 +5,7 @@ import { ActionPhase } from '../ActionPhase'
 import ActionsManager from '../ActionsManager'
 import { IPhasedAction } from '../IPhasedAction'
 import DNDDashAction from './Actions/DNDDashAction'
+import DNDDodgeAction from './Actions/DNDDodgeAction'
 import DNDMeleeAttackAction from './Actions/DNDMeleeAttackAction'
 import DNDMoveAction from './Actions/DNDMoveAction'
 import DNDRangedAttackAction from './Actions/DNDRangedAttackAction'
@@ -15,8 +16,8 @@ export default class DNDActionsManager extends ActionsManager {
 	private _meleeAttack: DNDMeleeAttackAction
 	private _rangedAttack: DNDRangedAttackAction
 	private _dashAction: DNDDashAction
+	private _dodgeAction: DNDDodgeAction
 	// TODO: private _spellCast: DNDSpellCastAction
-	// TODO: private _dodgeAction: DNDDodgeAction
 
 	constructor(pathFinder: CellsAStarPathFinder, gridOfCells: GridOfCells) {
 		super()
@@ -24,6 +25,7 @@ export default class DNDActionsManager extends ActionsManager {
 		this._meleeAttack = new DNDMeleeAttackAction(gridOfCells)
 		this._rangedAttack = new DNDRangedAttackAction(pathFinder, gridOfCells)
 		this._dashAction = new DNDDashAction()
+		this._dodgeAction = new DNDDodgeAction()
 	}
 
 	public perform(actor: Character, action?: IPhasedAction, ...args: any): void {
@@ -62,5 +64,9 @@ export default class DNDActionsManager extends ActionsManager {
 
 	public get dashAction(): DNDDashAction {
 		return this._dashAction
+	}
+
+	public get dodgeAction(): DNDDodgeAction {
+		return this._dodgeAction
 	}
 }
