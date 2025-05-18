@@ -151,16 +151,7 @@ export default class DNDRangedAttackAction implements IPhasedAction {
 
 			// Check Hit
 			else {
-				const weapon = actor.equipmentManager.slotItem(
-					DNDEquipmentSlotType.MAIN_HAND
-				)
-
-				const hitValue =
-					hitRolls[i] +
-					actor.statsManager.attackModifier(
-						(weapon as DNDWeaponData).rangeType,
-						(weapon as DNDWeaponData).descriptors
-					)
+				const hitValue = hitRolls[i] + actor.attackModifier
 
 				if (hitValue >= (this._targets[i][0] as DNDCharacter).armourClass) {
 					newTargets.push([this._targets[i][0], HitType.DEFAULT])

@@ -4,6 +4,8 @@ import { DNDArmourData } from '@/InteractiveLessons/EquipmentManager/DND/Armour/
 import DNDEquipmentManager from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentManager'
 import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentSlotType'
 import { DNDWeaponData } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponData'
+import { DNDWeaponDescriptor } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponDescriptor'
+import { DNDWeaponRangeType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponRangeType'
 import DNDStatsManager from '@/InteractiveLessons/StatsManager/DNDStatsManager'
 import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 import { Position } from '@/InteractiveLessons/Types/Position'
@@ -73,6 +75,26 @@ export default class DNDCharacter extends Character {
 
 		if (weapon === null) return 5
 		else return (weapon as DNDWeaponData).maxRange
+	}
+
+	public get attackModifier(): number {
+		const weapon = this.equipmentManager.slotItem(
+			DNDEquipmentSlotType.MAIN_HAND
+		)
+
+		if (weapon === null)
+			return this.statsManager.statModifier(DNDStatType.STRENGTH)
+
+		if (
+			(weapon as DNDWeaponData).rangeType === DNDWeaponRangeType.MELEE &&
+			!(weapon as DNDWeaponData).descriptors.includes(
+				DNDWeaponDescriptor.FINESSE
+			)
+		) {
+			return this.statsManager.statModifier(DNDStatType.STRENGTH)
+		} else {
+			return this.statsManager.statModifier(DNDStatType.DEXTERITY)
+		}
 	}
 
 	public get statsManager(): DNDStatsManager {

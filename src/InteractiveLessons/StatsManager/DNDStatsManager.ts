@@ -1,5 +1,3 @@
-import { DNDWeaponDescriptor } from '../EquipmentManager/DND/Weapon/DNDWeaponDescriptor'
-import { DNDWeaponRangeType } from '../EquipmentManager/DND/Weapon/DNDWeaponRangeType'
 import { DNDStatType } from './DNDStatType'
 
 export default class DNDStatsManager {
@@ -26,24 +24,6 @@ export default class DNDStatsManager {
 
 	public haveSavingThrowProficiency(stat: DNDStatType): boolean {
 		return this._savingThrowProficiencies.has(stat)
-	}
-
-	public attackModifier(
-		weaponRangeType: DNDWeaponRangeType,
-		weaponDescriptors: DNDWeaponDescriptor[]
-	): number {
-		if (
-			weaponRangeType === DNDWeaponRangeType.MELEE &&
-			!weaponDescriptors.includes(DNDWeaponDescriptor.FINESSE)
-		) {
-			return this.statModifier(DNDStatType.STRENGTH)
-		} else {
-			return this.statModifier(DNDStatType.DEXTERITY)
-		}
-	}
-
-	public initiativeModifier(): number {
-		return this.statModifier(DNDStatType.DEXTERITY)
 	}
 
 	private checkStats(): void {
