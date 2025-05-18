@@ -6,6 +6,7 @@ import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/
 import { DNDWeaponData } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponData'
 import { DNDWeaponDescriptor } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponDescriptor'
 import { DNDWeaponRangeType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponRangeType'
+import DNDCharacterStateMachine from '@/InteractiveLessons/StateMachine/Character/DNDCharacterStateMachine'
 import DNDStatsManager from '@/InteractiveLessons/StatsManager/DNDStatsManager'
 import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 import { Position } from '@/InteractiveLessons/Types/Position'
@@ -17,6 +18,7 @@ import { DNDClass } from './DNDClass'
 
 export default class DNDCharacter extends Character {
 	// Managers
+	private _stateMachine: DNDCharacterStateMachine
 	private _statsManager: DNDStatsManager
 	private _effectsManager: DNDEffectsManager
 
@@ -39,6 +41,7 @@ export default class DNDCharacter extends Character {
 		this._pos$ = new BehaviorSubject<Position>(startPos)
 
 		// Managers
+		this._stateMachine = new DNDCharacterStateMachine(data.startState)
 		this._statsManager = new DNDStatsManager(data.stats, data.proficiencies)
 		this._equipmentManager = new DNDEquipmentManager(data.equipment)
 		this._effectsManager = new DNDEffectsManager()
