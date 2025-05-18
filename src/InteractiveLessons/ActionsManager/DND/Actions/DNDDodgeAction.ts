@@ -24,6 +24,12 @@ export default class DNDDodgeAction implements IPhasedAction {
 					)
 				}
 
+				if (actor.currentMovementSpeed <= 0) {
+					throw new Error(
+						`DNDDodgeAction -> enterPhaseInput(): Character \"${actor.name}\" has no movement speed and can't dodge!`
+					)
+				}
+
 				actor.effectsManager.add(new DNDDodgeEffect())
 				this._currentPhase = ActionPhase.COMPLETED
 				break
