@@ -116,7 +116,7 @@ export default class DNDCharacter extends Character {
 		)
 
 		if (weapon === null)
-			return this.statsManager.statModifier(DNDStatType.STRENGTH)
+			return this._statsManager.statModifier(DNDStatType.STRENGTH)
 
 		if (
 			(weapon as DNDWeaponData).rangeType === DNDWeaponRangeType.MELEE &&
@@ -124,9 +124,9 @@ export default class DNDCharacter extends Character {
 				DNDWeaponDescriptor.FINESSE
 			)
 		) {
-			return this.statsManager.statModifier(DNDStatType.STRENGTH)
+			return this._statsManager.statModifier(DNDStatType.STRENGTH)
 		} else {
-			return this.statsManager.statModifier(DNDStatType.DEXTERITY)
+			return this._statsManager.statModifier(DNDStatType.DEXTERITY)
 		}
 	}
 
@@ -135,21 +135,22 @@ export default class DNDCharacter extends Character {
 			case DNDClass.ARTIFICER:
 			case DNDClass.WIZARD:
 				return (
-					this.statsManager.statModifier(DNDStatType.INTELLIGENCE) +
+					this._statsManager.statModifier(DNDStatType.INTELLIGENCE) +
 					this.bonusMastery
 				)
 			case DNDClass.CLERIC:
 			case DNDClass.DRUID:
 			case DNDClass.RANGER:
 				return (
-					this.statsManager.statModifier(DNDStatType.WISDOM) + this.bonusMastery
+					this._statsManager.statModifier(DNDStatType.WISDOM) +
+					this.bonusMastery
 				)
 			case DNDClass.BARD:
 			case DNDClass.PALADIN:
 			case DNDClass.SORCERER:
 			case DNDClass.WARLOCK:
 				return (
-					this.statsManager.statModifier(DNDStatType.CHARISMA) +
+					this._statsManager.statModifier(DNDStatType.CHARISMA) +
 					this.bonusMastery
 				)
 			default:
@@ -158,7 +159,7 @@ export default class DNDCharacter extends Character {
 	}
 
 	public get initiativeModifier(): number {
-		return this.statsManager.statModifier(DNDStatType.DEXTERITY)
+		return this._statsManager.statModifier(DNDStatType.DEXTERITY)
 	}
 
 	public get savingThrowDifficulty(): number {
@@ -166,14 +167,10 @@ export default class DNDCharacter extends Character {
 	}
 
 	public savingThrowModifier(stat: DNDStatType): number {
-		if (this.statsManager.haveSavingThrowProficiency(stat))
+		if (this._statsManager.haveSavingThrowProficiency(stat))
 			return this._statsManager.statModifier(stat) + this.bonusMastery
 
 		return this._statsManager.statModifier(stat)
-	}
-
-	public get statsManager(): DNDStatsManager {
-		return this._statsManager
 	}
 
 	public override get equipmentManager(): DNDEquipmentManager {
