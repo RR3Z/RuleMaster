@@ -1,6 +1,7 @@
-import Character from '@/InteractiveLessons/Entities/Character/Character'
+import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
+import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DNDCharacterState'
 import { ActionPhase } from '../ActionPhase'
 import ActionsManager from '../ActionsManager'
 import { IPhasedAction } from '../IPhasedAction'
@@ -30,7 +31,20 @@ export default class DNDActionsManager extends ActionsManager {
 		this._dodgeAction = new DNDDodgeAction()
 	}
 
-	public perform(actor: Character, action?: IPhasedAction, ...args: any): void {
+	public perform(
+		actor: DNDCharacter,
+		action?: IPhasedAction,
+		...args: any
+	): void {
+		if (
+			actor.stateMachine.currentState === DNDCharacterState.DEAD ||
+			actor.stateMachine.currentState === DNDCharacterState.WAITING_TURN
+		) {
+			throw new Error(
+				`DNDActionsManager -> perform(): Can't perform an action bcs actor is in incorrect state!`
+			)
+		}
+
 		if (action) {
 			if (
 				this._current &&

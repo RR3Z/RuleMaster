@@ -194,6 +194,10 @@ export default class DNDCharacter extends Character {
 		return this._effectsManager
 	}
 
+	public get stateMachine(): DNDCharacterStateMachine {
+		return this._stateMachine
+	}
+
 	public onNewTurn(): void {
 		this._effectsManager.updateTurn()
 
