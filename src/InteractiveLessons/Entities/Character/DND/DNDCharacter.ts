@@ -6,6 +6,7 @@ import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/
 import { DNDWeaponData } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponData'
 import { DNDWeaponDescriptor } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponDescriptor'
 import { DNDWeaponRangeType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponRangeType'
+import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DNDCharacterState'
 import DNDCharacterStateMachine from '@/InteractiveLessons/StateMachine/Character/DNDCharacterStateMachine'
 import DNDStatsManager from '@/InteractiveLessons/StatsManager/DNDStatsManager'
 import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
@@ -53,6 +54,15 @@ export default class DNDCharacter extends Character {
 		this._effectsManager.onRemoveEffect$.subscribe((effect: DNDEffectType) =>
 			this.onRemoveEffect(effect)
 		)
+	}
+
+	public override takeDamage(value: number): void {
+		this._currentHealth -= value
+
+		if (this._currentHealth <= 0) {
+			this._currentHealth = 0
+			this._stateMachine.changeState(DNDCharacterState.DEAD)
+		}
 	}
 
 	public get name(): string {

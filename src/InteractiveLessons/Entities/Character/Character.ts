@@ -11,8 +11,7 @@ export default abstract class Character extends Entity {
 	public takeDamage(value: number): void {
 		this._currentHealth -= value
 
-		if (this._currentHealth < 0) this._currentHealth = 0
-		// TODO: перейти в состояние смерти
+		if (this._currentHealth <= 0) this._currentHealth = 0
 	}
 
 	public get pos$(): Observable<Position> {
