@@ -134,20 +134,22 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 		const newTargets: [Readonly<DNDCharacter>, HitType][] = []
 
 		for (let i = 0; i < this._targets.length; i++) {
+			const target = this._targets[i][0]
+
 			// Crtitical Miss
 			if (hitRolls[i] === 1) continue
 
 			// Critical Hit
 			if (hitRolls[i] >= 20) {
-				newTargets.push([this._targets[i][0], HitType.CRITICAL])
+				newTargets.push([target, HitType.CRITICAL])
 			}
 
 			// Check Hit
 			else {
 				const hitValue = hitRolls[i] + actor.attackModifier
 
-				if (hitValue >= (this._targets[i][0] as DNDCharacter).armourClass) {
-					newTargets.push([this._targets[i][0], HitType.DEFAULT])
+				if (hitValue >= target.armourClass) {
+					newTargets.push([target, HitType.DEFAULT])
 				}
 			}
 		}
