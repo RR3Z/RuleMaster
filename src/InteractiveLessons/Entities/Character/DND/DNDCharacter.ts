@@ -129,6 +129,11 @@ export default class DNDCharacter extends Character {
 		}
 	}
 
+
+	public get initiativeModifier(): number {
+		return this.statsManager.statModifier(DNDStatType.DEXTERITY)
+	}
+
 	public get statsManager(): DNDStatsManager {
 		return this._statsManager
 	}
