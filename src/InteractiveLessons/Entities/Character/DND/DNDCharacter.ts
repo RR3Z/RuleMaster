@@ -212,6 +212,16 @@ export default class DNDCharacter extends Character {
 		this._currentMovementSpeed = this._maxMovementSpeed
 	}
 
+	public updateMovementSpeed(spent: number): void {
+		if (this._currentMovementSpeed - spent < 0) {
+			throw new Error(
+				`DNDCharacter '${this.name}' -> updateMovementSpeed(): CurrentMovementSpeed of this Character is < 0`
+			)
+		}
+
+		this._currentMovementSpeed -= spent
+	}
+
 	private onNewEffect(effect: DNDEffectType): void {
 		switch (effect) {
 			case DNDEffectType.DASH:
