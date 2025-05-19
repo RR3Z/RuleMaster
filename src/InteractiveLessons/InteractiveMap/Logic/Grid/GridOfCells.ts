@@ -1,5 +1,6 @@
 import Boundary from '@/InteractiveLessons/Entities/Boundary'
 import Character from '@/InteractiveLessons/Entities/Character/Character'
+import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import Cell from './Cell'
 import { GridOfCellsLogicData } from './GridOfCellsLogicData'
@@ -17,6 +18,10 @@ export default class GridOfCells {
 		)
 
 		this.fill(data, player)
+
+		player.pos$.subscribe((newPos: Position) => {
+			this.updatePlayerPosition(newPos)
+		})
 	}
 
 	public get width(): number {
@@ -29,6 +34,18 @@ export default class GridOfCells {
 
 	public cell(pos: Position): Cell {
 		return this._cells[pos.x][pos.y]
+	}
+
+	public playerGridPosition(): Position {
+		for (let x = 0; x < this._width; x++) {
+			for (let y = 0; y < this._height; y++) {
+				if (this._cells[x][y].contentType === EntityType.PLAYER) return { x, y }
+			}
+		}
+
+		throw new Error(
+			"GridOfCells -> playerGridPosition(): Can't find Player on GridOfCells"
+		)
 	}
 
 	// TODO: add enemies
@@ -69,5 +86,12 @@ export default class GridOfCells {
 		this._cells[player.pos.x][player.pos.y].putContent(player)
 
 		// TODO: Add Enemies
+	}
+
+	private updatePlayerPosition(newPos: Position): void {
+		const oldPos = this.playerGridPosition()
+
+		const player = this.cell(oldPos).pullContent()
+		this.cell(newPos).putContent(player)
 	}
 }
