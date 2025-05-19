@@ -26,6 +26,10 @@ export default abstract class Character extends Entity {
 		this._pos$!.next(newPos)
 	}
 
+	public get currentHealth(): number {
+		return this._currentHealth
+	}
+
 	public get equipmentManager(): EquipmentManager {
 		return this._equipmentManager!
 	}
