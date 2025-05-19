@@ -12,6 +12,6 @@ export type DNDCharacterData = {
 	maxSpellSlots: Map<number, number>
 	// TODO: spells:Set<>
 	stats: Map<DNDStatType, number>
-	proficiencies: Set<DNDStatType>
+	savingThrowProficiencies: Set<DNDStatType>
 	equipment?: DNDItemData[]
 }

@@ -48,7 +48,10 @@ export default class DNDCharacter extends Character {
 
 		// Managers
 		this._stateMachine = new DNDCharacterStateMachine(startState)
-		this._statsManager = new DNDStatsManager(data.stats, data.proficiencies)
+		this._statsManager = new DNDStatsManager(
+			data.stats,
+			data.savingThrowProficiencies
+		)
 		this._equipmentManager = new DNDEquipmentManager(data.equipment)
 		this._effectsManager = new DNDEffectsManager()
 
