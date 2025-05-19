@@ -16,7 +16,10 @@ export default class CellsAStarPathFinder {
 		this._gridOfCells = gridOfCells
 	}
 
-	public shortestPath(startPos: Position, endPos: Position): Cell[] {
+	public shortestPath(
+		startPos: Position,
+		endPos: Position
+	): { path: Cell[]; cost: number } {
 		if (this.maxPathCost <= 0) {
 			throw new Error(
 				'CellsAStarPathFinder -> shortestPath(): Max Path Cost wrong value!'
@@ -59,7 +62,13 @@ export default class CellsAStarPathFinder {
 			}
 		}
 
-		return this.reconstructPath(cameFrom, start, end)
+		const resultPath = this.reconstructPath(cameFrom, start, end)
+		const resultCost = costs.get(resultPath[resultPath.length - 1])!
+
+		return {
+			path: resultPath,
+			cost: resultCost,
+		}
 	}
 
 	private reconstructPath(
