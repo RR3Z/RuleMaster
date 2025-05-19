@@ -1,6 +1,7 @@
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import Cell from '@/InteractiveLessons/InteractiveMap/Logic/Grid/Cell'
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
+import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
@@ -45,7 +46,14 @@ export default class DNDMoveAction implements IPhasedAction {
 				}
 
 				this._pathFinder.maxPathCost = actor.currentMovementSpeed
-				this._path = this._pathFinder.shortestPath(actor.pos, newPos)
+				const pathFinderResults = this._pathFinder.shortestPath(
+					actor.pos,
+					newPos
+				)
+				this._path = pathFinderResults.path
+				if (actor.stateMachine.currentState === DNDCharacterState.TURN)
+					actor.updateMovementSpeed(pathFinderResults.cost)
+
 				this._currentPhase = ActionPhase.MOVE
 				this.enterPhaseInput(actor)
 				break
