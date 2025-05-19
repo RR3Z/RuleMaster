@@ -66,9 +66,7 @@ export default class GridOfCells {
 			this._cells[boundaryPos.x][boundaryPos.y].putContent(new Boundary())
 
 		// Add Player
-		this._cells[data.player.startPos.x][data.player.startPos.y].putContent(
-			player
-		)
+		this._cells[player.pos.x][player.pos.y].putContent(player)
 
 		// TODO: Add Enemies
 	}
