@@ -48,7 +48,7 @@ export default class DNDRangedAttackAction implements IPhasedAction {
 					(weapon as DNDWeaponData).rangeType !== DNDWeaponRangeType.RANGE
 				) {
 					throw new Error(
-						"DNDRangedAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't attack without Melee Weapon!"
+						"DNDRangedAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't attack without Range Weapon!"
 					)
 				}
 
@@ -117,18 +117,27 @@ export default class DNDRangedAttackAction implements IPhasedAction {
 				const attackRange = actor.maxWeaponRange
 
 				this._pathFinder.maxPathCost = attackRange
-				const shortestPath = this._pathFinder.shortestPath(actor.pos, cell.pos)
+				this._pathFinder.needChecksForCellsContent = false
+				const pathFinderResults = this._pathFinder.shortestPath(
+					actor.pos,
+					cell.pos
+				)
+
+				if (this.isStraightLine(pathFinderResults.path)) {
+					this._targets.push([cell.content as DNDCharacter, null])
+				} else {
+					throw new Error(
+						'DNDRangedAttackAction -> enterPhaseInput() -> RANGE_CHECK: Something in the path of the shot!'
+					)
+				}
+
 				if (
-					shortestPath.length > attackRange / 5 ||
-					cell !== shortestPath[shortestPath.length - 1]
+					pathFinderResults.path.length > attackRange / 5 ||
+					cell !== pathFinderResults.path[pathFinderResults.path.length - 1]
 				) {
 					throw new Error(
 						"DNDRangedAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't attack outside of the Attack Range!"
 					)
-				}
-
-				if (this.isStraightLine(shortestPath)) {
-					this._targets.push([cell.content as DNDCharacter, null])
 				}
 			}
 		}

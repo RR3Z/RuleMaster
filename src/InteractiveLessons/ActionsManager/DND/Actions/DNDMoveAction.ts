@@ -46,6 +46,7 @@ export default class DNDMoveAction implements IPhasedAction {
 				}
 
 				this._pathFinder.maxPathCost = actor.currentMovementSpeed
+				this._pathFinder.needChecksForCellsContent = true
 				const pathFinderResults = this._pathFinder.shortestPath(
 					actor.pos,
 					newPos
