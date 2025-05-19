@@ -1,4 +1,4 @@
 export enum DNDWeaponType {
-	ONE_HANDED,
-	TWO_HANDED,
+	ONE_HANDED = 'One Handed',
+	TWO_HANDED = 'Two Handed',
 }

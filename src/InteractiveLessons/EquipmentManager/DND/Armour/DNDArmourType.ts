@@ -1,3 +1,3 @@
 export enum DNDArmourType {
-	ARMOUR,
+	ARMOUR = 'Armour',
 }
