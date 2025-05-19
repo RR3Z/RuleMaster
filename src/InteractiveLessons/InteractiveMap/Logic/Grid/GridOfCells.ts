@@ -9,18 +9,28 @@ export default class GridOfCells {
 	private _height: number
 	private _cells: Cell[][]
 
-	constructor(data: GridOfCellsLogicData, player: Character) {
+	constructor(
+		data: GridOfCellsLogicData,
+		player: Character,
+		enemies: Character[]
+	) {
 		this._width = data.sizes.width
 		this._height = data.sizes.height
 		this._cells = Array.from({ length: this._width }, () =>
 			Array.from({ length: this._height } as Cell[])
 		)
 
-		this.fill(data, player)
+		this.fill(data, player, enemies)
 
 		player.pos$.subscribe((newPos: Position) => {
 			this.updateCharacterPosition(player, newPos)
 		})
+
+		for (const enemy of enemies) {
+			enemy.pos$.subscribe((newPos: Position) => {
+				this.updateCharacterPosition(enemy, newPos)
+			})
+		}
 	}
 
 	public get width(): number {
@@ -47,8 +57,11 @@ export default class GridOfCells {
 		)
 	}
 
-	// TODO: add enemies
-	private fill(data: GridOfCellsLogicData, player: Character): void {
+	private fill(
+		data: GridOfCellsLogicData,
+		player: Character,
+		enemies: Character[]
+	): void {
 		for (let x = 0; x < this._width; x++) {
 			for (let y = 0; y < this._height; y++) {
 				const newCell = new Cell({ x, y })
@@ -84,7 +97,10 @@ export default class GridOfCells {
 		// Add Player
 		this._cells[player.pos.x][player.pos.y].putContent(player)
 
-		// TODO: Add Enemies
+		// Add enemies
+		for (const enemy of enemies) {
+			this._cells[enemy.pos.x][enemy.pos.y].putContent(enemy)
+		}
 	}
 
 	private updateCharacterPosition(
