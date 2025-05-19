@@ -1,5 +1,4 @@
 import { DNDItemData } from '@/InteractiveLessons/EquipmentManager/DND/DNDItemData'
-import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
 import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 import { DNDClass } from './DNDClass'
 
@@ -15,5 +14,4 @@ export type DNDCharacterData = {
 	stats: Map<DNDStatType, number>
 	proficiencies: Set<DNDStatType>
 	equipment?: DNDItemData[]
-	startState: DNDCharacterState
 }

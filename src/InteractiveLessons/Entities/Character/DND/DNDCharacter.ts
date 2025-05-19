@@ -29,7 +29,12 @@ export default class DNDCharacter extends Character {
 	private _currentMovementSpeed: number
 	private _spellSlots: Map<number, number>
 
-	constructor(type: EntityType, data: DNDCharacterData, startPos: Position) {
+	constructor(
+		type: EntityType,
+		data: DNDCharacterData,
+		startPos: Position,
+		startState: DNDCharacterState
+	) {
 		super()
 
 		// Fields
@@ -42,7 +47,7 @@ export default class DNDCharacter extends Character {
 		this._pos$ = new BehaviorSubject<Position>(startPos)
 
 		// Managers
-		this._stateMachine = new DNDCharacterStateMachine(data.startState)
+		this._stateMachine = new DNDCharacterStateMachine(startState)
 		this._statsManager = new DNDStatsManager(data.stats, data.proficiencies)
 		this._equipmentManager = new DNDEquipmentManager(data.equipment)
 		this._effectsManager = new DNDEffectsManager()
