@@ -37,8 +37,21 @@ export function createPlayer(
 	stats.set(DNDStatType.INTELLIGENCE, 20)
 	stats.set(DNDStatType.WISDOM, 20)
 
-	const proficiencies: Set<DNDStatType> = new Set()
-	proficiencies.add(DNDStatType.STRENGTH)
+	const savingThrowProficiencies: Set<DNDStatType> = new Set()
+	savingThrowProficiencies.add(DNDStatType.STRENGTH)
+
+	const equipment: DNDItemData[] = []
+	const weapon: DNDWeaponData = {
+		type: DNDWeaponType.ONE_HANDED,
+		name: 'Кинжал',
+		description: '',
+		rangeType: DNDWeaponRangeType.MELEE,
+		defaultRange: 5,
+		maxRange: 5,
+		damageFormulas: [{ type: DiceType.D6, count: 1 }],
+		descriptors: [],
+	}
+	equipment.push(weapon)
 
 	const data: DNDCharacterData = {
 		type: 'DND',
@@ -49,8 +62,64 @@ export function createPlayer(
 		maxMovementSpeed: 30,
 		maxSpellSlots: maxSpellSlots,
 		stats: stats,
-		savingThrowProficiencies: proficiencies,
-		equipment: undefined,
+		savingThrowProficiencies: savingThrowProficiencies,
+		equipment: equipment,
+	}
+
+	return new DNDCharacter(EntityType.PLAYER, data, startPos, startState)
+}
+
+export function createPlayerWithBow(
+	startState: DNDCharacterState,
+	startPos: Position
+): DNDCharacter {
+	const maxSpellSlots: Map<number, number> = new Map()
+	maxSpellSlots.set(0, Infinity)
+	maxSpellSlots.set(1, 2)
+	maxSpellSlots.set(2, 0)
+	maxSpellSlots.set(3, 0)
+	maxSpellSlots.set(4, 0)
+	maxSpellSlots.set(5, 0)
+	maxSpellSlots.set(6, 0)
+	maxSpellSlots.set(7, 0)
+	maxSpellSlots.set(8, 0)
+	maxSpellSlots.set(9, 0)
+
+	const stats: Map<DNDStatType, number> = new Map()
+	stats.set(DNDStatType.STRENGTH, 20)
+	stats.set(DNDStatType.CHARISMA, 20)
+	stats.set(DNDStatType.CONSTITUTION, 20)
+	stats.set(DNDStatType.DEXTERITY, 20)
+	stats.set(DNDStatType.INTELLIGENCE, 20)
+	stats.set(DNDStatType.WISDOM, 20)
+
+	const savingThrowProficiencies: Set<DNDStatType> = new Set()
+	savingThrowProficiencies.add(DNDStatType.STRENGTH)
+
+	const equipment: DNDItemData[] = []
+	const weapon: DNDWeaponData = {
+		type: DNDWeaponType.TWO_HANDED,
+		name: 'Лук',
+		description: '',
+		rangeType: DNDWeaponRangeType.RANGE,
+		defaultRange: 20,
+		maxRange: 20,
+		damageFormulas: [{ type: DiceType.D6, count: 1 }],
+		descriptors: [],
+	}
+	equipment.push(weapon)
+
+	const data: DNDCharacterData = {
+		type: 'DND',
+		name: 'Player',
+		class: DNDClass.BARD,
+		level: 1,
+		maxHealth: 10,
+		maxMovementSpeed: 30,
+		maxSpellSlots: maxSpellSlots,
+		stats: stats,
+		savingThrowProficiencies: savingThrowProficiencies,
+		equipment: equipment,
 	}
 
 	return new DNDCharacter(EntityType.PLAYER, data, startPos, startState)
