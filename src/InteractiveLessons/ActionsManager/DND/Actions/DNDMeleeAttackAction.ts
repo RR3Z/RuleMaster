@@ -110,11 +110,11 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 				cell.contentType === EntityType.ENEMY ||
 				cell.contentType === EntityType.PLAYER
 			) {
-				const attackRange = actor.maxWeaponRange
+				const attackRange = actor.maxWeaponRange / 5
 
 				// Checking to see if Attack reaches this Character
 				if (
-					Math.abs(actor.pos.x - cell.pos.x) - attackRange > 0 &&
+					Math.abs(actor.pos.x - cell.pos.x) - attackRange > 0 ||
 					Math.abs(actor.pos.y - cell.pos.y) - attackRange > 0
 				) {
 					throw new Error(
