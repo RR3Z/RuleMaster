@@ -55,7 +55,7 @@ export default class DNDActionsManager extends ActionsManager {
 				)
 			}
 
-			this._current.reset()
+			if (this._current) this._current.reset()
 			this._current = action
 		}
 
