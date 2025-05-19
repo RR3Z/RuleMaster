@@ -1,7 +1,12 @@
+import { DiceType } from '@/InteractiveLessons/DiceRoller/Types/DiceType'
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { DNDCharacterData } from '@/InteractiveLessons/Entities/Character/DND/DNDCharacterData'
 import { DNDClass } from '@/InteractiveLessons/Entities/Character/DND/DNDClass'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
+import { DNDItemData } from '@/InteractiveLessons/EquipmentManager/DND/DNDItemData'
+import { DNDWeaponData } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponData'
+import { DNDWeaponRangeType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponRangeType'
+import { DNDWeaponType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponType'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import { GridOfCellsLogicData } from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCellsLogicData'
 import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
@@ -75,8 +80,21 @@ export function createEnemy(
 	stats.set(DNDStatType.INTELLIGENCE, 18)
 	stats.set(DNDStatType.WISDOM, 18)
 
-	const proficiencies: Set<DNDStatType> = new Set()
-	proficiencies.add(DNDStatType.STRENGTH)
+	const savingThrowProficiencies: Set<DNDStatType> = new Set()
+	savingThrowProficiencies.add(DNDStatType.STRENGTH)
+
+	const equipment: DNDItemData[] = []
+	const weapon: DNDWeaponData = {
+		type: DNDWeaponType.ONE_HANDED,
+		name: 'Кинжал',
+		description: '',
+		rangeType: DNDWeaponRangeType.MELEE,
+		defaultRange: 5,
+		maxRange: 5,
+		damageFormulas: [{ type: DiceType.D6, count: 1 }],
+		descriptors: [],
+	}
+	equipment.push(weapon)
 
 	const data: DNDCharacterData = {
 		type: 'DND',
@@ -87,8 +105,8 @@ export function createEnemy(
 		maxMovementSpeed: 30,
 		maxSpellSlots: maxSpellSlots,
 		stats: stats,
-		savingThrowProficiencies: proficiencies,
-		equipment: undefined,
+		savingThrowProficiencies: savingThrowProficiencies,
+		equipment: equipment,
 	}
 
 	return new DNDCharacter(EntityType.ENEMY, data, startPos, startState)
