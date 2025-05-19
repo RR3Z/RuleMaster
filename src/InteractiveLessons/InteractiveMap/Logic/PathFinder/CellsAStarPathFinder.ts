@@ -8,6 +8,7 @@ export default class CellsAStarPathFinder {
 	// Fields
 	public readonly stepCost: number = 5
 	public maxPathCost: number = 0
+	public needChecksForCellsContent: boolean = true
 
 	// Dependencies
 	private _gridOfCells: GridOfCells
@@ -26,7 +27,10 @@ export default class CellsAStarPathFinder {
 			)
 		}
 
-		if (this._gridOfCells.cell(endPos).contentType !== null) {
+		if (
+			this.needChecksForCellsContent &&
+			this._gridOfCells.cell(endPos).contentType !== null
+		) {
 			throw new Error(
 				'CellsAStarPathFinder -> shortestPath(): End Cell is not empty!'
 			)
@@ -62,7 +66,7 @@ export default class CellsAStarPathFinder {
 			}
 		}
 
-		const resultPath = this.reconstructPath(cameFrom, start, end)
+		const resultPath = this.reconstructPath(cameFrom, costs, start, end)
 		const resultCost = costs.get(resultPath[resultPath.length - 1])!
 
 		return {
@@ -73,17 +77,56 @@ export default class CellsAStarPathFinder {
 
 	private reconstructPath(
 		cameFrom: Map<Cell, Cell | undefined>,
+		costs: Map<Cell, number>,
+		start: Cell,
+		end: Cell
+	): Cell[] {
+		if (cameFrom.has(end)) return this.buildPath(cameFrom, start, end)
+
+		let bestCell: Cell | null = null
+		let minDist = Infinity
+		let minCost = Infinity
+
+		for (const cell of cameFrom.keys()) {
+			let cur: Cell | undefined = cell
+			let reachable = false
+			while (cur !== undefined) {
+				if (cur === start) {
+					reachable = true
+					break
+				}
+				cur = cameFrom.get(cur)
+			}
+			if (!reachable) continue
+
+			const dx = cell.pos.x - end.pos.x
+			const dy = cell.pos.y - end.pos.y
+			const distToEnd = Math.hypot(dx, dy)
+			const cost = costs.get(cell) ?? Infinity
+
+			if (distToEnd < minDist || (distToEnd === minDist && cost < minCost)) {
+				minDist = distToEnd
+				minCost = cost
+				bestCell = cell
+			}
+		}
+
+		if (!bestCell) return []
+
+		return this.buildPath(cameFrom, start, bestCell)
+	}
+
+	private buildPath(
+		cameFrom: Map<Cell, Cell | undefined>,
 		start: Cell,
 		end: Cell
 	): Cell[] {
 		const result: Cell[] = []
 		let current: Cell | undefined = end
-		let steps = 0
 
 		while (current !== undefined) {
-			if (current === start) break
-			steps++
 			result.push(current)
+			if (current === start) break
 			current = cameFrom.get(current)
 		}
 
