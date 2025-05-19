@@ -1,6 +1,5 @@
 import Boundary from '@/InteractiveLessons/Entities/Boundary'
 import Character from '@/InteractiveLessons/Entities/Character/Character'
-import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import Cell from './Cell'
 import { GridOfCellsLogicData } from './GridOfCellsLogicData'
@@ -20,7 +19,7 @@ export default class GridOfCells {
 		this.fill(data, player)
 
 		player.pos$.subscribe((newPos: Position) => {
-			this.updatePlayerPosition(newPos)
+			this.updateCharacterPosition(player, newPos)
 		})
 	}
 
@@ -36,10 +35,10 @@ export default class GridOfCells {
 		return this._cells[pos.x][pos.y]
 	}
 
-	public playerGridPosition(): Position {
+	private characterGridPosition(character: Character): Position {
 		for (let x = 0; x < this._width; x++) {
 			for (let y = 0; y < this._height; y++) {
-				if (this._cells[x][y].contentType === EntityType.PLAYER) return { x, y }
+				if (this._cells[x][y].content === character) return { x, y }
 			}
 		}
 
@@ -88,10 +87,13 @@ export default class GridOfCells {
 		// TODO: Add Enemies
 	}
 
-	private updatePlayerPosition(newPos: Position): void {
-		const oldPos = this.playerGridPosition()
+	private updateCharacterPosition(
+		character: Character,
+		newPos: Position
+	): void {
+		const oldPos = this.characterGridPosition(character)
 
-		const player = this.cell(oldPos).pullContent()
-		this.cell(newPos).putContent(player)
+		const cellContent = this.cell(oldPos).pullContent()
+		this.cell(newPos).putContent(cellContent)
 	}
 }
