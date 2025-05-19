@@ -82,9 +82,8 @@ export default class DNDCharacter extends Character {
 	}
 
 	public get armourClass(): number {
-		const armour = (this._equipmentManager as DNDEquipmentManager).slotItem(
-			DNDEquipmentSlotType.ARMOUR
-		)
+		const armour = this._equipmentManager.slotItem(DNDEquipmentSlotType.ARMOUR)
+
 		if (armour === null)
 			return 10 + this._statsManager.statModifier(DNDStatType.DEXTERITY)
 		else return (armour as DNDArmourData).armourClass
