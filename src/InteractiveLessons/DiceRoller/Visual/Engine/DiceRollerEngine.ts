@@ -15,8 +15,8 @@ export default class DiceRollerEngine {
 	private _shouldUpdate: boolean
 
 	// Events
-	private _onNewRoll$: Subject<DiceRollerFormula[]>
-	private _onRollEnd$: Subject<DiceRollerResult[]>
+	private readonly _onNewRoll$: Subject<DiceRollerFormula[]>
+	private readonly _onRollEnd$: Subject<DiceRollerResult[]>
 
 	constructor() {
 		this._visualEngine = new DiceRollerVisualEngine()
