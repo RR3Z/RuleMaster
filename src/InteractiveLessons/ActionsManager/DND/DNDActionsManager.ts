@@ -12,7 +12,7 @@ import DNDDodgeAction from './Actions/DNDDodgeAction'
 import DNDMeleeAttackAction from './Actions/DNDMeleeAttackAction'
 import DNDMoveAction from './Actions/DNDMoveAction'
 import DNDRangedAttackAction from './Actions/DNDRangedAttackAction'
-import DNDSpellCastAction from './Actions/DNDSpellCastAction'
+import DNDSpellAttackAction from './Actions/DNDSpellAttackAction'
 
 export default class DNDActionsManager extends ActionsManager {
 	private _current!: IPhasedAction
@@ -21,14 +21,14 @@ export default class DNDActionsManager extends ActionsManager {
 	private _rangedAttack: DNDRangedAttackAction
 	private _dashAction: DNDDashAction
 	private _dodgeAction: DNDDodgeAction
-	private _spellCast: DNDSpellCastAction
+	private _spellAttack: DNDSpellAttackAction
 
 	constructor(pathFinder: CellsAStarPathFinder, gridOfCells: GridOfCells) {
 		super()
 		this._move = new DNDMoveAction(pathFinder)
 		this._meleeAttack = new DNDMeleeAttackAction(gridOfCells)
 		this._rangedAttack = new DNDRangedAttackAction(pathFinder, gridOfCells)
-		this._spellCast = new DNDSpellCastAction(gridOfCells, pathFinder)
+		this._spellAttack = new DNDSpellAttackAction(gridOfCells, pathFinder)
 		this._dashAction = new DNDDashAction()
 		this._dodgeAction = new DNDDodgeAction()
 	}
@@ -48,6 +48,10 @@ export default class DNDActionsManager extends ActionsManager {
 		}
 
 		if (action) {
+			if (action === this._current) {
+				this._current.enterPhaseInput(actor, ...args)
+			}
+
 			if (
 				this._current &&
 				this._current.currentPhase() !== ActionPhase.COMPLETED
@@ -88,8 +92,8 @@ export default class DNDActionsManager extends ActionsManager {
 		return this._dodgeAction
 	}
 
-	public get spellCastAction(): DNDSpellCastAction {
-		return this._spellCast
+	public get spellCastAction(): DNDSpellAttackAction {
+		return this._spellAttack
 	}
 
 	public get onMeleeAttack$(): Observable<void> {
@@ -100,7 +104,7 @@ export default class DNDActionsManager extends ActionsManager {
 		return this._rangedAttack.onActionPerformed$
 	}
 
-	public get onSpellCast$(): Observable<DNDSpellData> {
-		return this._spellCast.onActionPerformed$
+	public get onSpellAttack$(): Observable<DNDSpellData> {
+		return this._spellAttack.onActionPerformed$
 	}
 }

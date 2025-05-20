@@ -40,7 +40,7 @@ export default class DNDMapLogger extends Logger {
 		actionsManager.onRangedAttack$.subscribe(() => {
 			this.onRangedAttack()
 		})
-		actionsManager.onSpellCast$.subscribe((spell: DNDSpellData) => {
+		actionsManager.onSpellAttack$.subscribe((spell: DNDSpellData) => {
 			this.onSpellCast(spell)
 		})
 	}

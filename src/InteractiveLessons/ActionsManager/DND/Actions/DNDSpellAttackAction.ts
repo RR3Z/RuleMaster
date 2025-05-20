@@ -1,17 +1,17 @@
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
-import Cell from '@/InteractiveLessons/InteractiveMap/Logic/Grid/Cell'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
 import { DNDRollType } from '@/InteractiveLessons/Spells/DND/DNDRollType'
 import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
+import { DNDSpellType } from '@/InteractiveLessons/Spells/DND/DNDSpellType'
 import { HitType } from '@/InteractiveLessons/Types/HitType'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { Observable, Subject } from 'rxjs'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
 
-export default class DNDSpellCastAction implements IPhasedAction {
+export default class DNDSpellAttackAction implements IPhasedAction {
 	// Fields
 	private _currentPhase: ActionPhase
 	private _targets: [Readonly<DNDCharacter>, HitType | null][]
@@ -59,6 +59,12 @@ export default class DNDSpellCastAction implements IPhasedAction {
 					)
 				}
 
+				if (spell.type !== DNDSpellType.ATTACK) {
+					throw new Error(
+						'DNDSpellCastAction -> enterPhaseInput() -> RANGE_CHECK: spell have wrong type!'
+					)
+				}
+
 				if (attackArea === undefined) {
 					throw new Error(
 						'DNDSpellCastAction -> enterPhaseInput() -> RANGE_CHECK: attackArea is undefined!'
@@ -88,6 +94,12 @@ export default class DNDSpellCastAction implements IPhasedAction {
 				if (savingThrows === undefined) {
 					throw new Error(
 						'DNDSpellCastAction -> enterPhaseInput() -> SAVING_THROW_CHECK: savingThrows are undefined!'
+					)
+				}
+
+				if (!this._spell!.savingThrowStat) {
+					throw new Error(
+						'DNDSpellCastAction -> enterPhaseInput() -> SAVING_THROW_CHECK: Spell with Saving Throw but stat (in spell) is not defined!'
 					)
 				}
 
@@ -142,35 +154,35 @@ export default class DNDSpellCastAction implements IPhasedAction {
 				const spellDistance = this._spell!.maxDistance + this._spell!.radius
 
 				this._pathFinder.maxPathCost = spellDistance
-				const shortestPath = this._pathFinder.shortestPath(actor.pos, cell.pos)
+				this._pathFinder.needChecksForCellsContent = false
+				const pathFinderResults = this._pathFinder.shortestPath(
+					actor.pos,
+					cell.pos
+				)
+
 				if (
-					shortestPath.length > spellDistance / 5 ||
-					cell !== shortestPath[shortestPath.length - 1]
+					pathFinderResults.path.length > spellDistance / 5 ||
+					cell !== pathFinderResults.path[pathFinderResults.path.length - 1]
 				) {
 					throw new Error(
-						"DNDRangedAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't attack outside of the Attack Range!"
+						"DNDSpellCastAction -> enterPhaseInput() -> RANGE_CHECK: Can't attack outside of the Attack Range!"
 					)
 				}
 
-				if (this.isStraightLine(shortestPath)) {
-					this._targets.push([cell.content as DNDCharacter, null])
-				}
+				this._targets.push([cell.content as DNDCharacter, null])
 			}
 		}
 
-		if (this._targets.length === 0) this._currentPhase = ActionPhase.COMPLETED
+		if (this._targets.length === 0) {
+			this._currentPhase = ActionPhase.COMPLETED
+			return
+		}
 
 		switch (this._spell!.rollType) {
 			case DNDRollType.ACTOR_ATTACK:
 				this._currentPhase = ActionPhase.HIT_CHECK
 				break
 			case DNDRollType.TARGET_SAVING_THROW:
-				if (!this._spell!.savingThrowStat) {
-					throw new Error(
-						'DNDSpellCastAction -> rangeCheck(): Spell with Saving Throws but stat (in spell) is not defined!'
-					)
-				}
-
 				this._currentPhase = ActionPhase.SAVING_THROW_CHECK
 				break
 			default:
@@ -259,61 +271,5 @@ export default class DNDSpellCastAction implements IPhasedAction {
 		}
 
 		this._currentPhase = ActionPhase.COMPLETED
-	}
-
-	private isStraightLine(path: Cell[]): boolean {
-		if (path.length < 2) return true
-
-		const start = path[0]
-		const end = path[path.length - 1]
-
-		// Получаем список клеток линии по алгоритму Брезенхэма
-		const lineCells: Cell[] = this.bresenhamAlgorithm(start, end)
-
-		if (lineCells.length !== path.length) return false
-		for (let i = 0; i < path.length; i++) {
-			if (
-				path[i].pos.x !== lineCells[i].pos.x ||
-				path[i].pos.y !== lineCells[i].pos.y
-			)
-				return false
-		}
-
-		return true
-	}
-
-	private bresenhamAlgorithm(start: Cell, end: Cell): Cell[] {
-		const cells: Cell[] = []
-
-		let x0 = start.pos.x
-		let y0 = start.pos.y
-		const x1 = end.pos.x
-		const y1 = end.pos.y
-
-		const dx = Math.abs(x1 - x0)
-		const dy = Math.abs(y1 - y0)
-
-		const sx = x0 < x1 ? 1 : -1
-		const sy = y0 < y1 ? 1 : -1
-
-		let err = dx - dy
-
-		while (true) {
-			cells.push(this._gridOfCells.cell({ x: x0, y: y0 }))
-
-			if (x0 === x1 && y0 === y1) break
-
-			const e2 = 2 * err
-			if (e2 > -dy) {
-				err -= dy
-				x0 += sx
-			}
-			if (e2 < dx) {
-				err += dx
-				y0 += sy
-			}
-		}
-
-		return cells
 	}
 }
