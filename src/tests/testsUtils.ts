@@ -158,6 +158,19 @@ export function createPlayerWithSpells(
 	const savingThrowProficiencies: Set<DNDStatType> = new Set()
 	savingThrowProficiencies.add(DNDStatType.STRENGTH)
 
+	const equipment: DNDItemData[] = []
+	const weapon: DNDWeaponData = {
+		type: DNDWeaponType.ONE_HANDED,
+		name: 'Кинжал',
+		description: '',
+		rangeType: DNDWeaponRangeType.MELEE,
+		defaultRange: 5,
+		maxRange: 5,
+		damageFormulas: [{ type: DiceType.D6, count: 1 }],
+		descriptors: [],
+	}
+	equipment.push(weapon)
+
 	const spells: DNDSpellData[] = []
 	spells.push({
 		name: 'Attack Spell',
@@ -203,7 +216,7 @@ export function createPlayerWithSpells(
 		maxSpellSlots: maxSpellSlots,
 		stats: stats,
 		savingThrowProficiencies: savingThrowProficiencies,
-		equipment: undefined,
+		equipment: equipment,
 		spells: spells,
 	}
 
