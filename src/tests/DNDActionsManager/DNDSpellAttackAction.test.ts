@@ -26,11 +26,16 @@ test('Spell Attack -> DNDCharacter (TURN): Incorrect Distance between Characters
 	pathFinder.maxPathCost = -1
 
 	const actionsManager = new DNDActionsManager(pathFinder, gridOfCells)
-	const spellCastAction = actionsManager.spellCastAction
+	const spellAttackAction = actionsManager.spellAttackAction
 	const attackSpell = player.spells[0] // Attack Spell (ACTOR_ATTACK)
 
 	expect(() => {
-		actionsManager.perform(player, spellCastAction, attackSpell, attackPosition)
+		actionsManager.perform(
+			player,
+			spellAttackAction,
+			attackSpell,
+			attackPosition
+		)
 	}).toThrow(
 		"DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't use spell outside of the Spell Range!"
 	)
@@ -53,10 +58,10 @@ test('Spell Attack -> DNDCharacter (TURN): Correct Distance between Characters (
 	pathFinder.maxPathCost = -1
 
 	const actionsManager = new DNDActionsManager(pathFinder, gridOfCells)
-	const spellCastAction = actionsManager.spellCastAction
+	const spellAttackAction = actionsManager.spellAttackAction
 	const attackSpell = player.spells[0]
 
-	actionsManager.perform(player, spellCastAction, attackSpell, attackPosition)
+	actionsManager.perform(player, spellAttackAction, attackSpell, attackPosition)
 
 	const hitRolls = [19, 19]
 	actionsManager.perform(player, undefined, undefined, undefined, hitRolls)
@@ -93,12 +98,12 @@ test('Spell Attack -> DNDCharacter (TURN): Correct Distance between Characters (
 	pathFinder.maxPathCost = -1
 
 	const actionsManager = new DNDActionsManager(pathFinder, gridOfCells)
-	const spellCastAction = actionsManager.spellCastAction
+	const spellAttackAction = actionsManager.spellAttackAction
 	const savingThrowSpell = player.spells[1]
 
 	actionsManager.perform(
 		player,
-		spellCastAction,
+		spellAttackAction,
 		savingThrowSpell,
 		attackPosition
 	)
@@ -148,11 +153,16 @@ test('Spell Attack -> DNDCharacter (WAITING_TURN): Incorrect state', () => {
 	pathFinder.maxPathCost = -1
 
 	const actionsManager = new DNDActionsManager(pathFinder, gridOfCells)
-	const spellCastAction = actionsManager.spellCastAction
+	const spellAttackAction = actionsManager.spellAttackAction
 	const attackSpell = player.spells[0] // Attack Spell (ACTOR_ATTACK)
 
 	expect(() => {
-		actionsManager.perform(player, spellCastAction, attackSpell, attackPosition)
+		actionsManager.perform(
+			player,
+			spellAttackAction,
+			attackSpell,
+			attackPosition
+		)
 	}).toThrow(
 		"DNDActionsManager -> perform(): Can't perform an action bcs actor is in incorrect state!"
 	)
@@ -175,11 +185,16 @@ test('Spell Attack -> DNDCharacter (DEAD): Incorrect state', () => {
 	pathFinder.maxPathCost = -1
 
 	const actionsManager = new DNDActionsManager(pathFinder, gridOfCells)
-	const spellCastAction = actionsManager.spellCastAction
+	const spellAttackAction = actionsManager.spellAttackAction
 	const attackSpell = player.spells[0] // Attack Spell (ACTOR_ATTACK)
 
 	expect(() => {
-		actionsManager.perform(player, spellCastAction, attackSpell, attackPosition)
+		actionsManager.perform(
+			player,
+			spellAttackAction,
+			attackSpell,
+			attackPosition
+		)
 	}).toThrow(
 		"DNDActionsManager -> perform(): Can't perform an action bcs actor is in incorrect state!"
 	)
@@ -203,11 +218,11 @@ test('Spell Attack -> DNDCharacter (DEAD): Incorrect Spell type (HEAL)', () => {
 	pathFinder.maxPathCost = -1
 
 	const actionsManager = new DNDActionsManager(pathFinder, gridOfCells)
-	const spellCastAction = actionsManager.spellCastAction
+	const spellAttackAction = actionsManager.spellAttackAction
 	const healSpell = player.spells[2] // Heal Spell
 
 	expect(() => {
-		actionsManager.perform(player, spellCastAction, healSpell, attackArea)
+		actionsManager.perform(player, spellAttackAction, healSpell, attackArea)
 	}).toThrow(
 		'DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: spell have wrong type!'
 	)
@@ -232,10 +247,10 @@ test('Spell Attack -> DNDCharacter (TURN): Incorrect amount of Hit Rolls', () =>
 	pathFinder.maxPathCost = -1
 
 	const actionsManager = new DNDActionsManager(pathFinder, gridOfCells)
-	const spellCastAction = actionsManager.spellCastAction
+	const spellAttackAction = actionsManager.spellAttackAction
 	const attackSpell = player.spells[0]
 
-	actionsManager.perform(player, spellCastAction, attackSpell, attackPosition)
+	actionsManager.perform(player, spellAttackAction, attackSpell, attackPosition)
 
 	const hitRolls = [19, 15, 12]
 	expect(() => {
@@ -262,10 +277,10 @@ test('Spell Attack -> DNDCharacter (TURN): Incorrect amount of Damage Rolls', ()
 	pathFinder.maxPathCost = -1
 
 	const actionsManager = new DNDActionsManager(pathFinder, gridOfCells)
-	const spellCastAction = actionsManager.spellCastAction
+	const spellAttackAction = actionsManager.spellAttackAction
 	const attackSpell = player.spells[0]
 
-	actionsManager.perform(player, spellCastAction, attackSpell, attackPosition)
+	actionsManager.perform(player, spellAttackAction, attackSpell, attackPosition)
 
 	const hitRolls = [19, 19]
 	actionsManager.perform(player, undefined, undefined, undefined, hitRolls)

@@ -92,7 +92,7 @@ export default class DNDActionsManager extends ActionsManager {
 		return this._dodgeAction
 	}
 
-	public get spellCastAction(): DNDSpellAttackAction {
+	public get spellAttackAction(): DNDSpellAttackAction {
 		return this._spellAttack
 	}
 
