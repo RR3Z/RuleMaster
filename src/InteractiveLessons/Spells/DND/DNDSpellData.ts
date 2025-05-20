@@ -5,6 +5,7 @@ import { DNDSpellForm } from './DNDSpellForm'
 import { DNDSpellType } from './DNDSpellType'
 
 export type DNDSpellData = {
+	name: string
 	type: DNDSpellType
 	form: DNDSpellForm
 	radius: number
