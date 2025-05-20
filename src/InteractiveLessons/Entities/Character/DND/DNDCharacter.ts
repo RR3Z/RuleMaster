@@ -6,6 +6,7 @@ import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/
 import { DNDWeaponData } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponData'
 import { DNDWeaponDescriptor } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponDescriptor'
 import { DNDWeaponRangeType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponRangeType'
+import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
 import DNDCharacterStateMachine from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterStateMachine'
 import DNDStatsManager from '@/InteractiveLessons/StatsManager/DNDStatsManager'
@@ -203,6 +204,10 @@ export default class DNDCharacter extends Character {
 
 	public get stateMachine(): DNDCharacterStateMachine {
 		return this._stateMachine
+	}
+
+	public get spells(): DNDSpellData[] {
+		return Array.from(this._data.spells)
 	}
 
 	public onNewTurn(): void {

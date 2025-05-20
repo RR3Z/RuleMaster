@@ -9,6 +9,10 @@ import { DNDWeaponRangeType } from '@/InteractiveLessons/EquipmentManager/DND/We
 import { DNDWeaponType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponType'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import { GridOfCellsLogicData } from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCellsLogicData'
+import { DNDRollType } from '@/InteractiveLessons/Spells/DND/DNDRollType'
+import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
+import { DNDSpellForm } from '@/InteractiveLessons/Spells/DND/DNDSpellForm'
+import { DNDSpellType } from '@/InteractiveLessons/Spells/DND/DNDSpellType'
 import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
 import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
 import { Position } from '@/InteractiveLessons/Types/Position'
@@ -64,6 +68,7 @@ export function createPlayer(
 		stats: stats,
 		savingThrowProficiencies: savingThrowProficiencies,
 		equipment: equipment,
+		spells: [],
 	}
 
 	return new DNDCharacter(EntityType.PLAYER, data, startPos, startState)
@@ -120,6 +125,75 @@ export function createPlayerWithBow(
 		stats: stats,
 		savingThrowProficiencies: savingThrowProficiencies,
 		equipment: equipment,
+		spells: [],
+	}
+
+	return new DNDCharacter(EntityType.PLAYER, data, startPos, startState)
+}
+
+export function createPlayerWithSpells(
+	startState: DNDCharacterState,
+	startPos: Position
+): DNDCharacter {
+	const maxSpellSlots: Map<number, number> = new Map()
+	maxSpellSlots.set(0, Infinity)
+	maxSpellSlots.set(1, 2)
+	maxSpellSlots.set(2, 0)
+	maxSpellSlots.set(3, 0)
+	maxSpellSlots.set(4, 0)
+	maxSpellSlots.set(5, 0)
+	maxSpellSlots.set(6, 0)
+	maxSpellSlots.set(7, 0)
+	maxSpellSlots.set(8, 0)
+	maxSpellSlots.set(9, 0)
+
+	const stats: Map<DNDStatType, number> = new Map()
+	stats.set(DNDStatType.STRENGTH, 20)
+	stats.set(DNDStatType.CHARISMA, 20)
+	stats.set(DNDStatType.CONSTITUTION, 20)
+	stats.set(DNDStatType.DEXTERITY, 20)
+	stats.set(DNDStatType.INTELLIGENCE, 20)
+	stats.set(DNDStatType.WISDOM, 20)
+
+	const savingThrowProficiencies: Set<DNDStatType> = new Set()
+	savingThrowProficiencies.add(DNDStatType.STRENGTH)
+
+	const spells: DNDSpellData[] = []
+	spells.push({
+		name: 'Attack Spell',
+		type: DNDSpellType.ATTACK,
+		form: DNDSpellForm.CIRCLE,
+		radius: 15,
+		maxDistance: 15,
+		rollType: DNDRollType.ACTOR_ATTACK,
+		savingThrowStat: undefined,
+		rollsFormula: null,
+		isAttachedToCharacter: false,
+	})
+	spells.push({
+		name: 'Saving Throw Spell',
+		type: DNDSpellType.ATTACK,
+		form: DNDSpellForm.CIRCLE,
+		radius: 15,
+		maxDistance: 15,
+		rollType: DNDRollType.TARGET_SAVING_THROW,
+		savingThrowStat: DNDStatType.STRENGTH,
+		rollsFormula: null,
+		isAttachedToCharacter: false,
+	})
+
+	const data: DNDCharacterData = {
+		type: 'DND',
+		name: 'Player',
+		class: DNDClass.BARD,
+		level: 1,
+		maxHealth: 10,
+		maxMovementSpeed: 30,
+		maxSpellSlots: maxSpellSlots,
+		stats: stats,
+		savingThrowProficiencies: savingThrowProficiencies,
+		equipment: undefined,
+		spells: spells,
 	}
 
 	return new DNDCharacter(EntityType.PLAYER, data, startPos, startState)
@@ -176,6 +250,7 @@ export function createEnemy(
 		stats: stats,
 		savingThrowProficiencies: savingThrowProficiencies,
 		equipment: equipment,
+		spells: [],
 	}
 
 	return new DNDCharacter(EntityType.ENEMY, data, startPos, startState)
