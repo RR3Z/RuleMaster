@@ -1,10 +1,13 @@
+import DNDActionsManager from '@/InteractiveLessons/ActionsManager/DND/DNDActionsManager'
 import DiceRoller from '@/InteractiveLessons/DiceRoller/DiceRoller'
 import { DiceRollerFormula } from '@/InteractiveLessons/DiceRoller/Types/DiceRollerFormula'
 import { DiceRollerResult } from '@/InteractiveLessons/DiceRoller/Types/DiceRollerResult'
+import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import Logger from '../Logger'
 import { DNDLogData } from './DNDLogData'
 import { DNDLogType } from './DNDLogType'
 import { DNDRollDetails } from './Details/DNDRollDetails'
+import { DNDSpellCastDetails } from './Details/DNDSpellCastDetails'
 
 export default class DNDMapLogger extends Logger {
 	private readonly _logs: DNDLogData[]
@@ -13,7 +16,7 @@ export default class DNDMapLogger extends Logger {
 	private _lastRollFormulas: DiceRollerFormula[]
 	private _lastRollResults: DiceRollerResult[]
 
-	constructor(diceRoller: DiceRoller) {
+	constructor(diceRoller: DiceRoller, actionsManager: DNDActionsManager) {
 		super()
 
 		this._logs = []
@@ -28,6 +31,17 @@ export default class DNDMapLogger extends Logger {
 		diceRoller.onRollEnd$.subscribe((rollResults: DiceRollerResult[]) => {
 			this._lastRollResults = rollResults
 			this.onRoll()
+		})
+
+		// Actions Manager events
+		actionsManager.onMeleeAttack$.subscribe(() => {
+			this.onMeleeAttack()
+		})
+		actionsManager.onRangedAttack$.subscribe(() => {
+			this.onRangedAttack()
+		})
+		actionsManager.onSpellCast$.subscribe((spell: DNDSpellData) => {
+			this.onSpellCast(spell)
 		})
 	}
 
@@ -59,6 +73,40 @@ export default class DNDMapLogger extends Logger {
 
 		const log: DNDLogData = {
 			type: DNDLogType.ROLL,
+			actorName: this._activeCharacterName,
+			details: details,
+		}
+
+		this.newLog(log)
+	}
+
+	private onMeleeAttack(): void {
+		const log: DNDLogData = {
+			type: DNDLogType.CHARACTER_MELEE_ATTACK,
+			actorName: this._activeCharacterName,
+			details: undefined,
+		}
+
+		this.newLog(log)
+	}
+
+	private onRangedAttack(): void {
+		const log: DNDLogData = {
+			type: DNDLogType.CHARACTER_RANGED_ATTACK,
+			actorName: this._activeCharacterName,
+			details: undefined,
+		}
+
+		this.newLog(log)
+	}
+
+	private onSpellCast(spell: DNDSpellData): void {
+		const details: DNDSpellCastDetails = {
+			spellName: spell.name,
+		}
+
+		const log: DNDLogData = {
+			type: DNDLogType.CHARACTER_SPELL_CAST,
 			actorName: this._activeCharacterName,
 			details: details,
 		}
