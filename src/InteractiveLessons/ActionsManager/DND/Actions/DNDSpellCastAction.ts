@@ -7,6 +7,7 @@ import { DNDRollType } from '@/InteractiveLessons/Spells/DND/DNDRollType'
 import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import { HitType } from '@/InteractiveLessons/Types/HitType'
 import { Position } from '@/InteractiveLessons/Types/Position'
+import { Observable, Subject } from 'rxjs'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
 
@@ -20,6 +21,9 @@ export default class DNDSpellCastAction implements IPhasedAction {
 	private _gridOfCells: GridOfCells
 	private _pathFinder: CellsAStarPathFinder
 
+	// Events
+	private readonly _onActionPerform$: Subject<DNDSpellData>
+
 	constructor(gridOfCells: GridOfCells, pathFinder: CellsAStarPathFinder) {
 		this._currentPhase = ActionPhase.RANGE_CHECK
 		this._targets = []
@@ -27,6 +31,12 @@ export default class DNDSpellCastAction implements IPhasedAction {
 
 		this._gridOfCells = gridOfCells
 		this._pathFinder = pathFinder
+
+		this._onActionPerform$ = new Subject<DNDSpellData>()
+	}
+
+	public get onActionPerformed$(): Observable<DNDSpellData> {
+		return this._onActionPerform$.asObservable()
 	}
 
 	public currentPhase(): ActionPhase {
@@ -57,6 +67,7 @@ export default class DNDSpellCastAction implements IPhasedAction {
 
 				this._spell = spell
 				this.rangeCheck(actor, attackArea)
+				this._onActionPerform$.next(spell)
 				break
 			case ActionPhase.HIT_CHECK:
 				if (hitRolls === undefined) {

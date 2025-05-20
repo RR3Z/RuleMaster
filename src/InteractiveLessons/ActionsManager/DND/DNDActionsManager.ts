@@ -1,7 +1,9 @@
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
+import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
+import { Observable } from 'rxjs'
 import { ActionPhase } from '../ActionPhase'
 import ActionsManager from '../ActionsManager'
 import { IPhasedAction } from '../IPhasedAction'
@@ -88,5 +90,17 @@ export default class DNDActionsManager extends ActionsManager {
 
 	public get spellCastAction(): DNDSpellCastAction {
 		return this._spellCast
+	}
+
+	public get onMeleeAttack$(): Observable<void> {
+		return this._meleeAttack.onActionPerformed$
+	}
+
+	public get onRangedAttack$(): Observable<void> {
+		return this._rangedAttack.onActionPerformed$
+	}
+
+	public get onSpellCast$(): Observable<DNDSpellData> {
+		return this._spellCast.onActionPerformed$
 	}
 }

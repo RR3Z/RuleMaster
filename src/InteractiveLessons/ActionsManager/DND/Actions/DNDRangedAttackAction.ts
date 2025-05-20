@@ -8,6 +8,7 @@ import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCe
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
 import { HitType } from '@/InteractiveLessons/Types/HitType'
 import { Position } from '@/InteractiveLessons/Types/Position'
+import { Observable, Subject } from 'rxjs'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
 
@@ -20,12 +21,21 @@ export default class DNDRangedAttackAction implements IPhasedAction {
 	private _gridOfCells: GridOfCells
 	private _pathFinder: CellsAStarPathFinder
 
+	// Events
+	private readonly _onActionPerform$: Subject<void>
+
 	constructor(pathFinder: CellsAStarPathFinder, gridOfCells: GridOfCells) {
 		this._currentPhase = ActionPhase.RANGE_CHECK
 		this._targets = []
 
 		this._gridOfCells = gridOfCells
 		this._pathFinder = pathFinder
+
+		this._onActionPerform$ = new Subject<void>()
+	}
+
+	public get onActionPerformed$(): Observable<void> {
+		return this._onActionPerform$.asObservable()
 	}
 
 	public currentPhase(): ActionPhase {
@@ -59,6 +69,7 @@ export default class DNDRangedAttackAction implements IPhasedAction {
 				}
 
 				this.rangeCheck(actor, attackArea)
+				this._onActionPerform$.next()
 				break
 			case ActionPhase.HIT_CHECK:
 				if (hitRolls === undefined) {
