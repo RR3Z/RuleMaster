@@ -55,19 +55,19 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 			case ActionPhase.RANGE_CHECK:
 				if (spell === undefined) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> RANGE_CHECK: spell is undefined!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: spell is undefined!'
 					)
 				}
 
 				if (spell.type !== DNDSpellType.ATTACK) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> RANGE_CHECK: spell have wrong type!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: spell have wrong type!'
 					)
 				}
 
 				if (attackArea === undefined) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> RANGE_CHECK: attackArea is undefined!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: attackArea is undefined!'
 					)
 				}
 
@@ -78,13 +78,13 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 			case ActionPhase.HIT_CHECK:
 				if (hitRolls === undefined) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> HIT_CHECK: hitRolls are undefined!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> HIT_CHECK: hitRolls are undefined!'
 					)
 				}
 
 				if (this._targets.length !== hitRolls.length) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> HIT_CHECK:  number of Hit Rolls does not match the number of Targets!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> HIT_CHECK:  number of Hit Rolls does not match the number of Targets!'
 					)
 				}
 
@@ -93,19 +93,19 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 			case ActionPhase.SAVING_THROW_CHECK:
 				if (savingThrows === undefined) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> SAVING_THROW_CHECK: savingThrows are undefined!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> SAVING_THROW_CHECK: savingThrows are undefined!'
 					)
 				}
 
 				if (!this._spell!.savingThrowStat) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> SAVING_THROW_CHECK: Spell with Saving Throw but stat (in spell) is not defined!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> SAVING_THROW_CHECK: Spell with Saving Throw but stat (in spell) is not defined!'
 					)
 				}
 
 				if (this._targets.length !== savingThrows.length) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> SAVING_THROW_CHECK:  number of Saving Throw Rolls does not match the number of Targets!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> SAVING_THROW_CHECK:  number of Saving Throw Rolls does not match the number of Targets!'
 					)
 				}
 
@@ -114,13 +114,13 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 			case ActionPhase.APPLY_DAMAGE:
 				if (damageRolls === undefined) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> APPLY_DAMAGE: damageRolls are undefined!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> APPLY_DAMAGE: damageRolls are undefined!'
 					)
 				}
 
 				if (this._targets.length !== damageRolls.length) {
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> APPLY_DAMAGE:  number of Damage Rolls does not match the number of Targets!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> APPLY_DAMAGE:  number of Damage Rolls does not match the number of Targets!'
 					)
 				}
 
@@ -131,7 +131,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 				break
 			default:
 				throw new Error(
-					'DNDSpellCastAction -> enterPhaseInput(): Unknown phase!'
+					'DNDSpellAttackAction -> enterPhaseInput(): Unknown phase!'
 				)
 		}
 	}
@@ -165,7 +165,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 					cell !== pathFinderResults.path[pathFinderResults.path.length - 1]
 				) {
 					throw new Error(
-						"DNDSpellCastAction -> enterPhaseInput() -> RANGE_CHECK: Can't attack outside of the Attack Range!"
+						"DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't attack outside of the Attack Range!"
 					)
 				}
 
@@ -187,7 +187,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 				break
 			default:
 				throw new Error(
-					'DNDSpellCastAction -> rangeCheck(): Unknown Roll Type!'
+					'DNDSpellAttackAction -> rangeCheck(): Unknown Roll Type!'
 				)
 		}
 	}
@@ -265,7 +265,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 				case null:
 				default:
 					throw new Error(
-						'DNDSpellCastAction -> enterPhaseInput() -> APPLY_DAMAGE: Unknown Hit Type!'
+						'DNDSpellAttackAction -> enterPhaseInput() -> APPLY_DAMAGE: Unknown Hit Type!'
 					)
 			}
 		}
