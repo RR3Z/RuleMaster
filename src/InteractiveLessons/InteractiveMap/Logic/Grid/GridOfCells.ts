@@ -45,6 +45,12 @@ export default class GridOfCells {
 		return this._cells[pos.x][pos.y]
 	}
 
+	public isCellExists(pos: Position): boolean {
+		return (
+			pos.x >= 0 && pos.x < this._width && pos.y >= 0 && pos.y < this._height
+		)
+	}
+
 	private characterGridPosition(character: Character): Position {
 		for (let x = 0; x < this._width; x++) {
 			for (let y = 0; y < this._height; y++) {

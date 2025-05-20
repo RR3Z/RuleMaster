@@ -1,9 +1,11 @@
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
+import Cell from '@/InteractiveLessons/InteractiveMap/Logic/Grid/Cell'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
 import { DNDRollType } from '@/InteractiveLessons/Spells/DND/DNDRollType'
 import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
+import { DNDSpellForm } from '@/InteractiveLessons/Spells/DND/DNDSpellForm'
 import { DNDSpellType } from '@/InteractiveLessons/Spells/DND/DNDSpellType'
 import { HitType } from '@/InteractiveLessons/Types/HitType'
 import { Position } from '@/InteractiveLessons/Types/Position'
@@ -46,7 +48,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 	public enterPhaseInput(
 		actor: DNDCharacter,
 		spell?: DNDSpellData,
-		attackArea?: Position[],
+		attackPosition?: Position,
 		hitRolls?: number[],
 		savingThrows?: number[],
 		damageRolls?: number[]
@@ -65,14 +67,14 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 					)
 				}
 
-				if (attackArea === undefined) {
+				if (attackPosition === undefined) {
 					throw new Error(
 						'DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: attackArea is undefined!'
 					)
 				}
 
 				this._spell = spell
-				this.rangeCheck(actor, attackArea)
+				this.rangeCheck(actor, attackPosition)
 				this._onActionPerform$.next(spell)
 				break
 			case ActionPhase.HIT_CHECK:
@@ -142,33 +144,36 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 		this._spell = null
 	}
 
-	private rangeCheck(actor: DNDCharacter, attackArea: Position[]): void {
-		for (const pos of attackArea) {
-			const cell = this._gridOfCells.cell(pos)
+	private rangeCheck(actor: DNDCharacter, attackPosition: Position): void {
+		const attackArea = this.getSpellArea(
+			attackPosition,
+			this._spell!.form,
+			this._spell!.radius
+		)
 
-			// Looking to see if there's a Character in the Cell
+		this._pathFinder.maxPathCost = this._spell!.maxDistance
+		this._pathFinder.needChecksForCellsContent = false
+		this._pathFinder.isStepCostConstant = true
+		const pathFinderResults = this._pathFinder.shortestPath(
+			actor.pos,
+			attackPosition
+		)
+
+		if (
+			pathFinderResults.path.length > this._spell!.maxDistance / 5 ||
+			this._gridOfCells.cell(attackPosition) !==
+				pathFinderResults.path[pathFinderResults.path.length - 1]
+		) {
+			throw new Error(
+				"DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't use spell outside of the Spell Range!"
+			)
+		}
+
+		for (const cell of attackArea) {
 			if (
 				cell.contentType === EntityType.ENEMY ||
 				cell.contentType === EntityType.PLAYER
 			) {
-				const spellDistance = this._spell!.maxDistance + this._spell!.radius
-
-				this._pathFinder.maxPathCost = spellDistance
-				this._pathFinder.needChecksForCellsContent = false
-				const pathFinderResults = this._pathFinder.shortestPath(
-					actor.pos,
-					cell.pos
-				)
-
-				if (
-					pathFinderResults.path.length > spellDistance / 5 ||
-					cell !== pathFinderResults.path[pathFinderResults.path.length - 1]
-				) {
-					throw new Error(
-						"DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't attack outside of the Attack Range!"
-					)
-				}
-
 				this._targets.push([cell.content as DNDCharacter, null])
 			}
 		}
@@ -208,7 +213,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 			else {
 				let hitValue = hitRolls[i] + actor.spellAttackModifier
 
-				if (hitValue >= (this._targets[i][0] as DNDCharacter).armourClass) {
+				if (hitValue >= this._targets[i][0].armourClass) {
 					newTargets.push([this._targets[i][0], HitType.DEFAULT])
 				}
 			}
@@ -227,7 +232,8 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 
 		for (let i = 0; i < this._targets.length; i++) {
 			// Critical Failure
-			if (savingThrows[i] <= 1) continue
+			if (savingThrows[i] <= 1)
+				newTargets.push([this._targets[i][0], HitType.DEFAULT])
 
 			// Check DC
 			let savingThrowValue =
@@ -271,5 +277,59 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 		}
 
 		this._currentPhase = ActionPhase.COMPLETED
+	}
+
+	private getSpellArea(
+		centerPos: Position,
+		form: DNDSpellForm,
+		radius: number
+	): Cell[] {
+		const radiusInCells = radius / 5
+
+		const cells: Cell[] = []
+		const checkedPositions = new Set<Position>()
+
+		const addCellIfValid = (pos: Position) => {
+			if (!this._gridOfCells.isCellExists(pos)) return
+
+			if (checkedPositions.has(pos)) return
+			checkedPositions.add(pos)
+
+			cells.push(this._gridOfCells.cell(pos))
+		}
+
+		switch (form) {
+			case DNDSpellForm.CELL:
+				addCellIfValid(centerPos)
+				break
+			case DNDSpellForm.CIRCLE:
+				for (let dx = -radiusInCells; dx <= radiusInCells; dx++) {
+					for (let dy = -radiusInCells; dy <= radiusInCells; dy++) {
+						if (dx * dx + dy * dy <= radiusInCells * radiusInCells) {
+							addCellIfValid({
+								x: centerPos.x + dx,
+								y: centerPos.y + dy,
+							})
+						}
+					}
+				}
+				break
+			case DNDSpellForm.RECTANGLE:
+				for (let dx = -radiusInCells; dx <= radiusInCells; dx++) {
+					for (let dy = -radiusInCells; dy <= radiusInCells; dy++) {
+						addCellIfValid({
+							x: centerPos.x + dx,
+							y: centerPos.y + dy,
+						})
+					}
+				}
+				break
+			default:
+				throw new Error(
+					`DNDSpellAttackAction -> getSpellArea(): Unknown spell form: ${form}`
+				)
+		}
+
+		return cells
 	}
 }

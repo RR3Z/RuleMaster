@@ -129,6 +129,7 @@ export default class DNDRangedAttackAction implements IPhasedAction {
 
 				this._pathFinder.maxPathCost = attackRange
 				this._pathFinder.needChecksForCellsContent = false
+				this._pathFinder.isStepCostConstant = false
 				const pathFinderResults = this._pathFinder.shortestPath(
 					actor.pos,
 					cell.pos

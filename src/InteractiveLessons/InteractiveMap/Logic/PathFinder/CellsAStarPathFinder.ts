@@ -9,6 +9,7 @@ export default class CellsAStarPathFinder {
 	public readonly stepCost: number = 5
 	public maxPathCost: number = 0
 	public needChecksForCellsContent: boolean = true
+	public isStepCostConstant = false
 
 	// Dependencies
 	private _gridOfCells: GridOfCells
@@ -139,7 +140,8 @@ export default class CellsAStarPathFinder {
 		switch (cell.contentType) {
 			case EntityType.ENEMY:
 			case EntityType.PLAYER:
-				return this.stepCost * 2
+				if (this.isStepCostConstant) return this.stepCost
+				else return this.stepCost * 2
 			case EntityType.BOUNDARY:
 				return Infinity
 			case null:
