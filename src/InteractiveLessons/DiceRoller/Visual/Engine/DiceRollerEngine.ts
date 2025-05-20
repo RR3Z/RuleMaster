@@ -1,4 +1,5 @@
 import { RigidBodyType } from '@dimforge/rapier3d-compat'
+import { Observable, Subject } from 'rxjs'
 import { Mesh } from 'three'
 import Dice from '../../Dice'
 import { DiceRollerFormula } from '../../Types/DiceRollerFormula'
@@ -7,10 +8,15 @@ import DiceRollerPhysicEngine from './DiceRollerPhysicEngine'
 import DiceRollerVisualEngine from './DiceRollerVisualEngine'
 
 export default class DiceRollerEngine {
+	// Fields
 	private _visualEngine: DiceRollerVisualEngine
 	private _physicEngine: DiceRollerPhysicEngine
 	private _dices: Dice[]
 	private _shouldUpdate: boolean
+
+	// Events
+	private _onNewRoll$: Subject<DiceRollerFormula[]>
+	private _onRollEnd$: Subject<DiceRollerResult[]>
 
 	constructor() {
 		this._visualEngine = new DiceRollerVisualEngine()
@@ -20,10 +26,21 @@ export default class DiceRollerEngine {
 
 		this._visualEngine.graphic.domElement.style.visibility = 'hidden'
 		document.body.appendChild(this._visualEngine.graphic.domElement)
+
+		this._onNewRoll$ = new Subject<DiceRollerFormula[]>()
+		this._onRollEnd$ = new Subject<DiceRollerResult[]>()
 	}
 
 	public async init(dicesModelFilePath: string): Promise<void> {
 		await this._visualEngine.loadDicesVisual(dicesModelFilePath)
+	}
+
+	public get onNewRoll$(): Observable<DiceRollerFormula[]> {
+		return this._onNewRoll$.asObservable()
+	}
+
+	public get onRollEnd$(): Observable<DiceRollerResult[]> {
+		return this._onRollEnd$.asObservable()
 	}
 
 	public addDices(formulas: DiceRollerFormula[]): void {
@@ -45,6 +62,7 @@ export default class DiceRollerEngine {
 			}
 		}
 
+		this._onNewRoll$.next(formulas)
 		this.switchState()
 	}
 
@@ -111,6 +129,7 @@ export default class DiceRollerEngine {
 			this._visualEngine.graphic.domElement.style.visibility = 'visible'
 			this.startLoop()
 		} else {
+			this._onRollEnd$.next(this.rollResults())
 			setTimeout(() => {
 				this._visualEngine.graphic.domElement.style.visibility = 'hidden'
 				this.removeDices()
