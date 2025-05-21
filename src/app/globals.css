@@ -9,3 +9,14 @@ button {
 button:disabled {
 	cursor: not-allowed;
 }
+
+canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	outline: none;
+}
+
+#diceRoller {
+	z-index: -1;
+}
