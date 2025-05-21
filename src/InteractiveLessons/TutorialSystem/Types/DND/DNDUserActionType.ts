@@ -1,0 +1,8 @@
+export enum DNDUserActionType {
+	MOVE,
+	TARGET_SELECTION,
+	ROLL,
+	HIT_ROLL,
+	DAMAGE_ROLL,
+	SAVING_THROW_ROLL,
+}
