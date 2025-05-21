@@ -1,21 +1,23 @@
 import { Observable } from 'rxjs'
+import { Object3D } from 'three'
 import { DiceRollerFormula } from './Types/DiceRollerFormula'
 import { DiceRollerResult } from './Types/DiceRollerResult'
+import { DiceType } from './Types/DiceType'
 import DiceRollerEngine from './Visual/Engine/DiceRollerEngine'
 
 export default class DiceRoller {
-	private _engine: DiceRollerEngine
+	private readonly _engine: DiceRollerEngine
 
-	constructor() {
-		this._engine = new DiceRollerEngine()
-	}
-
-	public async init(dicesModelFilePath: string): Promise<void> {
-		await this._engine.init(dicesModelFilePath)
+	constructor(dicesVisual: Map<DiceType, Object3D>) {
+		this._engine = new DiceRollerEngine(dicesVisual)
 	}
 
 	public makeRoll(formulas: DiceRollerFormula[]): void {
 		this._engine.addDices(formulas)
+	}
+
+	public get canvas(): HTMLCanvasElement {
+		return this._engine.canvas
 	}
 
 	public get onNewRoll$(): Observable<DiceRollerFormula[]> {

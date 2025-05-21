@@ -1,5 +1,4 @@
 import { Object3D, Scene } from 'three'
-import DicesLoader from '../../DicesLoader'
 import { DiceType } from '../../Types/DiceType'
 import Camera from '../Camera'
 import Graphic from '../Graphic'
@@ -12,12 +11,12 @@ export default class DiceRollerVisualEngine {
 	private _graphic: Graphic
 	private _dicesVisual: Map<DiceType, Object3D>
 
-	constructor() {
+	constructor(dicesVisual: Map<DiceType, Object3D>) {
 		this._scene = new Scene()
 		this._camera = new Camera()
 		this._light = new Light()
 		this._graphic = new Graphic(this._scene, this._camera)
-		this._dicesVisual = new Map()
+		this._dicesVisual = dicesVisual
 
 		this._scene.add(this._camera)
 		this._scene.add(this._light)
@@ -29,11 +28,6 @@ export default class DiceRollerVisualEngine {
 
 	public get scene(): Scene {
 		return this._scene
-	}
-
-	public async loadDicesVisual(dicesModelFilePath: string): Promise<void> {
-		const loader = new DicesLoader()
-		this._dicesVisual = await loader.loadModels(dicesModelFilePath)
 	}
 
 	public addDice(type: DiceType): Object3D {
