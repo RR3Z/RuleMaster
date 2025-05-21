@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { breakpoints } from '../breakpoints'
 
 const Button = styled.button<{ $isActive: boolean }>`
 	border: ${({ $isActive }) =>
@@ -14,6 +15,17 @@ const Button = styled.button<{ $isActive: boolean }>`
 	box-shadow: ${({ $isActive }) =>
 		$isActive ? '0 0 8px rgba(255, 100, 0, 0.8)' : 'none'};
 	flex: 1;
+	font-size: 1.5rem;
+
+	@media (max-width: ${() => breakpoints.xl}) {
+		font-size: 1rem;
+		min-width: 90px;
+	}
+
+	@media (max-width: ${() => breakpoints.md}) {
+		font-size: 0.85rem;
+		min-width: 75px;
+	}
 `
 
 type Props = {

@@ -1,3 +1,4 @@
+import { breakpoints } from '@/components/InteractiveLessons/breakpoints'
 import DiceRoller from '@/InteractiveLessons/DiceRoller/DiceRoller'
 import { DiceRollerFormula } from '@/InteractiveLessons/DiceRoller/Types/DiceRollerFormula'
 import { DiceType } from '@/InteractiveLessons/DiceRoller/Types/DiceType'
@@ -37,6 +38,14 @@ const DicesContainer = styled.div`
 	grid-template-columns: repeat(2, auto);
 	grid-template-rows: repeat(3, auto);
 	gap: 75px;
+
+	@media (max-width: ${() => breakpoints.lg}) {
+		gap: 50px;
+	}
+
+	@media (max-width: ${() => breakpoints.md}) {
+		gap: 30px;
+	}
 `
 
 const ButtonsContainer = styled.div`

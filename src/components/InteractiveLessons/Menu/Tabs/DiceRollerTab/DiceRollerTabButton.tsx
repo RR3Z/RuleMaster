@@ -1,3 +1,4 @@
+import { breakpoints } from '@/components/InteractiveLessons/breakpoints'
 import styled from 'styled-components'
 
 const Button = styled.button`
@@ -7,6 +8,7 @@ const Button = styled.button`
 	padding: 3px 6px;
 	width: 100%;
 	transition: background 0.1s ease;
+	font-size: 1.5rem;
 
 	&:hover {
 		background: #e6e5d8;
@@ -14,6 +16,14 @@ const Button = styled.button`
 
 	&:active {
 		background: #d1d0c5;
+	}
+
+	@media (max-width: ${() => breakpoints.xl}) {
+		font-size: 1rem;
+	}
+
+	@media (max-width: ${() => breakpoints.md}) {
+		font-size: 0.85rem;
 	}
 `
 

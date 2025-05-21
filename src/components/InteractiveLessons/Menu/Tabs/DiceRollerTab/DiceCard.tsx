@@ -1,3 +1,4 @@
+import { breakpoints } from '@/components/InteractiveLessons/breakpoints'
 import Image from 'next/image'
 import styled from 'styled-components'
 import DiceRollerTabButton from './DiceRollerTabButton'
@@ -13,7 +14,15 @@ const MainContainer = styled.div`
 const ImageContainer = styled.div`
 	position: relative;
 	aspect-ratio: 1 / 1;
-	height: 125px;
+	height: 175px;
+
+	@media (max-width: ${() => breakpoints.xl}) {
+		height: 125px;
+	}
+
+	@media (max-width: ${() => breakpoints.md}) {
+		height: 90px;
+	}
 `
 
 const BottomContainer = styled.div`
@@ -26,10 +35,21 @@ const BottomContainer = styled.div`
 `
 
 const Span = styled.span`
-	width: 28px;
+	width: 55px;
 	text-align: center;
 	display: inline-block;
 	flex-shrink: 0;
+	font-size: 1.5rem;
+
+	@media (max-width: ${() => breakpoints.xl}) {
+		font-size: 1rem;
+		width: 40px;
+	}
+
+	@media (max-width: ${() => breakpoints.md}) {
+		font-size: 0.85rem;
+		width: 30px;
+	}
 `
 
 type Props = {
