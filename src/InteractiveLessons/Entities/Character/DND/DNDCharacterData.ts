@@ -10,9 +10,9 @@ export type DNDCharacterData = {
 	level: number
 	maxHealth: number
 	maxMovementSpeed: number
-	maxSpellSlots: Map<number, number>
-	stats: Map<DNDStatType, number>
-	savingThrowProficiencies: Set<DNDStatType>
+	maxSpellSlots: [number, number][]
+	stats: [DNDStatType, number][]
+	savingThrowProficiencies: DNDStatType[]
 	spells: DNDSpellData[]
 	equipment?: DNDItemData[]
 }

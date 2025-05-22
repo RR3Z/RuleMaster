@@ -25,5 +25,5 @@ export default function DiceRollerComponent({ canvas }: Props) {
 		}
 	}, [canvas])
 
-	return <MainContainer ref={containerRef} />
+	return <MainContainer ref={containerRef} id='diceRollerContainer' />
 }

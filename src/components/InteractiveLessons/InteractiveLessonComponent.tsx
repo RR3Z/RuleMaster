@@ -1,11 +1,9 @@
 'use client'
-import DicesLoader from '@/InteractiveLessons/DiceRoller/DicesLoader'
 import InteractiveLesson from '@/InteractiveLessons/InteractiveLesson'
 import { Game } from '@/InteractiveLessons/Types/Game'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import DiceRollerComponent from './DiceRoller/DiceRollerComponent'
-import Menu from './Menu/Menu'
+import InteractiveMapComponent from './InteractiveMap/InteractiveMapComponent'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -23,15 +21,21 @@ const LoadingContainer = styled.div`
 `
 
 type Props = {
-	mapDataFilePath: string
+	game: Game
+	interactiveMapDataFilePath: string
 	tutorialDataFilePath: string
 	dicesModelsFilePath: string
+	playerVisualFilePath: string
+	enemiesVisualFilePath: string[]
 }
 
 export default function InteractiveLessonComponent({
-	mapDataFilePath,
+	game,
+	interactiveMapDataFilePath,
 	tutorialDataFilePath,
 	dicesModelsFilePath,
+	playerVisualFilePath,
+	enemiesVisualFilePath,
 }: Props) {
 	const [interactiveLesson, setInteractiveLesson] =
 		useState<InteractiveLesson>()
@@ -41,10 +45,15 @@ export default function InteractiveLessonComponent({
 		async function load() {
 			setIsLoading(true)
 
-			const dicesLoader = new DicesLoader()
-			const dicesModels = await dicesLoader.loadModels(dicesModelsFilePath)
-			const lessonInstance = new InteractiveLesson(Game.DND, dicesModels)
+			const lessonInstance = new InteractiveLesson()
 			setInteractiveLesson(lessonInstance)
+			await lessonInstance.init(
+				game,
+				interactiveMapDataFilePath,
+				dicesModelsFilePath,
+				playerVisualFilePath,
+				enemiesVisualFilePath
+			)
 
 			setIsLoading(false)
 		}
@@ -58,8 +67,11 @@ export default function InteractiveLessonComponent({
 
 	return (
 		<MainContainer>
-			<DiceRollerComponent canvas={interactiveLesson.diceRoller.canvas} />
-			<Menu diceRoller={interactiveLesson.diceRoller} />
+			<InteractiveMapComponent
+				canvas={interactiveLesson.interactiveMap.canvas}
+			/>
+			{/* <DiceRollerComponent canvas={interactiveLesson.diceRoller.canvas} />
+			<Menu diceRoller={interactiveLesson.diceRoller} /> */}
 		</MainContainer>
 	)
 }
