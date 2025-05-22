@@ -60,7 +60,7 @@
 		}
 	},
 	"visual": {
-		"gridBackgroundImg": "",
+		"gridBackgroundImg": "/mapBackgrounds/arena_map.webp",
 		"cellVisual": {
 			"color": 16777215,
 			"size": 50

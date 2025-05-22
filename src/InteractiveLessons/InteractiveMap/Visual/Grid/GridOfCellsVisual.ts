@@ -1,7 +1,6 @@
-import { Container, Graphics } from 'pixi.js'
+import { Container, Graphics, Sprite } from 'pixi.js'
 import { CellVisualData } from '../../Types/CellVisualData'
 import CellVisual from './CellVisual'
-import { GridOfCellsVisualData } from './GridOfCellsVisualData'
 
 export default class GridOfCellsVisual extends Container {
 	// Settings
@@ -11,16 +10,29 @@ export default class GridOfCellsVisual extends Container {
 
 	// Fields
 	private _cellsVisual: CellVisual[][]
+	private _backgroundSprite: Sprite
 
-	constructor(data: GridOfCellsVisualData, width: number, height: number) {
+	constructor(
+		background: Sprite,
+		cellVisual: CellVisualData,
+		width: number,
+		height: number
+	) {
 		super()
 
 		this._width = width
 		this._height = height
 		this._cellsVisual = []
 
-		this.draw(data, width, height)
-		this.createCellsVisual(data.cellVisual)
+		this._backgroundSprite = new Sprite(background)
+		this._backgroundSprite.width = width * cellVisual.size
+		this._backgroundSprite.height = height * cellVisual.size
+		this.sortableChildren = true
+		this._backgroundSprite.zIndex = -1
+		this.addChild(this._backgroundSprite)
+
+		this.draw(cellVisual, width, height)
+		this.createCellsVisual(cellVisual)
 	}
 
 	public get width(): number {
@@ -36,7 +48,7 @@ export default class GridOfCellsVisual extends Container {
 	}
 
 	private draw(
-		data: GridOfCellsVisualData,
+		cellVisual: CellVisualData,
 		width: number,
 		height: number
 	): void {
@@ -47,11 +59,11 @@ export default class GridOfCellsVisual extends Container {
 			i++
 		) {
 			const line = new Graphics()
-				.moveTo(i * data.cellVisual.size, 0)
-				.lineTo(i * data.cellVisual.size, data.cellVisual.size * height)
+				.moveTo(i * cellVisual.size, 0)
+				.lineTo(i * cellVisual.size, cellVisual.size * height)
 				.stroke({
 					width: 1,
-					color: data.cellVisual.color,
+					color: cellVisual.color,
 					alpha: 1,
 				})
 			this.addChild(line)
@@ -64,11 +76,11 @@ export default class GridOfCellsVisual extends Container {
 			i++
 		) {
 			const line = new Graphics()
-				.moveTo(0, i * data.cellVisual.size)
-				.lineTo(data.cellVisual.size * width, i * data.cellVisual.size)
+				.moveTo(0, i * cellVisual.size)
+				.lineTo(cellVisual.size * width, i * cellVisual.size)
 				.stroke({
 					width: 1,
-					color: data.cellVisual.color,
+					color: cellVisual.color,
 					alpha: 1,
 				})
 			this.addChild(line)

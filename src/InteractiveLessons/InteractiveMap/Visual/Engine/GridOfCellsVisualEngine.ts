@@ -49,7 +49,8 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 
 		// Grid Of Cells
 		this._gridOfCells = new GridOfCellsVisual(
-			this._data,
+			await this._visualUtils.loadSprite(this._data.gridBackgroundImg),
+			this._data.cellVisual,
 			this._gridLogic.width,
 			this._gridLogic.height
 		)
