@@ -24,8 +24,7 @@ export default class Token extends Container {
 		this._radius = params.radius
 		this._pos$ = new BehaviorSubject<Position>(params.startPos)
 
-		// this.draw(params.radius, params.startPos, params.sprite)
-		this.draw(params.radius, params.startPos)
+		this.draw(params.radius, params.startPos, params.sprite)
 	}
 
 	public get pos$(): Observable<Position> {

@@ -3,7 +3,9 @@ import InteractiveLesson from '@/InteractiveLessons/InteractiveLesson'
 import { Game } from '@/InteractiveLessons/Types/Game'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import DiceRollerComponent from './DiceRoller/DiceRollerComponent'
 import InteractiveMapComponent from './InteractiveMap/InteractiveMapComponent'
+import Menu from './Menu/Menu'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -70,8 +72,8 @@ export default function InteractiveLessonComponent({
 			<InteractiveMapComponent
 				canvas={interactiveLesson.interactiveMap.canvas}
 			/>
-			{/* <DiceRollerComponent canvas={interactiveLesson.diceRoller.canvas} />
-			<Menu diceRoller={interactiveLesson.diceRoller} /> */}
+			<DiceRollerComponent canvas={interactiveLesson.diceRoller.canvas} />
+			<Menu diceRoller={interactiveLesson.diceRoller} />
 		</MainContainer>
 	)
 }
