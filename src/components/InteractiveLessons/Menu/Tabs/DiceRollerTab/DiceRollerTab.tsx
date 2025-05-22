@@ -9,7 +9,7 @@ import DiceRollerTabButton from './DiceRollerTabButton'
 
 const MainContainer = styled.div`
 	flex-grow: 1;
-	margin: 5px;
+	margin: 5px 0 5px 5px;
 	border-radius: 3px;
 	background: #d6d4c8;
 	color: black;
@@ -45,6 +45,10 @@ const DicesContainer = styled.div`
 
 	@media (max-width: ${() => breakpoints.md}) {
 		gap: 30px;
+	}
+
+	@media (max-width: ${() => breakpoints.sm}) {
+		gap: 90px 30px;
 	}
 `
 

@@ -25,6 +25,10 @@ const Button = styled.button`
 	@media (max-width: ${() => breakpoints.md}) {
 		font-size: 0.85rem;
 	}
+
+	@media (max-width: ${() => breakpoints.sm}) {
+		font-size: 0.8rem;
+	}
 `
 
 type Props = {

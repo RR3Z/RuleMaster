@@ -26,6 +26,10 @@ const Button = styled.button<{ $isActive: boolean }>`
 		font-size: 0.85rem;
 		min-width: 75px;
 	}
+	@media (max-width: ${() => breakpoints.sm}) {
+		font-size: 0.65rem;
+		min-width: 55px;
+	}
 `
 
 type Props = {

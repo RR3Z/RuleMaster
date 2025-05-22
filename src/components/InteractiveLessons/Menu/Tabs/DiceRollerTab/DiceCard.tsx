@@ -23,6 +23,10 @@ const ImageContainer = styled.div`
 	@media (max-width: ${() => breakpoints.md}) {
 		height: 90px;
 	}
+
+	@media (max-width: ${() => breakpoints.sm}) {
+		height: 70px;
+	}
 `
 
 const BottomContainer = styled.div`
@@ -49,6 +53,11 @@ const Span = styled.span`
 	@media (max-width: ${() => breakpoints.md}) {
 		font-size: 0.85rem;
 		width: 30px;
+	}
+
+	@media (max-width: ${() => breakpoints.sm}) {
+		font-size: 0.65rem;
+		width: 20px;
 	}
 `
 
