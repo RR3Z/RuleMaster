@@ -22,7 +22,7 @@ export default class DiceRollerEngine {
 
 	constructor(dicesVisual: Map<DiceType, Object3D>) {
 		this._visualEngine = new DiceRollerVisualEngine(dicesVisual)
-		this._physicEngine = new DiceRollerPhysicEngine()
+		this._physicEngine = new DiceRollerPhysicEngine(5)
 		this._dices = []
 		this._shouldUpdate = false
 
@@ -134,10 +134,10 @@ export default class DiceRollerEngine {
 			this._visualEngine.graphic.domElement.style.visibility = 'visible'
 			this.startLoop()
 		} else {
-			this._onRollEnd$.next(this.rollResults())
 			setTimeout(() => {
 				this._visualEngine.graphic.domElement.style.visibility = 'hidden'
 				this.removeDices()
+				this._onRollEnd$.next(this.rollResults())
 			}, 1000)
 		}
 	}

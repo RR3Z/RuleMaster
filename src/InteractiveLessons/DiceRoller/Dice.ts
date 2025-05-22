@@ -84,35 +84,42 @@ export default class Dice {
 		let startPos: StartPosition =
 			values[Math.floor(Math.random() * values.length)]
 
+		const boxWidth = 107
+		const boxDepth = 53
+		const halfBoxWidth = boxWidth / 2
+		const halfBoxDepth = boxDepth / 2
+
+		const padding = 5
+
+		let x, z
+		const y = 50
+
 		switch (startPos) {
 			case StartPosition.UP:
-				this._rigidBody.setTranslation(
-					new Vector3(Math.random() * 160 - 80, 50, -27),
-					true
-				)
+				x = Math.random() * (boxWidth - 2 * padding) - (halfBoxWidth - padding)
+				z = -(halfBoxDepth - padding)
+				this._rigidBody.setTranslation(new Vector3(x, y, z), true)
 				break
 			case StartPosition.DOWN:
-				this._rigidBody.setTranslation(
-					new Vector3(Math.random() * 160 - 80, 50, 27),
-					true
-				)
+				x = Math.random() * (boxWidth - 2 * padding) - (halfBoxWidth - padding)
+				z = halfBoxDepth - padding
+				this._rigidBody.setTranslation(new Vector3(x, y, z), true)
 				break
 			case StartPosition.RIGHT:
-				this._rigidBody.setTranslation(
-					new Vector3(80, 50, Math.random() * 54 - 27),
-					true
-				)
+				x = halfBoxWidth - padding
+				z = Math.random() * (boxDepth - 2 * padding) - (halfBoxDepth - padding)
+				this._rigidBody.setTranslation(new Vector3(x, y, z), true)
 				break
 			case StartPosition.LEFT:
-				this._rigidBody.setTranslation(
-					new Vector3(-80, 50, Math.random() * 54 - 27),
-					true
-				)
+				x = -(halfBoxWidth - padding)
+				z = Math.random() * (boxDepth - 2 * padding) - (halfBoxDepth - padding)
+				this._rigidBody.setTranslation(new Vector3(x, y, z), true)
 				break
 			default:
 				console.error(
 					'Dice -> init() -> setRandomStartPosition() -> Unknown Start Position'
 				)
+				this._rigidBody.setTranslation(new Vector3(0, y, 0), true)
 				break
 		}
 	}
@@ -128,7 +135,7 @@ export default class Dice {
 
 	private setMoveDirectionToCenter(): void {
 		let forceMagnitude = 50
-		if (this._type === DiceType.D4) forceMagnitude = 100
+		if (this._type === DiceType.D4) forceMagnitude = 30
 
 		const centerPosition = new Vector3(0, 0, 0)
 		const dicePosition = this.rigidBody.translation()

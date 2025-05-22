@@ -45,37 +45,41 @@ export default class DiceRollerPhysicEngine {
 	private createWorldBounds(): void {
 		const width = 107
 		const height = 53
+		const wallThickness = 2.0 // Увеличиваем толщину
+		const wallHalfHeight = 10.0 // Увеличиваем полувысоту
 
 		const wallsConfig = [
 			{
+				// Пол остается без изменений или немного толще
 				type: 'floor',
 				position: [0, 0, 0],
-				size: [width / 2, 0.5, height / 2],
+				size: [width / 2, 1.0, height / 2], // Немного толще пол
 			},
 			// {
+			// 	// Крыша, чтобы кубики не вылетали вверх
 			// 	type: 'roof',
-			// 	position: [0, height, 0],
-			// 	size: [width / 2, 0.5, height / 2],
+			// 	position: [0, wallHalfHeight * 2, 0], // Позиционируем крышу выше
+			// 	size: [width / 2, wallThickness, height / 2],
 			// },
 			{
 				type: 'left',
-				position: [-width / 2, 2.5, 0],
-				size: [0.5, 5, height / 2],
+				position: [-width / 2, wallHalfHeight, 0],
+				size: [wallThickness, wallHalfHeight, height / 2],
 			},
 			{
 				type: 'right',
-				position: [width / 2, 2.5, 0],
-				size: [0.5, 5, height / 2],
+				position: [width / 2, wallHalfHeight, 0],
+				size: [wallThickness, wallHalfHeight, height / 2],
 			},
 			{
 				type: 'back',
-				position: [0, 2.5, -height / 2],
-				size: [width / 2, 5, 0.5],
+				position: [0, wallHalfHeight, -height / 2],
+				size: [width / 2, wallHalfHeight, wallThickness],
 			},
 			{
 				type: 'front',
-				position: [0, 2.5, height / 2],
-				size: [width / 2, 5, 0.5],
+				position: [0, wallHalfHeight, height / 2],
+				size: [width / 2, wallHalfHeight, wallThickness],
 			},
 		]
 
@@ -99,6 +103,7 @@ export default class DiceRollerPhysicEngine {
 				rigidBody
 			)
 			collider.setFriction(0.8)
+			collider.setRestitution(0.3)
 		})
 	}
 
