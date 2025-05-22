@@ -1,0 +1,69 @@
+{
+	"logic": {
+		"sizes": {
+			"width": 3,
+			"height": 3
+		},
+		"boundaries": [{ "x": 1, "y": 0 }],
+		"player": {
+			"type": "DND",
+			"data": {
+				"type": "DND",
+				"name": "Арагорн",
+				"class": "Ranger",
+				"level": 1,
+				"maxHealth": 12,
+				"maxMovementSpeed": 30,
+				"maxSpellSlots": [[1, 2]],
+				"stats": [
+					["Str", 12],
+					["Dex", 15],
+					["Con", 13],
+					["Int", 10],
+					["Wis", 14],
+					["Cha", 8]
+				],
+				"savingThrowProficiencies": ["Str", "Dex"],
+				"spells": [
+					{
+						"name": "Hunter's Mark",
+						"type": "Attack",
+						"form": "Cell",
+						"radius": 0,
+						"maxDistance": 90,
+						"rollType": "ACTOR_ATTACK",
+						"rollsFormula": [{ "type": "D6", "count": 1 }],
+						"isAttachedToCharacter": true
+					}
+				],
+				"equipment": [
+					{
+						"type": "Two Handed",
+						"name": "Длинный лук",
+						"description": "Мощный лук для дальних атак.",
+						"rangeType": "RANGE",
+						"defaultRange": 150,
+						"maxRange": 600,
+						"damageFormulas": [{ "type": "D8", "count": 1 }],
+						"descriptors": []
+					},
+					{
+						"type": "Armour",
+						"name": "Кожаная броня",
+						"description": "Легкая и гибкая защита.",
+						"armourClass": 11
+					}
+				]
+			},
+			"startPos": { "x": 0, "y": 0 },
+			"startState": "TURN"
+		}
+	},
+	"visual": {
+		"gridBackgroundImg": "",
+		"cellVisual": {
+			"color": 16777215,
+			"size": 50
+		}
+	}
+}
