@@ -44,17 +44,11 @@ export default class Token extends Container {
 			this._sprite.anchor.set(0.5)
 			this._sprite.width = radius * 2
 			this._sprite.height = radius * 2
-			this._sprite.eventMode = 'dynamic'
-			this._sprite.interactive = true
-			this._sprite.cursor = 'pointer'
 			this.addChild(this._sprite)
 		} else {
 			this._circle = new Graphics()
 			this._circle.circle(0, 0, radius)
 			this._circle.fill(0x888888)
-			this._circle.eventMode = 'dynamic'
-			this._circle.interactive = true
-			this._circle.cursor = 'pointer'
 			this.addChild(this._circle)
 		}
 
