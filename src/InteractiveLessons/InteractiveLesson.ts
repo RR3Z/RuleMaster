@@ -23,13 +23,11 @@ export default class InteractiveLesson {
 		this._diceRoller = new DiceRoller(dicesModels)
 
 		// Interactive Map
-		// Data
 		const interactiveMapDataResponse = await fetch(
 			`http://localhost:3000${interactiveMapDataFilePath}`
 		)
 		const interactiveMapData: InteractiveMapData =
 			await interactiveMapDataResponse.json()
-
 		this._interactiveMap = new InteractiveMap(game, interactiveMapData)
 		await this._interactiveMap.init(playerVisualFilePath, enemiesVisualFilePath)
 	}
