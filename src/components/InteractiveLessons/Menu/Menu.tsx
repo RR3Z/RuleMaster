@@ -7,7 +7,7 @@ import CharacterListTab from './Tabs/CharacterListTab/CharacterListTab'
 import DiceRollerTab from './Tabs/DiceRollerTab/DiceRollerTab'
 import LogsTab from './Tabs/LogsTab/LogsTab'
 
-const MainContainer = styled.div`
+const MainContainer = styled.div<{ $isActive: boolean }>`
 	position: absolute;
 	right: 0;
 	top: 50%;
@@ -20,6 +20,7 @@ const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
+	visibility: ${({ $isActive }) => ($isActive ? 'visible' : 'hidden')};
 `
 
 const Control = styled.div`
@@ -33,15 +34,16 @@ const Control = styled.div`
 
 type Props = {
 	diceRoller: DiceRoller
+	isActive: boolean
 }
 
-export default function Menu({ diceRoller }: Props) {
+export default function Menu({ diceRoller, isActive }: Props) {
 	const [activeTab, setActiveTab] = useState<
 		'logs' | 'diceRoller' | 'characterList'
 	>('logs')
 
 	return (
-		<MainContainer>
+		<MainContainer $isActive={isActive}>
 			<Control>
 				<MenuControlButton
 					onClick={() => {
