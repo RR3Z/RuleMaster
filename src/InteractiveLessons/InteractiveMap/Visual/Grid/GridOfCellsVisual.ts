@@ -10,7 +10,7 @@ export default class GridOfCellsVisual extends Container {
 
 	// Fields
 	private _cellsVisual: CellVisual[][]
-	private _backgroundSprite: Sprite
+	private _backgroundSprite!: Sprite
 
 	constructor(
 		background: Sprite,
@@ -24,13 +24,7 @@ export default class GridOfCellsVisual extends Container {
 		this._height = height
 		this._cellsVisual = []
 
-		this._backgroundSprite = new Sprite(background)
-		this._backgroundSprite.width = width * cellVisual.size
-		this._backgroundSprite.height = height * cellVisual.size
-		this.sortableChildren = true
-		this._backgroundSprite.zIndex = -1
-		this.addChild(this._backgroundSprite)
-
+		this.setBackground(background, width, height, cellVisual.size)
 		this.draw(cellVisual, width, height)
 		this.createCellsVisual(cellVisual)
 	}
@@ -97,5 +91,19 @@ export default class GridOfCellsVisual extends Container {
 			}
 			this._cellsVisual.push(column)
 		}
+	}
+
+	private setBackground(
+		background: Sprite,
+		width: number,
+		height: number,
+		cellSize: number
+	): void {
+		this._backgroundSprite = new Sprite(background)
+		this._backgroundSprite.width = width * cellSize
+		this._backgroundSprite.height = height * cellSize
+		this.sortableChildren = true
+		this._backgroundSprite.zIndex = -1
+		this.addChild(this._backgroundSprite)
 	}
 }
