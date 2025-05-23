@@ -22,5 +22,5 @@ export default abstract class InteractiveMapView {
 		return this._visualEngine
 	}
 
-	protected abstract onViewModelPlayerPosChange(pos: Position): void
+	protected abstract onPresenterPlayerPosChange(pos: Position): void
 }

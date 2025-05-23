@@ -34,7 +34,7 @@ export default class DefaultDNDInteractiveMapView extends InteractiveMapView {
 		;(
 			this._presenter as DNDInteractiveMapPresenter
 		).onPlayerPosChange$.subscribe((pos: Position) => {
-			this.onViewModelPlayerPosChange(pos)
+			this.onPresenterPlayerPosChange(pos)
 		})
 		;(this._visualEngine as GridOfCellsVisualEngine).player.pos$.subscribe(
 			(pos: Position) => {
@@ -45,7 +45,7 @@ export default class DefaultDNDInteractiveMapView extends InteractiveMapView {
 		)
 	}
 
-	protected override onViewModelPlayerPosChange(pos: Position): void {
+	protected override onPresenterPlayerPosChange(pos: Position): void {
 		;(this._visualEngine as GridOfCellsVisualEngine).player.updatePosition(pos)
 	}
 }

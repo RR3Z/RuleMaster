@@ -17,7 +17,7 @@ export default class InteractiveLesson {
 		playerVisualFilePath: string,
 		enemiesVisualFilePath: string[]
 	): Promise<void> {
-		// Dice Loader
+		// Dice Roller
 		const dicesLoader = new DicesLoader()
 		const dicesModels = await dicesLoader.loadModels(dicesModelsFilePath)
 		this._diceRoller = new DiceRoller(dicesModels)
