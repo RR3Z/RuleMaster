@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-	title: 'Главная страница',
+	title: 'Rule Master',
 	description: 'Rule Master | VSTU 2025',
 }
 
