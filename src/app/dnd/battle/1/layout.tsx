@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-	title: 'DND | Урок про Инициативу',
+	title: 'Список игр',
 	description: 'Rule Master | VSTU 2025',
 }
 

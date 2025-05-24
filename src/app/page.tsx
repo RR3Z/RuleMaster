@@ -1,5 +1,5 @@
-import Header from '@/components/WebSite/Header'
+import MainPageComponent from '@/components/WebSite/MainPage/MainPageComponent'
 
-export default function Main() {
-	return <Header />
+export default function MainPage() {
+	return <MainPageComponent />
 }

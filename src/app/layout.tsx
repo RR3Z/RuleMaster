@@ -1,3 +1,4 @@
+import Header from '@/components/WebSite/Header'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
@@ -13,8 +14,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-	title: 'RuleMaster',
-	description: 'Сайт для обучения правилам настольных ролевых игр | VSTU 2025',
+	title: 'Главная страница',
+	description: 'Rule Master | VSTU 2025',
 }
 
 export default function RootLayout({
@@ -27,6 +28,7 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
+				<Header />
 				{children}
 			</body>
 		</html>
