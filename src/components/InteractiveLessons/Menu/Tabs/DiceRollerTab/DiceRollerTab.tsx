@@ -94,7 +94,7 @@ export default function DiceRollerTab({ diceRoller }: Props) {
 	}
 
 	return (
-		<MainContainer>
+		<MainContainer id='diceRollerTab'>
 			<Content>
 				<TopContainer>
 					<DicesContainer>
@@ -180,6 +180,7 @@ export default function DiceRollerTab({ diceRoller }: Props) {
 				</TopContainer>
 				<ButtonsContainer>
 					<DiceRollerTabButton
+						id='makeRollButton'
 						name='Совершить бросок'
 						onClick={() => {
 							diceRoller.makeRoll(formulas())
@@ -187,6 +188,7 @@ export default function DiceRollerTab({ diceRoller }: Props) {
 						}}
 					/>
 					<DiceRollerTabButton
+						id='clearSelectedDicesButton'
 						name='Очистить выбор'
 						onClick={() => {
 							clearDices()

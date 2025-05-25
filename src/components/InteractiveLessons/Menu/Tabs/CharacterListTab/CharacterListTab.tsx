@@ -6,5 +6,7 @@ const MainContainer = styled.div`
 `
 
 export default function CharacterListTab() {
-	return <MainContainer>Character List Tab!</MainContainer>
+	return (
+		<MainContainer id='characterListTab'>Character List Tab!</MainContainer>
+	)
 }

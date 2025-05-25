@@ -32,10 +32,15 @@ const Button = styled.button`
 `
 
 type Props = {
+	id: string
 	name: string
 	onClick: () => void
 }
 
-export default function DiceRollerTabButton({ name, onClick }: Props) {
-	return <Button onClick={onClick}>{name}</Button>
+export default function DiceRollerTabButton({ id, name, onClick }: Props) {
+	return (
+		<Button id={id} onClick={onClick}>
+			{name}
+		</Button>
+	)
 }

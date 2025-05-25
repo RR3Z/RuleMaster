@@ -32,15 +32,22 @@ const Control = styled.div`
 	gap: 10px;
 `
 
+const TabContentWrapper = styled.div<{ $isVisible: boolean }>`
+	display: ${({ $isVisible }) => ($isVisible ? 'flex' : 'none')};
+	flex-direction: column;
+	flex-grow: 1;
+	overflow-y: auto;
+`
+
+type TabName = 'logs' | 'diceRoller' | 'characterList'
+
 type Props = {
 	diceRoller: DiceRoller
 	isActive: boolean
 }
 
 export default function Menu({ diceRoller, isActive }: Props) {
-	const [activeTab, setActiveTab] = useState<
-		'logs' | 'diceRoller' | 'characterList'
-	>('logs')
+	const [activeTab, setActiveTab] = useState<TabName>('logs')
 
 	return (
 		<MainContainer $isActive={isActive}>
@@ -71,9 +78,16 @@ export default function Menu({ diceRoller, isActive }: Props) {
 				/>
 			</Control>
 			<HR />
-			{activeTab === 'logs' && <LogsTab />}
-			{activeTab === 'diceRoller' && <DiceRollerTab diceRoller={diceRoller} />}
-			{activeTab === 'characterList' && <CharacterListTab />}
+
+			<TabContentWrapper $isVisible={activeTab === 'logs'}>
+				<LogsTab />
+			</TabContentWrapper>
+			<TabContentWrapper $isVisible={activeTab === 'diceRoller'}>
+				<DiceRollerTab diceRoller={diceRoller} />
+			</TabContentWrapper>
+			<TabContentWrapper $isVisible={activeTab === 'characterList'}>
+				<CharacterListTab />
+			</TabContentWrapper>
 		</MainContainer>
 	)
 }

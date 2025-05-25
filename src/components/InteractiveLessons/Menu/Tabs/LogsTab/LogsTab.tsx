@@ -6,5 +6,5 @@ const MainContainer = styled.div`
 `
 
 export default function LogsTab() {
-	return <MainContainer>Logs Tab!</MainContainer>
+	return <MainContainer id='logsTab'>Logs Tab!</MainContainer>
 }
