@@ -1,0 +1,17 @@
+[
+	{
+		"actorType": 0,
+		"phase": 0,
+		"messages": ["First", "Second"],
+		"allowedActions": [],
+		"expectedAction": {
+			"type": 2,
+			"params": [
+				{
+					"type": 1,
+					"count": 2
+				}
+			]
+		}
+	}
+]

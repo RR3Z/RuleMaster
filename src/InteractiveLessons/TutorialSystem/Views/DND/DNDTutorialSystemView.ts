@@ -1,9 +1,6 @@
 import TutorialSystemPresenter from '../../TutorialSystemPresenter'
-import { DNDUserActionType } from '../../Types/DND/DNDUserActiontype'
-import ActionsPanel from '../Components/ActionsPanel'
-import InteractiveMapCanvas from '../Components/InteractiveMapCanvas'
+import { DNDUserActionType } from '../../Types/DND/DNDUserActionType'
 import Menu from '../Components/Menu'
-import MessageBox from '../Components/MessageBox'
 import TutorialSystemView from '../TutorialSystemView'
 
 export default class DNDTutorialSystemView extends TutorialSystemView {
@@ -12,9 +9,9 @@ export default class DNDTutorialSystemView extends TutorialSystemView {
 
 		this._presenter = presenter
 
-		this._interactiveMapCanvas = new InteractiveMapCanvas()
-		this._actionsPanel = new ActionsPanel()
-		this._messageBox = new MessageBox()
+		// this._interactiveMapCanvas = new InteractiveMapCanvas()
+		// this._actionsPanel = new ActionsPanel()
+		// this._messageBox = new MessageBox()
 		this._menu = new Menu()
 	}
 

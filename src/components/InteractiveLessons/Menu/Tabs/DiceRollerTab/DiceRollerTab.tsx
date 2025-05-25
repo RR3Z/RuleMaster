@@ -183,7 +183,7 @@ export default function DiceRollerTab({ diceRoller }: Props) {
 						id='makeRollButton'
 						name='Совершить бросок'
 						onClick={() => {
-							diceRoller.makeRoll(formulas())
+							diceRoller.selectDices(formulas())
 							clearDices()
 						}}
 					/>

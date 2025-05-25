@@ -1,8 +1,9 @@
-import Character from '../Entities/Character/Character'
+import { Observable } from 'rxjs'
 import { Game } from '../Types/Game'
 import TutorialSystemComponentsFabric from './Fabrics/TutorialSystemComponentsFabric'
 import TutorialSystemModel from './Models/TutorialSystemModel'
 import TutorialSystemPresenter from './TutorialSystemPresenter'
+import { DNDTutorialStep } from './Types/DND/DNDTutorialStep'
 import { TutorialStep } from './Types/TutorialStep'
 import TutorialSystemView from './Views/TutorialSystemView'
 
@@ -20,7 +21,15 @@ export default class TutorialSystem {
 		)
 	}
 
-	public init(steps: TutorialStep[], player: Character): void {
-		this._model.init(steps, player)
+	public init(steps: TutorialStep[], ...args: any): void {
+		this._model.init(steps, ...args)
+	}
+
+	public get onNextStep$(): Observable<DNDTutorialStep> {
+		return this._model.onNextStep$
+	}
+
+	public get onWrongAction$(): Observable<string> {
+		return this._model.onWrongAction$
 	}
 }

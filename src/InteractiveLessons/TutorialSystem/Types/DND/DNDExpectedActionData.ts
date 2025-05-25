@@ -1,4 +1,4 @@
-import { DNDUserActionType } from './DNDUserActiontype'
+import { DNDUserActionType } from './DNDUserActionType'
 
 export type DNDExpectedActionData = {
 	type: DNDUserActionType

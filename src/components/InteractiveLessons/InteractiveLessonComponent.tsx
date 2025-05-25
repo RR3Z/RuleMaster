@@ -1,5 +1,6 @@
 'use client'
 import InteractiveLesson from '@/InteractiveLessons/InteractiveLesson'
+import { TutorialStep } from '@/InteractiveLessons/TutorialSystem/Types/TutorialStep'
 import { Game } from '@/InteractiveLessons/Types/Game'
 import { useEffect, useState } from 'react'
 import { Subscription } from 'rxjs'
@@ -7,6 +8,7 @@ import styled from 'styled-components'
 import DiceRollerComponent from './DiceRoller/DiceRollerComponent'
 import InteractiveMapComponent from './InteractiveMap/InteractiveMapComponent'
 import Menu from './Menu/Menu'
+import MessageBox from './MessageBox/MessageBox'
 
 const MainContainer = styled.div`
 	position: fixed;
@@ -48,10 +50,16 @@ export default function InteractiveLessonComponent({
 	const [isDiceRollerActive, setDiceRollerActivity] = useState(false)
 	const [isMenuActive, setMenuActivity] = useState(true)
 	const [isLoading, setIsLoading] = useState(true)
+	const [messageBoxContent, setMessageBoxContent] = useState<string[]>([
+		'first',
+		'second',
+	])
 
 	useEffect(() => {
 		let newRollSubscription: Subscription | undefined
 		let rollEndSubscription: Subscription | undefined
+		let onNextStepSubscription: Subscription | undefined
+		let onWrongActionSubscription: Subscription | undefined
 
 		async function load() {
 			setIsLoading(true)
@@ -60,6 +68,7 @@ export default function InteractiveLessonComponent({
 			setInteractiveLesson(lessonInstance)
 			await lessonInstance.init(
 				game,
+				tutorialDataFilePath,
 				interactiveMapDataFilePath,
 				dicesModelsFilePath,
 				playerVisualFilePath,
@@ -83,6 +92,21 @@ export default function InteractiveLessonComponent({
 					}
 				)
 			}
+
+			if (lessonInstance.tutorialSystem) {
+				onNextStepSubscription =
+					lessonInstance.tutorialSystem.onNextStep$.subscribe(
+						(step: TutorialStep) => {
+							setMessageBoxContent(step.messages)
+						}
+					)
+				onWrongActionSubscription =
+					lessonInstance.tutorialSystem.onWrongAction$.subscribe(
+						(message: string) => {
+							setMessageBoxContent([message])
+						}
+					)
+			}
 		}
 
 		load()
@@ -93,6 +117,12 @@ export default function InteractiveLessonComponent({
 			}
 			if (rollEndSubscription) {
 				rollEndSubscription.unsubscribe()
+			}
+			if (onNextStepSubscription) {
+				onNextStepSubscription.unsubscribe()
+			}
+			if (onWrongActionSubscription) {
+				onWrongActionSubscription.unsubscribe()
 			}
 		}
 	}, [
@@ -117,6 +147,7 @@ export default function InteractiveLessonComponent({
 				isActive={isDiceRollerActive}
 			/>
 			<Menu diceRoller={interactiveLesson.diceRoller} isActive={isMenuActive} />
+			<MessageBox initialContent={messageBoxContent} />
 		</MainContainer>
 	)
 }
