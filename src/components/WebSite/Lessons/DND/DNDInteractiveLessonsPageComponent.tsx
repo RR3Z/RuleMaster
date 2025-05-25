@@ -42,7 +42,7 @@ export default function DNDInteractiveLessonsPageComponent() {
 				<GridWrapper>
 					<Card
 						name='Создание персонажа первого уровня'
-						link='/games/dnd/interactive/character/5'
+						link='/games/dnd/interactive/character/1'
 					/>
 				</GridWrapper>
 			</ThemeContainer>
