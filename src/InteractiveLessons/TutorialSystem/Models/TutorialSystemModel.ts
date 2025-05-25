@@ -11,7 +11,7 @@ export default abstract class TutorialSystemModel {
 
 	constructor() {
 		this._steps = []
-		this._currentStepIndex = 0
+		this._currentStepIndex = -1
 		this._onNextStep$ = new Subject<TutorialStep>()
 		this._onTutorialEnd$ = new Subject<string[]>()
 		this._onWrongAction$ = new Subject<string>()
@@ -27,6 +27,10 @@ export default abstract class TutorialSystemModel {
 
 	public get onWrongAction$(): Observable<string> {
 		return this._onWrongAction$.asObservable()
+	}
+
+	public get currentStep(): TutorialStep {
+		return this._steps[this._currentStepIndex]
 	}
 
 	protected nextStep(): void {

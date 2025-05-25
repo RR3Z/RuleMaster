@@ -51,8 +51,7 @@ export default function InteractiveLessonComponent({
 	const [isMenuActive, setMenuActivity] = useState(true)
 	const [isLoading, setIsLoading] = useState(true)
 	const [messageBoxContent, setMessageBoxContent] = useState<string[]>([
-		'first',
-		'second',
+		'NOT INITIALIZED',
 	])
 
 	useEffect(() => {
@@ -94,6 +93,8 @@ export default function InteractiveLessonComponent({
 			}
 
 			if (lessonInstance.tutorialSystem) {
+				setMessageBoxContent(lessonInstance.tutorialSystem.currentStep.messages)
+
 				onNextStepSubscription =
 					lessonInstance.tutorialSystem.onNextStep$.subscribe(
 						(step: TutorialStep) => {
@@ -127,6 +128,7 @@ export default function InteractiveLessonComponent({
 		}
 	}, [
 		game,
+		tutorialDataFilePath,
 		interactiveMapDataFilePath,
 		dicesModelsFilePath,
 		playerVisualFilePath,

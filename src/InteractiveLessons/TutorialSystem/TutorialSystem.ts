@@ -25,6 +25,10 @@ export default class TutorialSystem {
 		this._model.init(steps, ...args)
 	}
 
+	public get currentStep(): Readonly<TutorialStep> {
+		return this._model.currentStep
+	}
+
 	public get onNextStep$(): Observable<DNDTutorialStep> {
 		return this._model.onNextStep$
 	}

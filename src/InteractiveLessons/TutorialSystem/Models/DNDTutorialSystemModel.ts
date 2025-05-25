@@ -40,6 +40,8 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		actionsManager.onPositionChange.subscribe((actor: DNDCharacter) => {
 			this.onPositionChange(actor)
 		})
+
+		this.nextStep()
 	}
 
 	private onSelectDices(
