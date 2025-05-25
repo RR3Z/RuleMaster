@@ -10,11 +10,7 @@ export default function LayoutWrapper({
 }) {
 	const pathname = usePathname()
 
-	const pagesWithoutHeader = [
-		'/games/dnd/text/',
-		'/games/dnd/interactive/',
-		'/games/dnd/character/',
-	]
+	const pagesWithoutHeader = ['/games/dnd/text/', '/games/dnd/interactive/']
 
 	const showHeader = !pagesWithoutHeader.some(path => pathname.startsWith(path))
 
