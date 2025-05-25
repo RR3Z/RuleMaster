@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs'
-import TutorialSystemModel from './TutorialSystemModel'
+import TutorialSystemModel from './Models/TutorialSystemModel'
 import { DNDTutorialStep } from './Types/DND/DNDTutorialStep'
 import { TutorialStep } from './Types/TutorialStep'
 
