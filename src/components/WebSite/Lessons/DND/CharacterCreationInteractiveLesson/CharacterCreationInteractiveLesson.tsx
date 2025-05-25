@@ -10,6 +10,8 @@ import { RaceData } from '@/types/CharacterLesson/Races/RaceData'
 import { Skill } from '@/types/CharacterLesson/Skills/Skill'
 import { LessonOneStep } from '@/types/CharacterLesson/Steps/LessonOneStep'
 import { TextData } from '@/types/CharacterLesson/TextData'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CharacteristicsSelection from './Characteristics/CharacteristicsSelection'
@@ -60,6 +62,17 @@ const ButtonsContainer = styled.div`
 	#endStep {
 		margin-left: auto;
 	}
+`
+
+const PageContainer = styled.div`
+	position: relative;
+`
+
+const LogoLink = styled(Link)`
+	position: absolute;
+	left: 20px;
+	z-index: 10;
+	display: inline-block;
 `
 
 export type Props = {
@@ -333,63 +346,74 @@ export default function CharacterCreationInteractiveLesson({ data }: Props) {
 	])
 
 	return (
-		<MainContainer>
-			<TopContainer>
-				<CharacterName
-					value={name}
-					placeholder={'Безымянный'}
-					changeValue={setName}
+		<PageContainer>
+			<LogoLink href='/'>
+				<Image
+					src='/SiteLogoName.svg'
+					alt='siteLogo'
+					width={200}
+					height={100}
+					priority
 				/>
-				<CharacterInfo>
-					<b>Ваш выбор</b>
-					{clazz && (
-						<span>
-							<b>Класс:</b> <u>{clazz.name}</u>
-						</span>
-					)}
-					{race && (
-						<span>
-							<b>Раса:</b> <u>{race.name}</u>
-						</span>
-					)}
-					{origin && (
-						<span>
-							<b>Происхождение:</b> <u>{origin.name}</u>
-						</span>
-					)}
-				</CharacterInfo>
-			</TopContainer>
-			{renderStep()}
-			<ButtonsContainer>
-				{currentStep !== LessonOneStep.LESSON_INTRODUCTION ? (
-					<LessonButton
-						id='prevStep'
-						text='❮  Назад'
-						activity={prevButtonActivity}
-						onClick={() => setStep(currentStep - 1)}
-						errorMessage={buttonErrorMessage}
+			</LogoLink>
+			<MainContainer>
+				<TopContainer>
+					<CharacterName
+						value={name}
+						placeholder={'Безымянный'}
+						changeValue={setName}
 					/>
-				) : undefined}
-				{currentStep !== LessonOneStep.END ? (
-					<LessonButton
-						id='nextStep'
-						text='Далее  ❯'
-						activity={nextButtonActivity}
-						onClick={() => setStep(currentStep + 1)}
-						errorMessage={buttonErrorMessage}
-					/>
-				) : (
-					<LessonButton
-						id='endStep'
-						text='Завершить ✓'
-						activity={endButtonActivity}
-						onClick={() =>
-							(window.location.href = 'https://forms.gle/J5XZvKwdJ5aMydvu5')
-						}
-						errorMessage={buttonErrorMessage}
-					/>
-				)}
-			</ButtonsContainer>
-		</MainContainer>
+					<CharacterInfo>
+						<b>Ваш выбор</b>
+						{clazz && (
+							<span>
+								<b>Класс:</b> <u>{clazz.name}</u>
+							</span>
+						)}
+						{race && (
+							<span>
+								<b>Раса:</b> <u>{race.name}</u>
+							</span>
+						)}
+						{origin && (
+							<span>
+								<b>Происхождение:</b> <u>{origin.name}</u>
+							</span>
+						)}
+					</CharacterInfo>
+				</TopContainer>
+				{renderStep()}
+				<ButtonsContainer>
+					{currentStep !== LessonOneStep.LESSON_INTRODUCTION ? (
+						<LessonButton
+							id='prevStep'
+							text='❮  Назад'
+							activity={prevButtonActivity}
+							onClick={() => setStep(currentStep - 1)}
+							errorMessage={buttonErrorMessage}
+						/>
+					) : undefined}
+					{currentStep !== LessonOneStep.END ? (
+						<LessonButton
+							id='nextStep'
+							text='Далее  ❯'
+							activity={nextButtonActivity}
+							onClick={() => setStep(currentStep + 1)}
+							errorMessage={buttonErrorMessage}
+						/>
+					) : (
+						<LessonButton
+							id='endStep'
+							text='Завершить ✓'
+							activity={endButtonActivity}
+							onClick={() =>
+								(window.location.href = 'https://forms.gle/J5XZvKwdJ5aMydvu5')
+							}
+							errorMessage={buttonErrorMessage}
+						/>
+					)}
+				</ButtonsContainer>
+			</MainContainer>
+		</PageContainer>
 	)
 }
