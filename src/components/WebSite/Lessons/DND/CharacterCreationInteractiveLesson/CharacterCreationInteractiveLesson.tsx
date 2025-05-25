@@ -12,15 +12,15 @@ import { LessonOneStep } from '@/types/CharacterLesson/Steps/LessonOneStep'
 import { TextData } from '@/types/CharacterLesson/TextData'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import CharacterName from '../CharacterName'
-import LessonButton from '../LessonButton'
-import TextSection from '../TextSection'
 import CharacteristicsSelection from './Characteristics/CharacteristicsSelection'
+import CharacterName from './CharacterName'
 import ClassesList from './Classes/ClassesList'
 import EndComponent from './EndComponent'
+import LessonButton from './LessonButton'
 import OriginsList from './Origins/OriginsList'
 import RacesList from './Races/RacesList'
 import SelectionList from './Selection/SelectionList'
+import TextSection from './TextSection'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -66,7 +66,7 @@ export type Props = {
 	data: LessonOneData
 }
 
-export default function CharacterLessonFifth({ data }: Props) {
+export default function CharacterCreationInteractiveLesson({ data }: Props) {
 	// Character Data
 	const [race, setRace] = useState<RaceData | undefined>(undefined)
 	const [clazz, setClazz] = useState<ClassData | undefined>(undefined)

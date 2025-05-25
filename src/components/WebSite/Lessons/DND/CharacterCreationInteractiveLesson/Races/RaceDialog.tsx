@@ -3,7 +3,6 @@ import { TraitData } from '@/types/CharacterLesson/TraitData'
 import { XIcon } from 'lucide-react'
 import Image from 'next/image'
 import { RefObject, useEffect, useState } from 'react'
-import TraitButton from '../../TraitButton'
 import {
 	Description,
 	Dialog,
@@ -22,6 +21,7 @@ import {
 	Name,
 	TraitsContainer,
 } from '../DialogStyles'
+import TraitButton from '../TraitButton'
 
 type Props = {
 	ref: RefObject<HTMLDialogElement | null>

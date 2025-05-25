@@ -1,6 +1,6 @@
-import { Skill } from '@/types/CharacterLesson/Skills/Skill'
+import { Instrument } from '@/types/CharacterLesson/Instruments/Instrument'
 import { ChevronDown } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
 	Button,
 	ButtonLeftText,
@@ -14,22 +14,21 @@ import {
 	MainContainer,
 	StatusIndicator,
 	XIcon,
-} from '../../../DropDownButtonStyles'
+} from '../../DropDownButtonStyles'
 import { Selectors } from '../SelectStyles'
-import SkillsSelect from './SkillsSelect'
+import MusicalInstrumentsSelect from './MusicalInstrumentsSelect'
 
 type Props = {
-	values: Map<number, Skill>
-	addValue: (index: number, value: Skill) => void
-	removeValue: (index: number, value: Skill) => void
+	values: Map<number, Instrument>
+	addValue: (index: number, value: Instrument) => void
+	removeValue: (index: number, value: Instrument) => void
 	count: number
 	title: string
 	forWhat: string
 	description: string
-	originSkills: Skill[]
 }
 
-export default function SkillsButton({
+export default function MusicalInstrumentsButton({
 	values,
 	addValue,
 	removeValue,
@@ -37,12 +36,9 @@ export default function SkillsButton({
 	title,
 	forWhat,
 	description,
-	originSkills,
 }: Props) {
 	const [isOpened, setOpenedState] = useState<boolean>(false)
 	const toggleContent = () => setOpenedState(prevState => !prevState)
-
-	useEffect(() => {}, [values])
 
 	return (
 		<MainContainer>
@@ -65,15 +61,14 @@ export default function SkillsButton({
 
 				<Selectors>
 					{Array.from({ length: count }).map((_, index) => (
-						<SkillsSelect
+						<MusicalInstrumentsSelect
 							key={index}
 							index={index}
-							placeholder='Выберите навык'
+							placeholder='Выберите музыкальный инструмент'
 							values={values}
 							initialValue={values.has(index) ? values.get(index) : undefined}
 							addValue={addValue}
 							removeValue={removeValue}
-							originSkills={originSkills}
 						/>
 					))}
 				</Selectors>

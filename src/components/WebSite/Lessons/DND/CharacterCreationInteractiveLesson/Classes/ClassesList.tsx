@@ -1,9 +1,9 @@
 import { ClassData } from '@/types/CharacterLesson/Classes/ClassData'
 import { useRef, useState } from 'react'
 import styled from 'styled-components'
-import ListButton from '../../ListButton'
-import SelectedItem from '../../SelectedItem'
-import TextSection from '../../TextSection'
+import ListButton from '../ListButton'
+import SelectedItem from '../SelectedItem'
+import TextSection from '../TextSection'
 import ClassDialog from './ClassDialog'
 
 const ClassesContainer = styled.div`

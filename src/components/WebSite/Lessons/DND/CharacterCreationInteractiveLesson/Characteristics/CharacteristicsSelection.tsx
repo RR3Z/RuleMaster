@@ -3,8 +3,8 @@ import { DNDClass } from '@/types/CharacterLesson/DNDClass'
 import { RaceData } from '@/types/CharacterLesson/Races/RaceData'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import TextSection from '../../TextSection'
 import { HR } from '../DialogStyles'
+import TextSection from '../TextSection'
 import CharacteristicSelector from './CharacteristicSelector'
 
 const MainContainer = styled.div`
