@@ -66,7 +66,7 @@ export type Props = {
 	data: LessonOneData
 }
 
-export default function CharacterLessonOne({ data }: Props) {
+export default function CharacterLessonFifth({ data }: Props) {
 	// Character Data
 	const [race, setRace] = useState<RaceData | undefined>(undefined)
 	const [clazz, setClazz] = useState<ClassData | undefined>(undefined)
