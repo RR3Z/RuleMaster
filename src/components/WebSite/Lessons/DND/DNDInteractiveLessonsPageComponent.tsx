@@ -33,27 +33,27 @@ const ThemeContainer = styled.div`
 	flex-direction: column;
 `
 
-export default function DNDTextsPageComponent() {
+export default function DNDInteractiveLessonsPageComponent() {
 	return (
 		<PageContainer>
-			<PageTitle>Текстовые уроки по D&D (5 издание)</PageTitle>
+			<PageTitle>Интерактивные уроки по D&D (5 издание)</PageTitle>
 			<ThemeContainer>
 				<SubTitle>Создание персонажа</SubTitle>
 				<GridWrapper>
-					<Card name='Характеристики' link='/games/dnd/text/character/1' />
-					<Card name='Навыки' link='/games/dnd/text/character/2' />
 					<Card
-						name='Раса, класс и предыстория'
-						link='/games/dnd/text/character/3'
+						name='Создание персонажа первого уровня'
+						link='/games/dnd/interactive/character/5'
 					/>
-					<Card name='Черты и способности' link='/games/dnd/text/character/4' />
 				</GridWrapper>
 			</ThemeContainer>
 			<ThemeContainer>
 				<SubTitle>Боевая система</SubTitle>
 				<GridWrapper>
-					<Card name='Порядок хода' link='/games/dnd/text/battle/1' />
-					<Card name='Возможные действия' link='/games/dnd/text/battle/2' />
+					<Card name='Порядок хода' link='/games/dnd/interactive/battle/1' />
+					<Card
+						name='Возможные действия'
+						link='/games/dnd/interactive/battle/2'
+					/>
 				</GridWrapper>
 			</ThemeContainer>
 		</PageContainer>

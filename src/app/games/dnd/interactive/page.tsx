@@ -1,5 +1,5 @@
-import DNDPageComponent from '@/components/WebSite/Lessons/DND/DNDPageComponent'
+import DNDInteractiveLessonsPageComponent from '@/components/WebSite/Lessons/DND/DNDInteractiveLessonsPageComponent'
 
 export default async function DNDInteractiveLessonsPage() {
-	return <DNDPageComponent />
+	return <DNDInteractiveLessonsPageComponent />
 }
