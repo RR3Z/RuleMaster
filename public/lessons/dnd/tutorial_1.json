@@ -1,7 +1,25 @@
 [
 	{
+		"type": "DND",
 		"actorType": 0,
-		"phase": 0,
+		"phase": 1,
+		"messages": [
+			"Вам надо переместиться на одну клетку вправо.",
+			"Если не получится, то увы!"
+		],
+		"allowedActions": [],
+		"expectedAction": {
+			"type": 0,
+			"params": {
+				"x": 26,
+				"y": 20
+			}
+		}
+	},
+	{
+		"type": "DND",
+		"actorType": 0,
+		"phase": 1,
 		"messages": ["First", "Second"],
 		"allowedActions": [],
 		"expectedAction": {

@@ -1,3 +1,4 @@
+import ActionsManager from '../ActionsManager/ActionsManager'
 import Character from '../Entities/Character/Character'
 import { Game } from '../Types/Game'
 import InteractiveMapComponentsFabric, {
@@ -38,5 +39,9 @@ export default class InteractiveMap {
 
 	public get canvas(): HTMLCanvasElement {
 		return this._view.visualEngine.canvas
+	}
+
+	public get actionsManager(): ActionsManager {
+		return this._model.actionsManager
 	}
 }

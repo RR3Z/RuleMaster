@@ -3,8 +3,14 @@ import Cell from '@/InteractiveLessons/InteractiveMap/Logic/Grid/Cell'
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
 import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
 import { Position } from '@/InteractiveLessons/Types/Position'
+import { Observable, Subject } from 'rxjs'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
+
+export type MoveActionPerformedEvent = {
+	actor: DNDCharacter
+	newPos: Position
+}
 
 export default class DNDMoveAction implements IPhasedAction {
 	// Fields
@@ -14,11 +20,26 @@ export default class DNDMoveAction implements IPhasedAction {
 	// Dependencies
 	private _pathFinder: CellsAStarPathFinder
 
+	// Events
+	private _onMoveActionPerformed$: Subject<MoveActionPerformedEvent>
+	private _onPositionChange$: Subject<DNDCharacter>
+
 	constructor(pathFinder: CellsAStarPathFinder) {
 		this._currentPhase = ActionPhase.MOVEMENT_SPEED_CHECK
 		this._path = []
 
 		this._pathFinder = pathFinder
+
+		this._onMoveActionPerformed$ = new Subject<MoveActionPerformedEvent>()
+		this._onPositionChange$ = new Subject<DNDCharacter>()
+	}
+
+	public get onMoveActionPerformed$(): Observable<MoveActionPerformedEvent> {
+		return this._onMoveActionPerformed$.asObservable()
+	}
+
+	public get onPositionChange$(): Observable<DNDCharacter> {
+		return this._onPositionChange$.asObservable()
 	}
 
 	public currentPhase(): ActionPhase {
@@ -57,13 +78,14 @@ export default class DNDMoveAction implements IPhasedAction {
 					actor.updateMovementSpeed(pathFinderResults.cost)
 
 				this._currentPhase = ActionPhase.MOVE
-				this.enterPhaseInput(actor)
+				this._onMoveActionPerformed$.next({ actor, newPos })
 				break
 			case ActionPhase.MOVE:
 				if (this._path.length !== 0) {
 					actor.pos = this._path[this._path.length - 1].pos
 				}
 				this._currentPhase = ActionPhase.COMPLETED
+				this._onPositionChange$.next(actor)
 				break
 			case ActionPhase.COMPLETED:
 				/* NOTHING TO DO HERE */

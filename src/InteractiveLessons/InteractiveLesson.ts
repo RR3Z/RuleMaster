@@ -42,7 +42,11 @@ export default class InteractiveLesson {
 		)
 		const tutorialData: TutorialStep[] = await tutorialDataResponse.json()
 		this._tutorialSystem = new TutorialSystem(game)
-		await this._tutorialSystem.init(tutorialData, this.diceRoller)
+		await this._tutorialSystem.init(
+			tutorialData,
+			this.diceRoller,
+			this._interactiveMap.actionsManager
+		)
 	}
 
 	public get diceRoller(): DiceRoller {

@@ -1,7 +1,6 @@
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
-import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
 import { Observable } from 'rxjs'
 import { ActionPhase } from '../ActionPhase'
@@ -10,7 +9,9 @@ import { IPhasedAction } from '../IPhasedAction'
 import DNDDashAction from './Actions/DNDDashAction'
 import DNDDodgeAction from './Actions/DNDDodgeAction'
 import DNDMeleeAttackAction from './Actions/DNDMeleeAttackAction'
-import DNDMoveAction from './Actions/DNDMoveAction'
+import DNDMoveAction, {
+	MoveActionPerformedEvent,
+} from './Actions/DNDMoveAction'
 import DNDRangedAttackAction from './Actions/DNDRangedAttackAction'
 import DNDSpellAttackAction from './Actions/DNDSpellAttackAction'
 
@@ -48,12 +49,9 @@ export default class DNDActionsManager extends ActionsManager {
 		}
 
 		if (action) {
-			if (action === this._current) {
-				this._current.enterPhaseInput(actor, ...args)
-			}
-
 			if (
 				this._current &&
+				action !== this._current &&
 				this._current.currentPhase() !== ActionPhase.COMPLETED
 			) {
 				throw new Error(
@@ -96,15 +94,15 @@ export default class DNDActionsManager extends ActionsManager {
 		return this._spellAttack
 	}
 
-	public get onMeleeAttack$(): Observable<void> {
-		return this._meleeAttack.onActionPerformed$
+	public get onMoveActionPerformed(): Observable<MoveActionPerformedEvent> {
+		return this._move.onMoveActionPerformed$
 	}
 
-	public get onRangedAttack$(): Observable<void> {
-		return this._rangedAttack.onActionPerformed$
+	public get onPositionChange(): Observable<DNDCharacter> {
+		return this._move.onPositionChange$
 	}
 
-	public get onSpellAttack$(): Observable<DNDSpellData> {
-		return this._spellAttack.onActionPerformed$
+	public resetCurrentAction(): void {
+		this._current.reset()
 	}
 }

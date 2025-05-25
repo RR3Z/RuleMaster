@@ -10,9 +10,9 @@ export default class DNDInteractiveMapPresenter extends InteractiveMapPresenter 
 
 		this._model = model
 
-		this._model.player.pos$.subscribe((pos: Position) =>
+		this._model.player.pos$.subscribe((pos: Position) => {
 			this.onModelPlayerPosChange(pos)
-		)
+		})
 	}
 
 	public onViewPlayerPosChange(pos: Position): void {
