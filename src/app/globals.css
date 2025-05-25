@@ -5,6 +5,22 @@
 	--text-color: white;
 }
 
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #596273 transparent;
+}
+
+*::-webkit-scrollbar {
+	width: 6px;
+}
+*::-webkit-scrollbar-thumb {
+	background-color: #596273;
+	border-radius: 3px;
+}
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
+
 body {
 	background: var(--background);
 	color: var(--text-color);
@@ -18,4 +34,64 @@ button {
 
 button:disabled {
 	cursor: not-allowed;
+}
+
+input {
+	border: 1px solid white;
+	border-radius: 2px;
+	padding: 5px;
+}
+
+u {
+	text-underline-position: under;
+}
+
+.spells-table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #6d788b;
+}
+
+.spells-table caption {
+	caption-side: top;
+	text-align: left;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+.spells-table th,
+.spells-table td {
+	padding: 8px 12px;
+	text-align: center;
+	border-left: 1px solid #6d788b;
+	border-right: 1px solid #6d788b;
+}
+
+.spells-table tr {
+	border-bottom: 1px solid #6d788b;
+}
+
+.spells-table thead th {
+	background-color: #e0e0e0;
+	font-weight: 600;
+}
+
+.spells-table tr:nth-child(odd) {
+	background-color: #212d40;
+}
+
+.spells-table tr:nth-child(even) {
+	background-color: #2b3950;
+}
+
+.spells-table .table-header th {
+	width: 30%;
+	color: #ffffff;
+	border-right: 1px solid #6d788b;
+	font-weight: bold;
+}
+
+.spells-table .spell-slots td {
+	color: #dddddd;
+	font-weight: 600;
 }

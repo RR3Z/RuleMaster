@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
+		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
@@ -16,6 +16,8 @@
 		"next": "15.3.2",
 		"pixi-viewport": "^6.0.3",
 		"pixi.js": "^8.2.6",
+		"@pdf-lib/fontkit": "^1.1.1",
+		"pdf-lib": "^1.17.1",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"rxjs": "^7.8.2",
