@@ -42,6 +42,10 @@ export default class InteractiveMap {
 		return this._model.player
 	}
 
+	public get enemies(): Character[] {
+		return this._model.enemies
+	}
+
 	public get canvas(): HTMLCanvasElement {
 		return this._view.visualEngine.canvas
 	}
