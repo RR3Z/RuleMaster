@@ -1,13 +1,13 @@
 import { DiceRollerFormula } from '@/InteractiveLessons/DiceRoller/Types/DiceRollerFormula'
 import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
+import { GeometricShape } from '@/InteractiveLessons/Types/GeometricShape'
 import { DNDRollType } from './DNDRollType'
-import { DNDSpellForm } from './DNDSpellForm'
 import { DNDSpellType } from './DNDSpellType'
 
 export type DNDSpellData = {
 	name: string
 	type: DNDSpellType
-	form: DNDSpellForm
+	form: GeometricShape
 	radius: number
 	maxDistance: number
 	rollType: DNDRollType

@@ -5,8 +5,8 @@ import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCe
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
 import { DNDRollType } from '@/InteractiveLessons/Spells/DND/DNDRollType'
 import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
-import { DNDSpellForm } from '@/InteractiveLessons/Spells/DND/DNDSpellForm'
 import { DNDSpellType } from '@/InteractiveLessons/Spells/DND/DNDSpellType'
+import { GeometricShape } from '@/InteractiveLessons/Types/GeometricShape'
 import { HitType } from '@/InteractiveLessons/Types/HitType'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { Observable, Subject } from 'rxjs'
@@ -281,7 +281,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 
 	private getSpellArea(
 		centerPos: Position,
-		form: DNDSpellForm,
+		form: GeometricShape,
 		radius: number
 	): Cell[] {
 		const radiusInCells = radius / 5
@@ -299,10 +299,10 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 		}
 
 		switch (form) {
-			case DNDSpellForm.CELL:
+			case GeometricShape.CELL:
 				addCellIfValid(centerPos)
 				break
-			case DNDSpellForm.CIRCLE:
+			case GeometricShape.CIRCLE:
 				for (let dx = -radiusInCells; dx <= radiusInCells; dx++) {
 					for (let dy = -radiusInCells; dy <= radiusInCells; dy++) {
 						if (dx * dx + dy * dy <= radiusInCells * radiusInCells) {
@@ -314,7 +314,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 					}
 				}
 				break
-			case DNDSpellForm.RECTANGLE:
+			case GeometricShape.RECTANGLE:
 				for (let dx = -radiusInCells; dx <= radiusInCells; dx++) {
 					for (let dy = -radiusInCells; dy <= radiusInCells; dy++) {
 						addCellIfValid({
