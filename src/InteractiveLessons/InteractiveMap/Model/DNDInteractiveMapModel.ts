@@ -1,6 +1,7 @@
 import DNDActionsManager from '@/InteractiveLessons/ActionsManager/DND/DNDActionsManager'
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
+import DNDInitiativeManager from '@/InteractiveLessons/InitiativeManager/DND/DNDInitiativeManager'
 import GridOfCells from '../Logic/Grid/GridOfCells'
 import { GridOfCellsLogicData } from '../Logic/Grid/GridOfCellsLogicData'
 import CellsAStarPathFinder from '../Logic/PathFinder/CellsAStarPathFinder'
@@ -9,6 +10,7 @@ import InteractiveMapModel from './InteractiveMapModel'
 export default class DNDInteractiveMapModel extends InteractiveMapModel {
 	private _grid: GridOfCells
 	private _pathFinder: CellsAStarPathFinder
+	private _initiativeManager: DNDInitiativeManager
 
 	constructor(data: GridOfCellsLogicData) {
 		super()
@@ -28,6 +30,7 @@ export default class DNDInteractiveMapModel extends InteractiveMapModel {
 		this._grid = new GridOfCells(data, this._player, [])
 		this._pathFinder = new CellsAStarPathFinder(this._grid)
 		this._actionsManager = new DNDActionsManager(this._pathFinder, this._grid)
+		this._initiativeManager = new DNDInitiativeManager()
 	}
 
 	public override get actionsManager(): DNDActionsManager {
@@ -40,5 +43,9 @@ export default class DNDInteractiveMapModel extends InteractiveMapModel {
 
 	public get grid(): GridOfCells {
 		return this._grid
+	}
+
+	public get initiativeManager(): DNDInitiativeManager {
+		return this._initiativeManager
 	}
 }
