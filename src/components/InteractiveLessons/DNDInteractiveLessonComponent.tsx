@@ -37,7 +37,7 @@ type Props = {
 	enemiesVisualFilePath: string[]
 }
 
-export default function InteractiveLessonComponent({
+export default function DNDInteractiveLessonComponent({
 	game,
 	interactiveMapDataFilePath,
 	tutorialDataFilePath,
