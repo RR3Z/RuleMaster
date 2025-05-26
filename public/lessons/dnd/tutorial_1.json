@@ -20,7 +20,9 @@
 		"type": "DND",
 		"actorType": 0,
 		"phase": 1,
-		"messages": ["First", "Second"],
+		"messages": [
+			"Совершите бросок 2К6. 2 - количествой дайсов, К6 (6-гранная кость) - вид дайса."
+		],
 		"allowedActions": [],
 		"expectedAction": {
 			"type": 2,
