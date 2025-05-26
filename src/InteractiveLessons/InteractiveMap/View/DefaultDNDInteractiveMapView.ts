@@ -1,3 +1,4 @@
+import Character from '@/InteractiveLessons/Entities/Character/Character'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import GridOfCells from '../Logic/Grid/GridOfCells'
 import DNDInteractiveMapPresenter from '../Presenter/DNDInteractiveMapPresenter'
@@ -20,12 +21,14 @@ export default class DefaultDNDInteractiveMapView extends InteractiveMapView {
 	}
 
 	public override async initialize(
-		playerPos: Position,
+		player: Character,
+		enemies: Character[],
 		playerVisualFilePath: string,
 		enemiesVisualFilePath: string[]
 	): Promise<void> {
 		await super.initialize(
-			playerPos,
+			player,
+			enemies,
 			playerVisualFilePath,
 			enemiesVisualFilePath
 		)
@@ -43,6 +46,10 @@ export default class DefaultDNDInteractiveMapView extends InteractiveMapView {
 				)
 			}
 		)
+	}
+
+	public override get visualEngine(): GridOfCellsVisualEngine {
+		return this._visualEngine as GridOfCellsVisualEngine
 	}
 
 	protected override onPresenterPlayerPosChange(pos: Position): void {
