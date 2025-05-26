@@ -50,8 +50,8 @@ export default class DNDInitiativeManager {
 		type Entry = { combatant: DNDCharacter; initiative: number }
 
 		// Enemies Initiative Value
-		const enemiesInitiativeModifiers = enemies.map(enemy =>
-			enemy.statsManager.initiativeModifier()
+		const enemiesInitiativeModifiers = enemies.map(
+			enemy => enemy.initiativeModifier
 		)
 		const enemyEntries: Entry[] = enemies.map((enemy, i) => ({
 			combatant: enemy,
@@ -59,7 +59,7 @@ export default class DNDInitiativeManager {
 		}))
 
 		// Player Initiative Value
-		const playerInitiativeModifier = player.statsManager.initiativeModifier()
+		const playerInitiativeModifier = player.initiativeModifier
 		const playerEntry: Entry = {
 			combatant: player,
 			initiative: playerRollValue + playerInitiativeModifier,
