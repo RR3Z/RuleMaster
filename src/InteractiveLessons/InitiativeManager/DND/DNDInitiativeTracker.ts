@@ -4,13 +4,16 @@ export default class DNDInitiativeTracker {
 	private _turnsOrder!: DNDCharacter[]
 	private _currentIndex!: number
 
-	constructor() {}
+	constructor() {
+		this._turnsOrder = []
+		this._currentIndex = -1
+	}
 
 	public updateTurnsOrder(turnsOrder: DNDCharacter[]): void {
 		// Must be minimum 2 combatants
-		if (turnsOrder.length < 2)
+		if (turnsOrder.length < 1)
 			throw new Error(
-				'DNDInitiativeTracker -> updateTurnsOrder(): turnsOrder length is < 2.'
+				'DNDInitiativeTracker -> updateTurnsOrder(): turnsOrder length is < 1.'
 			)
 
 		this._turnsOrder = turnsOrder
