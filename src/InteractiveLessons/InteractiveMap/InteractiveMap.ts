@@ -27,10 +27,15 @@ export default class InteractiveMap {
 		enemiesVisualFilePath: string[]
 	): Promise<void> {
 		await this._view.initialize(
-			this._model.player.pos,
+			this._model.player,
+			this._model.enemies,
 			playerVisualFilePath,
 			enemiesVisualFilePath
 		)
+	}
+
+	public get model(): InteractiveMapModel {
+		return this._model
 	}
 
 	public get player(): Character {
@@ -43,5 +48,9 @@ export default class InteractiveMap {
 
 	public get actionsManager(): ActionsManager {
 		return this._model.actionsManager
+	}
+
+	public get charactersVisualFilePaths(): Map<string, string> {
+		return this._view.visualEngine.charactersVisualFilePaths
 	}
 }

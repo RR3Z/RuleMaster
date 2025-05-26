@@ -27,6 +27,7 @@ export default class DNDInteractiveMapModel extends InteractiveMapModel {
 			data.player.startPos,
 			data.player.startState
 		)
+		this._enemies = [] // TODO:
 		this._grid = new GridOfCells(data, this._player, [])
 		this._pathFinder = new CellsAStarPathFinder(this._grid)
 		this._actionsManager = new DNDActionsManager(this._pathFinder, this._grid)
@@ -39,6 +40,10 @@ export default class DNDInteractiveMapModel extends InteractiveMapModel {
 
 	public override get player(): DNDCharacter {
 		return this._player as DNDCharacter
+	}
+
+	public override get enemies(): DNDCharacter[] {
+		return this._enemies as DNDCharacter[]
 	}
 
 	public get grid(): GridOfCells {

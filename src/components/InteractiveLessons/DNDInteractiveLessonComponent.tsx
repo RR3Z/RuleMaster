@@ -1,11 +1,14 @@
 'use client'
+import DNDInitiativeManager from '@/InteractiveLessons/InitiativeManager/DND/DNDInitiativeManager'
 import InteractiveLesson from '@/InteractiveLessons/InteractiveLesson'
+import DNDInteractiveMapModel from '@/InteractiveLessons/InteractiveMap/Model/DNDInteractiveMapModel'
 import { TutorialStep } from '@/InteractiveLessons/TutorialSystem/Types/TutorialStep'
 import { Game } from '@/InteractiveLessons/Types/Game'
 import { useEffect, useState } from 'react'
 import { Subscription } from 'rxjs'
 import styled from 'styled-components'
 import DiceRollerComponent from './DiceRoller/DiceRollerComponent'
+import InitiativeTracker from './InitiativeTracker/InitiativeTracker'
 import InteractiveMapComponent from './InteractiveMap/InteractiveMapComponent'
 import Menu from './Menu/Menu'
 import MessageBox from './MessageBox/MessageBox'
@@ -48,6 +51,10 @@ export default function DNDInteractiveLessonComponent({
 	const [interactiveLesson, setInteractiveLesson] =
 		useState<InteractiveLesson>()
 	const [isDiceRollerActive, setDiceRollerActivity] = useState(false)
+	const [initiativeManager, setInitiativeManager] =
+		useState<DNDInitiativeManager | null>(null)
+	const [initiativeTrackerActivity, setInitiativeTrackerActivity] =
+		useState(false)
 	const [isMenuActive, setMenuActivity] = useState(true)
 	const [isLoading, setIsLoading] = useState(true)
 	const [messageBoxContent, setMessageBoxContent] = useState<string[]>([
@@ -59,6 +66,7 @@ export default function DNDInteractiveLessonComponent({
 		let rollEndSubscription: Subscription | undefined
 		let onNextStepSubscription: Subscription | undefined
 		let onWrongActionSubscription: Subscription | undefined
+		let onTurnsOrderUpdateSubscription: Subscription | undefined
 
 		async function load() {
 			setIsLoading(true)
@@ -108,6 +116,21 @@ export default function DNDInteractiveLessonComponent({
 						}
 					)
 			}
+
+			if (
+				lessonInstance.interactiveMap &&
+				lessonInstance.interactiveMap.model instanceof DNDInteractiveMapModel
+			) {
+				const initiativeManager = (
+					lessonInstance.interactiveMap.model as DNDInteractiveMapModel
+				).initiativeManager
+
+				setInitiativeManager(initiativeManager)
+				onTurnsOrderUpdateSubscription =
+					initiativeManager.onTurnsOrderUpdate$.subscribe(() => {
+						setInitiativeTrackerActivity(true)
+					})
+			}
 		}
 
 		load()
@@ -124,6 +147,9 @@ export default function DNDInteractiveLessonComponent({
 			}
 			if (onWrongActionSubscription) {
 				onWrongActionSubscription.unsubscribe()
+			}
+			if (onTurnsOrderUpdateSubscription) {
+				onTurnsOrderUpdateSubscription.unsubscribe()
 			}
 		}
 	}, [
@@ -150,6 +176,14 @@ export default function DNDInteractiveLessonComponent({
 			/>
 			<Menu diceRoller={interactiveLesson.diceRoller} isActive={isMenuActive} />
 			<MessageBox initialContent={messageBoxContent} />
+			{initiativeTrackerActivity && initiativeManager && (
+				<InitiativeTracker
+					initiativeManager={initiativeManager}
+					characterTokenPaths={
+						interactiveLesson.interactiveMap.charactersVisualFilePaths
+					}
+				/>
+			)}
 		</MainContainer>
 	)
 }

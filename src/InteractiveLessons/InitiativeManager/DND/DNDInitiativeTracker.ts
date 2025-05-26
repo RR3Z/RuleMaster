@@ -31,4 +31,12 @@ export default class DNDInitiativeTracker {
 
 		return { prev, current }
 	}
+
+	public get turnsOrder(): DNDCharacter[] {
+		return this._turnsOrder
+	}
+
+	public get activeCharacter(): DNDCharacter {
+		return this._turnsOrder[this._currentIndex]
+	}
 }

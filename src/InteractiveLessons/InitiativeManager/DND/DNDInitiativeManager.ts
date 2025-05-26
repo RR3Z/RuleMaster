@@ -1,13 +1,38 @@
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
 import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
+import { Observable, Subject } from 'rxjs'
 import DNDInitiativeTracker from './DNDInitiativeTracker'
 
 export default class DNDInitiativeManager {
+	// Fields
 	private _tracker: DNDInitiativeTracker
+
+	// Events
+	private readonly _onTurnsOrderUpdate$: Subject<DNDCharacter[]>
+	private readonly _onActiveCharacterChanged$: Subject<DNDCharacter | null>
 
 	constructor() {
 		this._tracker = new DNDInitiativeTracker()
+
+		this._onTurnsOrderUpdate$ = new Subject<DNDCharacter[]>()
+		this._onActiveCharacterChanged$ = new Subject<DNDCharacter | null>()
+	}
+
+	public get onTurnsOrderUpdate$(): Observable<DNDCharacter[]> {
+		return this._onTurnsOrderUpdate$.asObservable()
+	}
+
+	public get onActiveCharacterChanged$(): Observable<DNDCharacter | null> {
+		return this._onActiveCharacterChanged$.asObservable()
+	}
+
+	public get turnsOrder(): DNDCharacter[] {
+		return this._tracker.turnsOrder
+	}
+
+	public get activeCharacter(): DNDCharacter | null {
+		return this._tracker.activeCharacter
 	}
 
 	public updateTurnsOrder(
@@ -72,6 +97,8 @@ export default class DNDInitiativeManager {
 
 		const turnsOrder = allEntries.map(entry => entry.combatant)
 		this._tracker.updateTurnsOrder(turnsOrder)
+
+		this._onTurnsOrderUpdate$.next(turnsOrder)
 	}
 
 	public next(): void {
@@ -79,5 +106,7 @@ export default class DNDInitiativeManager {
 
 		prev.stateMachine.changeState(DNDCharacterState.WAITING_TURN)
 		current.stateMachine.changeState(DNDCharacterState.TURN)
+
+		this._onActiveCharacterChanged$.next(current)
 	}
 }

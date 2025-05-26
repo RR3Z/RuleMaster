@@ -1,4 +1,4 @@
-import { Position } from '@/InteractiveLessons/Types/Position'
+import Character from '@/InteractiveLessons/Entities/Character/Character'
 import { Application, Container } from 'pixi.js'
 
 export default abstract class InteractiveMapVisualEngine extends Application {
@@ -11,11 +11,14 @@ export default abstract class InteractiveMapVisualEngine extends Application {
 	}
 
 	public async initialize(
-		playerPos: Position,
+		player: Character,
+		enemies: Character[],
 		playerVisualFilePath: string,
 		enemiesVisualFilePath: string[]
 	): Promise<void> {
 		await super.init({ resizeTo: window })
 		this.canvas.id = 'interactiveMap'
 	}
+
+	public abstract get charactersVisualFilePaths(): Map<string, string>
 }

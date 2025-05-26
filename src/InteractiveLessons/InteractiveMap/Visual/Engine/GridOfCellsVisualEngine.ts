@@ -1,4 +1,4 @@
-import { Position } from '@/InteractiveLessons/Types/Position'
+import Character from '@/InteractiveLessons/Entities/Character/Character'
 import GridOfCells from '../../Logic/Grid/GridOfCells'
 import GridOfCellsAreaHighlighter from '../AreaHighlighter/GridOfCellsAreaHighlighter'
 import PlayerTrackingCamera from '../Camera/PlayerTrackingCamera'
@@ -13,12 +13,15 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 	private readonly _gridLogic: GridOfCells
 
 	private _player!: DraggableOnCellsToken
+	private _charactersVisualFilePaths: Map<string, string>
 	private _gridOfCells!: GridOfCellsVisual
 	private _areaHighlighter!: GridOfCellsAreaHighlighter
 	private _visualUtils: GridOfCellsVisualUtils
 
 	constructor(data: GridOfCellsVisualData, grid: GridOfCells) {
 		super()
+
+		this._charactersVisualFilePaths = new Map<string, string>()
 
 		this._data = data
 		this._gridLogic = grid
@@ -39,14 +42,16 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 
 	// TODO: add enemies
 	public override async initialize(
-		playerPos: Position,
+		player: Character,
+		enemies: Character[],
 		playerVisualFilePath: string,
-		enemiesVisualFilePath: string[]
+		enemiesVisualFilePaths: string[]
 	): Promise<void> {
 		await super.initialize(
-			playerPos,
+			player,
+			enemies,
 			playerVisualFilePath,
-			enemiesVisualFilePath
+			enemiesVisualFilePaths
 		)
 
 		// Camera
@@ -75,15 +80,21 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 
 		// Player
 		this._player = new DraggableOnCellsToken({
-			startPos: playerPos,
+			startPos: player.pos,
 			radius: this._data.cellVisual.size / 2,
 			worldSpaceContainer: camera,
 			visualUtils: this._visualUtils,
 			sprite: await this._visualUtils.loadSprite(playerVisualFilePath),
 		})
+		this._charactersVisualFilePaths.set(player.name, playerVisualFilePath)
 		camera.target = this._player
 		this._sceneObjects.addChild(this._player)
 
 		// TODO: Enemies
+	}
+
+	public get charactersVisualFilePaths(): Map<string, string> {
+		// Character name and path to his visual
+		return this._charactersVisualFilePaths
 	}
 }

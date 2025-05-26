@@ -1,3 +1,4 @@
+import Character from '@/InteractiveLessons/Entities/Character/Character'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import InteractiveMapPresenter from '../Presenter/InteractiveMapPresenter'
 import InteractiveMapVisualEngine from '../Visual/Engine/InteractiveMapVisualEngine'
@@ -7,12 +8,14 @@ export default abstract class InteractiveMapView {
 	protected _visualEngine!: InteractiveMapVisualEngine
 
 	public async initialize(
-		playerPos: Position,
+		player: Character,
+		enemies: Character[],
 		playerVisualFilePath: string,
 		enemiesVisualFilePath: string[]
 	): Promise<void> {
 		await this._visualEngine.initialize(
-			playerPos,
+			player,
+			enemies,
 			playerVisualFilePath,
 			enemiesVisualFilePath
 		)
