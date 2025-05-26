@@ -1,4 +1,4 @@
 export enum DNDWeaponRangeType {
-	MELEE,
-	RANGE,
+	MELEE = 'Melee',
+	RANGE = 'Range',
 }

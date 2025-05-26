@@ -1442,7 +1442,7 @@
 						"type": "Two Handed",
 						"name": "Длинный лук",
 						"description": "Мощный лук для дальних атак.",
-						"rangeType": "RANGE",
+						"rangeType": "Range",
 						"defaultRange": 150,
 						"maxRange": 600,
 						"damageFormulas": [{ "type": "D8", "count": 1 }],
