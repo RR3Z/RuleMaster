@@ -50,57 +50,52 @@ export function DNDActionsPanel({
 
 	return (
 		<PanelWrapper>
-			{isMeleeWeapon && (
-				<ActionButton
-					buttonActivity={true}
-					tooltipText='Атака в ближнем бою'
-					imageFilePath=''
-					onClick={() => {
-						let onAreaSelectedSubscription =
-							areaHighlighter.onAreaSelected$.subscribe(
-								(centerPos: Position) => {
-									actionsManager.perform(
-										player,
-										actionsManager.meleeAttackAction,
-										centerPos
-									)
-									onAreaSelectedSubscription.unsubscribe()
-									onAreaSelectionDisabledSubscription.unsubscribe()
-								}
+			<ActionButton
+				buttonActivity={isMeleeWeapon ? true : false}
+				id='meleeAttackActionButton'
+				tooltipText='Атака в ближнем бою'
+				imageFilePath=''
+				onClick={() => {
+					let onAreaSelectedSubscription =
+						areaHighlighter.onAreaSelected$.subscribe((area: Position[]) => {
+							areaHighlighter.exitSelectionMode()
+							actionsManager.perform(
+								player,
+								actionsManager.meleeAttackAction,
+								area
 							)
-						let onAreaSelectionDisabledSubscription =
-							areaHighlighter.onAreaSelectionDisabled$.subscribe(() => {})
+							onAreaSelectedSubscription.unsubscribe()
+							onAreaSelectionDisabledSubscription.unsubscribe()
+						})
+					let onAreaSelectionDisabledSubscription =
+						areaHighlighter.onAreaSelectionDisabled$.subscribe(() => {})
 
-						areaHighlighter.enterSelectionMode(GeometricShape.CELL, 1, 0xff0000)
-					}}
-				/>
-			)}
-
-			{isRangedWeapon && (
-				<ActionButton
-					buttonActivity={true}
-					tooltipText='Атака в дальнем бою'
-					imageFilePath=''
-					onClick={() => {
-						let onAreaSelectedSubscription =
-							areaHighlighter.onAreaSelected$.subscribe(
-								(centerPos: Position) => {
-									actionsManager.perform(
-										player,
-										actionsManager.rangedAttackAction,
-										centerPos
-									)
-									onAreaSelectedSubscription.unsubscribe()
-									onAreaSelectionDisabledSubscription.unsubscribe()
-								}
+					areaHighlighter.enterSelectionMode(GeometricShape.CELL, 1, 0xff0000)
+				}}
+			/>
+			<ActionButton
+				buttonActivity={isRangedWeapon ? true : false}
+				id='rangedAttackActionButton'
+				tooltipText='Атака в дальнем бою'
+				imageFilePath=''
+				onClick={() => {
+					let onAreaSelectedSubscription =
+						areaHighlighter.onAreaSelected$.subscribe((area: Position[]) => {
+							areaHighlighter.exitSelectionMode()
+							actionsManager.perform(
+								player,
+								actionsManager.rangedAttackAction,
+								area
 							)
-						let onAreaSelectionDisabledSubscription =
-							areaHighlighter.onAreaSelectionDisabled$.subscribe(() => {})
+							onAreaSelectedSubscription.unsubscribe()
+							onAreaSelectionDisabledSubscription.unsubscribe()
+						})
+					let onAreaSelectionDisabledSubscription =
+						areaHighlighter.onAreaSelectionDisabled$.subscribe(() => {})
 
-						areaHighlighter.enterSelectionMode(GeometricShape.CELL, 1, 0xff0000)
-					}}
-				/>
-			)}
+					areaHighlighter.enterSelectionMode(GeometricShape.CELL, 1, 0xff0000)
+				}}
+			/>
 		</PanelWrapper>
 	)
 }

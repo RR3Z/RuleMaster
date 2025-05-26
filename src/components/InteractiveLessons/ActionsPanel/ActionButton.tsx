@@ -9,26 +9,25 @@ const ButtonWrapper = styled.button<{
 	$background: string | null
 	$disabled: boolean
 }>`
-	background: ${({ $background, $disabled }) =>
-		$disabled
-			? '#33333350'
-			: $background
+	background: ${({ $background }) =>
+		$background
 			? `url(${$background}) center/cover no-repeat`
-			: '#0000001c'};
-	border: 1px solid ${({ $disabled }) => ($disabled ? '#777' : 'white')};
+			: `url('/noImage.webp') center/cover no-repeat`};
+	border: 2px solid ${({ $disabled }) => ($disabled ? '#777' : 'white')};
 	border-radius: 3px;
 	width: 60px;
 	min-height: 60px;
 	color: ${({ $disabled }) => ($disabled ? '#aaa' : 'inherit')};
 	cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
-	pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
+	opacity: ${({ $disabled }) => ($disabled ? 0.6 : 1)};
+	user-select: none;
 
 	&:hover {
-		border: 1px solid ${({ $disabled }) => ($disabled ? '#777' : 'red')};
+		border: 2px solid ${({ $disabled }) => ($disabled ? '#777' : 'red')};
 	}
 `
 
-const Tooltip = styled.div<{ $disabled: boolean }>`
+const Tooltip = styled.div`
 	position: absolute;
 	bottom: 110%;
 	background: #00000093;
@@ -42,12 +41,13 @@ const Tooltip = styled.div<{ $disabled: boolean }>`
 	transition: opacity 0.2s ease-in-out;
 
 	${ButtonContainer}:hover & {
-		opacity: ${({ $disabled }) => ($disabled ? 0 : 1)};
+		opacity: 1;
 	}
 `
 
 type Props = {
 	buttonActivity: boolean
+	id: string
 	imageFilePath?: string
 	tooltipText?: string
 	onClick: () => void
@@ -57,17 +57,18 @@ export default function ActionButton({
 	onClick,
 	buttonActivity,
 	imageFilePath,
+	id,
 	tooltipText = 'Здесь должна быть инфа',
 }: Props) {
 	return (
-		<ButtonContainer onClick={onClick}>
-			<Tooltip $disabled={!buttonActivity}>{tooltipText}</Tooltip>
+		<ButtonContainer id={id}>
+			<Tooltip>{tooltipText}</Tooltip>
 			<ButtonWrapper
+				disabled={!buttonActivity}
 				$disabled={!buttonActivity}
 				$background={imageFilePath ?? null}
-			>
-				1
-			</ButtonWrapper>
+				onClick={onClick}
+			/>
 		</ButtonContainer>
 	)
 }
