@@ -41,6 +41,7 @@ export default class DNDCharacter extends Character {
 		// Fields
 		this._type = type
 		this._data = data
+		this._name = this._data.name
 		this._currentHealth = data.maxHealth
 		this._maxMovementSpeed = data.maxMovementSpeed
 		this._currentMovementSpeed = data.maxMovementSpeed
@@ -72,10 +73,6 @@ export default class DNDCharacter extends Character {
 			this._currentHealth = 0
 			this._stateMachine.changeState(DNDCharacterState.DEAD)
 		}
-	}
-
-	public get name(): string {
-		return this._data.name
 	}
 
 	public get currentMovementSpeed(): number {

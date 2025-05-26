@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs'
 import Entity from '../Entity'
 
 export default abstract class Character extends Entity {
+	protected _name!: string
 	protected _pos$!: BehaviorSubject<Position>
 	protected _currentHealth!: number
 	protected _equipmentManager!: EquipmentManager
@@ -32,5 +33,9 @@ export default abstract class Character extends Entity {
 
 	public get equipmentManager(): EquipmentManager {
 		return this._equipmentManager!
+	}
+
+	public get name(): string {
+		return this._name
 	}
 }
