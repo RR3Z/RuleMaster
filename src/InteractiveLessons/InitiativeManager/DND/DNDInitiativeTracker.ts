@@ -17,7 +17,9 @@ export default class DNDInitiativeTracker {
 		this._currentIndex = 0
 	}
 
-	public next(): DNDCharacter {
+	public next(): { prev: DNDCharacter; current: DNDCharacter } {
+		const prev = this._turnsOrder[this._currentIndex]
+
 		if (!this._turnsOrder || this._turnsOrder.length === 0)
 			throw new Error('DNDInitiativeTracker -> next(): Turns not initialized!')
 
@@ -25,6 +27,8 @@ export default class DNDInitiativeTracker {
 			this._currentIndex = 0
 		else this._currentIndex += 1
 
-		return this._turnsOrder[this._currentIndex]
+		const current = this._turnsOrder[this._currentIndex]
+
+		return { prev, current }
 	}
 }

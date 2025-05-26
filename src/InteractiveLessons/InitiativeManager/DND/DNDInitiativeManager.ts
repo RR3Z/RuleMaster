@@ -1,5 +1,6 @@
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
+import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
 import DNDInitiativeTracker from './DNDInitiativeTracker'
 
 export default class DNDInitiativeManager {
@@ -71,5 +72,12 @@ export default class DNDInitiativeManager {
 
 		const turnsOrder = allEntries.map(entry => entry.combatant)
 		this._tracker.updateTurnsOrder(turnsOrder)
+	}
+
+	public next(): void {
+		const { prev, current } = this._tracker.next()
+
+		prev.stateMachine.changeState(DNDCharacterState.WAITING_TURN)
+		current.stateMachine.changeState(DNDCharacterState.TURN)
 	}
 }
