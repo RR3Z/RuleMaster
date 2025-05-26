@@ -1,5 +1,6 @@
 import { Position } from '@/InteractiveLessons/Types/Position'
 import GridOfCells from '../../Logic/Grid/GridOfCells'
+import GridOfCellsAreaHighlighter from '../AreaHighlighter/GridOfCellsAreaHighlighter'
 import PlayerTrackingCamera from '../Camera/PlayerTrackingCamera'
 import GridOfCellsVisual from '../Grid/GridOfCellsVisual'
 import { GridOfCellsVisualData } from '../Grid/GridOfCellsVisualData'
@@ -13,6 +14,7 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 
 	private _player!: DraggableOnCellsToken
 	private _gridOfCells!: GridOfCellsVisual
+	private _areaHighlighter!: GridOfCellsAreaHighlighter
 	private _visualUtils: GridOfCellsVisualUtils
 
 	constructor(data: GridOfCellsVisualData, grid: GridOfCells) {
@@ -31,6 +33,11 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 		return this._gridOfCells
 	}
 
+	public get areaHighlighter(): GridOfCellsAreaHighlighter {
+		return this._areaHighlighter
+	}
+
+	// TODO: add enemies
 	public override async initialize(
 		playerPos: Position,
 		playerVisualFilePath: string,
@@ -55,6 +62,16 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 			this._gridLogic.height
 		)
 		this._sceneObjects.addChild(this._gridOfCells)
+
+		// Area Highlighter
+		this._areaHighlighter = new GridOfCellsAreaHighlighter({
+			gridOfCellsVisual: this._gridOfCells,
+			worldSpaceContainer: camera,
+			visualUtils: this._visualUtils,
+			cellPixelRadius: this._data.cellVisual.size / 2,
+			gridWidth: this._gridLogic.width,
+			gridHeight: this._gridLogic.height,
+		})
 
 		// Player
 		this._player = new DraggableOnCellsToken({
