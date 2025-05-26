@@ -33,7 +33,7 @@ export default class GridOfCellsAreaHighlighter {
 	private _visualUtils: GridOfCellsVisualUtils
 
 	// Events
-	private readonly _onAreaSelected$: Subject<Position>
+	private readonly _onAreaSelected$: Subject<Position[]>
 	private readonly _onAreaSelectionEnabled$: Subject<void>
 	private readonly _onAreaSelectionDisabled$: Subject<void>
 
@@ -48,7 +48,7 @@ export default class GridOfCellsAreaHighlighter {
 		this._worldSpaceContainer = args.worldSpaceContainer
 		this._visualUtils = args.visualUtils
 
-		this._onAreaSelected$ = new Subject<Position>()
+		this._onAreaSelected$ = new Subject<Position[]>()
 		this._onAreaSelectionEnabled$ = new Subject<void>()
 		this._onAreaSelectionDisabled$ = new Subject<void>()
 
@@ -56,7 +56,7 @@ export default class GridOfCellsAreaHighlighter {
 		this._worldSpaceContainer.on('pointerdown', this.handlePointerDown, this)
 	}
 
-	public get onAreaSelected$(): Observable<Position> {
+	public get onAreaSelected$(): Observable<Position[]> {
 		return this._onAreaSelected$.asObservable()
 	}
 
@@ -157,8 +157,8 @@ export default class GridOfCellsAreaHighlighter {
 	private handlePointerMove(event: FederatedPointerEvent): void {
 		if (!this._isSelectionModeActive) return
 
-		const localPos = this._worldSpaceContainer.toLocal(event.global)
-		const cellCoords = this._visualUtils.pixelToCoordinatesPosition(
+		const localPos = this._worldSpaceContainer.toLocal(event.global, undefined)
+		const cellCoords = this._visualUtils.pixelToCoordinatesCursorPosition(
 			localPos.x,
 			localPos.y,
 			this._cellPixelRadius
@@ -179,22 +179,10 @@ export default class GridOfCellsAreaHighlighter {
 	}
 
 	private handlePointerDown(event: FederatedPointerEvent): void {
-		if (!this._isSelectionModeActive || event.button !== 0) return // Только ЛКМ
+		if (!this._isSelectionModeActive || event.button !== 0) return
 
-		const localPos = this._worldSpaceContainer.toLocal(event.global)
-		const centerCellPos = this._visualUtils.pixelToCoordinatesPosition(
-			localPos.x,
-			localPos.y,
-			this._cellPixelRadius
+		this._onAreaSelected$.next(
+			this._highlightedCells.map(cell => cell.position)
 		)
-
-		const clampedX = Math.max(0, Math.min(centerCellPos.x, this._gridWidth - 1))
-		const clampedY = Math.max(
-			0,
-			Math.min(centerCellPos.y, this._gridHeight - 1)
-		)
-		const finalCenterPos: Position = { x: clampedX, y: clampedY }
-
-		this._onAreaSelected$.next(finalCenterPos)
 	}
 }

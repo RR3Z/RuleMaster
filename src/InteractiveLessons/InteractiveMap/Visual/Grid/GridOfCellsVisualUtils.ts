@@ -35,6 +35,17 @@ export default class GridOfCellsVisualUtils {
 		}
 	}
 
+	public pixelToCoordinatesCursorPosition(
+		x: number,
+		y: number,
+		radius: number
+	): { x: number; y: number } {
+		return {
+			x: Math.floor(x / (radius * 2)),
+			y: Math.floor(y / (radius * 2)),
+		}
+	}
+
 	public snapToCell(
 		x: number,
 		y: number,
