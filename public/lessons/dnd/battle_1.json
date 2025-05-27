@@ -1427,14 +1427,27 @@
 				"savingThrowProficiencies": ["Str", "Dex"],
 				"spells": [
 					{
-						"name": "Hunter's Mark",
+						"name": "Огненный шар",
+						"type": "Attack",
+						"form": "Circle",
+						"radius": 2,
+						"maxDistance": 150,
+						"rollType": "TARGET_SAVING_THROW",
+						"savingThrowStat": "Dex",
+						"rollsFormula": [{ "type": "D6", "count": 8 }],
+						"isAttachedToCharacter": false,
+						"iconPath": "/actionsIcons/Fireball.webp"
+					},
+					{
+						"name": "Хроматический шар",
 						"type": "Attack",
 						"form": "Cell",
-						"radius": 0,
+						"radius": 1,
 						"maxDistance": 90,
 						"rollType": "ACTOR_ATTACK",
-						"rollsFormula": [{ "type": "D6", "count": 1 }],
-						"isAttachedToCharacter": true
+						"rollsFormula": [{ "type": "D8", "count": 3 }],
+						"isAttachedToCharacter": false,
+						"iconPath": "/actionsIcons/Chromatic_Orb.webp"
 					}
 				],
 				"equipment": [
