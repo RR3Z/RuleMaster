@@ -96,11 +96,6 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		)
 
 		this.nextStep()
-		this._logger.newLog({
-			logType: 1,
-			actorName: 'Система',
-			details: this._steps[this._currentStepIndex].messages.join(' '),
-		})
 	}
 
 	private onNextStep(
@@ -111,27 +106,45 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		const currentStep = this._steps[this._currentStepIndex]
 		const currentAction = actionsManager.current
 
+		this._logger.newLog({
+			logType: 1,
+			actorName: 'Система',
+			details: currentStep.messages.join(' '),
+		})
+
 		if (
 			currentAction instanceof DNDMeleeAttackAction &&
 			currentAction.currentPhase() === ActionPhase.HIT_CHECK &&
 			currentStep.expectedAction.type ===
 				DNDUserActionType.MELEE_ATTACK_HITS_CHECK
 		) {
+			const formulasVar: DiceRollerFormula[] = []
+
 			const onSelectDicesSubscription = diceRoller.onSelectDices$.subscribe(
 				(formulas: DiceRollerFormula[]) => {
+					formulasVar.push(...formulas)
 					this.onSelectDices(formulas, diceRoller)
 				}
 			)
+
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
+					this._logger.newLog({
+						logType: 0,
+						actorName: actor.name,
+						details: { formulas: formulasVar, results: results },
+					})
+
 					actionsManager.perform(
 						actor,
 						undefined,
 						undefined,
 						results.map(result => result.value)
 					)
+
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
+
 					this.nextStep()
 				}
 			)
@@ -141,13 +154,23 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			currentStep.expectedAction.type ===
 				DNDUserActionType.MELEE_ATTACK_APPLY_DAMAGE
 		) {
+			const formulasVar: DiceRollerFormula[] = []
+
 			const onSelectDicesSubscription = diceRoller.onSelectDices$.subscribe(
 				(formulas: DiceRollerFormula[]) => {
+					formulasVar.push(...formulas)
 					this.onSelectDices(formulas, diceRoller)
 				}
 			)
+
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
+					this._logger.newLog({
+						logType: 0,
+						actorName: actor.name,
+						details: { formulas: formulasVar, results: results },
+					})
+
 					actionsManager.perform(
 						actor,
 						undefined,
@@ -155,8 +178,10 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 						undefined,
 						results
 					)
+
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
+
 					this.nextStep()
 				}
 			)
@@ -166,21 +191,33 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			currentStep.expectedAction.type ===
 				DNDUserActionType.RANGED_ATTACK_HITS_CHECK
 		) {
+			const formulasVar: DiceRollerFormula[] = []
+
 			const onSelectDicesSubscription = diceRoller.onSelectDices$.subscribe(
 				(formulas: DiceRollerFormula[]) => {
+					formulasVar.push(...formulas)
 					this.onSelectDices(formulas, diceRoller)
 				}
 			)
+
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
+					this._logger.newLog({
+						logType: 0,
+						actorName: actor.name,
+						details: { formulas: formulasVar, results: results },
+					})
+
 					actionsManager.perform(
 						actor,
 						undefined,
 						undefined,
 						results.map(result => result.value)
 					)
+
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
+
 					this.nextStep()
 				}
 			)
@@ -190,13 +227,23 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			currentStep.expectedAction.type ===
 				DNDUserActionType.RANGED_ATTACK_APPLY_DAMAGE
 		) {
+			const formulasVar: DiceRollerFormula[] = []
+
 			const onSelectDicesSubscription = diceRoller.onSelectDices$.subscribe(
 				(formulas: DiceRollerFormula[]) => {
+					formulasVar.push(...formulas)
 					this.onSelectDices(formulas, diceRoller)
 				}
 			)
+
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
+					this._logger.newLog({
+						logType: 0,
+						actorName: actor.name,
+						details: { formulas: formulasVar, results: results },
+					})
+
 					actionsManager.perform(
 						actor,
 						undefined,
@@ -204,6 +251,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 						undefined,
 						results
 					)
+
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
 					this.nextStep()
@@ -215,13 +263,23 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			currentStep.expectedAction.type ===
 				DNDUserActionType.SPELL_ATTACK_HITS_CHECK
 		) {
+			const formulasVar: DiceRollerFormula[] = []
+
 			const onSelectDicesSubscription = diceRoller.onSelectDices$.subscribe(
 				(formulas: DiceRollerFormula[]) => {
+					formulasVar.push(...formulas)
 					this.onSelectDices(formulas, diceRoller)
 				}
 			)
+
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
+					this._logger.newLog({
+						logType: 0,
+						actorName: actor.name,
+						details: { formulas: formulasVar, results: results },
+					})
+
 					actionsManager.perform(
 						actor,
 						undefined,
@@ -229,8 +287,10 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 						undefined,
 						results.map(result => result.value)
 					)
+
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
+
 					this.nextStep()
 				}
 			)
@@ -240,13 +300,23 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			currentStep.expectedAction.type ===
 				DNDUserActionType.SPELL_ATTACK_APPLY_DAMAGE
 		) {
+			const formulasVar: DiceRollerFormula[] = []
+
 			const onSelectDicesSubscription = diceRoller.onSelectDices$.subscribe(
 				(formulas: DiceRollerFormula[]) => {
+					formulasVar.push(...formulas)
 					this.onSelectDices(formulas, diceRoller)
 				}
 			)
+
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
+					this._logger.newLog({
+						logType: 0,
+						actorName: actor.name,
+						details: { formulas: formulasVar, results: results },
+					})
+
 					actionsManager.perform(
 						actor,
 						undefined,
@@ -256,8 +326,10 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 						undefined,
 						[results.map(r => r.value).reduce((sum, val) => sum + val, 0)]
 					)
+
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
+
 					this.nextStep()
 				}
 			)
@@ -273,6 +345,12 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
+					this._logger.newLog({
+						logType: 0,
+						actorName: actor.name,
+						details: { formulas: [{ type: 5, count: 1 }], results: results },
+					})
+
 					const values = results.map(result => result.value)
 					targetsRolls.push(...values)
 
@@ -485,6 +563,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			actorName: actor.name,
 			details: undefined,
 		})
+
 		this.nextStep()
 	}
 
@@ -540,6 +619,11 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			}
 		}
 
+		this._logger.newLog({
+			logType: 4,
+			actorName: actor.name,
+			details: { spellName: spell.name },
+		})
 		this.nextStep()
 	}
 }

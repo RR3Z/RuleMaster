@@ -102,12 +102,12 @@ export default function LogEntry({ log }: Props) {
 					</>
 				)
 			case LogType.CHARACTER_MELEE_ATTACK:
-				return <p>Совершает действие "Ближняя атака".</p>
+				return <p>Начал выполнять действие "Ближняя атака".</p>
 			case LogType.CHARACTER_RANGED_ATTACK:
-				return <p>Совершает действие "Дальнобойная атака".</p>
+				return <p>Начал выполнять действие "Дальнобойная атака".</p>
 			case LogType.CHARACTER_SPELL_CAST:
 				const spellDetails = log.details as SpellCastDetails
-				return <p>Использует заклинание: {spellDetails.spellName}.</p>
+				return <p>Начал использовать заклинание: {spellDetails.spellName}.</p>
 			case LogType.TUTORIAL_SYSTEM_MESSAGE:
 				return <p>{log.details as string}</p>
 			default:
