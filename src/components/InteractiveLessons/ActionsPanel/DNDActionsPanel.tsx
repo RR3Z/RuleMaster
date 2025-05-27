@@ -54,7 +54,7 @@ export function DNDActionsPanel({
 				buttonActivity={isMeleeWeapon ? true : false}
 				id='meleeAttackActionButton'
 				tooltipText='Атака в ближнем бою'
-				imageFilePath=''
+				imageFilePath='/actionsIcons/Main_Hand_Attack.webp'
 				onClick={() => {
 					let onAreaSelectedSubscription =
 						areaHighlighter.onAreaSelected$.subscribe((area: Position[]) => {
@@ -65,10 +65,7 @@ export function DNDActionsPanel({
 								area
 							)
 							onAreaSelectedSubscription.unsubscribe()
-							onAreaSelectionDisabledSubscription.unsubscribe()
 						})
-					let onAreaSelectionDisabledSubscription =
-						areaHighlighter.onAreaSelectionDisabled$.subscribe(() => {})
 
 					areaHighlighter.enterSelectionMode(GeometricShape.CELL, 1, 0xff0000)
 				}}
@@ -77,21 +74,18 @@ export function DNDActionsPanel({
 				buttonActivity={isRangedWeapon ? true : false}
 				id='rangedAttackActionButton'
 				tooltipText='Атака в дальнем бою'
-				imageFilePath=''
+				imageFilePath='/actionsIcons/Ranged_Attack.webp'
 				onClick={() => {
 					let onAreaSelectedSubscription =
 						areaHighlighter.onAreaSelected$.subscribe((area: Position[]) => {
 							areaHighlighter.exitSelectionMode()
 							actionsManager.perform(
 								player,
-								actionsManager.rangedAttackAction,
+								actionsManager.meleeAttackAction,
 								area
 							)
 							onAreaSelectedSubscription.unsubscribe()
-							onAreaSelectionDisabledSubscription.unsubscribe()
 						})
-					let onAreaSelectionDisabledSubscription =
-						areaHighlighter.onAreaSelectionDisabled$.subscribe(() => {})
 
 					areaHighlighter.enterSelectionMode(GeometricShape.CELL, 1, 0xff0000)
 				}}
