@@ -99,7 +99,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 					actionsManager.perform(actor, undefined, undefined, results)
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
-					this.onRollEnd()
+					this.nextStep()
 				}
 			)
 		} else if (
@@ -124,7 +124,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 					)
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
-					this.onRollEnd()
+					this.nextStep()
 				}
 			)
 		} else if (
@@ -143,11 +143,12 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 					actionsManager.perform(
 						actor,
 						undefined,
+						undefined,
 						results.map(result => result.value)
 					)
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
-					this.onRollEnd()
+					this.nextStep()
 				}
 			)
 		} else if (
@@ -172,7 +173,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 					)
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
-					this.onRollEnd()
+					this.nextStep()
 				}
 			)
 		}
@@ -214,16 +215,6 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		diceRoller: DiceRoller
 	): void {
 		if (this.checkDiceRollerActions(formulas)) diceRoller.makeRoll(formulas)
-	}
-
-	private onRollEnd(): void {
-		const currentStep = this._steps[this._currentStepIndex]
-
-		if (currentStep.expectedAction.type !== DNDUserActionType.ROLL) {
-			return
-		}
-
-		this.nextStep()
 	}
 
 	private onMoveActionPerformed(
