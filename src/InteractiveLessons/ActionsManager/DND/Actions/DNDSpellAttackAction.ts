@@ -1,12 +1,10 @@
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
-import Cell from '@/InteractiveLessons/InteractiveMap/Logic/Grid/Cell'
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
 import { DNDRollType } from '@/InteractiveLessons/Spells/DND/DNDRollType'
 import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import { DNDSpellType } from '@/InteractiveLessons/Spells/DND/DNDSpellType'
-import { GeometricShape } from '@/InteractiveLessons/Types/GeometricShape'
 import { HitType } from '@/InteractiveLessons/Types/HitType'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { Observable, Subject } from 'rxjs'
@@ -48,7 +46,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 	public enterPhaseInput(
 		actor: DNDCharacter,
 		spell?: DNDSpellData,
-		attackPosition?: Position,
+		attackArea?: Position[],
 		hitRolls?: number[],
 		savingThrows?: number[],
 		damageRolls?: number[]
@@ -67,14 +65,15 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 					)
 				}
 
-				if (attackPosition === undefined) {
+				if (attackArea === undefined || attackArea.length <= 0) {
 					throw new Error(
 						'DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: attackArea is undefined!'
 					)
 				}
 
 				this._spell = spell
-				this.rangeCheck(actor, attackPosition)
+				const spellTargetCenter = attackArea[0]
+				this.rangeCheck(actor, spellTargetCenter, attackArea)
 				this._onActionPerform$.next(spell)
 				break
 			case ActionPhase.HIT_CHECK:
@@ -120,9 +119,18 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 					)
 				}
 
-				if (this._targets.length !== damageRolls.length) {
+				const targetsTakingDamage = this._targets.filter(
+					t =>
+						(t[1] !== null && t[1] !== HitType.HALF_DAMAGE) ||
+						(t[1] === HitType.HALF_DAMAGE &&
+							(this._spell?.rollsFormula?.length ?? 0) > 0)
+				)
+				if (
+					targetsTakingDamage.length !== damageRolls.length &&
+					targetsTakingDamage.length > 0
+				) {
 					throw new Error(
-						'DNDSpellAttackAction -> enterPhaseInput() -> APPLY_DAMAGE:  number of Damage Rolls does not match the number of Targets!'
+						`DNDSpellAttackAction -> APPLY_DAMAGE: Mismatch in number of damage rolls (${damageRolls.length}) and targets taking damage (${targetsTakingDamage.length}).`
 					)
 				}
 
@@ -144,32 +152,32 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 		this._spell = null
 	}
 
-	private rangeCheck(actor: DNDCharacter, attackPosition: Position): void {
-		const attackArea = this.getSpellArea(
-			attackPosition,
-			this._spell!.form,
-			this._spell!.radius
-		)
-
+	private rangeCheck(
+		actor: DNDCharacter,
+		spellTargetCenter: Position,
+		actualSpellArea: Position[]
+	): void {
 		this._pathFinder.maxPathCost = this._spell!.maxDistance
 		this._pathFinder.needChecksForCellsContent = false
 		this._pathFinder.isStepCostConstant = true
 		const pathFinderResults = this._pathFinder.shortestPath(
 			actor.pos,
-			attackPosition
+			spellTargetCenter
 		)
 
 		if (
 			pathFinderResults.path.length > this._spell!.maxDistance / 5 ||
-			this._gridOfCells.cell(attackPosition) !==
-				pathFinderResults.path[pathFinderResults.path.length - 1]
+			(pathFinderResults.path.length > 0 &&
+				this._gridOfCells.cell(spellTargetCenter) !==
+					pathFinderResults.path[pathFinderResults.path.length - 1])
 		) {
 			throw new Error(
 				"DNDSpellAttackAction -> enterPhaseInput() -> RANGE_CHECK: Can't use spell outside of the Spell Range!"
 			)
 		}
 
-		for (const cell of attackArea) {
+		for (const pos of actualSpellArea) {
+			const cell = this._gridOfCells.cell(pos)
 			if (
 				cell.contentType === EntityType.ENEMY ||
 				cell.contentType === EntityType.PLAYER
@@ -202,7 +210,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 
 		for (let i = 0; i < this._targets.length; i++) {
 			// Crtitical Miss
-			if (hitRolls[i] <= 1) continue
+			// if (hitRolls[i] <= 1) continue
 
 			// Critical Hit
 			if (hitRolls[i] >= 20) {
@@ -277,59 +285,5 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 		}
 
 		this._currentPhase = ActionPhase.COMPLETED
-	}
-
-	private getSpellArea(
-		centerPos: Position,
-		form: GeometricShape,
-		radius: number
-	): Cell[] {
-		const radiusInCells = radius / 5
-
-		const cells: Cell[] = []
-		const checkedPositions = new Set<Position>()
-
-		const addCellIfValid = (pos: Position) => {
-			if (!this._gridOfCells.isCellExists(pos)) return
-
-			if (checkedPositions.has(pos)) return
-			checkedPositions.add(pos)
-
-			cells.push(this._gridOfCells.cell(pos))
-		}
-
-		switch (form) {
-			case GeometricShape.CELL:
-				addCellIfValid(centerPos)
-				break
-			case GeometricShape.CIRCLE:
-				for (let dx = -radiusInCells; dx <= radiusInCells; dx++) {
-					for (let dy = -radiusInCells; dy <= radiusInCells; dy++) {
-						if (dx * dx + dy * dy <= radiusInCells * radiusInCells) {
-							addCellIfValid({
-								x: centerPos.x + dx,
-								y: centerPos.y + dy,
-							})
-						}
-					}
-				}
-				break
-			case GeometricShape.RECTANGLE:
-				for (let dx = -radiusInCells; dx <= radiusInCells; dx++) {
-					for (let dy = -radiusInCells; dy <= radiusInCells; dy++) {
-						addCellIfValid({
-							x: centerPos.x + dx,
-							y: centerPos.y + dy,
-						})
-					}
-				}
-				break
-			default:
-				throw new Error(
-					`DNDSpellAttackAction -> getSpellArea(): Unknown spell form: ${form}`
-				)
-		}
-
-		return cells
 	}
 }
