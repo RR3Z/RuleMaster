@@ -11,10 +11,16 @@ import { Observable, Subject } from 'rxjs'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
 
+export type SpellAttackActionPerformedEvent = {
+	actor: DNDCharacter
+	spell: DNDSpellData
+	targets: DNDCharacter[]
+}
+
 export default class DNDSpellAttackAction implements IPhasedAction {
 	// Fields
 	private _currentPhase: ActionPhase
-	private _targets: [Readonly<DNDCharacter>, HitType | null][]
+	private _targets: [DNDCharacter, HitType | null][]
 	private _spell: DNDSpellData | null
 
 	// Dependencies
@@ -22,7 +28,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 	private _pathFinder: CellsAStarPathFinder
 
 	// Events
-	private readonly _onActionPerform$: Subject<DNDSpellData>
+	private readonly _onActionPerform$: Subject<SpellAttackActionPerformedEvent>
 
 	constructor(gridOfCells: GridOfCells, pathFinder: CellsAStarPathFinder) {
 		this._currentPhase = ActionPhase.RANGE_CHECK
@@ -32,11 +38,15 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 		this._gridOfCells = gridOfCells
 		this._pathFinder = pathFinder
 
-		this._onActionPerform$ = new Subject<DNDSpellData>()
+		this._onActionPerform$ = new Subject<SpellAttackActionPerformedEvent>()
 	}
 
-	public get onActionPerformed$(): Observable<DNDSpellData> {
+	public get onActionPerformed$(): Observable<SpellAttackActionPerformedEvent> {
 		return this._onActionPerform$.asObservable()
+	}
+
+	public get targets(): DNDCharacter[] {
+		return this._targets.map(([character]) => character)
 	}
 
 	public currentPhase(): ActionPhase {
@@ -74,7 +84,11 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 				this._spell = spell
 				const spellTargetCenter = attackArea[0]
 				this.rangeCheck(actor, spellTargetCenter, attackArea)
-				this._onActionPerform$.next(spell)
+				this._onActionPerform$.next({
+					actor: actor,
+					spell: spell,
+					targets: this._targets.map(([character]) => character),
+				})
 				break
 			case ActionPhase.HIT_CHECK:
 				if (hitRolls === undefined) {
@@ -206,7 +220,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 	}
 
 	private hitCheck(actor: DNDCharacter, hitRolls: number[]): void {
-		const newTargets: [Readonly<DNDCharacter>, HitType][] = []
+		const newTargets: [DNDCharacter, HitType][] = []
 
 		for (let i = 0; i < this._targets.length; i++) {
 			// Crtitical Miss
@@ -235,7 +249,7 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 	}
 
 	private savingThrowCheck(actor: DNDCharacter, savingThrows: number[]): void {
-		const newTargets: [Readonly<DNDCharacter>, HitType][] = []
+		const newTargets: [DNDCharacter, HitType][] = []
 		const dcValue = actor.savingThrowDifficulty
 
 		for (let i = 0; i < this._targets.length; i++) {

@@ -6,12 +6,16 @@ import { MoveActionPerformedEvent } from '@/InteractiveLessons/ActionsManager/DN
 import DNDRangedAttackAction, {
 	RangedAttackActionPerformedEvent,
 } from '@/InteractiveLessons/ActionsManager/DND/Actions/DNDRangedAttackAction'
+import DNDSpellAttackAction, {
+	SpellAttackActionPerformedEvent,
+} from '@/InteractiveLessons/ActionsManager/DND/Actions/DNDSpellAttackAction'
 import DNDActionsManager from '@/InteractiveLessons/ActionsManager/DND/DNDActionsManager'
 import DiceRoller from '@/InteractiveLessons/DiceRoller/DiceRoller'
 import { DiceRollerFormula } from '@/InteractiveLessons/DiceRoller/Types/DiceRollerFormula'
 import { DiceRollerResult } from '@/InteractiveLessons/DiceRoller/Types/DiceRollerResult'
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
+import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { arraysShallowEqualUnordered } from '@/InteractiveLessons/Utils'
 import { DNDTutorialStep } from '../Types/DND/DNDTutorialStep'
@@ -66,6 +70,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 				)
 			}
 		)
+		// RANGED ATTACK
 		actionsManager.onRangedAttackActionPerformed.subscribe(
 			(event: RangedAttackActionPerformedEvent) => {
 				this.onRangedAttackActionPerformed(
@@ -75,7 +80,17 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 				)
 			}
 		)
-		// TODO: Spell Attack
+		// SPELL ATTACK
+		actionsManager.onSpellAttackActionPerformed.subscribe(
+			(event: SpellAttackActionPerformedEvent) => {
+				this.onSpellAttackActionPerformed(
+					actionsManager,
+					event.actor,
+					event.spell,
+					event.targets
+				)
+			}
+		)
 
 		this.nextStep()
 	}
@@ -186,6 +201,92 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 					this.nextStep()
 				}
 			)
+		} else if (
+			currentAction instanceof DNDSpellAttackAction &&
+			currentAction.currentPhase() === ActionPhase.HIT_CHECK &&
+			currentStep.expectedAction.type ===
+				DNDUserActionType.SPELL_ATTACK_HITS_CHECK
+		) {
+			const onSelectDicesSubscription = diceRoller.onSelectDices$.subscribe(
+				(formulas: DiceRollerFormula[]) => {
+					this.onSelectDices(formulas, diceRoller)
+				}
+			)
+			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
+				(results: DiceRollerResult[]) => {
+					actionsManager.perform(
+						actor,
+						undefined,
+						undefined,
+						undefined,
+						results.map(result => result.value)
+					)
+					onSelectDicesSubscription.unsubscribe()
+					onRollEndSubscription.unsubscribe()
+					this.nextStep()
+				}
+			)
+		} else if (
+			currentAction instanceof DNDSpellAttackAction &&
+			currentAction.currentPhase() === ActionPhase.APPLY_DAMAGE &&
+			currentStep.expectedAction.type ===
+				DNDUserActionType.SPELL_ATTACK_APPLY_DAMAGE
+		) {
+			const onSelectDicesSubscription = diceRoller.onSelectDices$.subscribe(
+				(formulas: DiceRollerFormula[]) => {
+					this.onSelectDices(formulas, diceRoller)
+				}
+			)
+			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
+				(results: DiceRollerResult[]) => {
+					actionsManager.perform(
+						actor,
+						undefined,
+						undefined,
+						undefined,
+						undefined,
+						undefined,
+						[results.map(r => r.value).reduce((sum, val) => sum + val, 0)]
+					)
+					onSelectDicesSubscription.unsubscribe()
+					onRollEndSubscription.unsubscribe()
+					this.nextStep()
+				}
+			)
+		} else if (
+			currentAction instanceof DNDSpellAttackAction &&
+			currentAction.currentPhase() === ActionPhase.SAVING_THROW_CHECK &&
+			currentStep.expectedAction.type ===
+				DNDUserActionType.SPELL_ATTACK_TARGETS_SAVING_THROWS
+		) {
+			const targetsRolls: number[] = []
+			let currentTargetIndex = 0
+			const targets = actionsManager.spellAttackAction.targets
+
+			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
+				(results: DiceRollerResult[]) => {
+					const values = results.map(result => result.value)
+					targetsRolls.push(...values)
+
+					currentTargetIndex++
+					if (currentTargetIndex >= targets.length) {
+						onRollEndSubscription.unsubscribe()
+						actionsManager.perform(
+							actor,
+							undefined,
+							undefined,
+							undefined,
+							undefined,
+							targetsRolls
+						)
+						this.nextStep()
+					} else {
+						diceRoller.makeRoll([{ type: 5, count: 1 }])
+					}
+				}
+			)
+
+			diceRoller.makeRoll([{ type: 5, count: 1 }])
 		}
 	}
 
@@ -202,7 +303,13 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			currentStep.expectedAction.type !==
 				DNDUserActionType.RANGED_ATTACK_HITS_CHECK &&
 			currentStep.expectedAction.type !==
-				DNDUserActionType.RANGED_ATTACK_APPLY_DAMAGE
+				DNDUserActionType.RANGED_ATTACK_APPLY_DAMAGE &&
+			currentStep.expectedAction.type !==
+				DNDUserActionType.SPELL_ATTACK_HITS_CHECK &&
+			currentStep.expectedAction.type !==
+				DNDUserActionType.SPELL_ATTACK_APPLY_DAMAGE &&
+			currentStep.expectedAction.type !==
+				DNDUserActionType.SPELL_ATTACK_TARGETS_SAVING_THROWS
 		) {
 			this._onWrongAction$.next(
 				"Вы совершили неверное действие! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
@@ -354,6 +461,61 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			if (target.type === EntityType.PLAYER) {
 				this._onWrongAction$.next(
 					"Вы атаковали себя! Повторите действие снова! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
+				)
+				actionsManager.resetCurrentAction()
+				return
+			}
+		}
+
+		this.nextStep()
+	}
+
+	private onSpellAttackActionPerformed(
+		actionsManager: DNDActionsManager,
+		actor: DNDCharacter,
+		spell: DNDSpellData,
+		targets: DNDCharacter[]
+	): void {
+		const currentStep = this._steps[this._currentStepIndex]
+
+		if (actor.type !== currentStep.actorType) {
+			console.error(
+				'DNDTutorialSystemModel -> onSpellAttackActionPerformed(): Тот кто совершает действие не совпадает по типу с тем, кто должен его совершить!'
+			)
+			return
+		}
+
+		if (
+			currentStep.expectedAction.type !==
+			DNDUserActionType.SPELL_ATTACK_TARGETS_SELECTION
+		) {
+			this._onWrongAction$.next(
+				"Вы совершили неверное действие! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
+			)
+			actionsManager.resetCurrentAction()
+			return
+		}
+
+		if ((currentStep.expectedAction.params as string) !== spell.name) {
+			this._onWrongAction$.next(
+				"Вы выбрали неверное заклинание! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
+			)
+			actionsManager.resetCurrentAction()
+			return
+		}
+
+		if (targets.length === 0) {
+			this._onWrongAction$.next(
+				"Вы атаковали по пустому месту! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
+			)
+			actionsManager.resetCurrentAction()
+			return
+		}
+
+		for (const target of targets) {
+			if (target.type === EntityType.PLAYER) {
+				this._onWrongAction$.next(
+					"Вы задели себя! Повторите действие снова! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
 				)
 				actionsManager.resetCurrentAction()
 				return

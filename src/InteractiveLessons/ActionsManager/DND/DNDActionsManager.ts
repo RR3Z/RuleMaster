@@ -17,7 +17,9 @@ import DNDMoveAction, {
 import DNDRangedAttackAction, {
 	RangedAttackActionPerformedEvent,
 } from './Actions/DNDRangedAttackAction'
-import DNDSpellAttackAction from './Actions/DNDSpellAttackAction'
+import DNDSpellAttackAction, {
+	SpellAttackActionPerformedEvent,
+} from './Actions/DNDSpellAttackAction'
 
 export default class DNDActionsManager extends ActionsManager {
 	private _currentActionActor!: DNDCharacter
@@ -131,6 +133,10 @@ export default class DNDActionsManager extends ActionsManager {
 
 	public get onRangedAttackActionPerformed(): Observable<RangedAttackActionPerformedEvent> {
 		return this._rangedAttack.onActionPerformed$
+	}
+
+	public get onSpellAttackActionPerformed(): Observable<SpellAttackActionPerformedEvent> {
+		return this._spellAttack.onActionPerformed$
 	}
 
 	public resetCurrentAction(): void {
