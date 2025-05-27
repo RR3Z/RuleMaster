@@ -179,8 +179,28 @@ export default class GridOfCellsAreaHighlighter {
 	}
 
 	private handlePointerDown(event: FederatedPointerEvent): void {
-		if (!this._isSelectionModeActive || event.button !== 0) return
+		if (
+			!this._isSelectionModeActive ||
+			event.button !== 0 ||
+			!this._lastHoveredCellPos
+		)
+			return
 
-		this._onAreaSelected$.next(this._highlightedCells.map(cell => cell.pos))
+		let areaPositions = this._highlightedCells.map(cell => cell.pos)
+
+		const centerIndex = areaPositions.findIndex(
+			p =>
+				p.x === this._lastHoveredCellPos!.x &&
+				p.y === this._lastHoveredCellPos!.y
+		)
+
+		if (centerIndex > 0) {
+			const centerPos = areaPositions.splice(centerIndex, 1)[0]
+			areaPositions.unshift(centerPos)
+		} else if (centerIndex === -1) {
+			areaPositions.unshift(this._lastHoveredCellPos)
+		}
+
+		this._onAreaSelected$.next(areaPositions)
 	}
 }
