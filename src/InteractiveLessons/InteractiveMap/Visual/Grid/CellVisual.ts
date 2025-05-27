@@ -4,6 +4,8 @@ import { Container, Graphics } from 'pixi.js'
 export default class CellVisual extends Container {
 	private _visual: Graphics
 	private _pos: Position
+	private _size: number
+	private _currentColor: number
 
 	constructor(size: number, pos: Position) {
 		super()
@@ -11,7 +13,8 @@ export default class CellVisual extends Container {
 		this._visual = new Graphics()
 		this.addChild(this._visual)
 		this._pos = pos
-
+		this._size = size
+		this._currentColor = 0xffffff
 		this.draw(size, pos)
 		this.interactive = true
 		this.eventMode = 'static'
@@ -25,12 +28,23 @@ export default class CellVisual extends Container {
 		this._visual.clear()
 
 		this._visual.rect(pos.x * size, pos.y * size, size, size)
-		this._visual.fill(0xffffff)
+		this._visual.fill(this._currentColor)
 		this._visual.alpha = 0
 	}
 
 	public highlight(color: number): void {
-		this._visual.fill(color)
+		if (this._currentColor !== color) {
+			this._visual.clear()
+			this._visual.rect(
+				this._pos.x * this._size,
+				this._pos.y * this._size,
+				this._size,
+				this._size
+			)
+			this._currentColor = color
+			this._visual.fill(this._currentColor)
+		}
+
 		this._visual.alpha = 0.5
 	}
 
