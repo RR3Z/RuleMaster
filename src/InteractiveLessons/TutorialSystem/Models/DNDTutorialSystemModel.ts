@@ -101,7 +101,12 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			)
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
-					actionsManager.perform(actor, undefined, undefined, results)
+					actionsManager.perform(
+						actor,
+						undefined,
+						undefined,
+						results.map(result => result.value)
+					)
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
 					this.nextStep()
