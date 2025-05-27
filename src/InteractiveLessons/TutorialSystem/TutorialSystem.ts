@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs'
+import Logger from '../Logger/Logger'
 import { Game } from '../Types/Game'
 import TutorialSystemComponentsFabric from './Fabrics/TutorialSystemComponentsFabric'
 import TutorialSystemModel from './Models/TutorialSystemModel'
@@ -21,8 +22,8 @@ export default class TutorialSystem {
 		)
 	}
 
-	public init(steps: TutorialStep[], ...args: any): void {
-		this._model.init(steps, ...args)
+	public init(steps: TutorialStep[], logger: Logger, ...args: any): void {
+		this._model.init(steps, logger, ...args)
 	}
 
 	public get currentStep(): Readonly<TutorialStep> {

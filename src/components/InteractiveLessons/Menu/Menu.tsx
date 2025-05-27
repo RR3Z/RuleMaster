@@ -1,4 +1,5 @@
 import DiceRoller from '@/InteractiveLessons/DiceRoller/DiceRoller'
+import DefaultLogger from '@/InteractiveLessons/Logger/Logger'
 import { useState } from 'react'
 import styled from 'styled-components'
 import HR from '../HorizontalLine/HR'
@@ -43,10 +44,11 @@ type TabName = 'logs' | 'diceRoller' | 'characterList'
 
 type Props = {
 	diceRoller: DiceRoller
+	logger: DefaultLogger
 	isActive: boolean
 }
 
-export default function Menu({ diceRoller, isActive }: Props) {
+export default function Menu({ diceRoller, logger, isActive }: Props) {
 	const [activeTab, setActiveTab] = useState<TabName>('logs')
 
 	return (
@@ -80,7 +82,7 @@ export default function Menu({ diceRoller, isActive }: Props) {
 			<HR />
 
 			<TabContentWrapper $isVisible={activeTab === 'logs'}>
-				<LogsTab />
+				<LogsTab onNewLog$={logger.onNewLog$} initialLogs={logger.logs} />
 			</TabContentWrapper>
 			<TabContentWrapper $isVisible={activeTab === 'diceRoller'}>
 				<DiceRollerTab diceRoller={diceRoller} />

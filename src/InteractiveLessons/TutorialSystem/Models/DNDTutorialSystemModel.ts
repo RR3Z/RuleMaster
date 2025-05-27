@@ -15,6 +15,7 @@ import { DiceRollerFormula } from '@/InteractiveLessons/DiceRoller/Types/DiceRol
 import { DiceRollerResult } from '@/InteractiveLessons/DiceRoller/Types/DiceRollerResult'
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
+import Logger from '@/InteractiveLessons/Logger/Logger'
 import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { arraysShallowEqualUnordered } from '@/InteractiveLessons/Utils'
@@ -29,10 +30,12 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 
 	public init(
 		steps: DNDTutorialStep[],
+		logger: Logger,
 		diceRoller: DiceRoller,
 		actionsManager: DNDActionsManager
 	): void {
 		this._steps = steps
+		this._logger = logger
 		actionsManager.resetCurrentAction()
 
 		// TUTORIAL SYSTEM EVENTS
@@ -93,6 +96,11 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		)
 
 		this.nextStep()
+		this._logger.newLog({
+			logType: 1,
+			actorName: 'Система',
+			details: this._steps[this._currentStepIndex].messages.join(' '),
+		})
 	}
 
 	private onNextStep(
@@ -421,6 +429,11 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			}
 		}
 
+		this._logger.newLog({
+			logType: 2,
+			actorName: actor.name,
+			details: undefined,
+		})
 		this.nextStep()
 	}
 
@@ -467,6 +480,11 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			}
 		}
 
+		this._logger.newLog({
+			logType: 3,
+			actorName: actor.name,
+			details: undefined,
+		})
 		this.nextStep()
 	}
 

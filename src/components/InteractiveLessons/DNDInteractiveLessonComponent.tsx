@@ -193,7 +193,11 @@ export default function DNDInteractiveLessonComponent({
 				canvas={interactiveLesson.diceRoller.canvas}
 				isActive={isDiceRollerActive}
 			/>
-			<Menu diceRoller={interactiveLesson.diceRoller} isActive={isMenuActive} />
+			<Menu
+				diceRoller={interactiveLesson.diceRoller}
+				isActive={isMenuActive}
+				logger={interactiveLesson.logger}
+			/>
 			<MessageBox initialContent={messageBoxContent} />
 			{initiativeTrackerActivity && initiativeManager && (
 				<InitiativeTracker

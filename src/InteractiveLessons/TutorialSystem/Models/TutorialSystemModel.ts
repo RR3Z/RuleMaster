@@ -1,9 +1,11 @@
+import Logger from '@/InteractiveLessons/Logger/Logger'
 import { Observable, Subject } from 'rxjs'
 import { TutorialStep } from '../Types/TutorialStep'
 
 export default abstract class TutorialSystemModel {
 	protected _steps: TutorialStep[]
 	protected _currentStepIndex: number
+	protected _logger!: Logger
 
 	protected readonly _onNextStep$: Subject<TutorialStep>
 	protected readonly _onTutorialEnd$: Subject<string[]>
@@ -43,5 +45,9 @@ export default abstract class TutorialSystemModel {
 		this._onNextStep$.next(this._steps[this._currentStepIndex])
 	}
 
-	public abstract init(steps: TutorialStep[], ...args: any): void
+	public abstract init(
+		steps: TutorialStep[],
+		logger: Logger,
+		...args: any
+	): void
 }

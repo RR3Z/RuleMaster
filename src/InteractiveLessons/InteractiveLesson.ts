@@ -3,6 +3,7 @@ import DiceRoller from './DiceRoller/DiceRoller'
 import DicesLoader from './DiceRoller/DicesLoader'
 import InteractiveMap from './InteractiveMap/InteractiveMap'
 import { InteractiveMapData } from './InteractiveMap/Types/InteractiveMapData'
+import Logger from './Logger/Logger'
 import TutorialSystem from './TutorialSystem/TutorialSystem'
 import { TutorialStep } from './TutorialSystem/Types/TutorialStep'
 import { Game } from './Types/Game'
@@ -11,6 +12,7 @@ export default class InteractiveLesson {
 	private _interactiveMap!: InteractiveMap
 	private _diceRoller!: DiceRoller
 	private _tutorialSystem!: TutorialSystem
+	private _logger!: Logger
 
 	constructor() {}
 
@@ -22,6 +24,9 @@ export default class InteractiveLesson {
 		playerVisualFilePath: string,
 		enemiesVisualFilePath: string[]
 	): Promise<void> {
+		// Logger
+		this._logger = new Logger()
+
 		// Dice Roller
 		const dicesLoader = new DicesLoader()
 		const dicesModels = await dicesLoader.loadModels(dicesModelsFilePath)
@@ -44,6 +49,7 @@ export default class InteractiveLesson {
 		this._tutorialSystem = new TutorialSystem(game)
 		await this._tutorialSystem.init(
 			tutorialData,
+			this._logger,
 			this.diceRoller,
 			this._interactiveMap.actionsManager
 		)
@@ -59,5 +65,9 @@ export default class InteractiveLesson {
 
 	public get tutorialSystem(): TutorialSystem {
 		return this._tutorialSystem
+	}
+
+	public get logger(): Logger {
+		return this._logger
 	}
 }
