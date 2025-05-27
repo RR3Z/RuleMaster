@@ -2,7 +2,7 @@ import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharact
 import GridOfCells from '@/InteractiveLessons/InteractiveMap/Logic/Grid/GridOfCells'
 import CellsAStarPathFinder from '@/InteractiveLessons/InteractiveMap/Logic/PathFinder/CellsAStarPathFinder'
 import { DNDCharacterState } from '@/InteractiveLessons/StateMachine/Character/DND/DNDCharacterState'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { ActionPhase } from '../ActionPhase'
 import ActionsManager from '../ActionsManager'
 import { IPhasedAction } from '../IPhasedAction'
@@ -29,6 +29,8 @@ export default class DNDActionsManager extends ActionsManager {
 	private _dodgeAction: DNDDodgeAction
 	private _spellAttack: DNDSpellAttackAction
 
+	private readonly _onPerformError$: Subject<string>
+
 	constructor(pathFinder: CellsAStarPathFinder, gridOfCells: GridOfCells) {
 		super()
 		this._move = new DNDMoveAction(pathFinder)
@@ -37,6 +39,8 @@ export default class DNDActionsManager extends ActionsManager {
 		this._spellAttack = new DNDSpellAttackAction(gridOfCells, pathFinder)
 		this._dashAction = new DNDDashAction()
 		this._dodgeAction = new DNDDodgeAction()
+
+		this._onPerformError$ = new Subject<string>()
 	}
 
 	public perform(
@@ -59,9 +63,10 @@ export default class DNDActionsManager extends ActionsManager {
 				action !== this._current &&
 				this._current.currentPhase() !== ActionPhase.COMPLETED
 			) {
-				throw new Error(
-					`DNDActionsManager -> perform(): Can't perform a new action while the current one is not completed!`
+				this._onPerformError$.next(
+					'Вы пытаетесь совершить новое действие, когда еще не закончил предыдущее. Не надо так!'
 				)
+				return
 			}
 
 			if (this._current) this._current.reset()
@@ -74,6 +79,10 @@ export default class DNDActionsManager extends ActionsManager {
 
 		this._currentActionActor = actor
 		this._current.enterPhaseInput(actor, ...args)
+	}
+
+	public get onPerformError$(): Observable<string> {
+		return this._onPerformError$.asObservable()
 	}
 
 	public get actor(): DNDCharacter {

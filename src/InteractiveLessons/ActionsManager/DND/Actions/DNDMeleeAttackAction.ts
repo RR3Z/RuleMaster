@@ -24,6 +24,7 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 	private _gridOfCells: GridOfCells
 
 	// Events
+	private readonly _onError$: Subject<string>
 	private readonly _onActionPerformed$: Subject<MeleeAttackActionPerformedEvent>
 
 	constructor(gridOfCells: GridOfCells) {
@@ -32,7 +33,12 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 
 		this._gridOfCells = gridOfCells
 
+		this._onError$ = new Subject<string>()
 		this._onActionPerformed$ = new Subject<MeleeAttackActionPerformedEvent>()
+	}
+
+	public get onError$(): Observable<string> {
+		return this._onError$.asObservable()
 	}
 
 	public get onActionPerformed$(): Observable<MeleeAttackActionPerformedEvent> {
@@ -136,9 +142,10 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 					Math.abs(actor.pos.x - cell.pos.x) - attackRange > 0 ||
 					Math.abs(actor.pos.y - cell.pos.y) - attackRange > 0
 				) {
-					throw new Error(
-						'DNDMeleeAttackAction -> enterPhaseInput() -> RANGE_CHECK: Wrong attack area!'
+					this._onError$.next(
+						`Выбранная клетка находится вне области досягаемости. Ваша максимальная дальность - ${attackRange} клеток`
 					)
+					return
 				}
 
 				this._targets.push([cell.content as DNDCharacter, null])

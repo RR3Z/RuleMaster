@@ -23,17 +23,22 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		super()
 	}
 
-	// TODO:
 	public init(
 		steps: DNDTutorialStep[],
 		diceRoller: DiceRoller,
 		actionsManager: DNDActionsManager
 	): void {
 		this._steps = steps
+		actionsManager.resetCurrentAction()
 
 		// TUTORIAL SYSTEM EVENTS
 		this._onNextStep$.subscribe(() => {
 			this.onNextStep(actionsManager.actor, diceRoller, actionsManager)
+		})
+
+		// ACTIONS MANAGER EVENTS
+		actionsManager.onPerformError$.subscribe((errorMsg: string) => {
+			this._onWrongAction$.next(errorMsg)
 		})
 
 		// DICE ROLLER EVENTS
@@ -236,6 +241,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			this._onWrongAction$.next(
 				"Вы совершили неверное действие! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
 			)
+			actionsManager.resetCurrentAction()
 			return
 		}
 
@@ -243,6 +249,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			this._onWrongAction$.next(
 				"Вы переместились не туда, куда надо! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
 			)
+			actionsManager.resetCurrentAction()
 			return
 		}
 
