@@ -136,8 +136,8 @@ export default class DiceRollerEngine {
 		} else {
 			setTimeout(() => {
 				this._visualEngine.graphic.domElement.style.visibility = 'hidden'
-				this.removeDices()
 				this._onRollEnd$.next(this.rollResults())
+				this.removeDices()
 			}, 1000)
 		}
 	}
