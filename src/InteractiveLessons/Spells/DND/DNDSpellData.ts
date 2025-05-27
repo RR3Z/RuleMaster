@@ -14,4 +14,5 @@ export type DNDSpellData = {
 	savingThrowStat?: DNDStatType
 	rollsFormula: DiceRollerFormula[] | null
 	isAttachedToCharacter: boolean
+	iconPath?: string
 }

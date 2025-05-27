@@ -90,6 +90,34 @@ export function DNDActionsPanel({
 					areaHighlighter.enterSelectionMode(GeometricShape.CELL, 1, 0xff0000)
 				}}
 			/>
+			{player.spells.map((spell, index) => (
+				<ActionButton
+					key={`spell-${index}-${spell.name}`}
+					buttonActivity={true}
+					id={`spellButton_${index}`}
+					tooltipText={spell.name}
+					imageFilePath={spell.iconPath || '/noImage.webp'}
+					onClick={() => {
+						let onAreaSelectedSubscription =
+							areaHighlighter.onAreaSelected$.subscribe((area: Position[]) => {
+								areaHighlighter.exitSelectionMode()
+								actionsManager.perform(
+									player,
+									actionsManager.spellAttackAction,
+									spell,
+									area
+								)
+								onAreaSelectedSubscription.unsubscribe()
+							})
+
+						areaHighlighter.enterSelectionMode(
+							spell.form,
+							spell.radius,
+							0xff0000
+						)
+					}}
+				/>
+			))}
 		</PanelWrapper>
 	)
 }
