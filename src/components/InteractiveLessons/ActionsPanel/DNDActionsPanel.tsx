@@ -81,7 +81,7 @@ export function DNDActionsPanel({
 							areaHighlighter.exitSelectionMode()
 							actionsManager.perform(
 								player,
-								actionsManager.meleeAttackAction,
+								actionsManager.rangedAttackAction,
 								area
 							)
 							onAreaSelectedSubscription.unsubscribe()
