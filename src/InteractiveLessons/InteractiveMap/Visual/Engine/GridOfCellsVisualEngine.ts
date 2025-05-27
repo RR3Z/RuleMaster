@@ -6,6 +6,7 @@ import GridOfCellsVisual from '../Grid/GridOfCellsVisual'
 import { GridOfCellsVisualData } from '../Grid/GridOfCellsVisualData'
 import GridOfCellsVisualUtils from '../Grid/GridOfCellsVisualUtils'
 import DraggableOnCellsToken from '../Tokens/DraggableOnCellsToken'
+import Token from '../Tokens/Token'
 import InteractiveMapVisualEngine from './InteractiveMapVisualEngine'
 
 export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine {
@@ -13,6 +14,7 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 	private readonly _gridLogic: GridOfCells
 
 	private _player!: DraggableOnCellsToken
+	private _enemyTokens: Map<string, Token>
 	private _charactersVisualFilePaths: Map<string, string>
 	private _gridOfCells!: GridOfCellsVisual
 	private _areaHighlighter!: GridOfCellsAreaHighlighter
@@ -23,6 +25,7 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 
 		this._charactersVisualFilePaths = new Map<string, string>()
 
+		this._enemyTokens = new Map<string, Token>()
 		this._data = data
 		this._gridLogic = grid
 		this._visualUtils = new GridOfCellsVisualUtils(grid.width, grid.height)
@@ -90,7 +93,35 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 		camera.target = this._player
 		this._sceneObjects.addChild(this._player)
 
-		// TODO: Enemies
+		// Enemies
+		if (enemies.length > 0 && enemiesVisualFilePaths.length > 0) {
+			for (let i = 0; i < enemies.length; i++) {
+				const enemy = enemies[i]
+				const enemyVisualFilePath =
+					enemiesVisualFilePaths[i % enemiesVisualFilePaths.length] // Reuse paths if not enough
+
+				const enemyToken = new Token({
+					// Using base Token for non-draggable enemies
+					startPos: enemy.pos,
+					radius: this._data.cellVisual.size / 2,
+					worldSpaceContainer: camera,
+					sprite: await this._visualUtils.loadSprite(enemyVisualFilePath),
+				})
+				// Update visual position from grid coordinates
+				const enemyPixelPos = this._visualUtils.coordinatesToPixelPosition(
+					enemy.pos.x,
+					enemy.pos.y,
+					this._data.cellVisual.size / 2
+				)
+				enemyToken.position.set(enemyPixelPos.x, enemyPixelPos.y)
+
+				enemyToken.interactive = false // Typically enemies are not player-interactive for dragging
+
+				this._charactersVisualFilePaths.set(enemy.name, enemyVisualFilePath)
+				this._enemyTokens.set(enemy.name, enemyToken) // Store token by enemy name
+				this._sceneObjects.addChild(enemyToken)
+			}
+		}
 	}
 
 	public get charactersVisualFilePaths(): Map<string, string> {

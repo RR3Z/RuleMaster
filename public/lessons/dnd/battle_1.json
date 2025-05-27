@@ -1458,7 +1458,51 @@
 			},
 			"startPos": { "x": 25, "y": 20 },
 			"startState": "TURN"
-		}
+		},
+		"enemies": [
+			{
+				"type": "DND",
+				"data": {
+					"type": "DND",
+					"name": "Гоблин-воин",
+					"class": "Paladin",
+					"level": 1,
+					"maxHealth": 9999,
+					"maxMovementSpeed": 30,
+					"maxSpellSlots": [],
+					"stats": [
+						["Str", 0],
+						["Dex", 0],
+						["Con", 0],
+						["Int", 0],
+						["Wis", 0],
+						["Cha", 0]
+					],
+					"savingThrowProficiencies": [],
+					"spells": [],
+					"equipment": [
+						{
+							"type": "One Handed",
+							"name": "Ятаган",
+							"description": "Изогнутый клинок.",
+							"rangeType": "Melee",
+							"defaultRange": 5,
+							"maxRange": 5,
+							"damageFormulas": [{ "type": "D6", "count": 1 }],
+							"descriptors": []
+						},
+						{
+							"type": "Armour",
+							"name": "Щит и кожаная броня",
+							"description": "Кожаная броня и деревянный щит.",
+							"armourClass": 1
+						}
+					]
+				},
+				"startPos": { "x": 27, "y": 20 },
+				"startState": "WAITING_TURN"
+			}
+		]
 	},
 	"visual": {
 		"gridBackgroundImg": "/mapBackgrounds/arena_map.webp",

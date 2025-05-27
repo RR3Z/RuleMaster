@@ -27,8 +27,25 @@ export default class DNDInteractiveMapModel extends InteractiveMapModel {
 			data.player.startPos,
 			data.player.startState
 		)
-		this._enemies = [] // TODO:
-		this._grid = new GridOfCells(data, this._player, [])
+
+		this._enemies = []
+		if (data.enemies && data.enemies.length > 0) {
+			this._enemies = data.enemies.map(enemyData => {
+				if (enemyData.type !== 'DND') {
+					throw new Error(
+						'DNDInteractiveMapModel -> constructor(): Wrong Enemy Data type'
+					)
+				}
+				return new DNDCharacter(
+					EntityType.ENEMY,
+					enemyData.data,
+					enemyData.startPos,
+					enemyData.startState
+				)
+			})
+		}
+
+		this._grid = new GridOfCells(data, this._player, this._enemies)
 		this._pathFinder = new CellsAStarPathFinder(this._grid)
 		this._actionsManager = new DNDActionsManager(this._pathFinder, this._grid)
 		this._initiativeManager = new DNDInitiativeManager()
