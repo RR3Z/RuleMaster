@@ -38,10 +38,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 
 		// DICE ROLLER EVENTS
 		diceRoller.onSelectDices$.subscribe((formulas: DiceRollerFormula[]) => {
-			this.onSelectDices(formulas, diceRoller)
-		})
-		diceRoller.onRollEnd$.subscribe((results: DiceRollerResult[]) => {
-			this.onRollEnd()
+			this.checkDiceRollerActions(formulas)
 		})
 
 		// DND ACTIONS EVENTS
@@ -143,7 +140,11 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			)
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
-					actionsManager.perform(actor, undefined, undefined, results)
+					actionsManager.perform(
+						actor,
+						undefined,
+						results.map(result => result.value)
+					)
 					onSelectDicesSubscription.unsubscribe()
 					onRollEndSubscription.unsubscribe()
 					this.onRollEnd()
@@ -177,11 +178,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		}
 	}
 
-	private onSelectDices(
-		formulas: DiceRollerFormula[],
-		diceRoller: DiceRoller
-	): void {
-		console.log('onSelectDices')
+	private checkDiceRollerActions(formulas: DiceRollerFormula[]): boolean {
 		const currentStep = this._steps[this._currentStepIndex]
 		const expectedActionParams = currentStep.expectedAction
 			.params as DiceRollerFormula[]
@@ -199,17 +196,24 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			this._onWrongAction$.next(
 				"Вы совершили неверное действие! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
 			)
-			return
+			return false
 		}
 
 		if (!arraysShallowEqualUnordered(formulas, expectedActionParams)) {
 			this._onWrongAction$.next(
 				"Вы выбрали не те кубики! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
 			)
-			return
+			return false
 		}
 
-		diceRoller.makeRoll(formulas)
+		return true
+	}
+
+	private onSelectDices(
+		formulas: DiceRollerFormula[],
+		diceRoller: DiceRoller
+	): void {
+		if (this.checkDiceRollerActions(formulas)) diceRoller.makeRoll(formulas)
 	}
 
 	private onRollEnd(): void {
