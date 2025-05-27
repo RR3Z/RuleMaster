@@ -1,12 +1,17 @@
 'use client'
+import DNDActionsManager from '@/InteractiveLessons/ActionsManager/DND/DNDActionsManager'
+import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import DNDInitiativeManager from '@/InteractiveLessons/InitiativeManager/DND/DNDInitiativeManager'
 import InteractiveLesson from '@/InteractiveLessons/InteractiveLesson'
 import DNDInteractiveMapModel from '@/InteractiveLessons/InteractiveMap/Model/DNDInteractiveMapModel'
+import DefaultDNDInteractiveMapView from '@/InteractiveLessons/InteractiveMap/View/DefaultDNDInteractiveMapView'
+import GridOfCellsAreaHighlighter from '@/InteractiveLessons/InteractiveMap/Visual/AreaHighlighter/GridOfCellsAreaHighlighter'
 import { TutorialStep } from '@/InteractiveLessons/TutorialSystem/Types/TutorialStep'
 import { Game } from '@/InteractiveLessons/Types/Game'
 import { useEffect, useState } from 'react'
 import { Subscription } from 'rxjs'
 import styled from 'styled-components'
+import { DNDActionsPanel } from './ActionsPanel/DNDActionsPanel'
 import DiceRollerComponent from './DiceRoller/DiceRollerComponent'
 import InitiativeTracker from './InitiativeTracker/InitiativeTracker'
 import InteractiveMapComponent from './InteractiveMap/InteractiveMapComponent'
@@ -53,6 +58,8 @@ export default function DNDInteractiveLessonComponent({
 	const [isDiceRollerActive, setDiceRollerActivity] = useState(false)
 	const [initiativeManager, setInitiativeManager] =
 		useState<DNDInitiativeManager | null>(null)
+	const [areaHighlighter, setAreaHighlighter] =
+		useState<GridOfCellsAreaHighlighter | null>(null)
 	const [initiativeTrackerActivity, setInitiativeTrackerActivity] =
 		useState(false)
 	const [isMenuActive, setMenuActivity] = useState(true)
@@ -131,6 +138,18 @@ export default function DNDInteractiveLessonComponent({
 						setInitiativeTrackerActivity(true)
 					})
 			}
+
+			if (
+				lessonInstance.interactiveMap &&
+				lessonInstance.interactiveMap.view instanceof
+					DefaultDNDInteractiveMapView
+			) {
+				const areaHighlighter = (
+					lessonInstance.interactiveMap.view as DefaultDNDInteractiveMapView
+				).visualEngine.areaHighlighter
+
+				setAreaHighlighter(areaHighlighter)
+			}
 		}
 
 		load()
@@ -182,6 +201,15 @@ export default function DNDInteractiveLessonComponent({
 					characterTokenPaths={
 						interactiveLesson.interactiveMap.charactersVisualFilePaths
 					}
+				/>
+			)}
+			{areaHighlighter && (
+				<DNDActionsPanel
+					actionsManager={
+						interactiveLesson.interactiveMap.actionsManager as DNDActionsManager
+					}
+					player={interactiveLesson.interactiveMap.player as DNDCharacter}
+					areaHighlighter={areaHighlighter}
 				/>
 			)}
 		</MainContainer>

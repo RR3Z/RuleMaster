@@ -10,16 +10,21 @@ import { Observable, Subject } from 'rxjs'
 import { ActionPhase } from '../../ActionPhase'
 import { IPhasedAction } from '../../IPhasedAction'
 
+export type MeleeAttackActionPerformedEvent = {
+	actor: DNDCharacter
+	targets: DNDCharacter[]
+}
+
 export default class DNDMeleeAttackAction implements IPhasedAction {
 	// Fields
 	private _currentPhase: ActionPhase
-	private _targets: [Readonly<DNDCharacter>, HitType | null][]
+	private _targets: [DNDCharacter, HitType | null][]
 
 	// Dependencies
 	private _gridOfCells: GridOfCells
 
 	// Events
-	private readonly _onActionPerform$: Subject<void>
+	private readonly _onActionPerformed$: Subject<MeleeAttackActionPerformedEvent>
 
 	constructor(gridOfCells: GridOfCells) {
 		this._currentPhase = ActionPhase.RANGE_CHECK
@@ -27,11 +32,11 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 
 		this._gridOfCells = gridOfCells
 
-		this._onActionPerform$ = new Subject<void>()
+		this._onActionPerformed$ = new Subject<MeleeAttackActionPerformedEvent>()
 	}
 
-	public get onActionPerformed$(): Observable<void> {
-		return this._onActionPerform$.asObservable()
+	public get onActionPerformed$(): Observable<MeleeAttackActionPerformedEvent> {
+		return this._onActionPerformed$.asObservable()
 	}
 
 	public currentPhase(): ActionPhase {
@@ -65,7 +70,10 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 				}
 
 				this.rangeCheck(actor, attackArea)
-				this._onActionPerform$.next()
+				this._onActionPerformed$.next({
+					actor: actor,
+					targets: this._targets.map(([character]) => character),
+				})
 				break
 			case ActionPhase.HIT_CHECK:
 				if (hitRolls === undefined) {
@@ -142,7 +150,7 @@ export default class DNDMeleeAttackAction implements IPhasedAction {
 	}
 
 	private hitCheck(actor: DNDCharacter, hitRolls: number[]): void {
-		const newTargets: [Readonly<DNDCharacter>, HitType][] = []
+		const newTargets: [DNDCharacter, HitType][] = []
 
 		for (let i = 0; i < this._targets.length; i++) {
 			const target = this._targets[i][0]

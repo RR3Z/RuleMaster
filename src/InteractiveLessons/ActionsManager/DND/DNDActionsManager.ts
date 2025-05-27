@@ -8,15 +8,20 @@ import ActionsManager from '../ActionsManager'
 import { IPhasedAction } from '../IPhasedAction'
 import DNDDashAction from './Actions/DNDDashAction'
 import DNDDodgeAction from './Actions/DNDDodgeAction'
-import DNDMeleeAttackAction from './Actions/DNDMeleeAttackAction'
+import DNDMeleeAttackAction, {
+	MeleeAttackActionPerformedEvent,
+} from './Actions/DNDMeleeAttackAction'
 import DNDMoveAction, {
 	MoveActionPerformedEvent,
 } from './Actions/DNDMoveAction'
-import DNDRangedAttackAction from './Actions/DNDRangedAttackAction'
+import DNDRangedAttackAction, {
+	RangedAttackActionPerformedEvent,
+} from './Actions/DNDRangedAttackAction'
 import DNDSpellAttackAction from './Actions/DNDSpellAttackAction'
 
 export default class DNDActionsManager extends ActionsManager {
-	private _current!: IPhasedAction
+	private _currentActionActor!: DNDCharacter
+	private _current!: IPhasedAction | undefined
 	private _move: DNDMoveAction
 	private _meleeAttack: DNDMeleeAttackAction
 	private _rangedAttack: DNDRangedAttackAction
@@ -67,7 +72,16 @@ export default class DNDActionsManager extends ActionsManager {
 			throw new Error(`DNDActionsManager -> perform(): No action to perform.`)
 		}
 
+		this._currentActionActor = actor
 		this._current.enterPhaseInput(actor, ...args)
+	}
+
+	public get actor(): DNDCharacter {
+		return this._currentActionActor
+	}
+
+	public get current(): IPhasedAction | undefined {
+		return this._current
 	}
 
 	public get moveAction(): DNDMoveAction {
@@ -102,7 +116,16 @@ export default class DNDActionsManager extends ActionsManager {
 		return this._move.onPositionChange$
 	}
 
+	public get onMeleeAttackActionPerformed(): Observable<MeleeAttackActionPerformedEvent> {
+		return this._meleeAttack.onActionPerformed$
+	}
+
+	public get onRangedAttackActionPerformed(): Observable<RangedAttackActionPerformedEvent> {
+		return this._rangedAttack.onActionPerformed$
+	}
+
 	public resetCurrentAction(): void {
-		this._current.reset()
+		this._current?.reset()
+		this._current = undefined
 	}
 }

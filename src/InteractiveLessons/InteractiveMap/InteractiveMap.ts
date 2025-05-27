@@ -38,6 +38,10 @@ export default class InteractiveMap {
 		return this._model
 	}
 
+	public get view(): InteractiveMapView {
+		return this._view
+	}
+
 	public get player(): Character {
 		return this._model.player
 	}
