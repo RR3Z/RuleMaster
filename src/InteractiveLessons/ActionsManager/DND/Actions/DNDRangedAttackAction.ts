@@ -173,7 +173,7 @@ export default class DNDRangedAttackAction implements IPhasedAction {
 			const target = this._targets[i][0]
 
 			// Crtitical Miss
-			if (hitRolls[i] === 1) continue
+			// if (hitRolls[i] === 1) continue
 
 			// Critical Hit
 			if (hitRolls[i] >= 20) {
