@@ -1,7 +1,6 @@
 'use client'
 import { LogData } from '@/InteractiveLessons/Logger/LogData'
 import { useEffect, useRef, useState } from 'react'
-import { Observable } from 'rxjs'
 import styled from 'styled-components'
 import LogEntry from './LogEntry'
 
@@ -29,28 +28,15 @@ const MainContainer = styled.div`
 
 type Props = {
 	initialLogs?: LogData[]
-	onNewLog$?: Observable<LogData>
 }
 
-export default function LogsTab({ initialLogs, onNewLog$ }: Props) {
+export default function LogsTab({ initialLogs }: Props) {
 	const [logs, setLogs] = useState<LogData[]>(initialLogs || [])
 	const logsEndRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
 		setLogs(initialLogs || [])
 	}, [initialLogs])
-
-	useEffect(() => {
-		if (onNewLog$) {
-			const subscription = onNewLog$.subscribe(newLog => {
-				setLogs(prevLogs => {
-					const updatedLogs = [...prevLogs, newLog]
-					return updatedLogs
-				})
-			})
-			return () => subscription.unsubscribe()
-		}
-	}, [onNewLog$])
 
 	useEffect(() => {
 		logsEndRef.current?.scrollIntoView({ behavior: 'smooth' })
