@@ -3,16 +3,22 @@ import { Container, Graphics } from 'pixi.js'
 
 export default class CellVisual extends Container {
 	private _visual: Graphics
+	private _pos: Position
 
 	constructor(size: number, pos: Position) {
 		super()
 
 		this._visual = new Graphics()
 		this.addChild(this._visual)
+		this._pos = pos
 
 		this.draw(size, pos)
 		this.interactive = true
 		this.eventMode = 'static'
+	}
+
+	public get pos(): Position {
+		return this._pos
 	}
 
 	private draw(size: number, pos: Position): void {

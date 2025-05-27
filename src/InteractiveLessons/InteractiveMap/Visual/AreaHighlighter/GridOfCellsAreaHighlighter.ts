@@ -181,8 +181,6 @@ export default class GridOfCellsAreaHighlighter {
 	private handlePointerDown(event: FederatedPointerEvent): void {
 		if (!this._isSelectionModeActive || event.button !== 0) return
 
-		this._onAreaSelected$.next(
-			this._highlightedCells.map(cell => cell.position)
-		)
+		this._onAreaSelected$.next(this._highlightedCells.map(cell => cell.pos))
 	}
 }
