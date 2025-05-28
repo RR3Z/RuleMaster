@@ -152,25 +152,16 @@ export default class DNDCharacter extends Character {
 		switch (this._data.class) {
 			case DNDClass.ARTIFICER:
 			case DNDClass.WIZARD:
-				return (
-					this._statsManager.statModifier(DNDStatType.INTELLIGENCE) +
-					this.bonusMastery
-				)
+				return this._statsManager.statModifier(DNDStatType.INTELLIGENCE)
 			case DNDClass.CLERIC:
 			case DNDClass.DRUID:
 			case DNDClass.RANGER:
-				return (
-					this._statsManager.statModifier(DNDStatType.WISDOM) +
-					this.bonusMastery
-				)
+				return this._statsManager.statModifier(DNDStatType.WISDOM)
 			case DNDClass.BARD:
 			case DNDClass.PALADIN:
 			case DNDClass.SORCERER:
 			case DNDClass.WARLOCK:
-				return (
-					this._statsManager.statModifier(DNDStatType.CHARISMA) +
-					this.bonusMastery
-				)
+				return this._statsManager.statModifier(DNDStatType.CHARISMA)
 			default:
 				throw new Error('DNDCharacter -> spellAttackModifier(): Unknown class!')
 		}

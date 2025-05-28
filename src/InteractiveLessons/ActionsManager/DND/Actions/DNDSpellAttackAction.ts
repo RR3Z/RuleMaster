@@ -233,7 +233,8 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 
 			// Check Hit
 			else {
-				let hitValue = hitRolls[i] + actor.spellAttackModifier
+				let hitValue =
+					hitRolls[i] + actor.spellAttackModifier + actor.bonusMastery
 
 				if (hitValue >= this._targets[i][0].armourClass) {
 					newTargets.push([this._targets[i][0], HitType.DEFAULT])
