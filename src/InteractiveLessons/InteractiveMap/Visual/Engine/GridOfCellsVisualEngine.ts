@@ -43,7 +43,6 @@ export default class GridOfCellsVisualEngine extends InteractiveMapVisualEngine 
 		return this._areaHighlighter
 	}
 
-	// TODO: add enemies
 	public override async initialize(
 		player: Character,
 		enemies: Character[],

@@ -15,6 +15,8 @@ import { DiceRollerFormula } from '@/InteractiveLessons/DiceRoller/Types/DiceRol
 import { DiceRollerResult } from '@/InteractiveLessons/DiceRoller/Types/DiceRollerResult'
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
+import GridOfCellsAreaHighlighter from '@/InteractiveLessons/InteractiveMap/Visual/AreaHighlighter/GridOfCellsAreaHighlighter'
+import DraggableOnCellsToken from '@/InteractiveLessons/InteractiveMap/Visual/Tokens/DraggableOnCellsToken'
 import Logger from '@/InteractiveLessons/Logger/Logger'
 import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import { Position } from '@/InteractiveLessons/Types/Position'
@@ -32,7 +34,9 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		steps: DNDTutorialStep[],
 		logger: Logger,
 		diceRoller: DiceRoller,
-		actionsManager: DNDActionsManager
+		actionsManager: DNDActionsManager,
+		playerToken: DraggableOnCellsToken,
+		areaHighlighter: GridOfCellsAreaHighlighter
 	): void {
 		this._steps = steps
 		this._logger = logger
@@ -41,6 +45,15 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		// TUTORIAL SYSTEM EVENTS
 		this._onNextStep$.subscribe(() => {
 			this.onNextStep(actionsManager.actor, diceRoller, actionsManager)
+		})
+
+		// AREA HIGHLIGHTER EVENTS
+		areaHighlighter.onAreaSelectionEnabled$.subscribe(() => {
+			playerToken.interactive = false
+		})
+
+		areaHighlighter.onAreaSelectionDisabled$.subscribe(() => {
+			playerToken.interactive = true
 		})
 
 		// ACTIONS MANAGER EVENTS

@@ -51,7 +51,9 @@ export default class InteractiveLesson {
 			tutorialData,
 			this._logger,
 			this.diceRoller,
-			this._interactiveMap.actionsManager
+			this._interactiveMap.actionsManager,
+			this._interactiveMap.view.visualEngine.player,
+			this._interactiveMap.view.visualEngine.areaHighlighter
 		)
 	}
 
