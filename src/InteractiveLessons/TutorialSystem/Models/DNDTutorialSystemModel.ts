@@ -18,6 +18,7 @@ import { EntityType } from '@/InteractiveLessons/Entities/EntityType'
 import GridOfCellsAreaHighlighter from '@/InteractiveLessons/InteractiveMap/Visual/AreaHighlighter/GridOfCellsAreaHighlighter'
 import DraggableOnCellsToken from '@/InteractiveLessons/InteractiveMap/Visual/Tokens/DraggableOnCellsToken'
 import Logger from '@/InteractiveLessons/Logger/Logger'
+import { LogType } from '@/InteractiveLessons/Logger/LogType'
 import { DNDSpellData } from '@/InteractiveLessons/Spells/DND/DNDSpellData'
 import { Position } from '@/InteractiveLessons/Types/Position'
 import { arraysShallowEqualUnordered } from '@/InteractiveLessons/Utils'
@@ -143,9 +144,9 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
 					this._logger.newLog({
-						logType: 0,
+						logType: LogType.WEAPON_HIT_ROLL,
 						actorName: actor.name,
-						details: { formulas: formulasVar, results: results },
+						details: { actor: actor, formulas: formulasVar, results: results },
 					})
 
 					actionsManager.perform(
@@ -216,9 +217,9 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
 					this._logger.newLog({
-						logType: 0,
+						logType: LogType.WEAPON_HIT_ROLL,
 						actorName: actor.name,
-						details: { formulas: formulasVar, results: results },
+						details: { actor: actor, formulas: formulasVar, results: results },
 					})
 
 					actionsManager.perform(
@@ -252,7 +253,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
 					this._logger.newLog({
-						logType: 0,
+						logType: LogType.DICE_ROLLER_ROLL,
 						actorName: actor.name,
 						details: { formulas: formulasVar, results: results },
 					})
@@ -288,9 +289,9 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
 					this._logger.newLog({
-						logType: 0,
+						logType: LogType.WEAPON_HIT_ROLL,
 						actorName: actor.name,
-						details: { formulas: formulasVar, results: results },
+						details: { actor: actor, formulas: formulasVar, results: results },
 					})
 
 					actionsManager.perform(
@@ -521,7 +522,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		}
 
 		this._logger.newLog({
-			logType: 2,
+			logType: LogType.CHARACTER_MELEE_ATTACK_START,
 			actorName: actor.name,
 			details: undefined,
 		})
@@ -572,7 +573,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		}
 
 		this._logger.newLog({
-			logType: 3,
+			logType: LogType.CHARACTER_RANGED_ATTACK_START,
 			actorName: actor.name,
 			details: undefined,
 		})
@@ -633,7 +634,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		}
 
 		this._logger.newLog({
-			logType: 4,
+			logType: LogType.CHARACTER_SPELL_CAST_START,
 			actorName: actor.name,
 			details: { spellName: spell.name },
 		})
