@@ -14,7 +14,7 @@ const PanelWrapper = styled.div`
 	left: 20px;
 	bottom: 0;
 	background: #00000079;
-	z-index: 1000;
+	z-index: 500;
 	padding: 5px;
 	display: flex;
 	flex-direction: row;
