@@ -28,9 +28,10 @@ const MainContainer = styled.div`
 
 type Props = {
 	initialLogs?: LogData[]
+	isActive?: boolean
 }
 
-export default function LogsTab({ initialLogs }: Props) {
+export default function LogsTab({ initialLogs, isActive }: Props) {
 	const [logs, setLogs] = useState<LogData[]>(initialLogs || [])
 	const logsEndRef = useRef<HTMLDivElement>(null)
 
@@ -40,7 +41,7 @@ export default function LogsTab({ initialLogs }: Props) {
 
 	useEffect(() => {
 		logsEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-	}, [logs])
+	}, [logs, isActive])
 
 	return (
 		<MainContainer id='logsTab'>

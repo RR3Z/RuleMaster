@@ -82,7 +82,7 @@ export default function Menu({ diceRoller, logger, isActive }: Props) {
 			<HR />
 
 			<TabContentWrapper $isVisible={activeTab === 'logs'}>
-				<LogsTab initialLogs={logger.logs} />
+				<LogsTab initialLogs={logger.logs} isActive={activeTab === 'logs'} />
 			</TabContentWrapper>
 			<TabContentWrapper $isVisible={activeTab === 'diceRoller'}>
 				<DiceRollerTab diceRoller={diceRoller} />

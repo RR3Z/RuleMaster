@@ -1,8 +1,15 @@
 import { DiceType } from '@/InteractiveLessons/DiceRoller/Types/DiceType'
+import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
+import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentSlotType'
+import { DNDWeaponData } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponData'
+import { DNDWeaponDescriptor } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponDescriptor'
+import { DNDWeaponRangeType } from '@/InteractiveLessons/EquipmentManager/DND/Weapon/DNDWeaponRangeType'
 import { DiceRollerRollDetails } from '@/InteractiveLessons/Logger/Details/DiceRollerRollDetails'
 import { SpellCastDetails } from '@/InteractiveLessons/Logger/Details/SpellCastDetails'
 import { LogData } from '@/InteractiveLessons/Logger/LogData'
 import { LogType } from '@/InteractiveLessons/Logger/LogType'
+import { DNDStatType } from '@/InteractiveLessons/StatsManager/DNDStatType'
+import { DNDClass } from '@/types/CharacterLesson/DNDClass'
 import styled from 'styled-components'
 
 const EntryContainer = styled.div`
@@ -72,7 +79,7 @@ const RollFormulaDisplay = styled.div`
 
 const RollResultDisplay = styled(RollFormulaDisplay)`
 	font-size: 1.2em;
-	margin-top: 2px;
+	padding: 5px;
 `
 
 type Props = {
@@ -85,27 +92,130 @@ const formatDiceType = (diceType: DiceType): string => {
 
 export default function LogEntry({ log }: Props) {
 	const renderDetails = () => {
+		let rollDetails
+		let formulaStr
+		let resultValue
+		let bonusMastery
+
 		switch (log.logType) {
 			case LogType.DICE_ROLLER_ROLL:
-				const rollDetails = log.details as DiceRollerRollDetails
-				const formulaStr = rollDetails.formulas
+				rollDetails = log.details as DiceRollerRollDetails
+				formulaStr = rollDetails.formulas
 					.map(f => `${f.count}${formatDiceType(f.type)}`)
 					.join(' + ')
-				const resultValue = rollDetails.results.reduce(
-					(sum, r) => sum + r.value,
-					0
-				)
+				resultValue = rollDetails.results.reduce((sum, r) => sum + r.value, 0)
 				return (
 					<>
 						<p>Бросок: {formulaStr}</p>
 						<RollResultDisplay>{resultValue}</RollResultDisplay>
 					</>
 				)
-			case LogType.CHARACTER_MELEE_ATTACK:
+			case LogType.WEAPON_HIT_ROLL:
+				rollDetails = log.details as DiceRollerRollDetails
+				formulaStr = rollDetails.formulas
+					.map(f => `${f.count}${formatDiceType(f.type)}`)
+					.join(' + ')
+				bonusMastery = (log.details.actor as DNDCharacter).bonusMastery
+				let attackModifier = (log.details.actor as DNDCharacter).attackModifier
+
+				const weapon = (
+					log.details.actor as DNDCharacter
+				).equipmentManager.slotItem(DNDEquipmentSlotType.MAIN_HAND)
+				let attackModifierType =
+					(weapon as DNDWeaponData).rangeType === DNDWeaponRangeType.MELEE &&
+					!(weapon as DNDWeaponData).descriptors.includes(
+						DNDWeaponDescriptor.FINESSE
+					)
+						? DNDStatType.STRENGTH
+						: DNDStatType.DEXTERITY
+
+				resultValue =
+					rollDetails.results.reduce((sum, r) => sum + r.value, 0) +
+					bonusMastery +
+					attackModifier
+				return (
+					<>
+						<p>Бросок на попадание.</p>
+						<ModifiersContainer>
+							<ModifierBadge>
+								Дайс(-ы):{' '}
+								{rollDetails.results.reduce((sum, r) => sum + r.value, 0)}
+							</ModifierBadge>
+							<ModifierBadge>БМ: {bonusMastery}</ModifierBadge>
+							<ModifierBadge>
+								{attackModifierType === DNDStatType.STRENGTH
+									? 'СИЛ: '
+									: 'ЛОВ: '}
+								{attackModifier}
+							</ModifierBadge>
+						</ModifiersContainer>
+						<RollResultDisplay>
+							{formulaStr} + {bonusMastery + attackModifier}
+						</RollResultDisplay>
+						<RollResultDisplay>{resultValue}</RollResultDisplay>
+					</>
+				)
+			case LogType.SPELL_HIT_ROLL:
+				rollDetails = log.details as DiceRollerRollDetails
+				formulaStr = rollDetails.formulas
+					.map(f => `${f.count}${formatDiceType(f.type)}`)
+					.join(' + ')
+				bonusMastery = (log.details.actor as DNDCharacter).bonusMastery
+				let spellAttackModifier = (log.details.actor as DNDCharacter)
+					.spellAttackModifier
+
+				let spellAttackModifierType
+				switch ((log.details.actor as DNDCharacter).clazz) {
+					case DNDClass.ARTIFICER:
+					case DNDClass.WIZARD:
+						spellAttackModifierType = DNDStatType.INTELLIGENCE
+						break
+					case DNDClass.CLERIC:
+					case DNDClass.DRUID:
+					case DNDClass.RANGER:
+						spellAttackModifierType = DNDStatType.WISDOM
+						break
+					case DNDClass.BARD:
+					case DNDClass.PALADIN:
+					case DNDClass.SORCERER:
+					case DNDClass.WARLOCK:
+						spellAttackModifierType = DNDStatType.CHARISMA
+						break
+				}
+
+				resultValue =
+					rollDetails.results.reduce((sum, r) => sum + r.value, 0) +
+					bonusMastery +
+					spellAttackModifier
+				return (
+					<>
+						<p>Бросок на попадание.</p>
+						<ModifiersContainer>
+							<ModifierBadge>
+								Дайс(-ы):{' '}
+								{rollDetails.results.reduce((sum, r) => sum + r.value, 0)}
+							</ModifierBadge>
+							<ModifierBadge>БМ: {bonusMastery}</ModifierBadge>
+							<ModifierBadge>
+								{spellAttackModifierType === DNDStatType.INTELLIGENCE
+									? 'ИНТ: '
+									: spellAttackModifierType === DNDStatType.WISDOM
+									? 'МДР: '
+									: 'ХАР: '}
+								{spellAttackModifier}
+							</ModifierBadge>
+						</ModifiersContainer>
+						<RollResultDisplay>
+							{formulaStr} + {bonusMastery + spellAttackModifier}
+						</RollResultDisplay>
+						<RollResultDisplay>{resultValue}</RollResultDisplay>
+					</>
+				)
+			case LogType.CHARACTER_MELEE_ATTACK_START:
 				return <p>Начал выполнять действие "Ближняя атака".</p>
-			case LogType.CHARACTER_RANGED_ATTACK:
+			case LogType.CHARACTER_RANGED_ATTACK_START:
 				return <p>Начал выполнять действие "Дальнобойная атака".</p>
-			case LogType.CHARACTER_SPELL_CAST:
+			case LogType.CHARACTER_SPELL_CAST_START:
 				const spellDetails = log.details as SpellCastDetails
 				return <p>Начал использовать заклинание: {spellDetails.spellName}.</p>
 			case LogType.TUTORIAL_SYSTEM_MESSAGE:
