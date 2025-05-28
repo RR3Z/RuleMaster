@@ -9,7 +9,7 @@ import { Position } from '@/InteractiveLessons/Types/Position'
 import styled from 'styled-components'
 import ActionButton from './ActionButton'
 
-const PanelWrapper = styled.div`
+const PanelWrapper = styled.div<{ $isActive?: boolean }>`
 	position: fixed;
 	left: 20px;
 	bottom: 0;
@@ -19,18 +19,22 @@ const PanelWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	gap: 5px;
+	visibility: ${({ $isActive }) =>
+		$isActive === false ? 'hidden' : 'visible'};
 `
 
 type Props = {
 	player: DNDCharacter
 	actionsManager: DNDActionsManager
 	areaHighlighter: GridOfCellsAreaHighlighter
+	isActive: boolean
 }
 
 export function DNDActionsPanel({
 	player,
 	actionsManager,
 	areaHighlighter,
+	isActive,
 }: Props) {
 	const isMeleeWeapon =
 		player.equipmentManager.slotItem(DNDEquipmentSlotType.MAIN_HAND) &&
@@ -49,7 +53,7 @@ export function DNDActionsPanel({
 		).rangeType === DNDWeaponRangeType.RANGE
 
 	return (
-		<PanelWrapper>
+		<PanelWrapper $isActive={isActive}>
 			<ActionButton
 				buttonActivity={isMeleeWeapon ? true : false}
 				id='meleeAttackActionButton'

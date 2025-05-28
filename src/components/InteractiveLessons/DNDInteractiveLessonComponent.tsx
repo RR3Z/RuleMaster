@@ -56,6 +56,7 @@ export default function DNDInteractiveLessonComponent({
 	const [interactiveLesson, setInteractiveLesson] =
 		useState<InteractiveLesson>()
 	const [isDiceRollerActive, setDiceRollerActivity] = useState(false)
+	const [isActionsPanelActive, setActionsPanelActivity] = useState(true)
 	const [initiativeManager, setInitiativeManager] =
 		useState<DNDInitiativeManager | null>(null)
 	const [areaHighlighter, setAreaHighlighter] =
@@ -96,6 +97,7 @@ export default function DNDInteractiveLessonComponent({
 					() => {
 						setDiceRollerActivity(true)
 						setMenuActivity(false)
+						setActionsPanelActivity(false)
 					}
 				)
 
@@ -103,6 +105,7 @@ export default function DNDInteractiveLessonComponent({
 					() => {
 						setDiceRollerActivity(false)
 						setMenuActivity(true)
+						setActionsPanelActivity(true)
 					}
 				)
 			}
@@ -214,6 +217,7 @@ export default function DNDInteractiveLessonComponent({
 					}
 					player={interactiveLesson.interactiveMap.player as DNDCharacter}
 					areaHighlighter={areaHighlighter}
+					isActive={isActionsPanelActive}
 				/>
 			)}
 		</MainContainer>
