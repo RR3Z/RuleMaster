@@ -198,6 +198,10 @@ export default class DNDCharacter extends Character {
 		return Array.from(this._data.spells)
 	}
 
+	public get clazz(): DNDClass {
+		return this._data.class
+	}
+
 	public onNewTurn(): void {
 		this._effectsManager.updateTurn()
 
