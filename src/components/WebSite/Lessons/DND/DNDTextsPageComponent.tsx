@@ -1,6 +1,6 @@
 'use client'
 import styled from 'styled-components'
-import Card from '../../Card'
+import FileCard from '../../FileCard'
 
 const PageContainer = styled.div`
 	padding: 30px;
@@ -40,20 +40,35 @@ export default function DNDTextsPageComponent() {
 			<ThemeContainer>
 				<SubTitle>Создание персонажа</SubTitle>
 				<GridWrapper>
-					<Card name='Характеристики' link='/games/dnd/text/character/1' />
-					<Card name='Навыки' link='/games/dnd/text/character/2' />
-					<Card
-						name='Раса, класс и предыстория'
-						link='/games/dnd/text/character/3'
+					<FileCard
+						name='Характеристики'
+						downloadFile='/lessons/dnd/texts/characteristics.pdf'
 					/>
-					<Card name='Черты и способности' link='/games/dnd/text/character/4' />
+					<FileCard
+						name='Навыки'
+						downloadFile='/lessons/dnd/texts/skills.pdf'
+					/>
+					<FileCard
+						name='Раса, класс и предыстория'
+						downloadFile='/lessons/dnd/texts/raceClassBackground.pdf'
+					/>
 				</GridWrapper>
 			</ThemeContainer>
 			<ThemeContainer>
 				<SubTitle>Боевая система</SubTitle>
 				<GridWrapper>
-					<Card name='Порядок хода' link='/games/dnd/text/battle/1' />
-					<Card name='Возможные действия' link='/games/dnd/text/battle/2' />
+					<FileCard
+						name='Порядок хода'
+						downloadFile='/lessons/dnd/texts/runningOrder.pdf'
+					/>
+					<FileCard
+						name='Атака оружием'
+						downloadFile='/lessons/dnd/texts/weaponAttack.pdf'
+					/>
+					<FileCard
+						name='Атака заклинанием'
+						downloadFile='/lessons/dnd/texts/spellsAttack.pdf'
+					/>
 				</GridWrapper>
 			</ThemeContainer>
 		</PageContainer>
