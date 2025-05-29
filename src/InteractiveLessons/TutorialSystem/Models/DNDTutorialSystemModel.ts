@@ -120,11 +120,13 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		const currentStep = this._steps[this._currentStepIndex]
 		const currentAction = actionsManager.current
 
-		this._logger.newLog({
-			logType: LogType.TUTORIAL_SYSTEM_MESSAGE,
-			actorName: 'Система',
-			details: currentStep.messages.join(' '),
-		})
+		if (currentStep.messages && currentStep.messages.length > 0) {
+			this._logger.newLog({
+				logType: LogType.TUTORIAL_SYSTEM_MESSAGE,
+				actorName: 'Система',
+				details: currentStep.messages.join(' '),
+			})
+		}
 
 		if (
 			currentAction instanceof DNDMeleeAttackAction &&
