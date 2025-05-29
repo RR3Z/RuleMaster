@@ -197,6 +197,7 @@ export default function DNDInteractiveLessonComponent({
 				isActive={isDiceRollerActive}
 			/>
 			<Menu
+				player={interactiveLesson.interactiveMap.player as DNDCharacter}
 				diceRoller={interactiveLesson.diceRoller}
 				isActive={isMenuActive}
 				logger={interactiveLesson.logger}

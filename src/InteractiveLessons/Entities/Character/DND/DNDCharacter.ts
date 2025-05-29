@@ -194,12 +194,28 @@ export default class DNDCharacter extends Character {
 		return this._stateMachine
 	}
 
+	public get statsManager(): DNDStatsManager {
+		return this._statsManager
+	}
+
 	public get spells(): DNDSpellData[] {
 		return Array.from(this._data.spells)
 	}
 
 	public get clazz(): DNDClass {
 		return this._data.class
+	}
+
+	public get level(): number {
+		return this._data.level
+	}
+
+	public get maxMovementSpeed(): number {
+		return this._maxMovementSpeed
+	}
+
+	public get spellSlots(): Map<number, number> {
+		return this._spellSlots
 	}
 
 	public onNewTurn(): void {

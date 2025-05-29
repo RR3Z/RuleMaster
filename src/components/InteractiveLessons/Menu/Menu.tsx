@@ -1,4 +1,5 @@
 import DiceRoller from '@/InteractiveLessons/DiceRoller/DiceRoller'
+import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import DefaultLogger from '@/InteractiveLessons/Logger/Logger'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -43,12 +44,13 @@ const TabContentWrapper = styled.div<{ $isVisible: boolean }>`
 type TabName = 'logs' | 'diceRoller' | 'characterList'
 
 type Props = {
+	player: DNDCharacter
 	diceRoller: DiceRoller
 	logger: DefaultLogger
 	isActive: boolean
 }
 
-export default function Menu({ diceRoller, logger, isActive }: Props) {
+export default function Menu({ player, diceRoller, logger, isActive }: Props) {
 	const [activeTab, setActiveTab] = useState<TabName>('logs')
 
 	return (
@@ -88,7 +90,7 @@ export default function Menu({ diceRoller, logger, isActive }: Props) {
 				<DiceRollerTab diceRoller={diceRoller} />
 			</TabContentWrapper>
 			<TabContentWrapper $isVisible={activeTab === 'characterList'}>
-				<CharacterListTab />
+				<CharacterListTab player={player} />
 			</TabContentWrapper>
 		</MainContainer>
 	)
