@@ -96,6 +96,13 @@ export default function LogEntry({ log }: Props) {
 		let formulaStr
 		let resultValue
 		let bonusMastery
+		let attackModifier
+		let attackModifierType
+		let weapon
+		let spellAttackModifier
+		let spellAttackModifierType
+		let savingThrowModifier
+		let savingThrowModifierType
 
 		switch (log.logType) {
 			case LogType.DICE_ROLLER_ROLL:
@@ -116,12 +123,12 @@ export default function LogEntry({ log }: Props) {
 					.map(f => `${f.count}${formatDiceType(f.type)}`)
 					.join(' + ')
 				bonusMastery = (log.details.actor as DNDCharacter).bonusMastery
-				let attackModifier = (log.details.actor as DNDCharacter).attackModifier
+				attackModifier = (log.details.actor as DNDCharacter).attackModifier
 
-				const weapon = (
-					log.details.actor as DNDCharacter
-				).equipmentManager.slotItem(DNDEquipmentSlotType.MAIN_HAND)
-				let attackModifierType =
+				weapon = (log.details.actor as DNDCharacter).equipmentManager.slotItem(
+					DNDEquipmentSlotType.MAIN_HAND
+				)
+				attackModifierType =
 					(weapon as DNDWeaponData).rangeType === DNDWeaponRangeType.MELEE &&
 					!(weapon as DNDWeaponData).descriptors.includes(
 						DNDWeaponDescriptor.FINESSE
@@ -159,10 +166,9 @@ export default function LogEntry({ log }: Props) {
 					.map(f => `${f.count}${formatDiceType(f.type)}`)
 					.join(' + ')
 				bonusMastery = (log.details.actor as DNDCharacter).bonusMastery
-				let spellAttackModifier = (log.details.actor as DNDCharacter)
+				spellAttackModifier = (log.details.actor as DNDCharacter)
 					.spellAttackModifier
 
-				let spellAttackModifierType
 				switch ((log.details.actor as DNDCharacter).clazz) {
 					case DNDClass.ARTIFICER:
 					case DNDClass.WIZARD:
@@ -204,6 +210,108 @@ export default function LogEntry({ log }: Props) {
 							</ModifierBadge>
 						</ModifiersContainer>
 						<RollResultDisplay>{formulaStr} + БМ + МХ</RollResultDisplay>
+						<RollResultDisplay>{resultValue}</RollResultDisplay>
+					</>
+				)
+			case LogType.WEAPON_DAMAGE_ROLL:
+				rollDetails = log.details as DiceRollerRollDetails
+				formulaStr = rollDetails.formulas
+					.map(f => `${f.count}${formatDiceType(f.type)}`)
+					.join(' + ')
+				attackModifier = (log.details.actor as DNDCharacter).attackModifier
+
+				weapon = (log.details.actor as DNDCharacter).equipmentManager.slotItem(
+					DNDEquipmentSlotType.MAIN_HAND
+				)
+				attackModifierType =
+					(weapon as DNDWeaponData).rangeType === DNDWeaponRangeType.MELEE &&
+					!(weapon as DNDWeaponData).descriptors.includes(
+						DNDWeaponDescriptor.FINESSE
+					)
+						? DNDStatType.STRENGTH
+						: DNDStatType.DEXTERITY
+
+				resultValue =
+					rollDetails.results.reduce((sum, r) => sum + r.value, 0) +
+					attackModifier
+				return (
+					<>
+						<p>Бросок на урон.</p>
+						<ModifiersContainer>
+							<ModifierBadge>
+								Дайс(-ы):{' '}
+								{rollDetails.results.reduce((sum, r) => sum + r.value, 0)}
+							</ModifierBadge>
+							<ModifierBadge>
+								{attackModifierType === DNDStatType.STRENGTH
+									? 'СИЛ: '
+									: 'ЛОВ: '}
+								{attackModifier}
+							</ModifierBadge>
+						</ModifiersContainer>
+						<RollResultDisplay>{formulaStr} + МХ</RollResultDisplay>
+						<RollResultDisplay>{resultValue}</RollResultDisplay>
+					</>
+				)
+			case LogType.SPELL_DAMAGE_ROLL:
+				rollDetails = log.details as DiceRollerRollDetails
+				formulaStr = rollDetails.formulas
+					.map(f => `${f.count}${formatDiceType(f.type)}`)
+					.join(' + ')
+
+				resultValue = rollDetails.results.reduce((sum, r) => sum + r.value, 0)
+				return (
+					<>
+						<p>Бросок на урон от заклинания.</p>
+						<ModifiersContainer>
+							<ModifierBadge>
+								Дайс(-ы):{' '}
+								{rollDetails.results.reduce((sum, r) => sum + r.value, 0)}
+							</ModifierBadge>
+						</ModifiersContainer>
+						<RollResultDisplay>{formulaStr}</RollResultDisplay>
+						<RollResultDisplay>{resultValue}</RollResultDisplay>
+					</>
+				)
+			case LogType.CHARACTER_SAVING_THROW_CHECK:
+				rollDetails = log.details as DiceRollerRollDetails
+				savingThrowModifierType = log.details.savingThrowStat
+				savingThrowModifier = (
+					log.details.actor as DNDCharacter
+				).savingThrowModifier(savingThrowModifierType)
+				formulaStr = rollDetails.formulas
+					.map(f => `${f.count}${formatDiceType(f.type)}`)
+					.join(' + ')
+
+				resultValue =
+					rollDetails.results.reduce((sum, r) => sum + r.value, 0) +
+					savingThrowModifier
+				return (
+					<>
+						<p>Спасбросок.</p>
+						<ModifiersContainer>
+							<ModifierBadge>
+								Дайс(-ы):{' '}
+								{rollDetails.results.reduce((sum, r) => sum + r.value, 0)}
+							</ModifierBadge>
+							<ModifierBadge>
+								{savingThrowModifierType === DNDStatType.STRENGTH
+									? 'СИЛ: '
+									: savingThrowModifierType === DNDStatType.CHARISMA
+									? 'ХАР: '
+									: savingThrowModifierType === DNDStatType.DEXTERITY
+									? 'ЛОВ: '
+									: savingThrowModifierType === DNDStatType.CONSTITUTION
+									? 'ТЕЛ: '
+									: savingThrowModifierType === DNDStatType.INTELLIGENCE
+									? 'ИНТ: '
+									: savingThrowModifierType === DNDStatType.WISDOM
+									? 'МДР: '
+									: 'ERROR'}
+								{savingThrowModifier}
+							</ModifierBadge>
+						</ModifiersContainer>
+						<RollResultDisplay>{formulaStr} + МХ</RollResultDisplay>
 						<RollResultDisplay>{resultValue}</RollResultDisplay>
 					</>
 				)

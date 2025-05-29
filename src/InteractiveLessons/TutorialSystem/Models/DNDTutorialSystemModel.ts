@@ -121,7 +121,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		const currentAction = actionsManager.current
 
 		this._logger.newLog({
-			logType: 1,
+			logType: LogType.TUTORIAL_SYSTEM_MESSAGE,
 			actorName: 'Система',
 			details: currentStep.messages.join(' '),
 		})
@@ -180,9 +180,9 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
 					this._logger.newLog({
-						logType: 0,
+						logType: LogType.WEAPON_DAMAGE_ROLL,
 						actorName: actor.name,
-						details: { formulas: formulasVar, results: results },
+						details: { actor: actor, formulas: formulasVar, results: results },
 					})
 
 					actionsManager.perform(
@@ -253,9 +253,9 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
 					this._logger.newLog({
-						logType: LogType.DICE_ROLLER_ROLL,
+						logType: LogType.WEAPON_DAMAGE_ROLL,
 						actorName: actor.name,
-						details: { formulas: formulasVar, results: results },
+						details: { actor: actor, formulas: formulasVar, results: results },
 					})
 
 					actionsManager.perform(
@@ -289,7 +289,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
 					this._logger.newLog({
-						logType: LogType.WEAPON_HIT_ROLL,
+						logType: LogType.SPELL_HIT_ROLL,
 						actorName: actor.name,
 						details: { actor: actor, formulas: formulasVar, results: results },
 					})
@@ -326,9 +326,9 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
 					this._logger.newLog({
-						logType: 0,
+						logType: LogType.SPELL_DAMAGE_ROLL,
 						actorName: actor.name,
-						details: { formulas: formulasVar, results: results },
+						details: { actor: actor, formulas: formulasVar, results: results },
 					})
 
 					actionsManager.perform(
@@ -360,9 +360,14 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			const onRollEndSubscription = diceRoller.onRollEnd$.subscribe(
 				(results: DiceRollerResult[]) => {
 					this._logger.newLog({
-						logType: 0,
-						actorName: actor.name,
-						details: { formulas: [{ type: 5, count: 1 }], results: results },
+						logType: LogType.CHARACTER_SAVING_THROW_CHECK,
+						actorName: targets[currentTargetIndex].name,
+						details: {
+							actor: targets[currentTargetIndex],
+							savingThrowStat: currentAction.spell?.savingThrowStat,
+							formulas: [{ type: 5, count: 1 }],
+							results: results,
+						},
 					})
 
 					const values = results.map(result => result.value)

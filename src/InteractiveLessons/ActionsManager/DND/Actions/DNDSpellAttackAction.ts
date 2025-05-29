@@ -49,6 +49,10 @@ export default class DNDSpellAttackAction implements IPhasedAction {
 		return this._targets.map(([character]) => character)
 	}
 
+	public get spell(): DNDSpellData | null {
+		return this._spell
+	}
+
 	public currentPhase(): ActionPhase {
 		return this._currentPhase
 	}
