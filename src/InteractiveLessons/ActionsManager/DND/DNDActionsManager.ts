@@ -80,7 +80,17 @@ export default class DNDActionsManager extends ActionsManager {
 		}
 
 		this._currentActionActor = actor
-		this._current.enterPhaseInput(actor, ...args)
+		try {
+			this._current.enterPhaseInput(actor, ...args)
+		} catch (error) {
+			if (error instanceof Error) {
+				if (error.message.includes('End Cell is not empty!')) {
+					this._onPerformError$.next(
+						'Попытка переместиться в занятую клетку (другим персонажем или это граница карты).'
+					)
+				}
+			}
+		}
 	}
 
 	public get onPerformError$(): Observable<string> {
