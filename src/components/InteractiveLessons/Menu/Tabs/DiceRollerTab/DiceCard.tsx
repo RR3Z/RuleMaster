@@ -14,18 +14,26 @@ const MainContainer = styled.div`
 const ImageContainer = styled.div`
 	position: relative;
 	aspect-ratio: 1 / 1;
-	height: 175px;
+	height: 70px;
 
-	@media (max-width: ${() => breakpoints.xl}) {
-		height: 125px;
+	@media (min-width: ${() => breakpoints.sm}) {
+		height: 80px;
 	}
 
-	@media (max-width: ${() => breakpoints.md}) {
-		height: 90px;
+	@media (min-width: ${() => breakpoints.md}) {
+		height: 100px;
 	}
 
-	@media (max-width: ${() => breakpoints.sm}) {
-		height: 70px;
+	@media (min-width: ${() => breakpoints.lg}) {
+		height: 120px;
+	}
+
+	@media (min-width: ${() => breakpoints.xl}) {
+		height: 140px;
+	}
+
+	@media (min-width: ${() => breakpoints.xxl}) {
+		height: 200px;
 	}
 `
 
@@ -88,9 +96,17 @@ export default function DiceCard({
 				/>
 			</ImageContainer>
 			<BottomContainer>
-				<DiceRollerTabButton onClick={onDecrease} name='-' />
+				<DiceRollerTabButton
+					id={'decreaseDiceCountButton'}
+					onClick={onDecrease}
+					name='-'
+				/>
 				<Span>{value > 0 ? value : valuePlaceholder}</Span>
-				<DiceRollerTabButton onClick={onIncrease} name='+' />
+				<DiceRollerTabButton
+					id={'increaseDiceCountButton'}
+					onClick={onIncrease}
+					name='+'
+				/>
 			</BottomContainer>
 		</MainContainer>
 	)

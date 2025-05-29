@@ -1,3 +1,4 @@
+import { breakpoints } from '@/components/InteractiveLessons/breakpoints'
 import { DiceType } from '@/InteractiveLessons/DiceRoller/Types/DiceType'
 import DNDCharacter from '@/InteractiveLessons/Entities/Character/DND/DNDCharacter'
 import { DNDEquipmentSlotType } from '@/InteractiveLessons/EquipmentManager/DND/DNDEquipmentSlotType'
@@ -35,7 +36,27 @@ const ActorInfo = styled.div`
 
 const ActorName = styled.span`
 	font-weight: bold;
-	font-size: 1rem;
+	font-size: 0.6rem;
+
+	@media (min-width: ${() => breakpoints.sm}) {
+		font-size: 1rem;
+	}
+
+	@media (min-width: ${() => breakpoints.md}) {
+		font-size: 1.1rem;
+	}
+
+	@media (min-width: ${() => breakpoints.lg}) {
+		font-size: 1.2rem;
+	}
+
+	@media (min-width: ${() => breakpoints.xl}) {
+		font-size: 1.3rem;
+	}
+
+	@media (min-width: ${() => breakpoints.xxl}) {
+		font-size: 1.5rem;
+	}
 `
 
 const LogMessage = styled.div`
@@ -50,6 +71,26 @@ const LogMessage = styled.div`
 	ul {
 		margin-left: 20px;
 	}
+
+	@media (min-width: ${() => breakpoints.sm}) {
+		font-size: 0.8rem;
+	}
+
+	@media (min-width: ${() => breakpoints.md}) {
+		font-size: 0.9rem;
+	}
+
+	@media (min-width: ${() => breakpoints.lg}) {
+		font-size: 1rem;
+	}
+
+	@media (min-width: ${() => breakpoints.xl}) {
+		font-size: 1.1rem;
+	}
+
+	@media (min-width: ${() => breakpoints.xxl}) {
+		font-size: 1.3rem;
+	}
 `
 
 const ModifiersContainer = styled.div`
@@ -60,16 +101,16 @@ const ModifiersContainer = styled.div`
 `
 
 const ModifierBadge = styled.span`
-	background-color: #d0d0d0;
+	background-color: #dcdad0;
 	padding: 2px 6px;
 	border-radius: 4px;
 	font-size: 0.8em;
-	border: 1px solid #b0b0b0;
+	border: 1px solid #94938a;
 `
 
 const RollFormulaDisplay = styled.div`
-	background-color: #f0f0f0;
-	border: 1px solid #ccc;
+	background-color: #c5c3b8;
+	border: 1px solid #999999;
 	padding: 8px;
 	margin-top: 5px;
 	border-radius: 4px;

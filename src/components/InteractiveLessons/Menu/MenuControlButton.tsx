@@ -9,26 +9,32 @@ const Button = styled.button<{ $isActive: boolean }>`
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 	padding: 3px 6px;
-	min-width: 100px;
+	min-width: 55px;
 	background: none;
 	transition: border 0.15s ease-in-out, box-shadow 0.2s ease-in-out;
 	box-shadow: ${({ $isActive }) =>
 		$isActive ? '0 0 8px rgba(255, 100, 0, 0.8)' : 'none'};
 	flex: 1;
-	font-size: 1.5rem;
+	font-size: 0.5rem;
 
-	@media (max-width: ${() => breakpoints.xl}) {
-		font-size: 1rem;
-		min-width: 90px;
-	}
-
-	@media (max-width: ${() => breakpoints.md}) {
-		font-size: 0.85rem;
-		min-width: 75px;
-	}
-	@media (max-width: ${() => breakpoints.sm}) {
+	@media (min-width: ${() => breakpoints.sm}) {
 		font-size: 0.65rem;
-		min-width: 55px;
+	}
+
+	@media (min-width: ${() => breakpoints.md}) {
+		font-size: 0.85rem;
+	}
+
+	@media (min-width: ${() => breakpoints.lg}) {
+		font-size: 1rem;
+	}
+
+	@media (min-width: ${() => breakpoints.xl}) {
+		font-size: 1.2rem;
+	}
+
+	@media (min-width: ${() => breakpoints.xxl}) {
+		font-size: 1.5rem;
 	}
 `
 
