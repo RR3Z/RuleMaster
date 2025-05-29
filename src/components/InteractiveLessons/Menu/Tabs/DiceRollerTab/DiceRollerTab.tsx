@@ -9,7 +9,7 @@ import DiceRollerTabButton from './DiceRollerTabButton'
 
 const MainContainer = styled.div`
 	flex-grow: 1;
-	margin: 5px 0 5px 5px;
+	margin: 5px;
 	border-radius: 3px;
 	background: #d6d4c8;
 	color: black;
