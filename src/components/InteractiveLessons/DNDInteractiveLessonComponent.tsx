@@ -8,6 +8,8 @@ import DefaultDNDInteractiveMapView from '@/InteractiveLessons/InteractiveMap/Vi
 import GridOfCellsAreaHighlighter from '@/InteractiveLessons/InteractiveMap/Visual/AreaHighlighter/GridOfCellsAreaHighlighter'
 import { TutorialStep } from '@/InteractiveLessons/TutorialSystem/Types/TutorialStep'
 import { Game } from '@/InteractiveLessons/Types/Game'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Subscription } from 'rxjs'
 import styled from 'styled-components'
@@ -34,6 +36,31 @@ const LoadingContainer = styled.div`
 	align-items: center;
 	width: 100vw;
 	height: 100vh;
+`
+
+const SiteLogoLink = styled(Link)`
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 1000;
+	display: inline-block;
+	padding: 5px;
+	border-radius: 5px;
+	line-height: 0;
+	cursor: pointer;
+	width: 90px;
+
+	@media (max-width: 2560px) {
+		width: 90px;
+	}
+
+	@media (max-width: 1280px) {
+		width: 60px;
+	}
+
+	@media (max-width: 1024px) {
+		width: 50px;
+	}
 `
 
 type Props = {
@@ -189,6 +216,22 @@ export default function DNDInteractiveLessonComponent({
 
 	return (
 		<MainContainer>
+			<SiteLogoLink href='/'>
+				<Image
+					src='/SiteLogo.svg'
+					alt='RuleMaster Logo'
+					width={72}
+					height={89}
+					sizes='(max-width: 1024px) 50px, (max-width: 1280px) 60px, (max-width: 2560px) 90px, 90px'
+					priority
+					style={{
+						width: '100%',
+						height: 'auto',
+						display: 'block',
+					}}
+				/>
+			</SiteLogoLink>
+
 			<InteractiveMapComponent
 				canvas={interactiveLesson.interactiveMap.canvas}
 			/>
