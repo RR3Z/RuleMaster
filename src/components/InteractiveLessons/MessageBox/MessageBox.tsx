@@ -1,6 +1,7 @@
 import { BookOpenText, ChevronRight, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { breakpoints } from '../breakpoints'
 
 const Overlay = styled.div<{ $isVisible: boolean }>`
 	position: fixed;
@@ -55,9 +56,29 @@ const StyledReaderIcon = styled(BookOpenText)`
 
 const MessageText = styled.p`
 	margin: 0 0 20px 0;
-	font-size: 1.1rem;
+	font-size: 0.7rem;
 	line-height: 1.7;
 	white-space: pre-line;
+
+	@media (min-width: ${() => breakpoints.sm}) {
+		font-size: 1rem;
+	}
+
+	@media (min-width: ${() => breakpoints.md}) {
+		font-size: 1rem;
+	}
+
+	@media (min-width: ${() => breakpoints.lg}) {
+		font-size: 1rem;
+	}
+
+	@media (min-width: ${() => breakpoints.xl}) {
+		font-size: 1.2rem;
+	}
+
+	@media (min-width: ${() => breakpoints.xxl}) {
+		font-size: 1.4rem;
+	}
 `
 
 const NavigationButton = styled.button`
