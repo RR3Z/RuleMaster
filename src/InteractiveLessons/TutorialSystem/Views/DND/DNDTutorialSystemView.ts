@@ -32,7 +32,7 @@ export default class DNDTutorialSystemView extends TutorialSystemView {
 		}
 	}
 
-	protected disableAllActions(): void {
+	public disableAllActions(): void {
 		console.log('Tutorial System View -> disableAllActions()')
 
 		this._interactiveMapCanvas.disable()

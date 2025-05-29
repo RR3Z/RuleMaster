@@ -37,4 +37,8 @@ export default class TutorialSystem {
 	public get onWrongAction$(): Observable<string> {
 		return this._model.onWrongAction$
 	}
+
+	public get onTutorialEnd$(): Observable<string[]> {
+		return this._model.onTutorialEnd$
+	}
 }

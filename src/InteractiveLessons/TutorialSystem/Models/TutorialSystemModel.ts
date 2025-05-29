@@ -38,7 +38,7 @@ export default abstract class TutorialSystemModel {
 	protected nextStep(): void {
 		this._currentStepIndex++
 		if (this._currentStepIndex >= this._steps.length) {
-			this._onTutorialEnd$.next(['Вы завершили урок!'])
+			this._onTutorialEnd$.next(['Поздравляем! Урок успешно завершен.'])
 			return
 		}
 

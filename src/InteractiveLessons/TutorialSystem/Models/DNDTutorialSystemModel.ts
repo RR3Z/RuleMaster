@@ -118,6 +118,14 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		actionsManager: DNDActionsManager
 	): void {
 		const currentStep = this._steps[this._currentStepIndex]
+
+		if (!currentStep) {
+			this._onWrongAction$.next(
+				'Урок уже завершен, можете перейти на главную страницу (логотип слева сверху)!'
+			)
+			return
+		}
+
 		const currentAction = actionsManager.current
 
 		if (currentStep.messages && currentStep.messages.length > 0) {
@@ -399,6 +407,14 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 
 	private checkDiceRollerActions(formulas: DiceRollerFormula[]): boolean {
 		const currentStep = this._steps[this._currentStepIndex]
+
+		if (!currentStep) {
+			this._onWrongAction$.next(
+				'Урок уже завершен, можете перейти на главную страницу (логотип слева сверху)!'
+			)
+			return false
+		}
+
 		const expectedActionParams = currentStep.expectedAction
 			.params as DiceRollerFormula[]
 
@@ -447,7 +463,15 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		newPos: Position
 	): void {
 		const currentStep = this._steps[this._currentStepIndex]
-		const expectedNewPos = currentStep.expectedAction.params as Position
+
+		if (!currentStep) {
+			this._onWrongAction$.next(
+				'Урок уже завершен, можете перейти на главную страницу (логотип слева сверху)!'
+			)
+			return
+		}
+
+		const expectedNewPoses = currentStep.expectedAction.params as Position[]
 
 		if (actor.type !== currentStep.actorType) {
 			console.error(
@@ -464,7 +488,11 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			return
 		}
 
-		if (expectedNewPos.x !== newPos.x || expectedNewPos.y !== newPos.y) {
+		const isMoveCorrect = expectedNewPoses.some(
+			expectedPos => expectedPos.x === newPos.x && expectedPos.y === newPos.y
+		)
+
+		if (!isMoveCorrect) {
 			this._onWrongAction$.next(
 				"Вы переместились не туда, куда надо! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
 			)
@@ -477,6 +505,13 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 
 	private onPositionChange(actor: DNDCharacter) {
 		const currentStep = this._steps[this._currentStepIndex]
+
+		if (!currentStep) {
+			this._onWrongAction$.next(
+				'Урок уже завершен, можете перейти на главную страницу (логотип слева сверху)!'
+			)
+			return
+		}
 
 		if (currentStep.expectedAction.type !== DNDUserActionType.MOVE) {
 			return
@@ -492,6 +527,13 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 	): void {
 		const currentStep = this._steps[this._currentStepIndex]
 
+		if (!currentStep) {
+			this._onWrongAction$.next(
+				'Урок уже завершен, можете перейти на главную страницу (логотип слева сверху)!'
+			)
+			return
+		}
+
 		if (actor.type !== currentStep.actorType) {
 			console.error(
 				'DNDTutorialSystemModel -> onMeleeAttackActionPerformed(): Тот кто совершает действие не совпадает по типу с тем, кто должен его совершить!'
@@ -504,7 +546,7 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 			DNDUserActionType.MELEE_ATTACK_TARGETS_SELECTION
 		) {
 			this._onWrongAction$.next(
-				"Вы совершили неверное действие! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!"
+				"Вы совершили неверное действие! Прочтите сообщение (вкладка 'Логи' в меню справа) еще раз!!"
 			)
 			actionsManager.resetCurrentAction()
 			return
@@ -542,6 +584,13 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		targets: DNDCharacter[]
 	): void {
 		const currentStep = this._steps[this._currentStepIndex]
+
+		if (!currentStep) {
+			this._onWrongAction$.next(
+				'Урок уже завершен, можете перейти на главную страницу (логотип слева сверху)!'
+			)
+			return
+		}
 
 		if (actor.type !== currentStep.actorType) {
 			console.error(
@@ -595,6 +644,13 @@ export default class DNDTutorialSystemModel extends TutorialSystemModel {
 		targets: DNDCharacter[]
 	): void {
 		const currentStep = this._steps[this._currentStepIndex]
+
+		if (!currentStep) {
+			this._onWrongAction$.next(
+				'Урок уже завершен, можете перейти на главную страницу (логотип слева сверху)!'
+			)
+			return
+		}
 
 		if (actor.type !== currentStep.actorType) {
 			console.error(

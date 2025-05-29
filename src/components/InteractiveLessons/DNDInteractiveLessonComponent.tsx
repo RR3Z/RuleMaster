@@ -10,6 +10,7 @@ import { TutorialStep } from '@/InteractiveLessons/TutorialSystem/Types/Tutorial
 import { Game } from '@/InteractiveLessons/Types/Game'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Subscription } from 'rxjs'
 import styled from 'styled-components'
@@ -80,6 +81,8 @@ export default function DNDInteractiveLessonComponent({
 	playerVisualFilePath,
 	enemiesVisualFilePath,
 }: Props) {
+	const router = useRouter()
+
 	const [interactiveLesson, setInteractiveLesson] =
 		useState<InteractiveLesson>()
 	const [isDiceRollerActive, setDiceRollerActivity] = useState(false)
@@ -95,6 +98,10 @@ export default function DNDInteractiveLessonComponent({
 	const [messageBoxContent, setMessageBoxContent] = useState<string[]>([
 		'NOT INITIALIZED',
 	])
+	const [
+		isTutorialCompletedAndPendingRedirect,
+		setIsTutorialCompletedAndPendingRedirect,
+	] = useState(false)
 
 	useEffect(() => {
 		let newRollSubscription: Subscription | undefined
@@ -102,6 +109,7 @@ export default function DNDInteractiveLessonComponent({
 		let onNextStepSubscription: Subscription | undefined
 		let onWrongActionSubscription: Subscription | undefined
 		let onTurnsOrderUpdateSubscription: Subscription | undefined
+		let onTutorialEndSubscription: Subscription | undefined
 
 		async function load() {
 			setIsLoading(true)
@@ -138,11 +146,21 @@ export default function DNDInteractiveLessonComponent({
 			}
 
 			if (lessonInstance.tutorialSystem) {
-				setMessageBoxContent(lessonInstance.tutorialSystem.currentStep.messages)
+				if (
+					lessonInstance.tutorialSystem.currentStep &&
+					lessonInstance.tutorialSystem.currentStep.messages.length > 0
+				) {
+					setMessageBoxContent(
+						lessonInstance.tutorialSystem.currentStep.messages
+					)
+				} else {
+					setMessageBoxContent([])
+				}
 
 				onNextStepSubscription =
 					lessonInstance.tutorialSystem.onNextStep$.subscribe(
 						(step: TutorialStep) => {
+							// Убедитесь, что TutorialStep - правильный тип
 							setMessageBoxContent(step.messages)
 						}
 					)
@@ -150,6 +168,14 @@ export default function DNDInteractiveLessonComponent({
 					lessonInstance.tutorialSystem.onWrongAction$.subscribe(
 						(message: string) => {
 							setMessageBoxContent([message])
+						}
+					)
+
+				onTutorialEndSubscription =
+					lessonInstance.tutorialSystem.onTutorialEnd$.subscribe(
+						(completionMessages: string[]) => {
+							setMessageBoxContent(completionMessages)
+							setIsTutorialCompletedAndPendingRedirect(true)
 						}
 					)
 			}
@@ -210,6 +236,13 @@ export default function DNDInteractiveLessonComponent({
 		enemiesVisualFilePath,
 	])
 
+	const handleTutorialCompletionMessageClosed = () => {
+		if (isTutorialCompletedAndPendingRedirect) {
+			// router.push('/games/dnd/interactive')
+			setIsTutorialCompletedAndPendingRedirect(false)
+		}
+	}
+
 	if (!interactiveLesson || isLoading) {
 		return <LoadingContainer>Loading Lesson...</LoadingContainer>
 	}
@@ -245,7 +278,10 @@ export default function DNDInteractiveLessonComponent({
 				isActive={isMenuActive}
 				logger={interactiveLesson.logger}
 			/>
-			<MessageBox initialContent={messageBoxContent} />
+			<MessageBox
+				initialContent={messageBoxContent}
+				onAllMessagesShown={handleTutorialCompletionMessageClosed}
+			/>
 			{initiativeTrackerActivity && initiativeManager && (
 				<InitiativeTracker
 					initiativeManager={initiativeManager}

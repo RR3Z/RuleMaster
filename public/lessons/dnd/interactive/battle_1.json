@@ -1410,7 +1410,7 @@
 			"type": "DND",
 			"data": {
 				"type": "DND",
-				"name": "Арагорн",
+				"name": "Игрок",
 				"class": "Ranger",
 				"level": 1,
 				"maxHealth": 12,
@@ -1425,31 +1425,7 @@
 					["Cha", 8]
 				],
 				"savingThrowProficiencies": ["Str", "Dex"],
-				"spells": [
-					{
-						"name": "Огненный шар",
-						"type": "Attack",
-						"form": "Circle",
-						"radius": 2,
-						"maxDistance": 150,
-						"rollType": "TARGET_SAVING_THROW",
-						"savingThrowStat": "Dex",
-						"rollsFormula": [{ "type": "D6", "count": 8 }],
-						"isAttachedToCharacter": false,
-						"iconPath": "/actionsIcons/Fireball.webp"
-					},
-					{
-						"name": "Хроматический шар",
-						"type": "Attack",
-						"form": "Cell",
-						"radius": 1,
-						"maxDistance": 90,
-						"rollType": "ACTOR_ATTACK",
-						"rollsFormula": [{ "type": "D8", "count": 3 }],
-						"isAttachedToCharacter": false,
-						"iconPath": "/actionsIcons/Chromatic_Orb.webp"
-					}
-				],
+				"spells": [],
 				"equipment": [
 					{
 						"type": "One Handed",
@@ -1477,7 +1453,7 @@
 				"type": "DND",
 				"data": {
 					"type": "DND",
-					"name": "Гоблин-воин",
+					"name": "Манекен",
 					"class": "Paladin",
 					"level": 1,
 					"maxHealth": 9999,
@@ -1512,7 +1488,7 @@
 						}
 					]
 				},
-				"startPos": { "x": 27, "y": 20 },
+				"startPos": { "x": 30, "y": 20 },
 				"startState": "WAITING_TURN"
 			}
 		]

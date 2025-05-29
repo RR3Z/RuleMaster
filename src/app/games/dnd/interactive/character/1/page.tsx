@@ -3,7 +3,7 @@ import CharacterCreationInteractiveLesson from '@/components/WebSite/Lessons/DND
 
 export default async function CharacterCreationInteractiveLessonPage() {
 	const lessonDataRes = await fetch(
-		`${CONFIG.siteURL}/lessons/dnd/character_1.json`
+		`${CONFIG.siteURL}/lessons/dnd/interactive/character_1.json`
 	)
 	const lessonData = await lessonDataRes.json()
 

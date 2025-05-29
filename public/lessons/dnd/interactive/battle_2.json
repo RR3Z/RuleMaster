@@ -1410,7 +1410,7 @@
 			"type": "DND",
 			"data": {
 				"type": "DND",
-				"name": "Арагорн",
+				"name": "Игрок",
 				"class": "Ranger",
 				"level": 1,
 				"maxHealth": 12,
@@ -1452,16 +1452,6 @@
 				],
 				"equipment": [
 					{
-						"type": "One Handed",
-						"name": "Длинный меч",
-						"description": "Мощный меч для ближних атак.",
-						"rangeType": "Melee",
-						"defaultRange": 5,
-						"maxRange": 5,
-						"damageFormulas": [{ "type": "D10", "count": 1 }],
-						"descriptors": []
-					},
-					{
 						"type": "Armour",
 						"name": "Кожаная броня",
 						"description": "Легкая и гибкая защита.",
@@ -1469,7 +1459,7 @@
 					}
 				]
 			},
-			"startPos": { "x": 25, "y": 20 },
+			"startPos": { "x": 20, "y": 20 },
 			"startState": "TURN"
 		},
 		"enemies": [
@@ -1477,7 +1467,7 @@
 				"type": "DND",
 				"data": {
 					"type": "DND",
-					"name": "Гоблин-воин",
+					"name": "Противник",
 					"class": "Paladin",
 					"level": 1,
 					"maxHealth": 9999,
@@ -1495,16 +1485,6 @@
 					"spells": [],
 					"equipment": [
 						{
-							"type": "One Handed",
-							"name": "Ятаган",
-							"description": "Изогнутый клинок.",
-							"rangeType": "Melee",
-							"defaultRange": 5,
-							"maxRange": 5,
-							"damageFormulas": [{ "type": "D6", "count": 1 }],
-							"descriptors": []
-						},
-						{
 							"type": "Armour",
 							"name": "Щит и кожаная броня",
 							"description": "Кожаная броня и деревянный щит.",
@@ -1512,7 +1492,7 @@
 						}
 					]
 				},
-				"startPos": { "x": 27, "y": 20 },
+				"startPos": { "x": 30, "y": 20 },
 				"startState": "WAITING_TURN"
 			}
 		]

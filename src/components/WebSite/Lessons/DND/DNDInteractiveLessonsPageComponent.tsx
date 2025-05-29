@@ -49,9 +49,9 @@ export default function DNDInteractiveLessonsPageComponent() {
 			<ThemeContainer>
 				<SubTitle>Боевая система</SubTitle>
 				<GridWrapper>
-					<Card name='Порядок хода' link='/games/dnd/interactive/battle/1' />
+					<Card name='Атака оружием' link='/games/dnd/interactive/battle/1' />
 					<Card
-						name='Возможные действия'
+						name='Атака заклинанием'
 						link='/games/dnd/interactive/battle/2'
 					/>
 				</GridWrapper>

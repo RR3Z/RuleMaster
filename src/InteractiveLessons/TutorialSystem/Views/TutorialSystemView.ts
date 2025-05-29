@@ -13,5 +13,5 @@ export default abstract class TutorialSystemView {
 	protected _actionsPanel!: ActionsPanel
 
 	protected abstract enableActions(...args: any): void
-	protected abstract disableAllActions(...args: any): void
+	public abstract disableAllActions(...args: any): void
 }
