@@ -1,4 +1,5 @@
 'use client'
+import { device } from '@/components/InteractiveLessons/breakpoints'
 import Image from 'next/image'
 import styled from 'styled-components'
 import DefaultButton from '../DefaultButton'
@@ -18,12 +19,28 @@ const ContentContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 `
 
 const HandImage = styled(Image)`
 	position: absolute;
 	right: 0;
 	bottom: 0;
+	width: 200px;
+	height: auto;
+
+	@media ${device.sm} {
+		width: 350px;
+		opacity: 1;
+	}
+
+	@media ${device.lg} {
+		width: 500px;
+	}
+
+	@media ${device.xxl} {
+		width: 800px;
+	}
 `
 
 const ServiceName = styled.h1`
