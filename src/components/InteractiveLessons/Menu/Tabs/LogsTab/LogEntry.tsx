@@ -149,9 +149,7 @@ export default function LogEntry({ log }: Props) {
 								{attackModifier}
 							</ModifierBadge>
 						</ModifiersContainer>
-						<RollResultDisplay>
-							{formulaStr} + {bonusMastery + attackModifier}
-						</RollResultDisplay>
+						<RollResultDisplay>{formulaStr} + БМ + МХ</RollResultDisplay>
 						<RollResultDisplay>{resultValue}</RollResultDisplay>
 					</>
 				)
@@ -205,9 +203,7 @@ export default function LogEntry({ log }: Props) {
 								{spellAttackModifier}
 							</ModifierBadge>
 						</ModifiersContainer>
-						<RollResultDisplay>
-							{formulaStr} + {bonusMastery + spellAttackModifier}
-						</RollResultDisplay>
+						<RollResultDisplay>{formulaStr} + БМ + МХ</RollResultDisplay>
 						<RollResultDisplay>{resultValue}</RollResultDisplay>
 					</>
 				)
