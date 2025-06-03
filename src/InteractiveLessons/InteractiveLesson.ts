@@ -8,11 +8,19 @@ import TutorialSystem from './TutorialSystem/TutorialSystem'
 import { TutorialStep } from './TutorialSystem/Types/TutorialStep'
 import { Game } from './Types/Game'
 
+type TutorialFileFormat =
+	| {
+			completionTestLink?: string
+			steps: TutorialStep[]
+	  }
+	| TutorialStep[]
+
 export default class InteractiveLesson {
 	private _interactiveMap!: InteractiveMap
 	private _diceRoller!: DiceRoller
 	private _tutorialSystem!: TutorialSystem
 	private _logger!: Logger
+	private _completionTestLink?: string
 
 	constructor() {}
 
@@ -45,10 +53,19 @@ export default class InteractiveLesson {
 		const tutorialDataResponse = await fetch(
 			`${CONFIG.siteURL}${tutorialDataFilePath}`
 		)
-		const tutorialData: TutorialStep[] = await tutorialDataResponse.json()
+		const tutorialRawData: TutorialFileFormat =
+			await tutorialDataResponse.json()
+		let steps: TutorialStep[]
+		if (Array.isArray(tutorialRawData)) {
+			steps = tutorialRawData
+			this._completionTestLink = undefined
+		} else {
+			steps = tutorialRawData.steps
+			this._completionTestLink = tutorialRawData.completionTestLink
+		}
 		this._tutorialSystem = new TutorialSystem(game)
 		await this._tutorialSystem.init(
-			tutorialData,
+			steps,
 			this._logger,
 			this.diceRoller,
 			this._interactiveMap.actionsManager,
@@ -71,5 +88,9 @@ export default class InteractiveLesson {
 
 	public get logger(): Logger {
 		return this._logger
+	}
+
+	public get completionTestLink(): string | undefined {
+		return this._completionTestLink
 	}
 }

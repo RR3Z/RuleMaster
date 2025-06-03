@@ -102,6 +102,9 @@ export default function DNDInteractiveLessonComponent({
 		isTutorialCompletedAndPendingRedirect,
 		setIsTutorialCompletedAndPendingRedirect,
 	] = useState(false)
+	const [completionTestUrl, setCompletionTestUrl] = useState<string | null>(
+		null
+	)
 
 	useEffect(() => {
 		let newRollSubscription: Subscription | undefined
@@ -160,7 +163,6 @@ export default function DNDInteractiveLessonComponent({
 				onNextStepSubscription =
 					lessonInstance.tutorialSystem.onNextStep$.subscribe(
 						(step: TutorialStep) => {
-							// Убедитесь, что TutorialStep - правильный тип
 							setMessageBoxContent(step.messages)
 						}
 					)
@@ -175,6 +177,9 @@ export default function DNDInteractiveLessonComponent({
 					lessonInstance.tutorialSystem.onTutorialEnd$.subscribe(
 						(completionMessages: string[]) => {
 							setMessageBoxContent(completionMessages)
+							if (lessonInstance.completionTestLink) {
+								setCompletionTestUrl(lessonInstance.completionTestLink)
+							}
 							setIsTutorialCompletedAndPendingRedirect(true)
 						}
 					)
@@ -226,6 +231,9 @@ export default function DNDInteractiveLessonComponent({
 			if (onTurnsOrderUpdateSubscription) {
 				onTurnsOrderUpdateSubscription.unsubscribe()
 			}
+			if (onTutorialEndSubscription) {
+				onTutorialEndSubscription.unsubscribe()
+			}
 		}
 	}, [
 		game,
@@ -238,8 +246,13 @@ export default function DNDInteractiveLessonComponent({
 
 	const handleTutorialCompletionMessageClosed = () => {
 		if (isTutorialCompletedAndPendingRedirect) {
-			// router.push('/games/dnd/interactive')
+			if (completionTestUrl) {
+				window.open(completionTestUrl, '_blank')
+			} else {
+				router.push('/games/dnd/interactive')
+			}
 			setIsTutorialCompletedAndPendingRedirect(false)
+			setCompletionTestUrl(null)
 		}
 	}
 
